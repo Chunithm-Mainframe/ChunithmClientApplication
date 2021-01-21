@@ -1,7 +1,9 @@
 using ChunithmClientLibrary.Table;
+using System;
 
 namespace ChunithmClientLibrary.MusicData
 {
+    [Obsolete]
     public interface IMusicDataTableUnit : ITableUnit
     {
         int Id { get; }

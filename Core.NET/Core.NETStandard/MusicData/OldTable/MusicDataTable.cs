@@ -1,5 +1,6 @@
 using ChunithmClientLibrary.ChunithmNet.Data;
 using ChunithmClientLibrary.Table;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -7,6 +8,7 @@ using System.Runtime.Serialization;
 namespace ChunithmClientLibrary.MusicData
 {
     [DataContract]
+    [Obsolete]
     public abstract class MusicDataTable<TMusicDataTableUnit> : SerializableTable<TMusicDataTableUnit>, IMusicDataTable<TMusicDataTableUnit>
         where TMusicDataTableUnit : IMusicDataTableUnit
     {
@@ -34,6 +36,7 @@ namespace ChunithmClientLibrary.MusicData
     }
 
     [DataContract]
+    [Obsolete]
     public sealed class MusicDataTable : MusicDataTable<IMusicDataTableUnit>
     {
         public static MusicDataTable MergeTable(IMusicDataTable<IMusicDataTableUnit> oldTable, IMusicDataTable<IMusicDataTableUnit> newTable)

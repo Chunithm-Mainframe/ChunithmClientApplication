@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 namespace ChunithmClientLibrary.MusicData
 {
     [DataContract]
+    [Obsolete]
     public sealed class MusicDataTableUnit : IMusicDataTableUnit
     {
         [DataMember]
