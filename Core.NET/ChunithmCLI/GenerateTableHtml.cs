@@ -1,5 +1,6 @@
 using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.MusicData;
 using System.IO;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace ChunithmCLI
         {
             var arg = new Argument(args);
 
-            IMusicDataTable<IMusicDataTableUnit> table = null;
+            IMusicDataTable table = null;
             using (var connector = new ChunithmMusicDatabaseHttpClientConnector(arg.DataBaseUrl))
             {
                 var tableGet = connector.GetTableAsync().Result;
@@ -76,29 +77,31 @@ namespace ChunithmCLI
             }
         }
 
-        private string GenerateSource(IMusicDataTable<IMusicDataTableUnit> table, string versionName, string templatePath)
+        private string GenerateSource(IMusicDataTable table, string versionName, string templatePath)
         {
             var source = ReadTemplate(templatePath);
 
             var tableTemplate = GetTemplate(source, "__TEMPLATE-TABLE__");
             var unitTemplate = GetTemplate(source, "__TEMPLATE-TABLE-ROW__");
 
-            foreach (var group in table.GetTableUnits().GroupBy(u => u.Genre))
+            foreach (var group in table.MusicDatas.GroupBy(u => u.Genre))
             {
-                var tableBodyHtml = group
-                    .Select(u =>
+                var musicDataGroups = group.GroupBy(x => x.Id).Select(x => x.ToDictionary(y => y.Difficulty, y => y));
+
+                var tableBodyHtml = musicDataGroups
+                    .Select(g =>
                     {
                         var src = unitTemplate;
-                        src = src.Replace("%music-name%", HttpUtility.HtmlEncode(u.Name));
-                        src = src.Replace("%base-rating-basic%", u.GetBaseRating(Difficulty.Basic).ToString("0.0"));
-                        src = src.Replace("%base-rating-advanced%", u.GetBaseRating(Difficulty.Advanced).ToString("0.0"));
-                        src = src.Replace("%base-rating-expert%", u.GetBaseRating(Difficulty.Expert).ToString("0.0"));
-                        src = src.Replace("%base-rating-master%", u.GetBaseRating(Difficulty.Master).ToString("0.0"));
+                        src = src.Replace("%music-name%", HttpUtility.HtmlEncode(g[Difficulty.Basic].Name));
+                        src = src.Replace("%base-rating-basic%", g[Difficulty.Basic].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-advanced%", g[Difficulty.Advanced].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-expert%", g[Difficulty.Expert].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-master%", g[Difficulty.Master].BaseRating.ToString("0.0"));
 
-                        src = src.Replace("%unverified-basic%", !u.VerifiedBaseRating(Difficulty.Basic) ? "unverified" : "");
-                        src = src.Replace("%unverified-advanced%", !u.VerifiedBaseRating(Difficulty.Advanced) ? "unverified" : "");
-                        src = src.Replace("%unverified-expert%", !u.VerifiedBaseRating(Difficulty.Expert) ? "unverified" : "");
-                        src = src.Replace("%unverified-master%", !u.VerifiedBaseRating(Difficulty.Master) ? "unverified" : "");
+                        src = src.Replace("%unverified-basic%", !g[Difficulty.Basic].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-advanced%", !g[Difficulty.Advanced].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-expert%", !g[Difficulty.Expert].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-master%", !g[Difficulty.Master].Verified ? "unverified" : "");
 
                         return src;
                     })

@@ -1,5 +1,6 @@
 using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.MusicData;
 using System;
 using System.Collections.Generic;
@@ -127,7 +128,7 @@ namespace HatenaBlogDeployer
             var getTableArgs = new GetMusicDataTableArgs(programArgs.DataBaseUrl);
             var musicDataTable = GetMusicDataTable(getTableArgs);
             Console.WriteLine("Success get music data table.");
-            Console.WriteLine("Music count: {0}", musicDataTable.GetTableUnits()?.Count());
+            Console.WriteLine("Music count: {0}", musicDataTable.MusicDatas?.Count());
 
             var deployArgs = new DeployArgs(
                 hatenaId: programArgs.HatenaId,
@@ -137,13 +138,13 @@ namespace HatenaBlogDeployer
             Deploy(deployArgs, musicDataTable, programArgs.MinLevelText, programArgs.MaxLevelText);
         }
 
-        private static IMusicDataTable<IMusicDataTableUnit> GetMusicDataTable(GetMusicDataTableArgs args)
+        private static IMusicDataTable GetMusicDataTable(GetMusicDataTableArgs args)
         {
             var connector = new ChunithmMusicDatabaseHttpClientConnector(args.Url);
             return connector.GetTableAsync().Result.MusicDataTable;
         }
 
-        private static void Deploy(DeployArgs args, IMusicDataTable<IMusicDataTableUnit> musicDataTable, string minLevelText, string maxLevelText, string currentHash = "")
+        private static void Deploy(DeployArgs args, IMusicDataTable musicDataTable, string minLevelText, string maxLevelText, string currentHash = "")
         {
             var client = new HttpClient();
             var getCurrent = args.CreateRequestMessage(HttpMethod.Get);
@@ -197,7 +198,7 @@ namespace HatenaBlogDeployer
             Console.WriteLine(putRequestResult.Content.ReadAsStringAsync().Result);
         }
 
-        private static string GenerateTableText(decimal minLevel, decimal maxLevel, IMusicDataTableUnit[] expert, IMusicDataTableUnit[] master)
+        private static string GenerateTableText(decimal minLevel, decimal maxLevel, IMusicData[] expert, IMusicData[] master)
         {
             var table = new Dictionary<string, List<string>>();
             for (var level = minLevel; level <= maxLevel; level += 0.1m)
@@ -206,11 +207,11 @@ namespace HatenaBlogDeployer
             }
             foreach (var unit in expert)
             {
-                table[unit.GetBaseRating(Difficulty.Expert).ToString("#.0")].Add($"{unit.Name}(EXP)");
+                table[unit.BaseRating.ToString("#.0")].Add($"{unit.Name}(EXP)");
             }
             foreach (var unit in master)
             {
-                table[unit.GetBaseRating(Difficulty.Master).ToString("#.0")].Add(unit.Name);
+                table[unit.BaseRating.ToString("#.0")].Add(unit.Name);
             }
 
             var tableText = new StringBuilder();
@@ -225,14 +226,13 @@ namespace HatenaBlogDeployer
             return tableText.ToString();
         }
 
-        private static (string hash, IMusicDataTableUnit[] expert, IMusicDataTableUnit[] master) GetTableHash(IMusicDataTable<IMusicDataTableUnit> musicDataTable)
+        private static (string hash, IMusicData[] expert, IMusicData[] master) GetTableHash(IMusicDataTable musicDataTable)
         {
-            var expert = musicDataTable.GetTableUnits()
-                .Where(m => m.VerifiedBaseRating(Difficulty.Expert))
-                .Where(m => m.GetBaseRating(Difficulty.Expert) >= 11.0)
+            var expert = musicDataTable.MusicDatas
+                .Where(m => m.Difficulty == Difficulty.Expert && m.Verified && m.BaseRating >= 11.0)
                 .ToArray();
-            var master = musicDataTable.GetTableUnits()
-                .Where(m => m.VerifiedBaseRating(Difficulty.Master))
+            var master = musicDataTable.MusicDatas
+                .Where(m => m.Difficulty == Difficulty.Master && m.Verified)
                 .ToArray();
 
             var hashOrigin = new StringBuilder();

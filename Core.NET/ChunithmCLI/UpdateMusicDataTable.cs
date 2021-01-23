@@ -1,7 +1,7 @@
 ﻿using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
 using ChunithmClientLibrary.ChunithmNet.HttpClientConnector;
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System;
 using System.Linq;
 
@@ -88,9 +88,9 @@ namespace ChunithmCLI
                 connector.SelectAimeAsync(arg.AimeIndex).GetNetApiResult("selecting aime... ");
 
                 var musicGenre = connector.GetMusicGenreAsync(GENRE_CODE_ALL, Difficulty.Master).GetNetApiResult("downloading music list... ");
-                musicDataTable.Add(musicGenre.MusicGenre);
+                musicDataTable.AddRange(musicGenre.MusicGenre);
 
-                if (currentTable.MusicDataTable.GetTableUnits().Count() == musicDataTable.GetTableUnits().Count())
+                if (currentTable.MusicDataTable.MusicDatas.Count() == musicDataTable.MusicDatas.Count())
                 {
                     Console.WriteLine("skip update.");
                     return;
@@ -99,7 +99,7 @@ namespace ChunithmCLI
                 for (var i = 0; i < arg.MaxLevelValue; i++)
                 {
                     var musicLevel = connector.GetMusicLevelAsync(i).GetNetApiResult($"downloading level info ({i + 1}/{arg.MaxLevelValue})", false);
-                    musicDataTable.Add(musicLevel.MusicLevel);
+                    musicDataTable.AddRange(musicLevel.MusicLevel);
                 }
 
                 databaseConnector.UpdateTableAsync(musicDataTable.MusicDatas).GetMusicDatabaseApiResult("sending table... ");

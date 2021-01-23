@@ -1,10 +1,11 @@
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.Reader;
 
-namespace ChunithmClientLibrary.MusicData
+namespace ChunithmClientLibrary
 {
-    public sealed class MusicDataTableJsonReader : JsonReader<IMusicDataTable<IMusicDataTableUnit>>, IReader<string, IMusicDataTable<IMusicDataTableUnit>>
+    public sealed class MusicDataTableJsonReader : JsonReader<IMusicDataTable>, IReader<string, IMusicDataTable>
     {
-        public override IMusicDataTable<IMusicDataTableUnit> Read(string json)
+        public override IMusicDataTable Read(string json)
         {
             return Utility.DeserializeFromJson<MusicDataTable>(json);
         }

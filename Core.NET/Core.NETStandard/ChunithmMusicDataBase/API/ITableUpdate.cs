@@ -1,4 +1,4 @@
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,17 +10,17 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.API
 
     public interface ITableUpdate
     {
-        Task<ITableUpdateResponse> UpdateTableAsync(IList<IMusicDataTableUnit> musicDatas);
+        Task<ITableUpdateResponse> UpdateTableAsync(IEnumerable<IMusicData> musicDatas);
         Task<ITableUpdateResponse> UpdateTableAsync(ITableUpdateRequest request);
     }
 
     public interface ITableUpdateRequest : IChunithmMusicDatabaseApiRequest
     {
-        IList<IMusicDataTableUnit> MusicDatas { get; }
+        IReadOnlyList<IMusicData> MusicDatas { get; }
     }
 
     public interface ITableUpdateResponse : IChunithmMusicDatabaseApiResponse
     {
-        IMusicDataTable<IMusicDataTableUnit> MusicDataTable { get; }
+        IMusicDataTable MusicDataTable { get; }
     }
 }

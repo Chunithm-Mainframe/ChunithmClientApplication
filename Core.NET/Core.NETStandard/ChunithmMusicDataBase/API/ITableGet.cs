@@ -1,4 +1,4 @@
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Threading.Tasks;
 
 namespace ChunithmClientLibrary.ChunithmMusicDatabase.API
@@ -19,6 +19,6 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.API
 
     public interface ITableGetResponse : IChunithmMusicDatabaseApiResponse
     {
-        IMusicDataTable<IMusicDataTableUnit> MusicDataTable { get; }
+        IMusicDataTable MusicDataTable { get; }
     }
 }

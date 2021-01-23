@@ -1,4 +1,5 @@
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary;
+using ChunithmClientLibrary.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
@@ -9,26 +10,35 @@ namespace ChunithmClientLibraryUnitTest.MusicData
     [TestCategory(TestUtility.Category.JsonIO)]
     public class MusicDataTableJsonIOTest
     {
+        private ChunithmClientLibrary.Core.MusicData CreateMusicData(
+            int id,
+            string name,
+            string genre,
+            Difficulty difficulty,
+            double baseRating,
+            bool verified)
+        {
+            return new ChunithmClientLibrary.Core.MusicData
+            {
+                Id = id,
+                Name = name,
+                Genre = genre,
+                Difficulty = difficulty,
+                BaseRating = baseRating,
+                Verified = verified,
+            };
+        }
+
         [TestMethod]
         public void MusicDataTable_JsonIO_Test1()
         {
             var expectedMusicDataTable = new MusicDataTable();
-            expectedMusicDataTable.Add(new List<MusicDataTableUnit>()
+            expectedMusicDataTable.AddRange(new List<IMusicData>()
             {
-                new MusicDataTableUnit
-                {
-                    Id = 1,
-                    Name = "TEST MUSIC 1",
-                    Genre = "POPS & ANIME",
-                    BasicLevel = 1.0,
-                    AdvancedLevel = 3.0,
-                    ExpertLevel = 7.0,
-                    MasterLevel = 10.0,
-                    BasicVerified = false,
-                    AdvancedVerified = false,
-                    ExpertVerified = false,
-                    MasterVerified = false,
-                }
+                CreateMusicData(1, "TEST MUSIC 1", "POPS & ANIME", Difficulty.Basic, 1.0, false),
+                CreateMusicData(1, "TEST MUSIC 1", "POPS & ANIME", Difficulty.Advanced, 3.0, false),
+                CreateMusicData(1, "TEST MUSIC 1", "POPS & ANIME", Difficulty.Expert, 7.0, false),
+                CreateMusicData(1, "TEST MUSIC 1", "POPS & ANIME", Difficulty.Master, 10.0, false),
             });
 
             var path = "MusicData/JsonIOTest/json_io_test_1.json";

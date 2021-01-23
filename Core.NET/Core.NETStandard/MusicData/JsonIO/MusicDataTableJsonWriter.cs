@@ -1,13 +1,14 @@
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.Writer;
 
-namespace ChunithmClientLibrary.MusicData
+namespace ChunithmClientLibrary
 {
-    public sealed class MusicDataTableJsonWriter : JsonWriter<IMusicDataTable<IMusicDataTableUnit>, MusicDataTable>, IWriter<IMusicDataTable<IMusicDataTableUnit>>
+    public sealed class MusicDataTableJsonWriter : JsonWriter<IMusicDataTable, MusicDataTable>, IWriter<IMusicDataTable>
     {
-        public override MusicDataTable CreateJsonData(IMusicDataTable<IMusicDataTableUnit> data)
+        public override MusicDataTable CreateJsonData(IMusicDataTable source)
         {
             var musicDataTable = new MusicDataTable();
-            musicDataTable.Add(data);
+            musicDataTable.AddRange(source.MusicDatas);
             return musicDataTable;
         }
     }

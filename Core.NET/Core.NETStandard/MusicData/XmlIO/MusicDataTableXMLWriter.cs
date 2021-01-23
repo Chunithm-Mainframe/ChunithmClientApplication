@@ -1,26 +1,27 @@
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.Writer;
 using ClosedXML.Excel;
 using System.Linq;
 using Header = ChunithmClientLibrary.MusicData.XmlIO.Header;
 
-namespace ChunithmClientLibrary.MusicData
+namespace ChunithmClientLibrary
 {
-    public sealed class MusicDataTableXmlWriter : XmlWriter<IMusicDataTable<IMusicDataTableUnit>>, IWriter<IMusicDataTable<IMusicDataTableUnit>>
+    public sealed class MusicDataTableXmlWriter : XmlWriter<IMusicDataTable>, IWriter<IMusicDataTable>
     {
-        public override XLWorkbook CreateWorkbook(IMusicDataTable<IMusicDataTableUnit> data)
+        public override XLWorkbook CreateWorkbook(IMusicDataTable table)
         {
             var workbook = new XLWorkbook();
 
-            ApplyRecord(workbook.AddWorksheet("MusicData"), data);
+            ApplyRecord(workbook.AddWorksheet("MusicData"), table);
 
 
 
             return workbook;
         }
 
-        private void ApplyRecord(IXLWorksheet worksheet, IMusicDataTable<IMusicDataTableUnit> data)
+        private void ApplyRecord(IXLWorksheet worksheet, IMusicDataTable table)
         {
-            if (worksheet == null || data == null)
+            if (worksheet == null || table == null)
             {
                 return;
             }
@@ -31,33 +32,23 @@ namespace ChunithmClientLibrary.MusicData
             worksheet.Cell(1, header[Header.Parameter.Id].Index).Value = header[Header.Parameter.Id].Text;
             worksheet.Cell(1, header[Header.Parameter.Name].Index).Value = header[Header.Parameter.Name].Text;
             worksheet.Cell(1, header[Header.Parameter.Genre].Index).Value = header[Header.Parameter.Genre].Text;
-            worksheet.Cell(1, header[Header.Parameter.Basic].Index).Value = header[Header.Parameter.Basic].Text;
-            worksheet.Cell(1, header[Header.Parameter.Advanced].Index).Value = header[Header.Parameter.Advanced].Text;
-            worksheet.Cell(1, header[Header.Parameter.Expert].Index).Value = header[Header.Parameter.Expert].Text;
-            worksheet.Cell(1, header[Header.Parameter.Master].Index).Value = header[Header.Parameter.Master].Text;
-            worksheet.Cell(1, header[Header.Parameter.BasicVerified].Index).Value = header[Header.Parameter.BasicVerified].Text;
-            worksheet.Cell(1, header[Header.Parameter.AdvancedVerified].Index).Value = header[Header.Parameter.AdvancedVerified].Text;
-            worksheet.Cell(1, header[Header.Parameter.ExpertVerified].Index).Value = header[Header.Parameter.ExpertVerified].Text;
-            worksheet.Cell(1, header[Header.Parameter.MasterVerified].Index).Value = header[Header.Parameter.MasterVerified].Text;
+            worksheet.Cell(1, header[Header.Parameter.Difficulty].Index).Value = header[Header.Parameter.Difficulty].Text;
+            worksheet.Cell(1, header[Header.Parameter.BaseRating].Index).Value = header[Header.Parameter.BaseRating].Text;
+            worksheet.Cell(1, header[Header.Parameter.Verified].Index).Value = header[Header.Parameter.Verified].Text;
 
-
-            var musicDatas = data.GetTableUnits().ToList();
+            var musicDatas = table.MusicDatas.ToList();
             for (var i = 0; i < musicDatas.Count; i++)
             {
                 var row = i + 2;
+                var musicData = musicDatas[i];
                 worksheet.Cell(row, header[Header.Parameter.Index].Index).Value = i + 1;
-                worksheet.Cell(row, header[Header.Parameter.Id].Index).Value = musicDatas[i].Id;
-                worksheet.Cell(row, header[Header.Parameter.Name].Index).Value = musicDatas[i].Name;
+                worksheet.Cell(row, header[Header.Parameter.Id].Index).Value = musicData.Id;
+                worksheet.Cell(row, header[Header.Parameter.Name].Index).Value = musicData.Name;
                 worksheet.Cell(row, header[Header.Parameter.Name].Index).DataType = XLDataType.Text;
-                worksheet.Cell(row, header[Header.Parameter.Genre].Index).Value = musicDatas[i].Genre;
-                worksheet.Cell(row, header[Header.Parameter.Basic].Index).Value = musicDatas[i].GetBaseRating(Difficulty.Basic);
-                worksheet.Cell(row, header[Header.Parameter.Advanced].Index).Value = musicDatas[i].GetBaseRating(Difficulty.Advanced);
-                worksheet.Cell(row, header[Header.Parameter.Expert].Index).Value = musicDatas[i].GetBaseRating(Difficulty.Expert);
-                worksheet.Cell(row, header[Header.Parameter.Master].Index).Value = musicDatas[i].GetBaseRating(Difficulty.Master);
-                worksheet.Cell(row, header[Header.Parameter.BasicVerified].Index).Value = musicDatas[i].VerifiedBaseRating(Difficulty.Basic);
-                worksheet.Cell(row, header[Header.Parameter.AdvancedVerified].Index).Value = musicDatas[i].VerifiedBaseRating(Difficulty.Advanced);
-                worksheet.Cell(row, header[Header.Parameter.ExpertVerified].Index).Value = musicDatas[i].VerifiedBaseRating(Difficulty.Expert);
-                worksheet.Cell(row, header[Header.Parameter.MasterVerified].Index).Value = musicDatas[i].VerifiedBaseRating(Difficulty.Master);
+                worksheet.Cell(row, header[Header.Parameter.Genre].Index).Value = musicData.Genre;
+                worksheet.Cell(row, header[Header.Parameter.Difficulty].Index).Value = Utility.ToDifficultyText(musicData.Difficulty);
+                worksheet.Cell(row, header[Header.Parameter.BaseRating].Index).Value = musicData.BaseRating;
+                worksheet.Cell(row, header[Header.Parameter.Verified].Index).Value = musicData.Verified;
             }
         }
     }

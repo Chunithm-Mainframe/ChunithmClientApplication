@@ -1,5 +1,5 @@
 using ChunithmClientLibrary.ChunithmMusicDatabase.API;
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Text;
@@ -13,7 +13,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         private class TableGetRequest : ChunithmMusicDatabaseApiRequest, ITableGetRequest
         {
             [DataMember]
-            public string API { get; set; } = ApiName.TableGet;
+            public string Command { get; set; } = CommandName.TableGet;
         }
 
         [DataContract]
@@ -22,7 +22,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
             [DataMember]
             public MusicDataTable MusicDataTable { get; set; }
 
-            IMusicDataTable<IMusicDataTableUnit> ITableGetResponse.MusicDataTable
+            IMusicDataTable ITableGetResponse.MusicDataTable
             {
                 get { return MusicDataTable; }
             }

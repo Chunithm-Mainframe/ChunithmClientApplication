@@ -1,5 +1,5 @@
 using ChunithmClientLibrary.ChunithmMusicDatabase.API;
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -15,14 +15,14 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         private class TableUpdateRequest : ChunithmMusicDatabaseApiRequest, ITableUpdateRequest
         {
             [DataMember]
-            public string API { get; set; } = ApiName.TableUpdate;
+            public string Command { get; set; } = CommandName.TableUpdate;
 
             [DataMember]
-            public List<MusicDataTableUnit> MusicDatas { get; set; }
+            public List<Core.MusicData> MusicDatas { get; set; }
 
-            IList<IMusicDataTableUnit> ITableUpdateRequest.MusicDatas
+            IReadOnlyList<IMusicData> ITableUpdateRequest.MusicDatas
             {
-                get { return MusicDatas.Cast<IMusicDataTableUnit>().ToList(); }
+                get { return MusicDatas.Cast<IMusicData>().ToList(); }
             }
         }
 
@@ -32,18 +32,18 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
             [DataMember]
             public MusicDataTable MusicDataTable { get; set; }
 
-            IMusicDataTable<IMusicDataTableUnit> ITableUpdateResponse.MusicDataTable
+            IMusicDataTable ITableUpdateResponse.MusicDataTable
             {
                 get { return MusicDataTable; }
             }
         }
 
-        public Task<ITableUpdateResponse> UpdateTableAsync(IList<IMusicDataTableUnit> musicDatas)
+        public Task<ITableUpdateResponse> UpdateTableAsync(IEnumerable<IMusicData> musicDatas)
         {
-            return UpdateTableAsync(musicDatas.Select(m => new MusicDataTableUnit(m)).ToList());
+            return UpdateTableAsync(musicDatas.Select(m => new Core.MusicData(m)).ToList());
         }
 
-        public Task<ITableUpdateResponse> UpdateTableAsync(List<MusicDataTableUnit> musicDatas)
+        public Task<ITableUpdateResponse> UpdateTableAsync(List<Core.MusicData> musicDatas)
         {
             return UpdateTableAsync(new TableUpdateRequest
             {

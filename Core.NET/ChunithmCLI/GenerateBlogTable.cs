@@ -1,6 +1,6 @@
 ﻿using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -82,13 +82,13 @@ namespace ChunithmCLI
             }
         }
 
-        private static IMusicDataTable<IMusicDataTableUnit> GetMusicDataTable(string url)
+        private static IMusicDataTable GetMusicDataTable(string url)
         {
             var connector = new ChunithmMusicDatabaseHttpClientConnector(url);
             return connector.GetTableAsync().Result.MusicDataTable;
         }
 
-        private static string GenerateTableText(decimal minLevel, decimal maxLevel, IMusicDataTableUnit[] expert, IMusicDataTableUnit[] master)
+        private static string GenerateTableText(decimal minLevel, decimal maxLevel, IMusicData[] expert, IMusicData[] master)
         {
             var table = new Dictionary<string, List<string>>();
             for (var level = minLevel; level <= maxLevel; level += 0.1m)
@@ -97,11 +97,11 @@ namespace ChunithmCLI
             }
             foreach (var unit in expert)
             {
-                table[unit.GetBaseRating(Difficulty.Expert).ToString("#.0")].Add($"{unit.Name}(EXP)");
+                table[unit.BaseRating.ToString("#.0")].Add($"{unit.Name}(EXP)");
             }
             foreach (var unit in master)
             {
-                table[unit.GetBaseRating(Difficulty.Master).ToString("#.0")].Add(unit.Name);
+                table[unit.BaseRating.ToString("#.0")].Add(unit.Name);
             }
 
             var tableText = new StringBuilder();
@@ -116,14 +116,13 @@ namespace ChunithmCLI
             return tableText.ToString();
         }
 
-        private static (IMusicDataTableUnit[] expert, IMusicDataTableUnit[] master) SplitMusicDataTable(IMusicDataTable<IMusicDataTableUnit> musicDataTable)
+        private static (IMusicData[] expert, IMusicData[] master) SplitMusicDataTable(IMusicDataTable musicDataTable)
         {
-            var expert = musicDataTable.GetTableUnits()
-                .Where(m => m.VerifiedBaseRating(Difficulty.Expert))
-                .Where(m => m.GetBaseRating(Difficulty.Expert) >= 11.0)
+            var expert = musicDataTable.MusicDatas
+                .Where(m => m.Difficulty == Difficulty.Expert && m.Verified && m.BaseRating >= 11.0)
                 .ToArray();
-            var master = musicDataTable.GetTableUnits()
-                .Where(m => m.VerifiedBaseRating(Difficulty.Master))
+            var master = musicDataTable.MusicDatas
+                .Where(m => m.Difficulty == Difficulty.Master && m.Verified)
                 .ToArray();
             return (expert, master);
         }

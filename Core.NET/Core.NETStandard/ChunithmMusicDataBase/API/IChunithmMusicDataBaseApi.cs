@@ -2,7 +2,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.API
 {
     public interface IChunithmMusicDatabaseApiRequest
     {
-        string API { get; }
+        string Command { get; }
     }
 
     public interface IChunithmMusicDatabaseApiResponse

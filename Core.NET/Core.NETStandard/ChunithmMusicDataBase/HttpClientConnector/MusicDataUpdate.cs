@@ -1,5 +1,5 @@
 using ChunithmClientLibrary.ChunithmMusicDatabase.API;
-using ChunithmClientLibrary.MusicData;
+using ChunithmClientLibrary.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -14,49 +14,38 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         [DataContract]
         private class InternalMusicDataUpdateRequest : ChunithmMusicDatabaseApiRequest
         {
-            [DataMember]
-            public string API { get; set; } = ApiName.MusicDataUpdate;
+            [DataMember(Name = "command")]
+            public string Command { get; set; } = CommandName.MusicDataUpdate;
 
-            [DataMember]
-            public List<MusicDataTableUnit> MusicDatas;
+            [DataMember(Name = "music_datas")]
+            public IReadOnlyList<IMusicData> MusicDatas;
         }
 
         [DataContract]
         private class InternalMusicDataUpdateResponse : ChunithmMusicDatabaseApiResponse
         {
             [DataMember]
-            public List<MusicDataTableUnit> UpdatedMusicDatas = new List<MusicDataTableUnit>();
+            public IReadOnlyList<IMusicData> UpdatedMusicDatas = new List<IMusicData>();
         }
 
         private class MusicDataUpdateResponse : IMusicDataUpdateResponse
         {
-            public IList<IMusicDataTableUnit> UpdatedMusicDatas { get; private set; }
+            public IReadOnlyList<IMusicData> UpdatedMusicDatas { get; private set; }
 
             public bool Success { get; private set; }
 
             public MusicDataUpdateResponse(InternalMusicDataUpdateResponse response)
             {
-                UpdatedMusicDatas = response.UpdatedMusicDatas.Cast<IMusicDataTableUnit>().ToList();
+                UpdatedMusicDatas = response.UpdatedMusicDatas.ToList();
                 Success = response.Success;
             }
         }
 
-        public async Task<IMusicDataUpdateResponse> UpdateMusicDataAsync(IList<IMusicDataTableUnit> musicDatas)
+        public async Task<IMusicDataUpdateResponse> UpdateMusicDataAsync(IEnumerable<IMusicData> musicDatas)
         {
             var resposne = UpdateMusicDataAsync(new InternalMusicDataUpdateRequest
             {
-                MusicDatas = musicDatas.Select(m => new MusicDataTableUnit(m)).ToList(),
-            });
-            await resposne;
-            return new MusicDataUpdateResponse(resposne.Result);
-        }
-
-        public async Task<IMusicDataUpdateResponse> UpdateMusicDataAsync(IMusicDataUpdateRequest request)
-        {
-            var resposne = UpdateMusicDataAsync(new InternalMusicDataUpdateRequest
-            {
-                API = request.API,
-                MusicDatas = request.MusicDatas.Select(m => new MusicDataTableUnit(m)).ToList(),
+                MusicDatas = musicDatas.Select(m => new Core.MusicData(m)).ToList(),
             });
             await resposne;
             return new MusicDataUpdateResponse(resposne.Result);

@@ -1,10 +1,8 @@
-﻿using ChunithmClientLibrary;
-using ChunithmClientLibrary.ChunithmNet.Data;
-using ChunithmClientLibrary.Core;
+﻿using ChunithmClientLibrary.ChunithmNet.Data;
 using System;
 using System.Runtime.Serialization;
 
-namespace ChunithmLibrary.Core
+namespace ChunithmClientLibrary.Core
 {
     [DataContract]
     public class MusicData : IMusicData
@@ -58,6 +56,7 @@ namespace ChunithmLibrary.Core
             Id = source.Id;
             Name = source.Name;
             Genre = source.Genre;
+            Difficulty = source.Difficulty;
             BaseRating = source.BaseRating;
             Verified = source.Verified;
         }

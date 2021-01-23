@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,14 +12,9 @@ namespace ChunithmClientLibrary.MusicData.XmlIO
             Id,
             Name,
             Genre,
-            Basic,
-            Advanced,
-            Expert,
-            Master,
-            BasicVerified,
-            AdvancedVerified,
-            ExpertVerified,
-            MasterVerified,
+            Difficulty,
+            BaseRating,
+            Verified,
         }
 
         public class Column
@@ -39,14 +35,9 @@ namespace ChunithmClientLibrary.MusicData.XmlIO
         public static readonly string DEFAULT_ID_TEXT = "ID";
         public static readonly string DEFAULT_NAME_TEXT = "楽曲名";
         public static readonly string DEFAULT_GENRE_TEXT = "ジャンル";
-        public static readonly string DEFAULT_BASIC_TEXT = "BASIC";
-        public static readonly string DEFAULT_ADVANCED_TEXT = "ADVANCED";
-        public static readonly string DEFAULT_EXPERT_TEXT = "EXPERT";
-        public static readonly string DEFAULT_MASTER_TEXT = "MASTER";
-        public static readonly string DEFAULT_BASIC_VERIFIED_TEXT = "BASIC 検証";
-        public static readonly string DEFAULT_ADVANCED_VERIFIED_TEXT = "ADVANCED 検証";
-        public static readonly string DEFAULT_EXPERT_VERIFIED_TEXT = "EXPERT 検証";
-        public static readonly string DEFAULT_MASTER_VERIFIED_TEXT = "MASTER 検証";
+        public static readonly string DEFAULT_DIFFICULTY_TEXT = "難易度";
+        public static readonly string DEFAULT_BASE_RATING_TEXT = "譜面定数";
+        public static readonly string DEFAULT_VERIFIED_TEXT = "検証";
 
         public List<Column> Columns
         {
@@ -65,14 +56,9 @@ namespace ChunithmClientLibrary.MusicData.XmlIO
             AddColumn(Parameter.Id, DEFAULT_ID_TEXT);
             AddColumn(Parameter.Name, DEFAULT_NAME_TEXT);
             AddColumn(Parameter.Genre, DEFAULT_GENRE_TEXT);
-            AddColumn(Parameter.Basic, DEFAULT_BASIC_TEXT);
-            AddColumn(Parameter.Advanced, DEFAULT_ADVANCED_TEXT);
-            AddColumn(Parameter.Expert, DEFAULT_EXPERT_TEXT);
-            AddColumn(Parameter.Master, DEFAULT_MASTER_TEXT);
-            AddColumn(Parameter.BasicVerified, DEFAULT_BASIC_VERIFIED_TEXT);
-            AddColumn(Parameter.AdvancedVerified, DEFAULT_ADVANCED_TEXT);
-            AddColumn(Parameter.ExpertVerified, DEFAULT_EXPERT_TEXT);
-            AddColumn(Parameter.MasterVerified, DEFAULT_MASTER_VERIFIED_TEXT);
+            AddColumn(Parameter.Difficulty, DEFAULT_DIFFICULTY_TEXT);
+            AddColumn(Parameter.BaseRating, DEFAULT_BASE_RATING_TEXT);
+            AddColumn(Parameter.Verified, DEFAULT_VERIFIED_TEXT);
         }
 
         private void AddColumn(Parameter parameter, string text)
@@ -94,14 +80,9 @@ namespace ChunithmClientLibrary.MusicData.XmlIO
             public static int Id { get; }
             public static int Name { get; }
             public static int Genre { get; }
-            public static int Basic { get; }
-            public static int Advanced { get; }
-            public static int Expert { get; }
-            public static int Master { get; }
-            public static int BasicVerified { get; }
-            public static int AdvancedVerified { get; }
-            public static int ExpertVerified { get; }
-            public static int MasterVerified { get; }
+            public static int Difficulty { get; }
+            public static int BaseRating { get; }
+            public static int Verified { get; }
 
             static Column()
             {
@@ -110,14 +91,9 @@ namespace ChunithmClientLibrary.MusicData.XmlIO
                 Id = column++;
                 Name = column++;
                 Genre = column++;
-                Basic = column++;
-                Advanced = column++;
-                Expert = column++;
-                Master = column++;
-                BasicVerified = column++;
-                AdvancedVerified = column++;
-                ExpertVerified = column++;
-                MasterVerified = column++;
+                Difficulty = column++;
+                BaseRating = column++;
+                Verified = column++;
             }
         }
     }
