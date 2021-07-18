@@ -2,19 +2,17 @@ import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
 import { Router } from "../../../../Packages/Router/Router";
-import { RoutingControllerWithType } from "../../../../Packages/Router/RoutingController";
 import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
 import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
 import { Role } from "../../Layer1/Role";
 import { ReportFormModule } from "../../Layer2/Modules/@ReportFormModule";
+import { RoutingController } from "../../../../Packages/Router/RoutingController";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
     version: string;
 }
 
-export class ReportFormWebsiteController<TParameter extends ReportFormWebsiteParameter> implements RoutingControllerWithType<TParameter> {
-    protected readonly doGetParameter: GoogleAppsScript.Events.DoGet;
-
+export class ReportFormWebsiteController<TParameter extends ReportFormWebsiteParameter> implements RoutingController {
     @DIProperty.inject(ReportFormConfiguration)
     protected readonly configuration: ReportFormConfiguration;
 
@@ -23,10 +21,6 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
 
     @DIProperty.inject(Router)
     private readonly router: Router;
-
-    public constructor(doGetParameter: GoogleAppsScript.Events.DoGet) {
-        this.doGetParameter = doGetParameter;
-    }
 
     protected isAccessale(role: Role): boolean {
         return true;
@@ -39,7 +33,7 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
 
     public call(parameter: Readonly<TParameter>, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         if (!this.isAccessale(this.configuration.role)) {
-            CustomLogManager.log(LogLevel.Error, `権限のないページにアクセスされました\n対象ページ: ${node.getFullPath(parameter)}`);
+            CustomLogManager.log(LogLevel.Error, `権限のないページにアクセスされました\n対象ページ: ${node.routingPath.resolvePath(parameter)}`);
             throw new Error("存在しないページが指定されました");
         }
 
@@ -68,27 +62,27 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
             .getContent();
     }
 
-    protected replacePageLink<TParam extends ReportFormWebsiteParameter>(source: string, parameter: TParam, targetController: { prototype: RoutingControllerWithType<TParam>; name: string }) {
+    protected replacePageLink<TParam extends ReportFormWebsiteParameter>(source: string, parameter: TParam, targetController: { prototype: RoutingController; name: string }) {
         const url = this.getFullPath(parameter, targetController);
         const linkTarget = new RegExp(`%link:${targetController.name}%`, 'g');
         return source ? source.replace(linkTarget, url) : "";
     }
 
-    protected getFullPath<TParam extends ReportFormWebsiteParameter>(parameter: TParam, targetController: { prototype: RoutingControllerWithType<TParam>; name: string }): string {
+    protected getFullPath<TParam extends ReportFormWebsiteParameter>(parameter: TParam, targetController: { prototype: RoutingController; name: string }): string {
         if (!parameter.version) {
             parameter.version = this.targetGameVersion;
         }
         return ReportFormWebsiteController.getFullPath(this.configuration, this.router, targetController, parameter)
     }
 
-    public static getFullPath<TParam extends ReportFormWebsiteParameter>(configuration: ReportFormConfiguration, router: Router, targetController: { prototype: RoutingControllerWithType<TParam>; name: string }, parameter: TParam): string {
+    public static getFullPath<TParam extends ReportFormWebsiteParameter>(configuration: ReportFormConfiguration, router: Router, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
         const path = this.getRelativePath(router, targetController, parameter);
         return configuration.rootUrl + path;
     }
 
-    public static getRelativePath<TParam extends ReportFormWebsiteParameter>(router: Router, targetController: { prototype: RoutingControllerWithType<TParam>; name: string }, parameter: TParam): string {
-        const node = router.findNodeByName(targetController.name);
-        const path = node.getFullPath(parameter);
+    public static getRelativePath<TParam extends ReportFormWebsiteParameter>(router: Router, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
+        const node = router.getTreeEditor().build(targetController.name).node;
+        const path = node.routingPath.resolvePath(parameter);
         return path;
     }
 

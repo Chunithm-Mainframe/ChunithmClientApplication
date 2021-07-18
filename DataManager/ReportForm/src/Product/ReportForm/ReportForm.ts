@@ -18,12 +18,12 @@ export class ReportForm {
     public static doGet(e: DoGet): GoogleAppsScript.HTML.HtmlOutput {
         try {
             Instance.initialize();
-            Instance.instance.bindWebsiteControllers(e);
+            Instance.instance.registerDoGetParameter(e);
             return DIProperty.resolve(Router).call(e.pathInfo);
         }
         catch (error) {
             CustomLogManager.exception(error);
-            return new ErrorWebsiteController(e).call({ version: Instance.instance.module.configuration.defaultVersionName, message: error.message }, null);
+            return new ErrorWebsiteController().call({ version: Instance.instance.module.configuration.defaultVersionName, message: error.message }, null);
         }
     }
 

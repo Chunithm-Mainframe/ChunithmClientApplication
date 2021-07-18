@@ -9,8 +9,9 @@ import { ScriptCacheProvider } from "../../Packages/CustomCacheProvider/ScriptCa
 import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../Packages/DIProperty/DIProperty";
 import { Router } from "../../Packages/Router/Router";
-import { RoutingControllerWithType } from "../../Packages/Router/RoutingController";
+import { RoutingController } from "../../Packages/Router/RoutingController";
 import { RoutingParameterType } from "../../Packages/Router/RoutingParameterType";
+import { RoutingTreeEditor } from "../../Packages/Router/RoutingTreeEditor";
 import { LoggerDI } from "./Dependencies/Logger";
 import { ReportFormConfiguration } from "./Layer1/Configurations/@ReportFormConfiguration";
 import { ReportFormConfigurationSchema } from "./Layer1/Configurations/ConfigurationSchema";
@@ -40,16 +41,15 @@ import { PostCommandManager } from "./Layer3/Managers/PostCommandManager";
 import { TableGetCommandController } from "./Layer3/PostCommandControllers/TableGetCommand";
 import { TableUpdateCommand } from "./Layer3/PostCommandControllers/TableUpadateCommand";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer3/WebsiteControllers/@ReportFormController";
-import { LevelReportListWebsiteController, LevelReportListWebsiteParameter } from "./Layer3/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
-import { LevelReportWebsiteController, LevelReportWebsiteParameter } from "./Layer3/WebsiteControllers/LevelReport/LevelReportWebsiteController";
-import { TopWebsiteController, TopWebsiteParameter } from "./Layer3/WebsiteControllers/TopWebsiteController";
-import { UnitReportListWebsiteController, UnitReportListWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
-import { UnitReportWebsiteController, UnitReportWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReport/UnitReportWebsiteController";
-import { UnitReportGroupListWebsiteController, UnitReportGroupListWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupListWebsiteController";
-import { UnitReportGroupWebsiteController, UnitReportGroupWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupWebsiteController";
-import { UnverifiedListByGenreWebsiteController, UnverifiedListByGenreWebsiteParameter } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByGenreWebsiteController";
-import { UnverifiedListByLevelWebsiteController, UnverifiedListByLevelWebsiteParameter } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByLevelWebsiteController";
-import { RoutingNodeHandler } from "../../Packages/Router/RoutingNodeHandler";
+import { LevelReportListWebsiteController } from "./Layer3/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
+import { LevelReportWebsiteController } from "./Layer3/WebsiteControllers/LevelReport/LevelReportWebsiteController";
+import { TopWebsiteController } from "./Layer3/WebsiteControllers/TopWebsiteController";
+import { UnitReportListWebsiteController } from "./Layer3/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
+import { UnitReportWebsiteController } from "./Layer3/WebsiteControllers/UnitReport/UnitReportWebsiteController";
+import { UnitReportGroupListWebsiteController } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupListWebsiteController";
+import { UnitReportGroupWebsiteController } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupWebsiteController";
+import { UnverifiedListByGenreWebsiteController } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByGenreWebsiteController";
+import { UnverifiedListByLevelWebsiteController } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByLevelWebsiteController";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -108,19 +108,13 @@ export class Instance {
         DIProperty.register('CacheProvider', Instance.createCacheProvider());
 
         const router = new Router();
-        const topNode = router.getOrCreateNodeWithType<TopWebsiteParameter>(`version:${RoutingParameterType.TEXT}`, TopWebsiteController);
+        const routingEditor = router.getTreeEditor();
 
-        topNode.getOrCreateNodeWithType<UnitReportListWebsiteParameter>("unitReportList", UnitReportListWebsiteController)
-        topNode.getOrCreateNodeWithType<UnitReportWebsiteParameter>(`unitReport/reportId:${RoutingParameterType.TEXT}`, UnitReportWebsiteController)
+        routingEditor.build(`version:${RoutingParameterType.TEXT}`).node.bindController(() => new TopWebsiteController());
+        this.buildRouting(routingEditor.build(`version:${RoutingParameterType.TEXT}`));
 
-        topNode.getOrCreateNodeWithType<UnitReportGroupListWebsiteParameter>("unitReportGroupList", UnitReportGroupListWebsiteController)
-        topNode.getOrCreateNodeWithType<UnitReportGroupWebsiteParameter>(`unitReportGroup/groupId:${RoutingParameterType.TEXT}`, UnitReportGroupWebsiteController)
-
-        topNode.getOrCreateNodeWithType<LevelReportListWebsiteParameter>("levelReportList", LevelReportListWebsiteController)
-        topNode.getOrCreateNodeWithType<LevelReportWebsiteParameter>(`levelReport/reportId:${RoutingParameterType.TEXT}`, LevelReportWebsiteController)
-
-        topNode.getOrCreateNodeWithType<UnverifiedListByGenreWebsiteParameter>("unverifiedListByGenre", UnverifiedListByGenreWebsiteController)
-        topNode.getOrCreateNodeWithType<UnverifiedListByLevelWebsiteParameter>("unverifiedListByLevel", UnverifiedListByLevelWebsiteController)
+        routingEditor.build("/").node.bindController(() => new TopWebsiteController());
+        this.buildRouting(routingEditor.build("/"));
 
         DIProperty.register(Router, router);
 
@@ -128,28 +122,22 @@ export class Instance {
         DIProperty.bind(NoticeManager, () => new NoticeManager());
     }
 
-    public bindWebsiteControllers(e: GoogleAppsScript.Events.DoGet): void {
-        const router = DIProperty.resolve(Router);
+    private buildRouting(root: RoutingTreeEditor): void {
+        root.build("unitReportList").node.bindController(() => new UnitReportListWebsiteController());
+        root.build(`unitReport/reportId:${RoutingParameterType.TEXT}`).node.bindController(() => new UnitReportWebsiteController());
 
-        router.findNodeByName(TopWebsiteController).bindController(() => new TopWebsiteController(e));
-        router.findNodeByName(UnitReportListWebsiteController).bindController(() => new UnitReportListWebsiteController(e));
-        router.findNodeByName(UnitReportWebsiteController).bindController(() => new UnitReportWebsiteController(e));
-        router.findNodeByName(UnitReportGroupListWebsiteController).bindController(() => new UnitReportGroupListWebsiteController(e));
-        router.findNodeByName(UnitReportGroupWebsiteController).bindController(() => new UnitReportGroupWebsiteController(e));
-        router.findNodeByName(LevelReportListWebsiteController).bindController(() => new LevelReportListWebsiteController(e));
-        router.findNodeByName(LevelReportWebsiteController).bindController(() => new LevelReportWebsiteController(e));
-        router.findNodeByName(UnverifiedListByGenreWebsiteController).bindController(() => new UnverifiedListByGenreWebsiteController(e));
-        router.findNodeByName(UnverifiedListByLevelWebsiteController).bindController(() => new UnverifiedListByLevelWebsiteController(e));
+        root.build("unitReportGroupList").node.bindController(() => new UnitReportGroupListWebsiteController());
+        root.build(`unitReportGroup/groupId:${RoutingParameterType.TEXT}`).node.bindController(() => new UnitReportGroupWebsiteController());
 
-        router.getOrCreateNode("/").bindController(() => new TopWebsiteController(e));
-        router.getOrCreateNode("/unitReportList").bindController(() => new UnitReportListWebsiteController(e));
-        router.getOrCreateNode(`/unitReport/reportId:${RoutingParameterType.TEXT}`).bindController(() => new UnitReportWebsiteController(e));
-        router.getOrCreateNode("/unitReportGroupList").bindController(() => new UnitReportGroupListWebsiteController(e));
-        router.getOrCreateNode(`/unitReportGroup/groupId:${RoutingParameterType.TEXT}`).bindController(() => new UnitReportGroupWebsiteController(e));
-        router.getOrCreateNode("/levelReportList").bindController(() => new LevelReportListWebsiteController(e));
-        router.getOrCreateNode(`/levelReport/reportId:${RoutingParameterType.TEXT}`).bindController(() => new LevelReportWebsiteController(e));
-        router.getOrCreateNode("/unverifiedListByGenre").bindController(() => new UnverifiedListByGenreWebsiteController(e));
-        router.getOrCreateNode("/unverifiedListByLevel").bindController(() => new UnverifiedListByLevelWebsiteController(e));
+        root.build("levelReportList").node.bindController(() => new LevelReportListWebsiteController());
+        root.build(`levelReport/reportId:${RoutingParameterType.TEXT}`).node.bindController(() => new LevelReportWebsiteController());
+
+        root.build("unverifiedListByGenre").node.bindController(() => new UnverifiedListByGenreWebsiteController());
+        root.build("unverifiedListByLevel").node.bindController(() => new UnverifiedListByLevelWebsiteController());
+    }
+
+    public registerDoGetParameter(e: GoogleAppsScript.Events.DoGet): void {
+        DIProperty.register("DoGet", e);
     }
 
     public setupLINEPostCommandControllers(): void {
@@ -209,7 +197,7 @@ export class Instance {
         }
     }
 
-    public getPageUrl<TParam extends ReportFormWebsiteParameter>(targetController: { prototype: RoutingControllerWithType<TParam>; name: string }, parameter: TParam): string {
+    public getPageUrl<TParam extends ReportFormWebsiteParameter>(targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
         const configuration = DIProperty.resolve(ReportFormConfiguration);
         const router = DIProperty.resolve(Router);
         return ReportFormWebsiteController.getFullPath(configuration, router, targetController, parameter);
