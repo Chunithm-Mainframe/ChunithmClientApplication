@@ -1,12 +1,11 @@
 import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { Router } from "../../../../Packages/Router/Router";
+import { RoutingController } from "../../../../Packages/Router/RoutingController";
 import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
 import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
 import { Role } from "../../Layer1/Role";
 import { ReportFormModule } from "../../Layer2/Modules/@ReportFormModule";
-import { RoutingController } from "../../../../Packages/Router/RoutingController";
 import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
@@ -19,9 +18,6 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
 
     @DIProperty.inject(ReportFormModule)
     private readonly module: ReportFormModule;
-
-    @DIProperty.inject(Router)
-    private readonly router: Router;
 
     @DIProperty.inject(ReportFormPageLinkResolver)
     private readonly pageLinkResolver: ReportFormPageLinkResolver;
