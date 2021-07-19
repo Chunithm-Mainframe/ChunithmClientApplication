@@ -19,7 +19,7 @@ export class ReportForm {
         try {
             Instance.initialize();
             Instance.instance.registerDoGetParameter(e);
-            return DIProperty.resolve(Router).call(e.pathInfo);
+            return DIProperty.resolve(Router).call(e.pathInfo ? e.pathInfo : "/");
         }
         catch (error) {
             CustomLogManager.exception(error);

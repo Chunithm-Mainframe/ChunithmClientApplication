@@ -20,6 +20,7 @@ import { Utility } from "../../Layer2/Utility";
 import { ReportFormWebsiteController } from "../WebsiteControllers/@ReportFormController";
 import { LevelReportWebsiteController } from "../WebsiteControllers/LevelReport/LevelReportWebsiteController";
 import { UnitReportWebsiteController } from "../WebsiteControllers/UnitReport/UnitReportWebsiteController";
+import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 
 
 
@@ -33,8 +34,8 @@ export class NoticeManager {
 
     private get configuration(): ReportFormConfiguration { return this._module.configuration; }
 
-    @DIProperty.inject(Router)
-    private readonly _router: Router;
+    @DIProperty.inject(ReportFormPageLinkResolver)
+    private readonly _pageLinkResolver: ReportFormPageLinkResolver;
 
     public noticeCreateUnitReport(versionName: string, reportIds: number[]): void {
         if (reportIds.length === 0) {
@@ -63,7 +64,7 @@ export class NoticeManager {
             ));
             for (const r of reports) {
                 const diffText = Utility.toDifficultyTextLowerCase(r.difficulty);
-                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
+                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: ${r.musicName}>`)
                 ));
@@ -95,7 +96,7 @@ export class NoticeManager {
                     text: `[単曲検証報告]
 楽曲名:${r.musicName}
 難易度:${Utility.toDifficultyText(r.difficulty)}
-URL: ${ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
+URL: ${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
                 };
                 for (const target of this.configuration.global.lineNoticeTargetIdList) {
                     streams.push(new LINEMessagePushStream({
@@ -158,7 +159,7 @@ URL: ${ReportFormWebsiteController.getFullPath(this.configuration, this._router,
                 ));
                 for (const r of reports) {
                     const diffText = Utility.toDifficultyTextLowerCase(r.difficulty);
-                    const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
+                    const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
                     blocks.push(SlackBlockFactory.section(
                         SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: ${r.musicName}>`)
                     ));
@@ -214,7 +215,7 @@ URL: ${ReportFormWebsiteController.getFullPath(this.configuration, this._router,
 楽曲名:${r.musicName}
 難易度:${Utility.toDifficultyText(r.difficulty)}
 譜面定数:${r.calcBaseRating().toFixed(1)}
-URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
+URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
                 };
                 for (const target of this.configuration.global.lineNoticeTargetIdList) {
                     streams.push(new LINEMessagePushStream({
@@ -262,7 +263,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, 
             ));
             for (const r of reports) {
                 const diffText = Utility.toDifficultyTextLowerCase(r.difficulty);
-                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })
+                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: ${r.musicName}>`)
                 ));
@@ -294,7 +295,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, 
                     text: `✖️[検証結果 却下]✖️
 楽曲名:${r.musicName}
 難易度:${Utility.toDifficultyText(r.difficulty)}
-URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
+URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, UnitReportWebsiteController, { version: versionName, reportId: r.reportId.toString() })}`
                 };
                 for (const target of this.configuration.global.lineNoticeTargetIdList) {
                     streams.push(new LINEMessagePushStream({
@@ -375,7 +376,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, 
             for (const r of reports) {
                 const difficulty = r.targetLevel >= 4 ? Difficulty.Advanced : Difficulty.Basic;
                 const diffText = Utility.toDifficultyTextLowerCase(difficulty);
-                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
+                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.targetLevel} (${r.musicCount}曲)>`)
                 ));
@@ -430,7 +431,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, 
                 for (const r of reports) {
                     const difficulty = r.targetLevel >= 4 ? Difficulty.Advanced : Difficulty.Basic;
                     const diffText = Utility.toDifficultyTextLowerCase(difficulty);
-                    const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
+                    const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
                     blocks.push(SlackBlockFactory.section(
                         SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.targetLevel} (${r.musicCount}曲)>`)
                     ));
@@ -506,7 +507,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._router, 
             for (const r of reports) {
                 const difficulty = r.targetLevel >= 4 ? Difficulty.Advanced : Difficulty.Basic;
                 const diffText = Utility.toDifficultyTextLowerCase(difficulty);
-                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._router, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
+                const url = ReportFormWebsiteController.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsiteController, { version: versionName, reportId: r.reportId.toString() });
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.targetLevel} (${r.musicCount}曲)>`)
                 ));

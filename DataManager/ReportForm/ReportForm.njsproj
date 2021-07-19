@@ -96,6 +96,7 @@
     <Folder Include="src\Product\ReportForm\Layer1\" />
     <Folder Include="src\Product\ReportForm\Layer2\" />
     <Folder Include="src\Product\ReportForm\Layer3\" />
+    <Folder Include="src\Product\ReportForm\Layer4\" />
     <Folder Include="src\Resources\Page\top\" />
     <Folder Include="src\Product\ReportForm\Layer3\WebsiteControllers\" />
     <Folder Include="src\Product\ReportForm\Layer2\Modules\" />
@@ -164,10 +165,12 @@
     <TypeScriptCompile Include="src\Packages\Repository\SpreadsheetRepository.ts" />
     <TypeScriptCompile Include="src\Packages\Router\Router.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingController.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingEdge.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingNode.ts" />
-    <TypeScriptCompile Include="src\Packages\Router\RoutingNodeHandler.ts" />
-    <TypeScriptCompile Include="src\Packages\Router\RoutingNodeImpl.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingParameterType.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingPath.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingTree.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingTreeEditor.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\LINEPayload.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\MessageObjects.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\Payload.ts" />
@@ -320,6 +323,9 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\WebsiteControllers\ErrorWebsiteController.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\%40ReportFormPageLinkResolver.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\WebsiteControllers\LevelReport\LevelReportListWebsiteController.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -350,6 +356,9 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Role.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadSheetLogger.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Utility.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\RoutingTreeBuilder.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\ReportForm.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSchema.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSourceType.ts" />

@@ -7,6 +7,7 @@ import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportForm
 import { Role } from "../../Layer1/Role";
 import { ReportFormModule } from "../../Layer2/Modules/@ReportFormModule";
 import { RoutingController } from "../../../../Packages/Router/RoutingController";
+import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
     version: string;
@@ -21,6 +22,9 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
 
     @DIProperty.inject(Router)
     private readonly router: Router;
+
+    @DIProperty.inject(ReportFormPageLinkResolver)
+    private readonly pageLinkResolver: ReportFormPageLinkResolver;
 
     protected isAccessale(role: Role): boolean {
         return true;
@@ -72,16 +76,16 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
         if (!parameter.version) {
             parameter.version = this.targetGameVersion;
         }
-        return ReportFormWebsiteController.getFullPath(this.configuration, this.router, targetController, parameter)
+        return ReportFormWebsiteController.getFullPath(this.configuration, this.pageLinkResolver, targetController, parameter)
     }
 
-    public static getFullPath<TParam extends ReportFormWebsiteParameter>(configuration: ReportFormConfiguration, router: Router, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
-        const path = this.getRelativePath(router, targetController, parameter);
+    public static getFullPath<TParam extends ReportFormWebsiteParameter>(configuration: ReportFormConfiguration, pageLinkResolver: ReportFormPageLinkResolver, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
+        const path = this.getRelativePath(pageLinkResolver, targetController, parameter);
         return configuration.rootUrl + path;
     }
 
-    public static getRelativePath<TParam extends ReportFormWebsiteParameter>(router: Router, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
-        const node = router.getTreeEditor().build(targetController.name).node;
+    public static getRelativePath<TParam extends ReportFormWebsiteParameter>(pageLinkResolver: ReportFormPageLinkResolver, targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
+        const node = pageLinkResolver.getNode(targetController);
         const path = node.routingPath.resolvePath(parameter);
         return path;
     }
