@@ -1,36 +1,36 @@
 [submodule "DataManager/ReportForm/src/Repository"]
 	path = DataManager/ReportForm/src/Packages/Repository
-	url = git@github.com:max-eipi-gas-modules/Repository.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-Repository.git
 [submodule "DataManager/ReportForm/src/UrlFetch"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch
-	url = git@github.com:max-eipi-gas-modules/UrlFetch.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.git
 [submodule "DataManager/ReportForm/src/CustomLogger"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger
-	url = git@github.com:max-eipi-gas-modules/CustomLogger.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.git
 [submodule "DataManager/ReportForm/src/UrlFetch.LINE"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch.LINE
-	url = git@github.com:max-eipi-gas-modules/UrlFetch.LINE.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.LINE.git
 [submodule "DataManager/ReportForm/src/UrlFetch.Slack"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch.Slack
-	url = git@github.com:max-eipi-gas-modules/UrlFetch.Slack.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.Slack.git
 [submodule "DataManager/ReportForm/src/CutomLogger.LINE"]
 	path = DataManager/ReportForm/src/CutomLogger.LINE
-	url = git@github.com:max-eipi-gas-modules/CutomLogger.LINE.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-CutomLogger.LINE.git
 [submodule "DataManager/ReportForm/src/CustomLogger.Slack"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger.Slack
-	url = git@github.com:max-eipi-gas-modules/CustomLogger.Slack.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.Slack.git
 [submodule "DataManager/ReportForm/src/Configuration"]
 	path = DataManager/ReportForm/src/Packages/Configuration
-	url = git@github.com:max-eipi-gas-modules/Configuration.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-Configuration.git
 [submodule "DataManager/ReportForm/src/DIProperty"]
 	path = DataManager/ReportForm/src/Packages/DIProperty
-	url = git@github.com:max-eipi-gas-modules/DIProperty.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-DIProperty.git
 [submodule "DataManager/ReportForm/src/CustomCacheProvider"]
 	path = DataManager/ReportForm/src/Packages/CustomCacheProvider
-	url = git@github.com:max-eipi-gas-modules/CustomCacheProvider.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomCacheProvider.git
 [submodule "DataManager/ReportForm/src/CustomLogger.LINE"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger.LINE
-	url = git@github.com:max-eipi-gas-modules/CustomLogger.LINE.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.LINE.git
 [submodule "DataManager/ReportForm/src/Router"]
 	path = DataManager/ReportForm/src/Packages/Router
-	url = git@github.com:max-eipi-gas-modules/Router.git
+	url = https://github.com/MAX-eipi/GoogleAppsScript-Router.git
