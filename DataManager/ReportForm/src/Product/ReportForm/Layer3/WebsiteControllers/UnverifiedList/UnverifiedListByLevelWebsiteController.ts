@@ -43,7 +43,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
 
         source = source.replace(/%difficulty_select_list%/g, this.getDifficultySelectListHtml(this.doGetParameter.parameter));
         source = source.replace(/%levelList%/, this.getSelectLevelListHtml(this.doGetParameter.parameter));
-        source = source.replace(/%list%/g, this.getListHtml(parameter.version, this.doGetParameter.parameter));
+        source = source.replace(/%list%/g, this.getListHtml(this.targetGameVersion, this.doGetParameter.parameter));
 
         return this.createHtmlOutput(source);
     }

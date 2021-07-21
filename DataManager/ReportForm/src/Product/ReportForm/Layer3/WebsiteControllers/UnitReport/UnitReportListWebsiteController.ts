@@ -20,9 +20,9 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
     }
 
     protected callInternal(parameter: UnitReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const listHtml = this.reportModule.getReports(parameter.version)
+        const listHtml = this.reportModule.getReports(this.targetGameVersion)
             .filter(r => r.reportStatus === ReportStatus.InProgress)
-            .map(r => this.getListItemHtml(parameter.version, r))
+            .map(r => this.getListItemHtml(this.targetGameVersion, r))
             .reduce((acc, src) => `${acc}\n${src}`, '');
 
         let source = this.readHtml("Resources/Page/wip_list/main");
@@ -36,7 +36,7 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
 
     private getListItemHtml(version: string, report: IReport): string {
         const parameter: UnitReportWebsiteParameter = {
-            version: version,
+            version: this.targetGameVersion,
             reportId: report.reportId.toString(),
         };
         const path = this.getFullPath(parameter, UnitReportWebsiteController);

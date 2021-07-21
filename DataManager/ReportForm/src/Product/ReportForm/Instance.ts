@@ -9,8 +9,7 @@ import { ScriptCacheProvider } from "../../Packages/CustomCacheProvider/ScriptCa
 import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../Packages/DIProperty/DIProperty";
 import { Router } from "../../Packages/Router/Router";
-import { RoutingControllerWithType } from "../../Packages/Router/RoutingController";
-import { RoutingParameterType } from "../../Packages/Router/RoutingParameterType";
+import { RoutingController } from "../../Packages/Router/RoutingController";
 import { LoggerDI } from "./Dependencies/Logger";
 import { ReportFormConfiguration } from "./Layer1/Configurations/@ReportFormConfiguration";
 import { ReportFormConfigurationSchema } from "./Layer1/Configurations/ConfigurationSchema";
@@ -39,16 +38,9 @@ import { NoticeManager } from "./Layer3/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer3/Managers/PostCommandManager";
 import { TableGetCommandController } from "./Layer3/PostCommandControllers/TableGetCommand";
 import { TableUpdateCommand } from "./Layer3/PostCommandControllers/TableUpadateCommand";
+import { ReportFormPageLinkResolver } from "./Layer3/@ReportFormPageLinkResolver";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer3/WebsiteControllers/@ReportFormController";
-import { LevelReportListWebsiteController, LevelReportListWebsiteParameter } from "./Layer3/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
-import { LevelReportWebsiteController, LevelReportWebsiteParameter } from "./Layer3/WebsiteControllers/LevelReport/LevelReportWebsiteController";
-import { TopWebsiteController, TopWebsiteParameter } from "./Layer3/WebsiteControllers/TopWebsiteController";
-import { UnitReportListWebsiteController, UnitReportListWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
-import { UnitReportWebsiteController, UnitReportWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReport/UnitReportWebsiteController";
-import { UnitReportGroupListWebsiteController, UnitReportGroupListWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupListWebsiteController";
-import { UnitReportGroupWebsiteController, UnitReportGroupWebsiteParameter } from "./Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupWebsiteController";
-import { UnverifiedListByGenreWebsiteController, UnverifiedListByGenreWebsiteParameter } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByGenreWebsiteController";
-import { UnverifiedListByLevelWebsiteController, UnverifiedListByLevelWebsiteParameter } from "./Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByLevelWebsiteController";
+import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -107,38 +99,19 @@ export class Instance {
         DIProperty.register('CacheProvider', Instance.createCacheProvider());
 
         const router = new Router();
-        const topNode = router.getOrCreateNodeWithType<TopWebsiteParameter>(`version:${RoutingParameterType.TEXT}`, TopWebsiteController);
+        const pageLinkResolver = new ReportFormPageLinkResolver();
 
-        topNode.getOrCreateNodeWithType<UnitReportListWebsiteParameter>("unitReportList", UnitReportListWebsiteController)
-        topNode.getOrCreateNodeWithType<UnitReportWebsiteParameter>(`unitReport/reportId:${RoutingParameterType.TEXT}`, UnitReportWebsiteController)
-
-        topNode.getOrCreateNodeWithType<UnitReportGroupListWebsiteParameter>("unitReportGroupList", UnitReportGroupListWebsiteController)
-        topNode.getOrCreateNodeWithType<UnitReportGroupWebsiteParameter>(`unitReportGroup/groupId:${RoutingParameterType.TEXT}`, UnitReportGroupWebsiteController)
-
-        topNode.getOrCreateNodeWithType<LevelReportListWebsiteParameter>("levelReportList", LevelReportListWebsiteController)
-        topNode.getOrCreateNodeWithType<LevelReportWebsiteParameter>(`levelReport/reportId:${RoutingParameterType.TEXT}`, LevelReportWebsiteController)
-
-        topNode.getOrCreateNodeWithType<UnverifiedListByGenreWebsiteParameter>("unverifiedListByGenre", UnverifiedListByGenreWebsiteController)
-        topNode.getOrCreateNodeWithType<UnverifiedListByLevelWebsiteParameter>("unverifiedListByLevel", UnverifiedListByLevelWebsiteController)
+        RoutingTreeBuilder.build(router.getTreeEditor(), pageLinkResolver);
 
         DIProperty.register(Router, router);
+        DIProperty.register(ReportFormPageLinkResolver, pageLinkResolver);
 
         DIProperty.bind(NoticeQueue, () => Instance.getNoticeQueue());
         DIProperty.bind(NoticeManager, () => new NoticeManager());
     }
 
-    public bindWebsiteControllers(e: GoogleAppsScript.Events.DoGet): void {
-        const router = DIProperty.resolve(Router);
-
-        router.findNodeByName(TopWebsiteController).bindController(() => new TopWebsiteController(e));
-        router.findNodeByName(UnitReportListWebsiteController).bindController(() => new UnitReportListWebsiteController(e));
-        router.findNodeByName(UnitReportWebsiteController).bindController(() => new UnitReportWebsiteController(e));
-        router.findNodeByName(UnitReportGroupListWebsiteController).bindController(() => new UnitReportGroupListWebsiteController(e));
-        router.findNodeByName(UnitReportGroupWebsiteController).bindController(() => new UnitReportGroupWebsiteController(e));
-        router.findNodeByName(LevelReportListWebsiteController).bindController(() => new LevelReportListWebsiteController(e));
-        router.findNodeByName(LevelReportWebsiteController).bindController(() => new LevelReportWebsiteController(e));
-        router.findNodeByName(UnverifiedListByGenreWebsiteController).bindController(() => new UnverifiedListByGenreWebsiteController(e));
-        router.findNodeByName(UnverifiedListByLevelWebsiteController).bindController(() => new UnverifiedListByLevelWebsiteController(e));
+    public registerDoGetParameter(e: GoogleAppsScript.Events.DoGet): void {
+        DIProperty.register("DoGet", e);
     }
 
     public setupLINEPostCommandControllers(): void {
@@ -198,9 +171,9 @@ export class Instance {
         }
     }
 
-    public getPageUrl<TParam extends ReportFormWebsiteParameter>(targetController: { prototype: RoutingControllerWithType<TParam>; name: string }, parameter: TParam): string {
+    public getPageUrl<TParam extends ReportFormWebsiteParameter>(targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
         const configuration = DIProperty.resolve(ReportFormConfiguration);
-        const router = DIProperty.resolve(Router);
-        return ReportFormWebsiteController.getFullPath(configuration, router, targetController, parameter);
+        const pageLinkResolver = DIProperty.resolve(ReportFormPageLinkResolver);
+        return ReportFormWebsiteController.getFullPath(configuration, pageLinkResolver, targetController, parameter);
     }
 }

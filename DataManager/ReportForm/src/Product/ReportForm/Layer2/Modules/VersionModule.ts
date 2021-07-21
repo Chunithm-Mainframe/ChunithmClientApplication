@@ -2,6 +2,8 @@ import { VersionConfigurationSchema } from "../../Layer1/Configurations/Configur
 import { ReportFormModule } from "./@ReportFormModule";
 
 export class VersionModule extends ReportFormModule {
+    public static readonly moduleName = 'version';
+
     public getVersionConfig(versionName: string): VersionConfigurationSchema {
         return this.configuration.versions[versionName];
     }

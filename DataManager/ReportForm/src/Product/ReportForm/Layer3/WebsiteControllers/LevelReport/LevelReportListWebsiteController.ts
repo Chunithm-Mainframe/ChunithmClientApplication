@@ -21,9 +21,9 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
     }
 
     protected callInternal(parameter: LevelReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const listHtml = this.reportModule.getLevelBulkReports(parameter.version)
+        const listHtml = this.reportModule.getLevelBulkReports(this.targetGameVersion)
             .filter(r => r.reportStatus === ReportStatus.InProgress)
-            .map(report => this.getListItemHtml(parameter.version, report))
+            .map(report => this.getListItemHtml(this.targetGameVersion, report))
             .reduce((acc, src) => `${acc}\n${src}`, '');
 
         let source = this.readHtml("Resources/Page/wip_bulk_report_list/main");
@@ -39,7 +39,7 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
         const date = report.reportDate;
         const dateText = LevelReportListWebsiteController.getDateText(date);
         const parameter: LevelReportWebsiteParameter = {
-            version: version,
+            version: this.targetGameVersion,
             reportId: report.reportId.toString(),
         };
         const url = this.getFullPath(parameter, LevelReportWebsiteController);

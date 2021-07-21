@@ -20,7 +20,7 @@ export class LevelReportWebsiteController extends ReportFormWebsiteController<Le
 
     protected callInternal(parameter: LevelReportWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const reportId = parseInt(parameter.reportId);
-        const report = this.reportModule.getLevelBulkReportSheet(parameter.version).getBulkReport(reportId);
+        const report = this.reportModule.getLevelBulkReportSheet(this.targetGameVersion).getBulkReport(reportId);
 
         if (!report) {
             throw new Error("該当する検証報告が存在しません");
@@ -28,7 +28,7 @@ export class LevelReportWebsiteController extends ReportFormWebsiteController<Le
 
         let source = this.readHtml("Resources/Page/bulk_approval/main");
 
-        source = source.replace(/%versionName%/g, parameter.version);
+        source = source.replace(/%versionName%/g, this.targetGameVersion);
         source = this.replacePageLink(source, parameter, LevelReportWebsiteController);
         source = this.replacePageLink(source, parameter, LevelReportListWebsiteController);
 

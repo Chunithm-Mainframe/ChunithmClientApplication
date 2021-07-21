@@ -21,11 +21,11 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
     }
 
     protected callInternal(parameter: UnitReportGroupListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const reportGroups = this.reportModule.getMusicDataReportGroupContainer(parameter.version).musicDataReportGroups;
-        const listHtml = this.getListHtml(parameter.version, reportGroups);
+        const reportGroups = this.reportModule.getMusicDataReportGroupContainer(this.targetGameVersion).musicDataReportGroups;
+        const listHtml = this.getListHtml(this.targetGameVersion, reportGroups);
 
         let source = this.readHtml("Resources/Page/report_group_list/main");
-        source = source.replace(/%versionName%/g, parameter.version);
+        source = source.replace(/%versionName%/g, this.targetGameVersion);
         source = this.replacePageLink(source, parameter, TopWebsiteController);
         source = source.replace(/%list%/g, listHtml);
 
@@ -71,7 +71,7 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
             }
         }
         const parameter: UnitReportGroupWebsiteParameter = {
-            version: version,
+            version: this.targetGameVersion,
             groupId: reportGroup.groupId,
         };
         const url = this.getFullPath(parameter, UnitReportGroupWebsiteController);

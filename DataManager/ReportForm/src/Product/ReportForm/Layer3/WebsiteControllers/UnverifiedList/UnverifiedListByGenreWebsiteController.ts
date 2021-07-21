@@ -40,10 +40,10 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         source = this.replacePageLink(source, parameter, TopWebsiteController);
         source = this.replacePageLink(source, parameter, UnverifiedListByGenreWebsiteController);
 
-        const genres = this.versionModule.getVersionConfig(parameter.version).genres;
+        const genres = this.versionModule.getVersionConfig(this.targetGameVersion).genres;
         source = source.replace(/%difficulty_select_list%/g, this.getDifficultySelectListHtml(this.doGetParameter.parameter));
         source = source.replace(/%genre_select_list%/g, this.getGenreSelectListHtml(this.doGetParameter.parameter, genres));
-        source = source.replace(/%list%/g, this.getListHtml(parameter.version, this.doGetParameter.parameter, genres))
+        source = source.replace(/%list%/g, this.getListHtml(this.targetGameVersion, this.doGetParameter.parameter, genres))
 
         return this.createHtmlOutput(source);
     }

@@ -17,7 +17,7 @@ export class TopWebsiteController extends ReportFormWebsiteController<TopWebsite
     private get versionModule() { return this.getModule(VersionModule); }
 
     protected callInternal(parameter: Readonly<TopWebsiteParameter>, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const versionText = this.versionModule.getVersionConfig(parameter.version).displayVersionName;
+        const versionText = this.versionModule.getVersionConfig(this.targetGameVersion).displayVersionName;
 
         let source = this.readHtml("Resources/Page/top/main");
 

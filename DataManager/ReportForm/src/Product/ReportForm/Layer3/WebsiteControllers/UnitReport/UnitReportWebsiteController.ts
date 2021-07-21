@@ -20,7 +20,7 @@ export class UnitReportWebsiteController extends ReportFormWebsiteController<Uni
 
     public callInternal(parameter: UnitReportWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const reportId = parseInt(parameter.reportId);
-        const report = this.reportModule.getReport(parameter.version, reportId);
+        const report = this.reportModule.getReport(this.targetGameVersion, reportId);
         if (!report) {
             throw new Error("該当する検証報告が存在しません");
         }
@@ -34,7 +34,7 @@ export class UnitReportWebsiteController extends ReportFormWebsiteController<Uni
 
         let source = this.readHtml("Resources/Page/approval/main");
 
-        source = source.replace(/%versionName%/g, parameter.version);
+        source = source.replace(/%versionName%/g, this.targetGameVersion);
         source = this.replacePageLink(source, parameter, UnitReportWebsiteController);
         source = this.replacePageLink(source, parameter, UnitReportListWebsiteController);
 
