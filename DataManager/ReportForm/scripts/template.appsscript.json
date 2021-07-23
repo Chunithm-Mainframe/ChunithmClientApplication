@@ -1,0 +1,18 @@
+{
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "TwitterWebService",
+        "libraryId": "1_kyxjQxkEkFJ9floX3qNaLX009vQhzJ5Lco0voJ-ygH1uqmq6afeMFLj",
+        "version": "1"
+      }
+    ]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}
