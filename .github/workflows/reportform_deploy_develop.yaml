@@ -44,3 +44,11 @@ jobs:
         run: |
           cd DataManager/ReportForm
           clasp deploy --deploymentId $DEPLOY_ID
+
+      - name: Notificate Slack
+        uses: rtCamp/action-slack-notify@v2
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.REPORTFORM_DEVELOP_SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "デプロイ結果: ${{ job.status }}"
