@@ -13,6 +13,7 @@ jobs:
       REFRESH_TOKEN: ${{ secrets.REPORTFORM_REFRESH_TOKEN }}
       CLIENT_ID: ${{ secrets.REPORTFORM_CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.REPORTFORM_CLIENT_SECRET }}
+      DEPLOY_ID: ${{ secrets.REPORTFORM_DEPLOY_ID }}
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
@@ -39,7 +40,7 @@ jobs:
         run: |
           cd DataManager/ReportForm
           clasp push --force
-      - name: DEPLOY
+      - name: Deploy
         run: |
           cd DataManager/ReportForm
-          clasp deploy
+          clasp deploy --deploymentId $DEPLOY_ID
