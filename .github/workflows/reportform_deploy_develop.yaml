@@ -1,0 +1,41 @@
+name: Deploy ReportFrom Develop
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'DataManager/ReportForm/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      ACCESS_TOKEN: ${{ secrets.REPORTFORM_ACCESS_TOKEN }}
+      REFRESH_TOKEN: ${{ secrets.REPORTFORM_REFRESH_TOKEN }}
+      CLIENT_ID: ${{ secrets.REPORTFORM_CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.REPORTFORM_CLIENT_SECRET }}
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+      - name: Steup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install Clasp
+        run: npm install -g @google/clasp
+
+      - name: Generate ~/.clasprc.json
+        run: |
+          bash DataManager/ReportForm/scripts/setup.sh
+      - name: Generate Consts
+        run: |
+          cd DataManager/ReportForm/scripts
+          bash ./generate.sh ./share_develop.rc
+
+      - name: Push
+        run: |
+          cd DataManager/ReportForm
+          clasp push --force
+      - name: DEPLOY
+        run: |
+          cd DataManager/ReportForm
+          clasp deploy
