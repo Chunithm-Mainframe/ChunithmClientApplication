@@ -19,7 +19,11 @@ export class ReportForm {
         try {
             Instance.initialize();
             Instance.instance.registerDoGetParameter(e);
-            return DIProperty.resolve(Router).call(e.pathInfo ? e.pathInfo : "/");
+            const response = DIProperty.resolve(Router).call(e.pathInfo ? e.pathInfo : "/");
+            if (response === null) {
+                throw new Error("page not found");
+            }
+            return response;
         }
         catch (error) {
             CustomLogManager.exception(error);
