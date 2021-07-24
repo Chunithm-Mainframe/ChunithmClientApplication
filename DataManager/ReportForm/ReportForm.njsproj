@@ -158,10 +158,9 @@
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogManager.ts" />
     <TypeScriptCompile Include="src\Packages\DIProperty\DIProperty.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\RepositoryInterface.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\RepositoryRow.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\GenericSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\Repository.ts" />
     <TypeScriptCompile Include="src\Packages\Repository\RepositorySchema.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\RepositorySchemaImpl.ts" />
     <TypeScriptCompile Include="src\Packages\Repository\SpreadsheetRepository.ts" />
     <TypeScriptCompile Include="src\Packages\Router\Router.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingController.ts" />
