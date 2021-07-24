@@ -1,6 +1,6 @@
 import { ReportForm, DoGet } from "./Product/ReportForm/ReportForm";
 
-const VERSION = "0.4.1.2";
+const VERSION = "0.4.1.3";
 export function getAppVersion(): string {
     return VERSION;
 }
