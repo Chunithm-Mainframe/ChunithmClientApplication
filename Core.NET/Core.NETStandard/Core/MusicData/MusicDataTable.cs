@@ -1,6 +1,4 @@
-﻿using ChunithmClientLibrary;
-using ChunithmClientLibrary.ChunithmNet.Data;
-using ChunithmClientLibrary.Core;
+﻿using ChunithmClientLibrary.ChunithmNet.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
