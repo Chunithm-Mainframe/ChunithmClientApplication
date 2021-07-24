@@ -16,6 +16,10 @@ jobs:
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secret.SUBMODULE_TOKEN }}
+          submodules: true
       - name: Steup Node
         uses: actions/setup-node@v1
         with:
