@@ -1,0 +1,29 @@
+name: Dump Music Database
+on:
+  workflow_dispatch:
+    inputs:
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    env:
+      REPORTFORM_SERVER_URL: ${{ secrets.REPORTFORM_DEVELOP_SERVER_URL }}
+    strategy:
+      matrix:
+        dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: true
+
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore
+        working-directory: Core.NET
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
