@@ -26,4 +26,4 @@ jobs:
         run: dotnet restore
         working-directory: Core.NET
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build Core.NET --configuration Release --no-restore
