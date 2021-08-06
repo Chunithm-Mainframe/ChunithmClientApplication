@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPORTFORM_SERVER_URL: ${{ secrets.REPORTFORM_DEVELOP_SERVER_URL }}
-    strategy:
-      matrix:
-        dotnet-version: ['3.1.x']
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
@@ -18,10 +15,10 @@ jobs:
           token: ${{ secrets.SUBMODULE_TOKEN }}
           submodules: true
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK 3.1.x
         uses: actions/setup-dotnet@v1.7.2
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 3.1.x
       - name: Install dependencies
         run: dotnet restore
         working-directory: Core.NET
