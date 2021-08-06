@@ -9,7 +9,7 @@ jobs:
       REPORTFORM_SERVER_URL: ${{ secrets.REPORTFORM_DEVELOP_SERVER_URL }}
     strategy:
       matrix:
-        dotnet-version: ['3.0', '3.1.x', '5.0.x' ]
+        dotnet-version: ['3.1.x']
     steps:
       - name: Setup repository
         uses: actions/checkout@v2
