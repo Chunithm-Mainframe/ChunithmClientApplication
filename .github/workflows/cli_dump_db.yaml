@@ -24,3 +24,5 @@ jobs:
         working-directory: Core.NET
       - name: Build
         run: dotnet build Core.NET --configuration Release --no-restore
+      - name: Dump
+        run: dotnet run --project Core.NET/Core.NET/ChunithmCLI --get-musicdata-table --db-url https://script.google.com/macros/s/AKfycbyvSk_-plhY_nx2764akClxjf38hMYjOmn9S0hWXtD3zZ4_PGSW5amPOhVZIecr-9w/exec
