@@ -71,7 +71,7 @@ export class ReportForm {
             }
             else {
                 Instance.instance.setupPostCommandControllers();
-                const postCommand = Instance.instance.postCommandManager.findController(postData.API);
+                const postCommand = Instance.instance.postCommandManager.findController(postData.Command);
                 if (postCommand) {
                     const response = postCommand.invoke(postData);
                     return this.getSuccessResponseContent(response);

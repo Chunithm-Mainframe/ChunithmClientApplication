@@ -67,6 +67,13 @@ namespace ChunithmCLI
         private const string COMMAND_NAME = "update-musicdata-table";
         private const int GENRE_CODE_ALL = 99;
 
+        private static readonly Difficulty[] difficulties = {
+            Difficulty.Basic,
+            Difficulty.Advanced,
+            Difficulty.Expert,
+            Difficulty.Master,
+        };
+
         public string GetCommandName() => COMMAND_NAME;
 
         public bool Called(string[] args)
@@ -87,8 +94,11 @@ namespace ChunithmCLI
                 connector.LoginAsync(arg.SegaId, arg.Password).GetNetApiResult("login... ");
                 connector.SelectAimeAsync(arg.AimeIndex).GetNetApiResult("selecting aime... ");
 
-                var musicGenre = connector.GetMusicGenreAsync(GENRE_CODE_ALL, Difficulty.Master).GetNetApiResult("downloading music list... ");
-                musicDataTable.AddRange(musicGenre.MusicGenre);
+                for (var i = 0; i < difficulties.Length; i++)
+                {
+                    var musicGenre = connector.GetMusicGenreAsync(GENRE_CODE_ALL, difficulties[i]).GetNetApiResult($"downloading music list ({i + 1}/{difficulties.Length})");
+                    musicDataTable.AddRange(musicGenre.MusicGenre);
+                }
 
                 if (currentTable.MusicDataTable.MusicDatas.Count() == musicDataTable.MusicDatas.Count())
                 {
