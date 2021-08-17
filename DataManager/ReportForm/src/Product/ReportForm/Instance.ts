@@ -17,6 +17,7 @@ import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSo
 import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
 import { NoticeQueue } from "./Layer2/@NoticeQueue";
 import { ReportFormModule } from "./Layer2/Modules/@ReportFormModule";
+import { ReportFormPageLinkResolver } from "./Layer3/@ReportFormPageLinkResolver";
 import { BulkReportFormBuildLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommandController";
 import { BulkReportFormUrlGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommandController";
 import { DefaultGameVersionGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommandController";
@@ -36,12 +37,10 @@ import { VersionGetLINEPostCommandController } from "./Layer3/LINEPostCommandCon
 import { LINEPostCommandManager } from "./Layer3/Managers/LINEPostCommandManager";
 import { NoticeManager } from "./Layer3/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer3/Managers/PostCommandManager";
-import { TableGetCommandController } from "./Layer3/PostCommandControllers/TableGetCommand";
-import { TableUpdateCommand } from "./Layer3/PostCommandControllers/TableUpadateCommand";
-import { ReportFormPageLinkResolver } from "./Layer3/@ReportFormPageLinkResolver";
+import { MusicRepositoryGetPostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryGetPostCommand";
+import { MusicRepositoryUpdatePostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryUpdatePostCommand";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer3/WebsiteControllers/@ReportFormController";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
-import { MusicRepositoryUpdatePostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryUpdatePostCommand";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -141,8 +140,7 @@ export class Instance {
     public setupPostCommandControllers(): void {
         const postCommandManager = new PostCommandManager();
 
-        postCommandManager.bindEquals("table/get", TableGetCommandController);
-        postCommandManager.bindEquals("table/update", TableUpdateCommand);
+        postCommandManager.bindEquals("repo/get", MusicRepositoryGetPostCommand);
         postCommandManager.bindEquals("repo/update", MusicRepositoryUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);

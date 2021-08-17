@@ -1,15 +1,15 @@
-import { MusicDataTable } from "../../MusicDataTable/MusicDataTable";
+import { MusicRepository } from "../../Music/MusicRepository";
 import { ReportStatus } from "../ReportStatus";
 import { GoogleFormLevelBulkReport } from "./GoogleFormLevelBulkReport";
 import { LevelBulkReport } from "./LevelBulkReport";
 
 export class LevelBulkReportSheet {
-    private _musicDataTable: MusicDataTable = null;
+    private _musicRepository: MusicRepository = null;
     private _sheet: GoogleAppsScript.Spreadsheet.Sheet = null;
     private _bulkReports: LevelBulkReport[] = [];
     private _bulkReportIndexMap: { [key: string]: number } = {};
 
-    public constructor(table: MusicDataTable, spreadsheetId: string, worksheetName: string) {
+    public constructor(repository: MusicRepository, spreadsheetId: string, worksheetName: string) {
         let spreadsheet = SpreadsheetApp.openById(spreadsheetId);
         if (!spreadsheet) {
             throw new Error(`Spreadsheet not found. (${spreadsheetId})`);
@@ -20,7 +20,7 @@ export class LevelBulkReportSheet {
             throw new Error(`Worksheet not found. (${worksheetName})`);
         }
 
-        this._musicDataTable = table;
+        this._musicRepository = repository;
         this._sheet = sheet;
         this.readBulkReports();
     }
@@ -54,7 +54,7 @@ export class LevelBulkReportSheet {
         let report = LevelBulkReport.createByGoogleFormBulkReport(
             reportId,
             googleFormBulkReport,
-            this._musicDataTable.getTargetLevelMusicCount(googleFormBulkReport.targetLevel),
+            this._musicRepository.getTargetLowLevelMusicCount(googleFormBulkReport.targetLevel),
             new Date(),
             reportStatus);
         let index = this._bulkReports.push(report) - 1;

@@ -2,16 +2,16 @@ import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
 import { WebhookEventName } from "../../Dependencies/WebhookEventDefinition";
-import { Environment } from "../../Layer1/Environment";
 import { Difficulty } from "../../Layer1/Difficulty";
-import { MusicData } from "../MusicDataTable/MusicData";
+import { Environment } from "../../Layer1/Environment";
+import { NoticeQueue } from "../@NoticeQueue";
+import { Music } from "../Music/Music";
 import { IReport } from "../Report/IReport";
 import { ReportStatus } from "../Report/ReportStatus";
 import { Utility } from "../Utility";
 import { ReportFormModule } from "./@ReportFormModule";
 import { ChunirecModule } from "./ChunirecModule";
-import { MusicDataModule } from "./MusicDataModule";
-import { NoticeQueue } from "../@NoticeQueue";
+import { MusicModule } from "./MusicModule";
 import { ReportModule } from "./Report/ReportModule";
 import { WebhookModule } from "./WebhookModule";
 
@@ -28,7 +28,7 @@ export class ApprovalError implements Error {
 }
 
 export class ApprovalModule extends ReportFormModule {
-    private get musicDataModule(): MusicDataModule { return this.getModule(MusicDataModule); }
+    private get musicModule(): MusicModule { return this.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
     private get chunirecModule(): ChunirecModule { return this.getModule(ChunirecModule); }
     private get webhookModule(): WebhookModule { return this.getModule(WebhookModule); }
@@ -42,34 +42,17 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
 
-        let musicDataTable = this.musicDataModule.getTable(versionName);
-        let targetMusicData = musicDataTable.getMusicDataById(report.musicId);
-        if (!targetMusicData) {
+        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+        const targetMusic = repository.find({ id: report.musicId });
+        if (!targetMusic) {
             throw new ApprovalError(`楽曲情報取得の失敗. 楽曲名:${report.musicName}`);
         }
-        targetMusicData = targetMusicData.clone();
 
-        let baseRating = report.calcBaseRating();
-        switch (report.difficulty) {
-            case Difficulty.Master:
-                targetMusicData.setLevel(Difficulty.Master, baseRating);
-                targetMusicData.setVerified(Difficulty.Master, true);
-                break;
-            case Difficulty.Expert:
-                targetMusicData.setLevel(Difficulty.Expert, baseRating);
-                targetMusicData.setVerified(Difficulty.Expert, true);
-                break;
-            case Difficulty.Advanced:
-                targetMusicData.setLevel(Difficulty.Advanced, baseRating);
-                targetMusicData.setVerified(Difficulty.Advanced, true);
-                break;
-            case Difficulty.Basic:
-                targetMusicData.setLevel(Difficulty.Basic, baseRating);
-                targetMusicData.setVerified(Difficulty.Basic, true);
-                break;
-        }
+        const baseRating = report.calcBaseRating();
+        targetMusic.setBaseRating(report.difficulty, baseRating);
+        targetMusic.setVerified(report.difficulty, true);
 
-        this.musicDataModule.updateMusicData(versionName, [targetMusicData]);
+        repository.update([targetMusic]);
         this.reportModule.approve(versionName, reportId);
 
         this.requestChunirecUpdateMusics([report]);
@@ -123,8 +106,8 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
         }
 
-        const musicDataTable = this.musicDataModule.getTable(versionName);
-        const targetMusicDatas: MusicData[] = [];
+        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+        const targetMusics: Music[] = [];
         const approvedReports: IReport[] = [];
         for (const rep of reportGroup.getMusicDataReports()) {
             if (!rep.mainReport || rep.mainReport.reportStatus !== ReportStatus.InProgress) {
@@ -134,31 +117,15 @@ export class ApprovalModule extends ReportFormModule {
             const report = rep.mainReport;
             approvedReports.push(report);
 
-            const targetMusicData = musicDataTable.getMusicDataById(report.musicId).clone();
+            const targetMusic = repository.find({ id: report.musicId });
             const difficulty = report.difficulty;
             const baseRating = report.calcBaseRating();
-            switch (difficulty) {
-                case Difficulty.Master:
-                    targetMusicData.setLevel(Difficulty.Master, baseRating);
-                    targetMusicData.setVerified(Difficulty.Master, true);
-                    break;
-                case Difficulty.Expert:
-                    targetMusicData.setLevel(Difficulty.Expert, baseRating);
-                    targetMusicData.setVerified(Difficulty.Expert, true);
-                    break;
-                case Difficulty.Advanced:
-                    targetMusicData.setLevel(Difficulty.Advanced, baseRating);
-                    targetMusicData.setVerified(Difficulty.Advanced, true);
-                    break;
-                case Difficulty.Basic:
-                    targetMusicData.setLevel(Difficulty.Basic, baseRating);
-                    targetMusicData.setVerified(Difficulty.Basic, true);
-                    break;
-            }
-            targetMusicDatas.push(targetMusicData);
+            targetMusic.setBaseRating(difficulty, baseRating);
+            targetMusic.setVerified(difficulty, true);
+            targetMusics.push(targetMusic);
         }
 
-        this.musicDataModule.updateMusicData(versionName, targetMusicDatas);
+        repository.update(targetMusics);
         this.reportModule.approveGroup(versionName, approvedReports.map(r => r.reportId));
 
         for (const report of approvedReports) {
@@ -210,25 +177,27 @@ export class ApprovalModule extends ReportFormModule {
 
         const targetLevelList = [bulkReport.targetLevel];
 
-        const musicDataTable = this.musicDataModule.getTable(versionName);
-        const targetMusicDatas: MusicData[] = [];
-        for (const data of musicDataTable.datas) {
-            let update: MusicData = null;
-            if (targetLevelList.indexOf(data.BasicLevel) !== -1 && !data.BasicVerified) {
-                update = update || data.clone();
-                update.BasicVerified = true;
+        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+        const rows = repository.rows;
+        const targetMusics: Music[] = [];
+        for (const row of rows) {
+            let update: Music = null;
+            if (targetLevelList.indexOf(row.basicBaseRating) !== -1 && !row.basicVerified) {
+                update = row;
+                update.basicVerified = true;
             }
-            if (targetLevelList.indexOf(data.AdvancedLevel) !== -1 && !data.AdvancedVerified) {
-                update = update || data.clone();
-                update.AdvancedVerified = true;
+            if (targetLevelList.indexOf(row.advancedBaseRating) !== -1 && !row.advancedVerified) {
+                update = row;
+                update.advancedVerified = true;
             }
 
             if (update) {
-                targetMusicDatas.push(update);
+                targetMusics.push(update);
             }
         }
 
-        this.musicDataModule.updateMusicData(versionName, targetMusicDatas);
+        repository.update(targetMusics);
+
         this.reportModule.approveLevelBulkReport(versionName, bulkReportId);
 
         CustomLogManager.log(

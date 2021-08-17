@@ -1,12 +1,12 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
-import { Utility } from "../../../Layer2/Utility";
-import { MusicDataModule } from "../../../Layer2/Modules/MusicDataModule";
+import { MusicModule } from "../../../Layer2/Modules/MusicModule";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { MusicDataTable } from "../../../Layer2/MusicDataTable/MusicDataTable";
+import { MusicRepository } from "../../../Layer2/Music/MusicRepository";
 import { IMusicDataReport } from "../../../Layer2/Report/IMusicDataReport";
 import { MusicDataReportGroup } from "../../../Layer2/Report/MusicDataReportGroup";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
+import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { UnitReportGroupListWebsiteController } from "./UnitReportGroupListWebsiteController";
 
@@ -20,7 +20,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
     不明な楽曲です。 楽曲ID: %musicId%
 </div>`;
 
-    private get musicDataModule(): MusicDataModule { return this.getModule(MusicDataModule); }
+    private get musicModule(): MusicModule { return this.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
 
     protected isAccessale(role: Role): boolean {
@@ -28,7 +28,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
     }
 
     public callInternal(parameter: UnitReportGroupWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const table = this.musicDataModule.getTable(this.targetGameVersion);
+        const repository = this.musicModule.getSpecifiedVersionRepository(this.targetGameVersion);
         const reportGroup = this.reportModule
             .getMusicDataReportGroupContainer(this.targetGameVersion)
             .getMusicDataReportGroup(parameter.groupId);
@@ -37,7 +37,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
             throw new Error("該当する検証報告グループが存在しません");
         }
 
-        const listHtml = this.getListHtml(table, reportGroup);
+        const listHtml = this.getListHtml(repository, reportGroup);
 
         let source = this.readHtml("Resources/Page/group_approval/main");
 
@@ -57,19 +57,19 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         return this.createHtmlOutput(source);
     }
 
-    private getListHtml(table: MusicDataTable, reportGroup: MusicDataReportGroup): string {
+    private getListHtml(repository: MusicRepository, reportGroup: MusicDataReportGroup): string {
         let source = '';
         for (const musicDataReport of reportGroup.getMusicDataReports()) {
             if (musicDataReport.verified) {
                 continue;
             }
-            source += this.getListItemHtml(table, musicDataReport) + '\n';
+            source += this.getListItemHtml(repository, musicDataReport) + '\n';
         }
         return source;
     }
 
-    private getListItemHtml(table: MusicDataTable, musicDataReport: IMusicDataReport): string {
-        const musicDetail = table.getMusicDataById(musicDataReport.musicId);
+    private getListItemHtml(repository: MusicRepository, musicDataReport: IMusicDataReport): string {
+        const musicDetail = repository.find({ id: musicDataReport.musicId });
         const difficultyText = Utility.toDifficultyText(musicDataReport.difficulty);
 
         let template = '';
@@ -82,7 +82,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
 
         if (!musicDataReport.mainReport) {
             template = this.unverifiedListItemTemplate;
-            template = template.replace(/%musicName%/g, musicDetail.Name);
+            template = template.replace(/%musicName%/g, musicDetail.name);
             template = template.replace(/%difficultyLower%/g, difficultyText.toLowerCase());
             template = template.replace(/%difficulty%/g, difficultyText);
             template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(musicDataReport.difficulty));
@@ -91,7 +91,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
 
         const report = musicDataReport.mainReport;
         template = this.listItemTemplate;
-        template = template.replace(/%musicName%/g, musicDetail.Name);
+        template = template.replace(/%musicName%/g, musicDetail.name);
         template = template.replace(/%difficultyLower%/g, difficultyText.toLowerCase());
         template = template.replace(/%difficulty%/g, difficultyText);
         template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(musicDataReport.difficulty));

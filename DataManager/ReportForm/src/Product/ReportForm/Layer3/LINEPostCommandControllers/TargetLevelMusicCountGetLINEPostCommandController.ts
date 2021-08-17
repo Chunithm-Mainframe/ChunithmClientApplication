@@ -1,4 +1,4 @@
-import { MusicDataModule } from "../../Layer2/Modules/MusicDataModule";
+import { MusicModule } from "../../Layer2/Modules/MusicModule";
 import { LINEPostCommandController } from "./@LINEPostCommandController";
 export class TargetLevelMusicCountGetLINEPostCommandController extends LINEPostCommandController {
     public invoke(): void {
@@ -8,8 +8,8 @@ export class TargetLevelMusicCountGetLINEPostCommandController extends LINEPostC
             return;
         }
         const versionName = this.module.configuration.defaultVersionName;
-        const table = this.module.getModule(MusicDataModule).getTable(versionName);
-        const musicCount = table.getTargetLevelMusicCount(targetLevel);
+        const table = this.module.getModule(MusicModule).getSpecifiedVersionRepository(versionName);
+        const musicCount = table.getTargetLowLevelMusicCount(targetLevel);
         this.replyMessage(this.event.replyToken, [`対象レベル:${targetLevel}
 楽曲数:${musicCount}`]);
     }

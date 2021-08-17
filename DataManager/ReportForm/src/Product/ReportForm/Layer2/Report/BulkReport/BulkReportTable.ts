@@ -1,5 +1,5 @@
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicDataTable } from "../../MusicDataTable/MusicDataTable";
+import { MusicRepository } from "../../Music/MusicRepository";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";
 import { BulkReportTableRow } from "./BulkReportTableRow";
 
@@ -36,20 +36,21 @@ export class BulkReportTable {
         return null;
     }
 
-    public updateMusicDataTable(newMusicDataTable: MusicDataTable, oldMusicDataTable: MusicDataTable = null): void {
+    public updateMusicDataTable(newMusicRepository: MusicRepository, oldMusicRepository: MusicRepository = null): void {
+        const newMusics = newMusicRepository.rows;
         const oldRows = this._rows;
         const oldIdMap = this._idMap;
         this._rows = [];
         this._idMap = {};
-        for (let i = 0; i < newMusicDataTable.datas.length; i++) {
-            const musicId = newMusicDataTable.datas[i].Id;
+        for (let i = 0; i < newMusics.length; i++) {
+            const musicId = newMusics[i].id;
             if (musicId in oldIdMap) {
                 const row = oldRows[oldIdMap[musicId]];
-                row.update(i + 1, this._difficulty, newMusicDataTable, oldMusicDataTable);
+                row.update(i + 1, this._difficulty, newMusicRepository, oldMusicRepository);
                 this.push(row);
             }
             else {
-                const row = BulkReportTableRow.create(i + 1, musicId, this._difficulty, this._header, newMusicDataTable, oldMusicDataTable);
+                const row = BulkReportTableRow.create(i + 1, musicId, this._difficulty, this._header, newMusicRepository, oldMusicRepository);
                 this.push(row);
             }
         }

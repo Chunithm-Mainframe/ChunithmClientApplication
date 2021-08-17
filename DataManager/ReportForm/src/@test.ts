@@ -1,11 +1,9 @@
 import { Instance } from "./Product/ReportForm/Instance";
-import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
-import { MusicRepository } from "./Product/ReportForm/Layer2/Music/MusicRepository";
-import { MusicDataTableReader } from "./Product/ReportForm/Layer2/MusicDataTable/MusicDataTableReader";
-import { ReportForm } from "./Product/ReportForm/ReportForm";
-import { MusicDataModule } from "./Product/ReportForm/Layer2/Modules/MusicDataModule";
-import { Music } from "./Product/ReportForm/Layer2/Music/Music";
 import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
+import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
+import { Music } from "./Product/ReportForm/Layer2/Music/Music";
+import { MusicRepository } from "./Product/ReportForm/Layer2/Music/MusicRepository";
+import { ReportForm } from "./Product/ReportForm/ReportForm";
 
 // implements test core here
 function checkInitialize() {
@@ -44,10 +42,6 @@ function writingTableTest() {
     const repo = new MusicRepository(spreadsheet.getSheetByName('Music'));
     repo.initialize();
     console.timeEnd('music');
-
-    console.time('reader');
-    new MusicDataTableReader().readFromTable(spreadsheet.getSheetByName('MusicData'));
-    console.timeEnd('reader');
 
     console.timeEnd('total');
 }

@@ -1,5 +1,5 @@
 import { Difficulty } from "../../Layer1/Difficulty";
-import { MusicDataTable } from "../MusicDataTable/MusicDataTable";
+import { MusicRepository } from "../Music/MusicRepository";
 import { IMusicDataReport } from "./IMusicDataReport";
 import { IReport } from "./IReport";
 import { MusicDataReport } from "./MusicDataReport";
@@ -35,7 +35,7 @@ export class ReportStorage {
 
     private readonly _rawValueTable: (string | number | boolean)[][] = [];
 
-    public constructor(private readonly _musicDataTable: MusicDataTable, spreadsheetId: string, worksheetName: string) {
+    public constructor(private readonly _musicRepository: MusicRepository, spreadsheetId: string, worksheetName: string) {
         const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
         if (!spreadsheet) {
             throw new Error(`Spreadsheet not found. (${spreadsheetId})`);
@@ -75,8 +75,8 @@ export class ReportStorage {
     }
 
     public push(reportInput: ReportInputFormat, postLocation: PostLocation, imagePaths: string[] = []): IReport {
-        const musicData = this._musicDataTable.getMusicDataById(reportInput.musicId);
-        if (!musicData) {
+        const music = this._musicRepository.find({ id: reportInput.musicId });
+        if (!music) {
             throw new Error(`楽曲が存在しません.
 楽曲ID: ${reportInput.musicId}`);
         }
@@ -91,7 +91,7 @@ export class ReportStorage {
         const reportId = this._reports.length > 0 ? this._reports[this._reports.length - 1].reportId + 1 : 1;
         const buffer = new Array(ColumnIndex.Length);
         const report = new Report(buffer);
-        report.set(reportId, reportInput, musicData.Name, imagePaths, postLocation, ReportStatus.InProgress);
+        report.set(reportId, reportInput, music.name, imagePaths, postLocation, ReportStatus.InProgress);
         reportContainer.push(report);
         this._rawValueTable.push(buffer);
         this._reports.push(report);
@@ -104,8 +104,8 @@ export class ReportStorage {
             return this._reportContainers[this._reportContainerIndexMap[key]];
         }
 
-        const musicData = this._musicDataTable.getMusicDataById(musicId);
-        const reportContainer = new MusicDataReport(musicId, difficulty, musicData);
+        const music = this._musicRepository.find({ id: musicId });
+        const reportContainer = new MusicDataReport(musicId, difficulty, music);
         const length = this._reportContainers.push(reportContainer);
         this._reportContainerIndexMap[key] = length - 1;
         return reportContainer;

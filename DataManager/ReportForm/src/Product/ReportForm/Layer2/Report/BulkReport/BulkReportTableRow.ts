@@ -1,15 +1,15 @@
-import { ComboStatus } from "../../../Layer1/Rating";
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicDataTable } from "../../MusicDataTable/MusicDataTable";
+import { ComboStatus } from "../../../Layer1/Rating";
+import { MusicRepository } from "../../Music/MusicRepository";
 import { Utility } from "../../Utility";
 import { ReportInputFormat } from "../ReportInputFormat";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";
 
 export class BulkReportTableRow implements ReportInputFormat {
-    public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentMusicDataTable: MusicDataTable, previousMusicDataTable: MusicDataTable = null): BulkReportTableRow {
+    public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentMusicRepository: MusicRepository, previousMusicRepository: MusicRepository = null): BulkReportTableRow {
         const row = new BulkReportTableRow(header);
-        const musicData = currentMusicDataTable.getMusicDataById(musicId);
-        const previousMusicData = previousMusicDataTable ? previousMusicDataTable.getMusicDataById(musicId) : null;
+        const musicData = currentMusicRepository.find({ id: musicId });
+        const previousMusicData = previousMusicRepository ? previousMusicRepository.find({ id: musicId }) : null;
         for (const column of header.columns) {
             if (column.value.indexOf('@') !== 0) {
                 row.push(column.value);
@@ -29,16 +29,16 @@ export class BulkReportTableRow implements ReportInputFormat {
                     row.push(musicId);
                     break;
                 case BulkReportTableHeader.VALUE_NAME:
-                    row.push(musicData.Name);
+                    row.push(musicData.name);
                     break;
                 case BulkReportTableHeader.VALUE_GENRE:
-                    row.push(musicData.Genre);
+                    row.push(musicData.genre);
                     break;
                 case BulkReportTableHeader.VALUE_DIFFICULTY:
                     row.push(Utility.toDifficultyText(difficulty));
                     break;
                 case BulkReportTableHeader.VALUE_LEVEL:
-                    row.push(this.toLevelText(musicData.getLevel(difficulty)));
+                    row.push(this.toLevelText(musicData.getBaseRating(difficulty)));
                     break;
                 case BulkReportTableHeader.VALUE_OP_BEFORE:
                     row.push(0);
@@ -51,7 +51,7 @@ export class BulkReportTableRow implements ReportInputFormat {
                     row.push('None');
                     break;
                 case BulkReportTableHeader.VALUE_PREV_BASE_RATING:
-                    row.push(previousMusicData ? previousMusicData.getLevel(difficulty) : '');
+                    row.push(previousMusicData ? previousMusicData.getBaseRating(difficulty) : '');
                     break;
             }
         }
@@ -130,10 +130,10 @@ export class BulkReportTableRow implements ReportInputFormat {
         return this._values[this._header.getColumnIndexByName(columnName)];
     }
 
-    public update(index: number, difficulty: Difficulty, newMusicDataTable: MusicDataTable, oldMusicDataTable: MusicDataTable = null): void {
+    public update(index: number, difficulty: Difficulty, newMusicRepository: MusicRepository, oldMusicRepository: MusicRepository = null): void {
         const musicId = this.musicId;
-        const musicData = newMusicDataTable.getMusicDataById(musicId);
-        const oldMusicData = oldMusicDataTable ? oldMusicDataTable.getMusicDataById(musicId) : null;
+        const music = newMusicRepository.find({ id: musicId });
+        const oldMusicData = oldMusicRepository ? oldMusicRepository.find({ id: musicId }) : null;
         for (let i = 0; i < this._header.columns.length; i++) {
             const column = this._header.columns[i];
 
@@ -154,19 +154,19 @@ export class BulkReportTableRow implements ReportInputFormat {
                     this._values[i] = index;
                     break;
                 case BulkReportTableHeader.VALUE_NAME:
-                    this._values[i] = musicData.Name;
+                    this._values[i] = music.name;
                     break;
                 case BulkReportTableHeader.VALUE_GENRE:
-                    this._values[i] = musicData.Genre;
+                    this._values[i] = music.genre;
                     break;
                 case BulkReportTableHeader.VALUE_DIFFICULTY:
                     this._values[i] = Utility.toDifficultyText(difficulty);
                     break;
                 case BulkReportTableHeader.VALUE_LEVEL:
-                    this._values[i] = BulkReportTableRow.toLevelText(musicData.getLevel(difficulty));
+                    this._values[i] = BulkReportTableRow.toLevelText(music.getBaseRating(difficulty));
                     break;
                 case BulkReportTableHeader.VALUE_PREV_BASE_RATING:
-                    this._values[i] = oldMusicData ? oldMusicData.getLevel(difficulty) : '';
+                    this._values[i] = oldMusicData ? oldMusicData.getBaseRating(difficulty) : '';
                     break;
             }
         }

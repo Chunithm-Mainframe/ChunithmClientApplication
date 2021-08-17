@@ -15,7 +15,7 @@ import { PostLocation, ReportStorage } from "../../Report/ReportStorage";
 import { Utility } from "../../Utility";
 import { ReportFormModule } from "../@ReportFormModule";
 import { LINEModule } from "../LINEModule";
-import { MusicDataModule } from "../MusicDataModule";
+import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
 import { LevelBulkReportGoogleForm } from "./LevelBulkReportGoogleForm";
 import { ReportGoogleForm } from "./ReportGoogleForm";
@@ -24,7 +24,7 @@ export class ReportModule extends ReportFormModule {
     public static readonly moduleName = 'report';
 
     private get lineModule(): LINEModule { return this.getModule(LINEModule); }
-    private get musicDataModule(): MusicDataModule { return this.getModule(MusicDataModule); }
+    private get musicModule(): MusicModule { return this.getModule(MusicModule); }
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
 
@@ -52,7 +52,7 @@ export class ReportModule extends ReportFormModule {
             return this._reportStorage[versionName];
         }
         this._reportStorage[versionName] = new ReportStorage(
-            this.musicDataModule.getTable(versionName),
+            this.musicModule.getSpecifiedVersionRepository(versionName),
             this.versionModule.getVersionConfig(versionName).reportSpreadsheetId,
             this.versionModule.getVersionConfig(versionName).reportWorksheetName);
         return this._reportStorage[versionName];
@@ -88,7 +88,7 @@ export class ReportModule extends ReportFormModule {
             return this._levelBulkReportSheetMap[versionName];
         }
         this._levelBulkReportSheetMap[versionName] = new LevelBulkReportSheet(
-            this.musicDataModule.getTable(versionName),
+            this.musicModule.getSpecifiedVersionRepository(versionName),
             this.versionModule.getVersionConfig(versionName).reportSpreadsheetId,
             this.versionModule.getVersionConfig(versionName).bulkReportWorksheetName);
         return this._levelBulkReportSheetMap[versionName];
@@ -150,8 +150,8 @@ export class ReportModule extends ReportFormModule {
                 if (!row.isValid()) {
                     continue;
                 }
-                const musicData = this.musicDataModule.getTable(versionName).getMusicDataById(row.musicId);
-                if (musicData.getVerified(row.difficulty)) {
+                const music = this.musicModule.getSpecifiedVersionRepository(versionName).find({ id: row.musicId });
+                if (music.getVerified(row.difficulty)) {
                     continue;
                 }
                 const musicDataReport = this.getMusicDataReport(versionName, row.musicId, row.difficulty);
@@ -164,10 +164,10 @@ export class ReportModule extends ReportFormModule {
     }
 
     public insertReport(versionName: string, formReport: GoogleFormReport): IReport {
-        const table = this.musicDataModule.getTable(versionName);
+        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
 
-        const targetMusicData = table.getMusicDataByName(formReport.musicName);
-        if (!targetMusicData) {
+        const targetMusic = repository.getByName(formReport.musicName);
+        if (!targetMusic) {
             CustomLogManager.log(
                 LogLevel.Error,
                 `[検証報告エラー]楽曲表に存在しない楽曲
@@ -176,7 +176,7 @@ VERSION: ${versionName}`);
             return null;
         }
 
-        if (targetMusicData.getVerified(formReport.difficulty)) {
+        if (targetMusic.getVerified(formReport.difficulty)) {
             CustomLogManager.log(
                 LogLevel.Error,
                 `[検証報告エラー]既に検証済みの楽曲
@@ -195,7 +195,7 @@ ${JSON.stringify(formReport)}`);
             return null;
         }
 
-        formReport.setMusicData(table);
+        formReport.bindMusic(repository);
         const storage = this.reportModule.getReportStorage(versionName);
         const report = storage.push(formReport, PostLocation.GoogleForm, formReport.imagePaths);
         storage.write();
@@ -213,10 +213,10 @@ ${JSON.stringify(formReport)}`);
     }
 
     public insertLevelBulkReport(versionName: string, formReport: GoogleFormLevelBulkReport): LevelBulkReport {
-        const table = this.musicDataModule.getTable(versionName);
         const bulkReportSheet = this.getLevelBulkReportSheet(versionName);
-
-        const musicCount = table.getTargetLevelMusicCount(formReport.targetLevel);
+        const musicCount = this.musicModule
+            .getSpecifiedVersionRepository(versionName)
+            .getTargetLowLevelMusicCount(formReport.targetLevel);
         const maxOp = Math.round((formReport.targetLevel + 3) * 5 * musicCount);
         const checkOp = maxOp + 0.5;
 
