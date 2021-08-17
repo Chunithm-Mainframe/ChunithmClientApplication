@@ -1,7 +1,7 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { LevelBulkReport } from "../../../Layer2/Report/LevelBulkReport/LevelBulkReport";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
 import { Utility } from "../../../Layer2/Utility";

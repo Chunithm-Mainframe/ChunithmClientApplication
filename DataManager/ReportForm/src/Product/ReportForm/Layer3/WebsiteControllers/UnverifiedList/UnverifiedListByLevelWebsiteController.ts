@@ -1,7 +1,8 @@
+import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { MusicDataModule } from "../../../Layer2/Modules/MusicDataModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
-import { MusicData } from "../../../Layer2/MusicDataTable/MusicData";
+import { Difficulty } from "../../../Layer1/Difficulty";
+import { MusicModule } from "../../../Layer2/Modules/MusicModule";
+import { Music } from "../../../Layer2/Music/Music";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
@@ -17,11 +18,11 @@ class UnverifiedListByLevelListItemMusicData {
     public genre: string;
     public level: number;
 
-    public setByMusicData(musicData: MusicData, difficulty: Difficulty): void {
-        this.name = musicData.Name;
+    public setByMusicData(music: Music, difficulty: Difficulty): void {
+        this.name = music.name;
         this.difficulty = difficulty;
-        this.genre = musicData.Genre;
-        this.level = musicData.getLevel(difficulty);
+        this.genre = music.genre;
+        this.level = Music.getBaseRating(music, difficulty);
     }
 }
 
@@ -33,7 +34,10 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master
     ];
 
-    private get musicDataModule(): MusicDataModule { return this.getModule(MusicDataModule); }
+    private get musicModule(): MusicModule { return this.getModule(MusicModule); }
+
+    @DIProperty.inject("DoGet")
+    private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
     protected callInternal(parameter: UnverifiedListByLevelWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_level/main");
@@ -101,13 +105,13 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
     }
 
     private getUnverifiedMusicDatas(version: string): UnverifiedListByLevelListItemMusicData[] {
-        const musicDatas = this.musicDataModule.getTable(version).datas;
+        const musics = this.musicModule.getSpecifiedVersionRepository(version).rows;
         const unverifiedMusicDatas: UnverifiedListByLevelListItemMusicData[] = [];
-        for (const musicData of musicDatas) {
+        for (const music of musics) {
             for (const difficulty of this.difficulties) {
-                if (!musicData.getVerified(difficulty)) {
+                if (!Music.getVerified(music, difficulty)) {
                     const md = new UnverifiedListByLevelListItemMusicData();
-                    md.setByMusicData(musicData, difficulty);
+                    md.setByMusicData(music, difficulty);
                     unverifiedMusicDatas.push(md);
                 }
             }

@@ -1,7 +1,7 @@
 
 import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { ReportFormModule } from "./@ReportFormModule";
 
 export class ChunirecModule extends ReportFormModule {

@@ -1,5 +1,5 @@
-import { Difficulty } from "../MusicDataTable/Difficulty";
-import { MusicData } from "../MusicDataTable/MusicData";
+import { Difficulty } from "../../Layer1/Difficulty";
+import { Music } from "../Music/Music";
 import { IMusicDataReport } from "./IMusicDataReport";
 import { IReport } from "./IReport";
 import { Report } from "./Report";
@@ -7,7 +7,7 @@ import { ReportStatus } from "./ReportStatus";
 import { PostLocation } from "./ReportStorage";
 export class MusicDataReport implements IMusicDataReport {
     private readonly _reports: Report[] = [];
-    public constructor(private readonly _musicId: number, private readonly _difficulty: Difficulty, private readonly _musicData: MusicData) {
+    public constructor(private readonly _musicId: number, private readonly _difficulty: Difficulty, private readonly _music: Music) {
     }
     public push(report: Report): boolean {
         const add = !this.getReportByReportId(report.reportId);
@@ -19,9 +19,9 @@ export class MusicDataReport implements IMusicDataReport {
     }
     public get musicId(): number { return this._musicId; }
     public get difficulty(): Difficulty { return this._difficulty; }
-    public get valid(): boolean { return this._musicData ? true : false; }
+    public get valid(): boolean { return this._music ? true : false; }
     public get verified(): boolean {
-        if (this._musicData && this._musicData.getVerified(this._difficulty)) {
+        if (this._music && Music.getVerified(this._music, this._difficulty)) {
             return true;
         }
         return this.mainReport && this.mainReport.reportStatus === ReportStatus.Resolved;
@@ -30,7 +30,7 @@ export class MusicDataReport implements IMusicDataReport {
     public get reports(): IReport[] { return this._reports; }
     private _cachedMainReport: Report = null;
     public get mainReport(): IReport {
-        if (!this._musicData || this._musicData.getVerified(this._difficulty)) {
+        if (!this._music || Music.getVerified(this._music, this._difficulty)) {
             return null;
         }
         if (this._cachedMainReport) {

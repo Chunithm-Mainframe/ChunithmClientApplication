@@ -2,7 +2,7 @@ import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { UnitReportListWebsiteController } from "./UnitReportListWebsiteController";
@@ -52,6 +52,7 @@ export class UnitReportWebsiteController extends ReportFormWebsiteController<Uni
         const imagePaths = report.imagePaths;
         if (imagePaths.length > 0) {
             const img = imagePaths
+                .map(p => `${p}&access_token=${ScriptApp.getOAuthToken()}`)
                 .map(p => `<div class="result_image"><img src="${p}" /></div>`)
                 .reduce((acc, src) => acc + src);
             source = source.replace(/%verificationImageContainer%/, `<div class="result_box w400">${img}</div>`);

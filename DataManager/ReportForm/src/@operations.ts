@@ -7,7 +7,7 @@ import { SlackCompositionObjectFactory } from "./Packages/UrlFetch.Slack/Composi
 import { UrlFetchManager } from "./Packages/UrlFetch/UrlFetchManager";
 import { Instance } from "./Product/ReportForm/Instance";
 import { ConfigurationEditor } from "./Product/ReportForm/Layer1/Configurations/ConfigurationEditor";
-import { MusicDataModule } from "./Product/ReportForm/Layer2/Modules/MusicDataModule";
+import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
 import { ReportModule } from "./Product/ReportForm/Layer2/Modules/Report/ReportModule";
 import { TwitterModule } from "./Product/ReportForm/Layer2/Modules/TwitterModule";
 import { VersionModule } from "./Product/ReportForm/Layer2/Modules/VersionModule";
@@ -63,9 +63,9 @@ function getGenres(): string[] {
     return execute(instance => {
         const versionName = getDefaultVersionName(instance);
         const genres: string[] = [];
-        const musicDatas = Instance.instance.module.getModule(MusicDataModule).getTable(versionName).datas;
-        for (const md of musicDatas) {
-            const genre = md.Genre;
+        const musics = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionRepository(versionName).rows;
+        for (const m of musics) {
+            const genre = m.genre;
             if (genres.indexOf(genre) === -1) {
                 genres.push(genre);
             }
@@ -231,9 +231,10 @@ function updateCurrentVersionBulkReportTable() {
             .bulkReportSpreadsheetId;
         const reader = new BulkReportTableReader();
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
+        const musicModule = Instance.instance.module.getModule(MusicModule);
         container.update(
-            Instance.instance.module.getModule(MusicDataModule).getTable(versionName),
-            Instance.instance.module.getModule(MusicDataModule).getTable(prevVersionName));
+            musicModule.getSpecifiedVersionRepository(versionName),
+            musicModule.getSpecifiedVersionRepository(prevVersionName));
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);
 
@@ -258,8 +259,8 @@ function updateNextVersionBulkReportTable() {
             .nextVersionBulkReportSpreadsheetId;
         const reader = new BulkReportTableReader();
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
-        const table = Instance.instance.module.getModule(MusicDataModule).getTable(versionName);
-        container.update(table, table);
+        const repository = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionRepository(versionName);
+        container.update(repository, repository);
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);
 

@@ -1,21 +1,21 @@
-import { PostCommandController } from "../PostCommandControllers/@PostCommandController";
+import { PostCommand } from "../PostCommandControllers/@PostCommand";
 
 export class PostCommandManager {
-    private readonly _factories: { predicate: (command: string) => boolean; factory: new () => PostCommandController }[] = [];
+    private readonly _factories: { predicate: (command: string) => boolean; factory: new () => PostCommand }[] = [];
 
-    public bindEquals(command: string, factory: new () => PostCommandController): void {
+    public bindEquals(command: string, factory: new () => PostCommand): void {
         this.bind(x => x === command, factory);
     }
 
-    public bindStartWith(command: string, factory: new () => PostCommandController): void {
+    public bindStartWith(command: string, factory: new () => PostCommand): void {
         this.bind(x => x.startsWith(command), factory);
     }
 
-    public bind(predicate: (command: string) => boolean, factory: new () => PostCommandController): void {
+    public bind(predicate: (command: string) => boolean, factory: new () => PostCommand): void {
         this._factories.push({ predicate: predicate, factory: factory });
     }
 
-    public findController(command: string): PostCommandController {
+    public findPostCommand(command: string): PostCommand {
         for (const x of this._factories) {
             if (x.predicate(command)) {
                 return new x.factory();

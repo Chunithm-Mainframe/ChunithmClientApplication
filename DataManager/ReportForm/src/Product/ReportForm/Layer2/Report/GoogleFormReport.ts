@@ -1,7 +1,7 @@
+import { Difficulty } from "../../Layer1/Difficulty";
 import { ComboStatus } from "../../Layer1/Rating";
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { MusicRepository } from "../Music/MusicRepository";
 import { Utility } from "../Utility";
-import { MusicDataTable } from "../MusicDataTable/MusicDataTable";
 
 class PostReportExtends {
     private static convertMusicNameMap: { [key: string]: string } = {
@@ -50,10 +50,10 @@ export class GoogleFormReport {
         }
     }
 
-    public setMusicData(musicDataTable: MusicDataTable): void {
-        const musicData = musicDataTable.getMusicDataByName(this.musicName);
-        if (musicData) {
-            this._musicId = musicData.Id;
+    public bindMusic(repository: MusicRepository): void {
+        const music = repository.getByName(this.musicName);
+        if (music) {
+            this._musicId = music.id;
         }
     }
 

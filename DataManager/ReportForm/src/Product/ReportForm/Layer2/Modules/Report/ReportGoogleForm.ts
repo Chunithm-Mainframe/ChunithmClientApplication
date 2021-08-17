@@ -1,8 +1,8 @@
 import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { MusicDataTable } from "../../MusicDataTable/MusicDataTable";
+import { MusicRepository } from "../../Music/MusicRepository";
 import { ReportFormModule } from "../@ReportFormModule";
-import { MusicDataModule } from "../MusicDataModule";
+import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
 
 export class ReportGoogleForm {
@@ -43,14 +43,14 @@ export class ReportGoogleForm {
         genreSelect.setTitle('ジャンルを選択してください');
         genreSelect.setRequired(true);
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成...`);
-        const table = this._module.getModule(MusicDataModule).getTable(versionName);
+        const repository = this._module.getModule(MusicModule).getSpecifiedVersionRepository(versionName);
         const genres = this._module.getModule(VersionModule).getVersionConfig(versionName).genres;
         genres.push('ALL');
         const musicSelectPages: {
             [key: string]: GoogleAppsScript.Forms.PageBreakItem;
         } = {};
         for (const genre of genres) {
-            musicSelectPages[genre] = this.buildFormMusicSelectPage(form, table, genre);
+            musicSelectPages[genre] = this.buildFormMusicSelectPage(form, repository, genre);
             Utilities.sleep(500);
         }
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成が完了しました`);
@@ -69,7 +69,7 @@ export class ReportGoogleForm {
         CustomLogManager.log(LogLevel.Info, `ページ遷移の構築が完了しました`);
         CustomLogManager.log(LogLevel.Info, `報告フォームの構築が完了しました`);
     }
-    private buildFormMusicSelectPage(form: GoogleAppsScript.Forms.Form, table: MusicDataTable, targetGenre: string): GoogleAppsScript.Forms.PageBreakItem {
+    private buildFormMusicSelectPage(form: GoogleAppsScript.Forms.Form, repository: MusicRepository, targetGenre: string): GoogleAppsScript.Forms.PageBreakItem {
         const page = form.addPageBreakItem();
         page.setTitle('楽曲選択');
         const musicList = form.addListItem();
@@ -77,10 +77,10 @@ export class ReportGoogleForm {
         musicList.setTitle(`楽曲を選択してください(${displayGenreText})`);
         musicList.setRequired(true);
         const targetMusicDatas = targetGenre === 'ALL'
-            ? table.datas
-            : table.datas.filter(m => m.Genre === targetGenre);
+            ? repository.rows
+            : repository.rows.filter(m => m.genre === targetGenre);
         if (targetMusicDatas.length > 0) {
-            musicList.setChoiceValues(targetMusicDatas.map(m => m.Name));
+            musicList.setChoiceValues(targetMusicDatas.map(m => m.name));
         }
         return page;
     }

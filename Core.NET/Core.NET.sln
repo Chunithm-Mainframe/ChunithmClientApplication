@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HatenaBlogDeployer", "HatenaBlogDeployer\HatenaBlogDeployer.csproj", "{FAE5A0CA-E832-438F-BC98-241C4E152799}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChunithmMusicDataTableCreator", "ChunithmMusicDataTableCreator\ChunithmMusicDataTableCreator.csproj", "{CC81E9C5-50C9-4731-9B14-C35982BDCAC8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChunithmCLI", "ChunithmCLI\ChunithmCLI.csproj", "{4FEF038D-D14D-4FC7-865F-D4EF8A16A74F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.NETStandard", "Core.NETStandard\Core.NETStandard.csproj", "{0330B366-ECA7-4021-8096-1569A024ABA3}"
@@ -26,14 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAE5A0CA-E832-438F-BC98-241C4E152799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAE5A0CA-E832-438F-BC98-241C4E152799}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAE5A0CA-E832-438F-BC98-241C4E152799}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAE5A0CA-E832-438F-BC98-241C4E152799}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC81E9C5-50C9-4731-9B14-C35982BDCAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC81E9C5-50C9-4731-9B14-C35982BDCAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC81E9C5-50C9-4731-9B14-C35982BDCAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC81E9C5-50C9-4731-9B14-C35982BDCAC8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FEF038D-D14D-4FC7-865F-D4EF8A16A74F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FEF038D-D14D-4FC7-865F-D4EF8A16A74F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FEF038D-D14D-4FC7-865F-D4EF8A16A74F}.Release|Any CPU.ActiveCfg = Release|Any CPU

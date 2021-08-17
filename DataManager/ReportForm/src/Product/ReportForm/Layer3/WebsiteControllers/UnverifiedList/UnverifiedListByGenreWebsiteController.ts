@@ -1,11 +1,12 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Utility } from "../../../Layer2/Utility";
-import { MusicDataModule } from "../../../Layer2/Modules/MusicDataModule";
+import { Difficulty } from "../../../Layer1/Difficulty";
+import { MusicModule } from "../../../Layer2/Modules/MusicModule";
 import { VersionModule } from "../../../Layer2/Modules/VersionModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
-import { MusicData } from "../../../Layer2/MusicDataTable/MusicData";
+import { Music } from "../../../Layer2/Music/Music";
+import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
+import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 
 export interface UnverifiedListByGenreWebsiteParameter extends ReportFormWebsiteParameter {
 }
@@ -18,11 +19,11 @@ class UnverifiedListByGenreListItemMusicData {
     public genre: string;
     public level: number;
 
-    public setByMusicData(musicData: MusicData, difficulty: Difficulty): void {
-        this.name = musicData.Name;
+    public setByMusicData(music: Music, difficulty: Difficulty): void {
+        this.name = music.name;
         this.difficulty = difficulty;
-        this.genre = musicData.Genre;
-        this.level = musicData.getLevel(difficulty);
+        this.genre = music.genre;
+        this.level = Music.getBaseRating(music, difficulty);
     }
 }
 
@@ -32,7 +33,10 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
     ];
 
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
-    private get musicDataModule(): MusicDataModule { return this.getModule(MusicDataModule); }
+    private get musicModule(): MusicModule { return this.getModule(MusicModule); }
+
+    @DIProperty.inject("DoGet")
+    private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
     protected callInternal(parameter: UnverifiedListByGenreWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_genre/main");
@@ -107,13 +111,13 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
     }
 
     private getUnverifiedMusicDatas(version: string): UnverifiedListByGenreListItemMusicData[] {
-        const musicDatas = this.musicDataModule.getTable(version).datas;
+        const musics = this.musicModule.getSpecifiedVersionRepository(version).rows;
         const unverifiedMusicDatas: UnverifiedListByGenreListItemMusicData[] = [];
-        for (const musicData of musicDatas) {
+        for (const music of musics) {
             for (const difficulty of this.difficulties) {
-                if (!musicData.getVerified(difficulty)) {
+                if (!Music.getVerified(music, difficulty)) {
                     const md = new UnverifiedListByGenreListItemMusicData();
-                    md.setByMusicData(musicData, difficulty);
+                    md.setByMusicData(music, difficulty);
                     unverifiedMusicDatas.push(md);
                 }
             }

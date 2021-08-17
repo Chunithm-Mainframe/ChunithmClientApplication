@@ -1,4 +1,4 @@
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { IReport } from "./IReport";
 export interface IMusicDataReport {
     readonly musicId: number;
