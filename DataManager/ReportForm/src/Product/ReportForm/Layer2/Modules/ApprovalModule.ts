@@ -49,8 +49,8 @@ export class ApprovalModule extends ReportFormModule {
         }
 
         const baseRating = report.calcBaseRating();
-        targetMusic.setBaseRating(report.difficulty, baseRating);
-        targetMusic.setVerified(report.difficulty, true);
+        Music.setBaseRating(targetMusic, report.difficulty, baseRating);
+        Music.setVerified(targetMusic, report.difficulty, true);
 
         repository.update([targetMusic]);
         this.reportModule.approve(versionName, reportId);
@@ -120,8 +120,8 @@ export class ApprovalModule extends ReportFormModule {
             const targetMusic = repository.find({ id: report.musicId });
             const difficulty = report.difficulty;
             const baseRating = report.calcBaseRating();
-            targetMusic.setBaseRating(difficulty, baseRating);
-            targetMusic.setVerified(difficulty, true);
+            Music.setBaseRating(targetMusic, difficulty, baseRating);
+            Music.setVerified(targetMusic, difficulty, true);
             targetMusics.push(targetMusic);
         }
 

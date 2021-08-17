@@ -4,6 +4,7 @@ import { MusicRepository } from "../../Music/MusicRepository";
 import { Utility } from "../../Utility";
 import { ReportInputFormat } from "../ReportInputFormat";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";
+import { Music } from "../../Music/Music";
 
 export class BulkReportTableRow implements ReportInputFormat {
     public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentMusicRepository: MusicRepository, previousMusicRepository: MusicRepository = null): BulkReportTableRow {
@@ -38,7 +39,7 @@ export class BulkReportTableRow implements ReportInputFormat {
                     row.push(Utility.toDifficultyText(difficulty));
                     break;
                 case BulkReportTableHeader.VALUE_LEVEL:
-                    row.push(this.toLevelText(musicData.getBaseRating(difficulty)));
+                    row.push(this.toLevelText(Music.getBaseRating(musicData, difficulty)));
                     break;
                 case BulkReportTableHeader.VALUE_OP_BEFORE:
                     row.push(0);
@@ -51,7 +52,7 @@ export class BulkReportTableRow implements ReportInputFormat {
                     row.push('None');
                     break;
                 case BulkReportTableHeader.VALUE_PREV_BASE_RATING:
-                    row.push(previousMusicData ? previousMusicData.getBaseRating(difficulty) : '');
+                    row.push(previousMusicData ? Music.getBaseRating(previousMusicData, difficulty) : '');
                     break;
             }
         }
@@ -163,10 +164,10 @@ export class BulkReportTableRow implements ReportInputFormat {
                     this._values[i] = Utility.toDifficultyText(difficulty);
                     break;
                 case BulkReportTableHeader.VALUE_LEVEL:
-                    this._values[i] = BulkReportTableRow.toLevelText(music.getBaseRating(difficulty));
+                    this._values[i] = BulkReportTableRow.toLevelText(Music.getBaseRating(music, difficulty));
                     break;
                 case BulkReportTableHeader.VALUE_PREV_BASE_RATING:
-                    this._values[i] = oldMusicData ? oldMusicData.getBaseRating(difficulty) : '';
+                    this._values[i] = oldMusicData ? Music.getBaseRating(oldMusicData, difficulty) : '';
                     break;
             }
         }

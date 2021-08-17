@@ -6,6 +6,7 @@ import { Music } from "../../../Layer2/Music/Music";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
+import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 
 export interface UnverifiedListByGenreWebsiteParameter extends ReportFormWebsiteParameter {
 }
@@ -22,7 +23,7 @@ class UnverifiedListByGenreListItemMusicData {
         this.name = music.name;
         this.difficulty = difficulty;
         this.genre = music.genre;
-        this.level = music.getBaseRating(difficulty);
+        this.level = Music.getBaseRating(music, difficulty);
     }
 }
 
@@ -33,6 +34,9 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
 
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
     private get musicModule(): MusicModule { return this.getModule(MusicModule); }
+
+    @DIProperty.inject("DoGet")
+    private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
     protected callInternal(parameter: UnverifiedListByGenreWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_genre/main");
@@ -111,7 +115,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         const unverifiedMusicDatas: UnverifiedListByGenreListItemMusicData[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {
-                if (!music.getVerified(difficulty)) {
+                if (!Music.getVerified(music, difficulty)) {
                     const md = new UnverifiedListByGenreListItemMusicData();
                     md.setByMusicData(music, difficulty);
                     unverifiedMusicDatas.push(md);

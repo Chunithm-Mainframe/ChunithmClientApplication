@@ -1,8 +1,7 @@
-import { ComboStatus } from "../../Layer1/Rating";
 import { Difficulty } from "../../Layer1/Difficulty";
-import { Utility } from "../Utility";
-import { MusicDataTable } from "../MusicDataTable/MusicDataTable";
+import { ComboStatus } from "../../Layer1/Rating";
 import { MusicRepository } from "../Music/MusicRepository";
+import { Utility } from "../Utility";
 
 class PostReportExtends {
     private static convertMusicNameMap: { [key: string]: string } = {

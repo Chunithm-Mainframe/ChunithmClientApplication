@@ -52,27 +52,27 @@ export class Music {
         return this;
     }
 
-    public getBaseRating(difficulty: Difficulty): number {
+    public static getBaseRating(music: Required<Music>, difficulty: Difficulty): number {
         const key = Music.baseRatingKeyMap[difficulty];
-        return key ? this[key] as number : 0;
+        return key ? music[key] as number : 0;
     }
 
-    public setBaseRating(difficulty: Difficulty, baseRating: number): void {
+    public static setBaseRating(music: Required<Music>, difficulty: Difficulty, baseRating: number): void {
         const key = Music.baseRatingKeyMap[difficulty];
         if (key) {
-            this.apply(key, baseRating);
+            music.apply(key, baseRating);
         }
     }
 
-    public getVerified(difficulty: Difficulty): boolean {
+    public static getVerified(music: Required<Music>, difficulty: Difficulty): boolean {
         const key = Music.verifiedKeyMap[difficulty];
-        return key ? this[key] as boolean : false;
+        return key ? music[key] as boolean : false;
     }
 
-    public setVerified(difficulty: Difficulty, verified: boolean): void {
+    public static setVerified(music: Required<Music>, difficulty: Difficulty, verified: boolean): void {
         const key = Music.verifiedKeyMap[difficulty];
         if (key) {
-            this.apply(key, verified);
+            music.apply(key, verified);
         }
     }
 }

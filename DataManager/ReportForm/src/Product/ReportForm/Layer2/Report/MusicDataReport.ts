@@ -21,7 +21,7 @@ export class MusicDataReport implements IMusicDataReport {
     public get difficulty(): Difficulty { return this._difficulty; }
     public get valid(): boolean { return this._music ? true : false; }
     public get verified(): boolean {
-        if (this._music && this._music.getVerified(this._difficulty)) {
+        if (this._music && Music.getVerified(this._music, this._difficulty)) {
             return true;
         }
         return this.mainReport && this.mainReport.reportStatus === ReportStatus.Resolved;
@@ -30,7 +30,7 @@ export class MusicDataReport implements IMusicDataReport {
     public get reports(): IReport[] { return this._reports; }
     private _cachedMainReport: Report = null;
     public get mainReport(): IReport {
-        if (!this._music || this._music.getVerified(this._difficulty)) {
+        if (!this._music || Music.getVerified(this._music, this._difficulty)) {
             return null;
         }
         if (this._cachedMainReport) {

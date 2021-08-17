@@ -1,3 +1,4 @@
+import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Difficulty } from "../../../Layer1/Difficulty";
 import { MusicModule } from "../../../Layer2/Modules/MusicModule";
@@ -21,7 +22,7 @@ class UnverifiedListByLevelListItemMusicData {
         this.name = music.name;
         this.difficulty = difficulty;
         this.genre = music.genre;
-        this.level = music.getBaseRating(difficulty);
+        this.level = Music.getBaseRating(music, difficulty);
     }
 }
 
@@ -34,6 +35,9 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
     ];
 
     private get musicModule(): MusicModule { return this.getModule(MusicModule); }
+
+    @DIProperty.inject("DoGet")
+    private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
     protected callInternal(parameter: UnverifiedListByLevelWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_level/main");
@@ -105,7 +109,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         const unverifiedMusicDatas: UnverifiedListByLevelListItemMusicData[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {
-                if (!music.getVerified(difficulty)) {
+                if (!Music.getVerified(music, difficulty)) {
                     const md = new UnverifiedListByLevelListItemMusicData();
                     md.setByMusicData(music, difficulty);
                     unverifiedMusicDatas.push(md);

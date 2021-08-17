@@ -19,6 +19,7 @@ import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
 import { LevelBulkReportGoogleForm } from "./LevelBulkReportGoogleForm";
 import { ReportGoogleForm } from "./ReportGoogleForm";
+import { Music } from "../../Music/Music";
 
 export class ReportModule extends ReportFormModule {
     public static readonly moduleName = 'report';
@@ -151,7 +152,7 @@ export class ReportModule extends ReportFormModule {
                     continue;
                 }
                 const music = this.musicModule.getSpecifiedVersionRepository(versionName).find({ id: row.musicId });
-                if (music.getVerified(row.difficulty)) {
+                if (Music.getVerified(music, row.difficulty)) {
                     continue;
                 }
                 const musicDataReport = this.getMusicDataReport(versionName, row.musicId, row.difficulty);
@@ -176,7 +177,7 @@ VERSION: ${versionName}`);
             return null;
         }
 
-        if (targetMusic.getVerified(formReport.difficulty)) {
+        if (Music.getVerified(targetMusic, formReport.difficulty)) {
             CustomLogManager.log(
                 LogLevel.Error,
                 `[検証報告エラー]既に検証済みの楽曲
