@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChunithmCLI
+namespace ChunithmCLI.Commands
 {
-    public class GenreGet : ICommand
+    public class GenreGetCommand : ICommand
     {
         public class Argument
         {

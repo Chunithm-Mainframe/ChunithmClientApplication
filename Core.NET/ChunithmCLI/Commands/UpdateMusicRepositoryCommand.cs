@@ -1,15 +1,16 @@
 ﻿using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
+using ChunithmClientLibrary.ChunithmNet.Data;
 using ChunithmClientLibrary.ChunithmNet.HttpClientConnector;
 using ChunithmClientLibrary.Core;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
-namespace ChunithmCLI
+namespace ChunithmCLI.Commands
 {
-    class UpdateMusicDataTable : ICommand
+    public class UpdateMusicRepositoryCommand : ICommand
     {
-        public class Argument
+        public class ParameterContainer
         {
             public string SegaId { get; private set; }
             public string Password { get; private set; }
@@ -18,7 +19,7 @@ namespace ChunithmCLI
             public string DataBaseUrl { get; private set; }
             public string VersionName { get; private set; }
 
-            public Argument(string[] args)
+            public ParameterContainer(string[] args)
             {
                 for (var i = 0; i < args.Length; i++)
                 {
@@ -64,55 +65,47 @@ namespace ChunithmCLI
             }
         }
 
-        private const string COMMAND_NAME = "update-musicdata-table";
         private const int GENRE_CODE_ALL = 99;
 
-        private static readonly Difficulty[] difficulties = {
-            Difficulty.Basic,
-            Difficulty.Advanced,
-            Difficulty.Expert,
-            Difficulty.Master,
-        };
-
-        public string GetCommandName() => COMMAND_NAME;
-
-        public bool Called(string[] args)
-        {
-            return args?.FirstOrDefault() == COMMAND_NAME;
-        }
+        public string GetCommandName() => "update-musicdata-table";
 
         public void Call(string[] args)
         {
-            var arg = new Argument(args);
+            var parameters = new ParameterContainer(args);
 
-            var musicDataTable = new MusicDataTable();
             using (var connector = new ChunithmNetHttpClientConnector())
-            using (var databaseConnector = new ChunithmMusicDatabaseHttpClientConnector(arg.DataBaseUrl))
+            using (var databaseConnector = new ChunithmMusicDatabaseHttpClientConnector(parameters.DataBaseUrl))
             {
-                var currentTable = databaseConnector.GetTableAsync().GetMusicDatabaseApiResult("get current table... ");
+                var currentRepository = databaseConnector.GetMusicRepositoryAsync()
+                    .GetMusicDatabaseApiResult("get current table... ")
+                    .Repository;
 
-                connector.LoginAsync(arg.SegaId, arg.Password).GetNetApiResult("login... ");
-                connector.SelectAimeAsync(arg.AimeIndex).GetNetApiResult("selecting aime... ");
+                connector.LoginAsync(parameters.SegaId, parameters.Password).GetNetApiResult("login... ");
+                connector.SelectAimeAsync(parameters.AimeIndex).GetNetApiResult("selecting aime... ");
 
-                for (var i = 0; i < difficulties.Length; i++)
-                {
-                    var musicGenre = connector.GetMusicGenreAsync(GENRE_CODE_ALL, difficulties[i]).GetNetApiResult($"downloading music list ({i + 1}/{difficulties.Length})");
-                    musicDataTable.AddRange(musicGenre.MusicGenre);
-                }
+                var musicGenre = connector.GetMusicGenreAsync(GENRE_CODE_ALL, Difficulty.Master)
+                    .GetNetApiResult($"downloading music list...")
+                    .MusicGenre;
 
-                if (currentTable.MusicDataTable.MusicDatas.Count() == musicDataTable.MusicDatas.Count())
+                if (currentRepository.GetMasterMusics().Count == musicGenre.Units.Length)
                 {
                     Console.WriteLine("skip update.");
                     return;
                 }
 
-                for (var i = 0; i < arg.MaxLevelValue; i++)
+                var musicLevels = new List<MusicLevel>();
+                for (var i = 0; i < parameters.MaxLevelValue; i++)
                 {
-                    var musicLevel = connector.GetMusicLevelAsync(i).GetNetApiResult($"downloading level info ({i + 1}/{arg.MaxLevelValue})", false);
-                    musicDataTable.AddRange(musicLevel.MusicLevel);
+                    var musicLevel = connector.GetMusicLevelAsync(i)
+                        .GetNetApiResult($"downloading level info ({i + 1}/{parameters.MaxLevelValue})", false)
+                        .MusicLevel;
+                    musicLevels.Add(musicLevel);
                 }
 
-                databaseConnector.UpdateTableAsync(musicDataTable.MusicDatas).GetMusicDatabaseApiResult("sending table... ");
+                var newRepository = new MusicRepository();
+                newRepository.Set(musicGenre, musicLevels);
+                var result = databaseConnector.UpdateMusicRepositoryAsync(newRepository.GetMusics())
+                    .GetMusicDatabaseApiResult("sending table... ");
 
                 Console.WriteLine("completed.");
             }

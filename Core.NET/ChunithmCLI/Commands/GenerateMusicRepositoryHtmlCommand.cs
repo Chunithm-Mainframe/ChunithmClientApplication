@@ -1,23 +1,22 @@
-using ChunithmClientLibrary;
+﻿using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
 using ChunithmClientLibrary.Core;
-using ChunithmClientLibrary.MusicData;
 using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace ChunithmCLI
+namespace ChunithmCLI.Commands
 {
-    public class GenerateTableHtml : ICommand
+    public class GenerateMusicRepositoryHtmlCommand : ICommand
     {
-        public class Argument
+        public class ParameterContainer
         {
-            public string DataBaseUrl { get; private set; }
+            public string DatabaseUrl { get; private set; }
             public string TemplateHtmlPath { get; private set; }
             public string DestinationPath { get; private set; }
             public string VersionName { get; private set; }
 
-            public Argument(string[] args)
+            public ParameterContainer(string[] args)
             {
                 for (var i = 0; i < args.Length; i++)
                 {
@@ -25,7 +24,7 @@ namespace ChunithmCLI
                     {
                         case "--host":
                         case "--db-url":
-                            DataBaseUrl = args[i + 1];
+                            DatabaseUrl = args[i + 1];
                             break;
                         case "--src":
                             TemplateHtmlPath = args[i + 1];
@@ -42,12 +41,7 @@ namespace ChunithmCLI
             }
         }
 
-        private const string COMMAND_NAME = "gen-table-html";
-
-        public string GetCommandName()
-        {
-            return COMMAND_NAME;
-        }
+        public string GetCommandName() => "gen-table-html";
 
         public bool Called(string[] args)
         {
@@ -56,52 +50,51 @@ namespace ChunithmCLI
                 return false;
             }
 
-            return args[0] == COMMAND_NAME;
+            return args[0] == GetCommandName();
         }
 
         public void Call(string[] args)
         {
-            var arg = new Argument(args);
+            var param = new ParameterContainer(args);
+            var repository = RequestMusicRepository(param);
 
-            IMusicDataTable table = null;
-            using (var connector = new ChunithmMusicDatabaseHttpClientConnector(arg.DataBaseUrl))
+            using (var writer = new StreamWriter(param.DestinationPath))
             {
-                var tableGet = connector.GetTableAsync().Result;
-                table = tableGet.MusicDataTable;
-            }
-
-            using (var writer = new StreamWriter(arg.DestinationPath))
-            {
-                var source = GenerateSource(table, arg.VersionName, arg.TemplateHtmlPath);
+                var source = GenerateSource(repository, param.TemplateHtmlPath);
                 writer.Write(source);
             }
         }
 
-        private string GenerateSource(IMusicDataTable table, string versionName, string templatePath)
+        private IMusicRepository RequestMusicRepository(ParameterContainer param)
+        {
+            using var connector = new ChunithmMusicDatabaseHttpClientConnector(param.DatabaseUrl);
+            return connector.GetMusicRepositoryAsync().Result.Repository;
+        }
+
+        private string GenerateSource(IMusicRepository repository, string templatePath)
         {
             var source = ReadTemplate(templatePath);
 
             var tableTemplate = GetTemplate(source, "__TEMPLATE-TABLE__");
             var unitTemplate = GetTemplate(source, "__TEMPLATE-TABLE-ROW__");
 
-            foreach (var group in table.MusicDatas.GroupBy(u => u.Genre))
+            foreach (var group in repository.GetMusics().GroupBy(x => x.MasterMusic.Genre))
             {
-                var musicDataGroups = group.GroupBy(x => x.Id).Select(x => x.ToDictionary(y => y.Difficulty, y => y));
-
-                var tableBodyHtml = musicDataGroups
-                    .Select(g =>
+                var tableBodyHtml = group.GroupBy(x => x.MasterMusic.Id)
+                    .Select(x => x.ToDictionary(y => y.Difficulty, y => y))
+                    .Select(x =>
                     {
                         var src = unitTemplate;
-                        src = src.Replace("%music-name%", HttpUtility.HtmlEncode(g[Difficulty.Basic].Name));
-                        src = src.Replace("%base-rating-basic%", g[Difficulty.Basic].BaseRating.ToString("0.0"));
-                        src = src.Replace("%base-rating-advanced%", g[Difficulty.Advanced].BaseRating.ToString("0.0"));
-                        src = src.Replace("%base-rating-expert%", g[Difficulty.Expert].BaseRating.ToString("0.0"));
-                        src = src.Replace("%base-rating-master%", g[Difficulty.Master].BaseRating.ToString("0.0"));
+                        src = src.Replace("%music-name%", HttpUtility.HtmlEncode(x[Difficulty.Basic].MasterMusic.Name));
+                        src = src.Replace("%base-rating-basic%", x[Difficulty.Basic].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-advanced%", x[Difficulty.Advanced].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-expert%", x[Difficulty.Expert].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-master%", x[Difficulty.Master].BaseRating.ToString("0.0"));
 
-                        src = src.Replace("%unverified-basic%", !g[Difficulty.Basic].Verified ? "unverified" : "");
-                        src = src.Replace("%unverified-advanced%", !g[Difficulty.Advanced].Verified ? "unverified" : "");
-                        src = src.Replace("%unverified-expert%", !g[Difficulty.Expert].Verified ? "unverified" : "");
-                        src = src.Replace("%unverified-master%", !g[Difficulty.Master].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-basic%", !x[Difficulty.Basic].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-advanced%", !x[Difficulty.Advanced].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-expert%", !x[Difficulty.Expert].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-master%", !x[Difficulty.Master].Verified ? "unverified" : "");
 
                         return src;
                     })
