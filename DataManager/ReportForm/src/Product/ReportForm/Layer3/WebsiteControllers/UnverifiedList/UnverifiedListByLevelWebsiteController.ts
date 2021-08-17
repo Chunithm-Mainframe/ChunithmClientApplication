@@ -1,6 +1,6 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { MusicDataModule } from "../../../Layer2/Modules/MusicDataModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { MusicData } from "../../../Layer2/MusicDataTable/MusicData";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";

@@ -6,7 +6,7 @@ export interface PostCommandParameter {
     API: string;
 }
 
-export abstract class PostCommandController {
+export abstract class PostCommand {
     @DIProperty.inject(ReportFormModule)
     protected readonly module: ReportFormModule;
 

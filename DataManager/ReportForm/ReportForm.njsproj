@@ -92,6 +92,7 @@
     <Folder Include="src\Product\" />
     <Folder Include="src\Product\ReportForm\Layer2\MusicDataTable\" />
     <Folder Include="Dependencies\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Music\" />
     <Folder Include="src\Product\ReportForm\Layer3\Managers\" />
     <Folder Include="src\Product\ReportForm\Layer1\" />
     <Folder Include="src\Product\ReportForm\Layer2\" />
@@ -193,9 +194,16 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\MusicModule.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\RatingDataAnalysisModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\Music.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\MusicRepository.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\BulkReportFormBuildLINEPostCommandController.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\BulkReportFormUrlGetLINEPostCommandController.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\DefaultGameVersionGetLINEPostCommandController.ts" />
@@ -219,6 +227,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Managers\PostCommandManager.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\PostCommandControllers\MusicRepositoryUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\WebsiteControllers\%40ReportFormController.ts">
@@ -246,7 +257,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\MusicDataTable\MusicDataTable.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\MusicDataTable\MusicDataTableReader.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\MusicDataTable\MusicDataTableWriter.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\MusicDataTable\Difficulty.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Difficulty.ts" />
     <TypeScriptCompile Include="src\%40app.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\%40ReportFormConfiguration.ts">
       <SubType>Code</SubType>
@@ -347,7 +358,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Approval.ts" />
     <TypeScriptCompile Include="src\%40events.ts" />
     <TypeScriptCompile Include="src\%40operations.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\PostCommandControllers\%40PostCommandController.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\PostCommandControllers\%40PostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\PostCommandControllers\TableGetCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\PostCommandControllers\TableUpadateCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Rating.ts" />

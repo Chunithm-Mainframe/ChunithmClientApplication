@@ -1,5 +1,5 @@
 import { ComboStatus } from "../Layer1/Rating";
-import { Difficulty } from "./MusicDataTable/Difficulty";
+import { Difficulty } from "../Layer1/Difficulty";
 
 export class Utility {
     public static toDifficulty(difficultyText: string): Difficulty {

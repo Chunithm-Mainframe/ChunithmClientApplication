@@ -1,10 +1,11 @@
 import { MusicDataModule } from "../../Layer2/Modules/MusicDataModule";
-import { PostCommandController, PostCommandParameter } from "./@PostCommandController";
+import { PostCommand, PostCommandParameter } from "./@PostCommand";
+
 
 export interface TableGetCommandParameer extends PostCommandParameter {
 }
 
-export class TableGetCommandController extends PostCommandController {
+export class TableGetCommandController extends PostCommand {
     public invoke(postData: TableGetCommandParameer): any {
         const musicDatas = this.module.getModule(MusicDataModule).getTable(postData.versionName).datas;
         const musicDataTable = { MusicDatas: musicDatas };

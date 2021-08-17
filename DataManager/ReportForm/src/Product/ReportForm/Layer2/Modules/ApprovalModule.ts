@@ -3,7 +3,7 @@ import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogMan
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
 import { WebhookEventName } from "../../Dependencies/WebhookEventDefinition";
 import { Environment } from "../../Layer1/Environment";
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { MusicData } from "../MusicDataTable/MusicData";
 import { IReport } from "../Report/IReport";
 import { ReportStatus } from "../Report/ReportStatus";

@@ -2,7 +2,7 @@ import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer2/MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { MusicDataReportGroup } from "../../../Layer2/Report/MusicDataReportGroup";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";

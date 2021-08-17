@@ -71,10 +71,14 @@ export class ReportForm {
             }
             else {
                 Instance.instance.setupPostCommandControllers();
-                const postCommand = Instance.instance.postCommandManager.findController(postData.Command);
+                const postCommand = Instance.instance.postCommandManager.findPostCommand(postData.command);
                 if (postCommand) {
                     const response = postCommand.invoke(postData);
+                    CustomLogManager.log(LogLevel.Error, JSON.stringify(response));
                     return this.getSuccessResponseContent(response);
+                }
+                else {
+                    CustomLogManager.log(LogLevel.Error, 'None');
                 }
             }
             return this.getSuccessResponseContent();

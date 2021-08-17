@@ -1,4 +1,4 @@
-import { Difficulty } from "../../MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { BulkReportTable } from "./BulkReportTable";
 import { BulkReportTableContainer } from "./BulkReportTableContainer";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";

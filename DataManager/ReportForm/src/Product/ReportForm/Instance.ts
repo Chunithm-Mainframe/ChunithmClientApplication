@@ -41,6 +41,7 @@ import { TableUpdateCommand } from "./Layer3/PostCommandControllers/TableUpadate
 import { ReportFormPageLinkResolver } from "./Layer3/@ReportFormPageLinkResolver";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer3/WebsiteControllers/@ReportFormController";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
+import { MusicRepositoryUpdatePostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryUpdatePostCommand";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -142,6 +143,7 @@ export class Instance {
 
         postCommandManager.bindEquals("table/get", TableGetCommandController);
         postCommandManager.bindEquals("table/update", TableUpdateCommand);
+        postCommandManager.bindEquals("repo/update", MusicRepositoryUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }

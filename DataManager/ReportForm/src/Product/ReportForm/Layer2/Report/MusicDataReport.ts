@@ -1,4 +1,4 @@
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { MusicData } from "../MusicDataTable/MusicData";
 import { IMusicDataReport } from "./IMusicDataReport";
 import { IReport } from "./IReport";

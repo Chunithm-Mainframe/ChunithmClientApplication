@@ -12,7 +12,7 @@ import { ReportFormModule } from "../../Layer2/Modules/@ReportFormModule";
 import { ReportModule } from "../../Layer2/Modules/Report/ReportModule";
 import { TwitterModule } from "../../Layer2/Modules/TwitterModule";
 import { VersionModule } from "../../Layer2/Modules/VersionModule";
-import { Difficulty } from "../../Layer2/MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { IReport } from "../../Layer2/Report/IReport";
 import { LevelBulkReport } from "../../Layer2/Report/LevelBulkReport/LevelBulkReport";
 import { Utility } from "../../Layer2/Utility";

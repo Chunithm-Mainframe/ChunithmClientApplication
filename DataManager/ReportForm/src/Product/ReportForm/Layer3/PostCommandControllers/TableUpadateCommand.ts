@@ -10,13 +10,13 @@ import { TwitterModule } from "../../Layer2/Modules/TwitterModule";
 import { VersionModule } from "../../Layer2/Modules/VersionModule";
 import { WebhookModule } from "../../Layer2/Modules/WebhookModule";
 import { MusicData, MusicDataParameter } from "../../Layer2/MusicDataTable/MusicData";
-import { PostCommandController, PostCommandParameter } from "./@PostCommandController";
+import { PostCommand, PostCommandParameter } from "./@PostCommand";
 
 interface TableUpdateCommandParameter extends PostCommandParameter {
     MusicDatas: MusicDataParameter[];
 }
 
-export class TableUpdateCommand extends PostCommandController {
+export class TableUpdateCommand extends PostCommand {
     private get musicDataModule(): MusicDataModule { return this.module.getModule(MusicDataModule); }
     private get lineModule(): LINEModule { return this.module.getModule(LINEModule); }
     private get twitterModule(): TwitterModule { return this.module.getModule(TwitterModule); }

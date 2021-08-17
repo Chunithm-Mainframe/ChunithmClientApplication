@@ -1,5 +1,5 @@
 import { MusicData, MusicDataParameter } from "./MusicData";
-import { Difficulty } from "./Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 
 export class MusicDataTable {
     private table: MusicData[]

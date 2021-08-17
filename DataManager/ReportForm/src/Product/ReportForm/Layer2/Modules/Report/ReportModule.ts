@@ -1,6 +1,6 @@
 import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { Difficulty } from "../../MusicDataTable/Difficulty";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { BulkReportTableContainer } from "../../Report/BulkReport/BulkReportTableContainer";
 import { BulkReportTableReader } from "../../Report/BulkReport/BulkReportTableReader";
 import { GoogleFormReport } from "../../Report/GoogleFormReport";

@@ -1,5 +1,5 @@
 import { ComboStatus } from "../../Layer1/Rating";
-import { Difficulty } from "../MusicDataTable/Difficulty";
+import { Difficulty } from "../../Layer1/Difficulty";
 import { Utility } from "../Utility";
 import { MusicDataTable } from "../MusicDataTable/MusicDataTable";
 
