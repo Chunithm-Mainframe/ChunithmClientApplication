@@ -14,7 +14,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         [DataContract]
         private class TableUpdateRequest : ChunithmMusicDatabaseApiRequest, ITableUpdateRequest
         {
-            [DataMember]
+            [DataMember(Name = "command")]
             public string Command { get; set; } = CommandName.TableUpdate;
 
             [DataMember]

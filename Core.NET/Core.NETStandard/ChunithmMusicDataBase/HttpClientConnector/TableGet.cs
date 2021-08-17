@@ -12,7 +12,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         [DataContract]
         private class TableGetRequest : ChunithmMusicDatabaseApiRequest, ITableGetRequest
         {
-            [DataMember]
+            [DataMember(Name = "command")]
             public string Command { get; set; } = CommandName.TableGet;
         }
 
