@@ -2,14 +2,14 @@ import { Difficulty } from "../../Layer1/Difficulty";
 import { Music } from "../Music/Music";
 import { IMusicDataReport } from "./IMusicDataReport";
 import { IReport } from "./IReport";
-import { Report } from "./Report";
+import { UnitReport } from "./UnitReport/UnitReport";
 import { ReportStatus } from "./ReportStatus";
 import { PostLocation } from "./ReportStorage";
 export class MusicDataReport implements IMusicDataReport {
-    private readonly _reports: Report[] = [];
+    private readonly _reports: UnitReport[] = [];
     public constructor(private readonly _musicId: number, private readonly _difficulty: Difficulty, private readonly _music: Music) {
     }
-    public push(report: Report): boolean {
+    public push(report: UnitReport): boolean {
         const add = !this.getReportByReportId(report.reportId);
         if (add) {
             this._cachedMainReport = null;
@@ -28,7 +28,7 @@ export class MusicDataReport implements IMusicDataReport {
     }
 
     public get reports(): IReport[] { return this._reports; }
-    private _cachedMainReport: Report = null;
+    private _cachedMainReport: UnitReport = null;
     public get mainReport(): IReport {
         if (!this._music || Music.getVerified(this._music, this._difficulty)) {
             return null;
@@ -39,8 +39,8 @@ export class MusicDataReport implements IMusicDataReport {
         this._cachedMainReport = this.getMainReport(this._reports);
         return this._cachedMainReport;
     }
-    private getMainReport(reports: Report[]): Report {
-        let ret: Report = null;
+    private getMainReport(reports: UnitReport[]): UnitReport {
+        let ret: UnitReport = null;
         for (let i = 0; i < reports.length; i++) {
             const report = reports[i];
             if (report.reportStatus === ReportStatus.Resolved) {
@@ -75,7 +75,7 @@ export class MusicDataReport implements IMusicDataReport {
         }
         return null;
     }
-    public find(predicate: (report: Report) => boolean): IReport {
+    public find(predicate: (report: UnitReport) => boolean): IReport {
         for (const report of this._reports) {
             if (predicate(report)) {
                 return report;

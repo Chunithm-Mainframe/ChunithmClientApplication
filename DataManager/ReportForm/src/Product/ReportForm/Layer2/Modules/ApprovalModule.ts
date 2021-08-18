@@ -42,8 +42,8 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
-        const targetMusic = repository.find({ id: report.musicId });
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const targetMusic = table.find({ id: report.musicId });
         if (!targetMusic) {
             throw new ApprovalError(`楽曲情報取得の失敗. 楽曲名:${report.musicName}`);
         }
@@ -52,7 +52,7 @@ export class ApprovalModule extends ReportFormModule {
         Music.setBaseRating(targetMusic, report.difficulty, baseRating);
         Music.setVerified(targetMusic, report.difficulty, true);
 
-        repository.update([targetMusic]);
+        table.update([targetMusic]);
         this.reportModule.approve(versionName, reportId);
 
         this.requestChunirecUpdateMusics([report]);
@@ -106,7 +106,7 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
         }
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
         const targetMusics: Music[] = [];
         const approvedReports: IReport[] = [];
         for (const rep of reportGroup.getMusicDataReports()) {
@@ -117,7 +117,7 @@ export class ApprovalModule extends ReportFormModule {
             const report = rep.mainReport;
             approvedReports.push(report);
 
-            const targetMusic = repository.find({ id: report.musicId });
+            const targetMusic = table.find({ id: report.musicId });
             const difficulty = report.difficulty;
             const baseRating = report.calcBaseRating();
             Music.setBaseRating(targetMusic, difficulty, baseRating);
@@ -125,7 +125,7 @@ export class ApprovalModule extends ReportFormModule {
             targetMusics.push(targetMusic);
         }
 
-        repository.update(targetMusics);
+        table.update(targetMusics);
         this.reportModule.approveGroup(versionName, approvedReports.map(r => r.reportId));
 
         for (const report of approvedReports) {
@@ -177,10 +177,10 @@ export class ApprovalModule extends ReportFormModule {
 
         const targetLevelList = [bulkReport.targetLevel];
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
-        const rows = repository.rows;
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const records = table.records;
         const targetMusics: Music[] = [];
-        for (const row of rows) {
+        for (const row of records) {
             let update: Music = null;
             if (targetLevelList.indexOf(row.basicBaseRating) !== -1 && !row.basicVerified) {
                 update = row;
@@ -196,7 +196,7 @@ export class ApprovalModule extends ReportFormModule {
             }
         }
 
-        repository.update(targetMusics);
+        table.update(targetMusics);
 
         this.reportModule.approveLevelBulkReport(versionName, bulkReportId);
 

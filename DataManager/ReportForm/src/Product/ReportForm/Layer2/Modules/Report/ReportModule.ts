@@ -3,12 +3,12 @@ import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLog
 import { Difficulty } from "../../../Layer1/Difficulty";
 import { BulkReportTableContainer } from "../../Report/BulkReport/BulkReportTableContainer";
 import { BulkReportTableReader } from "../../Report/BulkReport/BulkReportTableReader";
-import { GoogleFormReport } from "../../Report/GoogleFormReport";
+import { UnitRawReport } from "../../Report/UnitReport/UnitRawReport";
 import { IMusicDataReport } from "../../Report/IMusicDataReport";
 import { IReport } from "../../Report/IReport";
-import { GoogleFormLevelBulkReport } from "../../Report/LevelBulkReport/GoogleFormLevelBulkReport";
-import { LevelBulkReport } from "../../Report/LevelBulkReport/LevelBulkReport";
-import { LevelBulkReportSheet } from "../../Report/LevelBulkReport/LevelBulkReportSheet";
+import { LevelRawReport } from "../../Report/LevelReport/LevelRawReport";
+import { LevelReport } from "../../Report/LevelReport/LevelReport";
+import { LevelReportSheet } from "../../Report/LevelReport/LevelReportSheet";
 import { MusicDataReportGroupContainer } from "../../Report/MusicDataReportGroupContainer";
 import { ReportStatus } from "../../Report/ReportStatus";
 import { PostLocation, ReportStorage } from "../../Report/ReportStorage";
@@ -17,8 +17,8 @@ import { ReportFormModule } from "../@ReportFormModule";
 import { LINEModule } from "../LINEModule";
 import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
-import { LevelBulkReportGoogleForm } from "./LevelBulkReportGoogleForm";
-import { ReportGoogleForm } from "./ReportGoogleForm";
+import { LevelReportGoogleForm } from "./LevelReportGoogleForm";
+import { UnitReportGoogleForm } from "./UnitReportGoogleForm";
 import { Music } from "../../Music/Music";
 
 export class ReportModule extends ReportFormModule {
@@ -29,16 +29,16 @@ export class ReportModule extends ReportFormModule {
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
 
-    private readonly _reportGoogleForm = new ReportGoogleForm(this);
-    private readonly _levelBulkReportGoogleForm = new LevelBulkReportGoogleForm(this);
-    private readonly _levelBulkReportSheetMap: { [key: string]: LevelBulkReportSheet } = {};
+    private readonly _unitReportGoogleForm = new UnitReportGoogleForm(this);
+    private readonly _levelReportGoogleForm = new LevelReportGoogleForm(this);
+    private readonly _levelReportSheetMap: { [key: string]: LevelReportSheet } = {};
 
-    public get reportGoogleForm(): GoogleAppsScript.Forms.Form {
-        return this._reportGoogleForm.form;
+    public get unitReportGoogleForm(): GoogleAppsScript.Forms.Form {
+        return this._unitReportGoogleForm.form;
     }
 
-    public get levelBulkReportGoogleForm(): GoogleAppsScript.Forms.Form {
-        return this._levelBulkReportGoogleForm.form;
+    public get levelReportGoogleForm(): GoogleAppsScript.Forms.Form {
+        return this._levelReportGoogleForm.form;
     }
 
     public noticeReportPost(message: string): void {
@@ -53,7 +53,7 @@ export class ReportModule extends ReportFormModule {
             return this._reportStorage[versionName];
         }
         this._reportStorage[versionName] = new ReportStorage(
-            this.musicModule.getSpecifiedVersionRepository(versionName),
+            this.musicModule.getSpecifiedVersionTable(versionName),
             this.versionModule.getVersionConfig(versionName).reportSpreadsheetId,
             this.versionModule.getVersionConfig(versionName).reportWorksheetName);
         return this._reportStorage[versionName];
@@ -84,18 +84,18 @@ export class ReportModule extends ReportFormModule {
         return container;
     }
 
-    public getLevelBulkReportSheet(versionName: string): LevelBulkReportSheet {
-        if (versionName in this._levelBulkReportSheetMap) {
-            return this._levelBulkReportSheetMap[versionName];
+    public getLevelBulkReportSheet(versionName: string): LevelReportSheet {
+        if (versionName in this._levelReportSheetMap) {
+            return this._levelReportSheetMap[versionName];
         }
-        this._levelBulkReportSheetMap[versionName] = new LevelBulkReportSheet(
-            this.musicModule.getSpecifiedVersionRepository(versionName),
+        this._levelReportSheetMap[versionName] = new LevelReportSheet(
+            this.musicModule.getSpecifiedVersionTable(versionName),
             this.versionModule.getVersionConfig(versionName).reportSpreadsheetId,
             this.versionModule.getVersionConfig(versionName).bulkReportWorksheetName);
-        return this._levelBulkReportSheetMap[versionName];
+        return this._levelReportSheetMap[versionName];
     }
 
-    public getLevelBulkReports(versionName: string): LevelBulkReport[] {
+    public getLevelBulkReports(versionName: string): LevelReport[] {
         return this.getLevelBulkReportSheet(versionName).bulkReports;
     }
 
@@ -151,7 +151,7 @@ export class ReportModule extends ReportFormModule {
                 if (!row.isValid()) {
                     continue;
                 }
-                const music = this.musicModule.getSpecifiedVersionRepository(versionName).find({ id: row.musicId });
+                const music = this.musicModule.getSpecifiedVersionTable(versionName).find({ id: row.musicId });
                 if (Music.getVerified(music, row.difficulty)) {
                     continue;
                 }
@@ -164,10 +164,10 @@ export class ReportModule extends ReportFormModule {
         this.getReportStorage(versionName).write();
     }
 
-    public insertReport(versionName: string, formReport: GoogleFormReport): IReport {
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+    public insertReport(versionName: string, formReport: UnitRawReport): IReport {
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
 
-        const targetMusic = repository.getByName(formReport.musicName);
+        const targetMusic = table.getByName(formReport.musicName);
         if (!targetMusic) {
             CustomLogManager.log(
                 LogLevel.Error,
@@ -196,7 +196,7 @@ ${JSON.stringify(formReport)}`);
             return null;
         }
 
-        formReport.bindMusic(repository);
+        formReport.bindMusic(table);
         const storage = this.reportModule.getReportStorage(versionName);
         const report = storage.push(formReport, PostLocation.GoogleForm, formReport.imagePaths);
         storage.write();
@@ -213,10 +213,10 @@ ${JSON.stringify(formReport)}`);
         bulkReportSheet.updateStatus([{ reportId: bulkReportId, status: ReportStatus.Rejected }]);
     }
 
-    public insertLevelBulkReport(versionName: string, formReport: GoogleFormLevelBulkReport): LevelBulkReport {
+    public insertLevelBulkReport(versionName: string, formReport: LevelRawReport): LevelReport {
         const bulkReportSheet = this.getLevelBulkReportSheet(versionName);
         const musicCount = this.musicModule
-            .getSpecifiedVersionRepository(versionName)
+            .getSpecifiedVersionTable(versionName)
             .getTargetLowLevelMusicCount(formReport.targetLevel);
         const maxOp = Math.round((formReport.targetLevel + 3) * 5 * musicCount);
         const checkOp = maxOp + 0.5;
@@ -251,10 +251,10 @@ OP割合[万分率]:${opRatio100Fold}
     }
 
     public buildForm(versionName: string): void {
-        this._reportGoogleForm.buildForm(versionName);
+        this._unitReportGoogleForm.buildForm(versionName);
     }
 
     public buildBulkReportForm(versionName: string): void {
-        this._levelBulkReportGoogleForm.buildForm(versionName);
+        this._levelReportGoogleForm.buildForm(versionName);
     }
 }

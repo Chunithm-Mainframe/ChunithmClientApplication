@@ -2,7 +2,7 @@ import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { LevelBulkReport } from "../../../Layer2/Report/LevelBulkReport/LevelBulkReport";
+import { LevelReport } from "../../../Layer2/Report/LevelReport/LevelReport";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
@@ -32,7 +32,7 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
         return this.createHtmlOutput(source);
     }
 
-    private getListItemHtml(version: string, report: LevelBulkReport): string {
+    private getListItemHtml(version: string, report: LevelReport): string {
         const bg = report.targetLevel <= 3
             ? Utility.toDifficultyTextLowerCase(Difficulty.Basic)
             : Utility.toDifficultyTextLowerCase(Difficulty.Advanced);

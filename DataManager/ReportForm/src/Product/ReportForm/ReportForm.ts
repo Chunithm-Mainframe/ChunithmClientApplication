@@ -5,8 +5,8 @@ import { DIProperty } from "../../Packages/DIProperty/DIProperty";
 import { Router } from "../../Packages/Router/Router";
 import { Instance } from "./Instance";
 import { ReportModule } from "./Layer2/Modules/Report/ReportModule";
-import { GoogleFormReport } from "./Layer2/Report/GoogleFormReport";
-import { GoogleFormLevelBulkReport } from "./Layer2/Report/LevelBulkReport/GoogleFormLevelBulkReport";
+import { UnitRawReport } from "./Layer2/Report/UnitReport/UnitRawReport";
+import { LevelRawReport } from "./Layer2/Report/LevelReport/LevelRawReport";
 import { ReportStatus } from "./Layer2/Report/ReportStatus";
 import { PostLocation } from "./Layer2/Report/ReportStorage";
 import { Utility } from "./Layer2/Utility";
@@ -108,7 +108,7 @@ export class ReportForm {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
 
-            let report = Instance.instance.module.getModule(ReportModule).insertReport(versionName, new GoogleFormReport(e.response));
+            let report = Instance.instance.module.getModule(ReportModule).insertReport(versionName, new UnitRawReport(e.response));
             if (report) {
                 const data = {
                     header: `検証報告`,
@@ -133,7 +133,7 @@ export class ReportForm {
             if (!versionName) {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
-            let bulkReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new GoogleFormLevelBulkReport(e.response));
+            let bulkReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
             if (bulkReport) {
                 const data = {
                     header: `一括検証報告`,

@@ -1,5 +1,5 @@
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicRepository } from "../../Music/MusicRepository";
+import { MusicTable } from "../../Music/MusicTable";
 import { BulkReportTable } from "./BulkReportTable";
 
 export class BulkReportTableContainer {
@@ -29,9 +29,9 @@ export class BulkReportTableContainer {
         return this._tables.slice();
     }
 
-    public update(newMusicRepostiory: MusicRepository, oldMusicRepository: MusicRepository): void {
+    public update(newTable: MusicTable, oldTable: MusicTable): void {
         for (const table of this._tables) {
-            table.updateMusicDataTable(newMusicRepostiory, oldMusicRepository);
+            table.updateMusicDataTable(newTable, oldTable);
         }
     }
 }

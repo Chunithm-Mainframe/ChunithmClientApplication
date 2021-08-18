@@ -2,7 +2,7 @@ import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { MusicModule } from "../../../Layer2/Modules/MusicModule";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { MusicRepository } from "../../../Layer2/Music/MusicRepository";
+import { MusicTable } from "../../../Layer2/Music/MusicTable";
 import { IMusicDataReport } from "../../../Layer2/Report/IMusicDataReport";
 import { MusicDataReportGroup } from "../../../Layer2/Report/MusicDataReportGroup";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
@@ -28,7 +28,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
     }
 
     public callInternal(parameter: UnitReportGroupWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const repository = this.musicModule.getSpecifiedVersionRepository(this.targetGameVersion);
+        const repository = this.musicModule.getSpecifiedVersionTable(this.targetGameVersion);
         const reportGroup = this.reportModule
             .getMusicDataReportGroupContainer(this.targetGameVersion)
             .getMusicDataReportGroup(parameter.groupId);
@@ -57,7 +57,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         return this.createHtmlOutput(source);
     }
 
-    private getListHtml(repository: MusicRepository, reportGroup: MusicDataReportGroup): string {
+    private getListHtml(repository: MusicTable, reportGroup: MusicDataReportGroup): string {
         let source = '';
         for (const musicDataReport of reportGroup.getMusicDataReports()) {
             if (musicDataReport.verified) {
@@ -68,7 +68,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         return source;
     }
 
-    private getListItemHtml(repository: MusicRepository, musicDataReport: IMusicDataReport): string {
+    private getListItemHtml(repository: MusicTable, musicDataReport: IMusicDataReport): string {
         const musicDetail = repository.find({ id: musicDataReport.musicId });
         const difficultyText = Utility.toDifficultyText(musicDataReport.difficulty);
 

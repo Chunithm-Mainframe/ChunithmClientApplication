@@ -1,9 +1,9 @@
 import { Difficulty } from "../../Layer1/Difficulty";
-import { MusicRepository } from "../Music/MusicRepository";
+import { MusicTable } from "../Music/MusicTable";
 import { IMusicDataReport } from "./IMusicDataReport";
 import { IReport } from "./IReport";
 import { MusicDataReport } from "./MusicDataReport";
-import { Report } from "./Report";
+import { UnitReport } from "./UnitReport/UnitReport";
 import { ReportInputFormat } from "./ReportInputFormat";
 import { ReportStatus } from "./ReportStatus";
 
@@ -29,13 +29,13 @@ export enum ColumnIndex {
 
 export class ReportStorage {
     private readonly _sheet: GoogleAppsScript.Spreadsheet.Sheet;
-    private readonly _reports: Report[] = [];
+    private readonly _reports: UnitReport[] = [];
     private readonly _reportContainers: MusicDataReport[] = [];
     private readonly _reportContainerIndexMap: { [key: string]: number } = {}
 
     private readonly _rawValueTable: (string | number | boolean)[][] = [];
 
-    public constructor(private readonly _musicRepository: MusicRepository, spreadsheetId: string, worksheetName: string) {
+    public constructor(private readonly _musicTable: MusicTable, spreadsheetId: string, worksheetName: string) {
         const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
         if (!spreadsheet) {
             throw new Error(`Spreadsheet not found. (${spreadsheetId})`);
@@ -52,7 +52,7 @@ export class ReportStorage {
 
     private build(): void {
         for (let i = 1; i < this._rawValueTable.length; i++) {
-            const report = new Report(this._rawValueTable[i]);
+            const report = new UnitReport(this._rawValueTable[i]);
             this._reports.push(report);
             this.getMusicDataReport(report.musicId, report.difficulty).push(report);
         }
@@ -75,7 +75,7 @@ export class ReportStorage {
     }
 
     public push(reportInput: ReportInputFormat, postLocation: PostLocation, imagePaths: string[] = []): IReport {
-        const music = this._musicRepository.find({ id: reportInput.musicId });
+        const music = this._musicTable.find({ id: reportInput.musicId });
         if (!music) {
             throw new Error(`楽曲が存在しません.
 楽曲ID: ${reportInput.musicId}`);
@@ -90,7 +90,7 @@ export class ReportStorage {
 
         const reportId = this._reports.length > 0 ? this._reports[this._reports.length - 1].reportId + 1 : 1;
         const buffer = new Array(ColumnIndex.Length);
-        const report = new Report(buffer);
+        const report = new UnitReport(buffer);
         report.set(reportId, reportInput, music.name, imagePaths, postLocation, ReportStatus.InProgress);
         reportContainer.push(report);
         this._rawValueTable.push(buffer);
@@ -104,7 +104,7 @@ export class ReportStorage {
             return this._reportContainers[this._reportContainerIndexMap[key]];
         }
 
-        const music = this._musicRepository.find({ id: musicId });
+        const music = this._musicTable.find({ id: musicId });
         const reportContainer = new MusicDataReport(musicId, difficulty, music);
         const length = this._reportContainers.push(reportContainer);
         this._reportContainerIndexMap[key] = length - 1;

@@ -1,15 +1,15 @@
-import { MusicRepository } from "../../Music/MusicRepository";
+import { MusicTable } from "../../Music/MusicTable";
 import { ReportStatus } from "../ReportStatus";
-import { GoogleFormLevelBulkReport } from "./GoogleFormLevelBulkReport";
-import { LevelBulkReport } from "./LevelBulkReport";
+import { LevelRawReport } from "./LevelRawReport";
+import { LevelReport } from "./LevelReport";
 
-export class LevelBulkReportSheet {
-    private _musicRepository: MusicRepository = null;
+export class LevelReportSheet {
+    private _musicTable: MusicTable = null;
     private _sheet: GoogleAppsScript.Spreadsheet.Sheet = null;
-    private _bulkReports: LevelBulkReport[] = [];
+    private _bulkReports: LevelReport[] = [];
     private _bulkReportIndexMap: { [key: string]: number } = {};
 
-    public constructor(repository: MusicRepository, spreadsheetId: string, worksheetName: string) {
+    public constructor(table: MusicTable, spreadsheetId: string, worksheetName: string) {
         let spreadsheet = SpreadsheetApp.openById(spreadsheetId);
         if (!spreadsheet) {
             throw new Error(`Spreadsheet not found. (${spreadsheetId})`);
@@ -20,7 +20,7 @@ export class LevelBulkReportSheet {
             throw new Error(`Worksheet not found. (${worksheetName})`);
         }
 
-        this._musicRepository = repository;
+        this._musicTable = table;
         this._sheet = sheet;
         this.readBulkReports();
     }
@@ -30,31 +30,31 @@ export class LevelBulkReportSheet {
         this._bulkReportIndexMap = {};
         let rawBulkReports = this._sheet.getDataRange().getValues();
         for (var i = 1; i < rawBulkReports.length; i++) {
-            let report = LevelBulkReport.createByRow(rawBulkReports[i]);
+            let report = LevelReport.createByRow(rawBulkReports[i]);
             let index = this._bulkReports.push(report) - 1;
             this._bulkReportIndexMap[report.reportId.toString()] = index;
         }
     }
 
-    public get bulkReports(): LevelBulkReport[] {
+    public get bulkReports(): LevelReport[] {
         return this._bulkReports;
     }
 
-    public getBulkReport(reportId: number): LevelBulkReport {
+    public getBulkReport(reportId: number): LevelReport {
         if (!(reportId.toString() in this._bulkReportIndexMap)) {
             return null;
         }
         return this.bulkReports[this._bulkReportIndexMap[reportId.toString()]];
     }
 
-    public insertBulkReport({ googleFormBulkReport, reportStatus = ReportStatus.InProgress }: { googleFormBulkReport: GoogleFormLevelBulkReport; reportStatus?: ReportStatus; }): LevelBulkReport {
+    public insertBulkReport({ googleFormBulkReport, reportStatus = ReportStatus.InProgress }: { googleFormBulkReport: LevelRawReport; reportStatus?: ReportStatus; }): LevelReport {
         let reportId = this.bulkReports.length > 0
             ? this.bulkReports[this.bulkReports.length - 1].reportId + 1
             : 1;
-        let report = LevelBulkReport.createByGoogleFormBulkReport(
+        let report = LevelReport.createByGoogleFormBulkReport(
             reportId,
             googleFormBulkReport,
-            this._musicRepository.getTargetLowLevelMusicCount(googleFormBulkReport.targetLevel),
+            this._musicTable.getTargetLowLevelMusicCount(googleFormBulkReport.targetLevel),
             new Date(),
             reportStatus);
         let index = this._bulkReports.push(report) - 1;

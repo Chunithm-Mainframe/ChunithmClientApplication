@@ -1,7 +1,7 @@
 import { ReportStatus } from "../ReportStatus";
-import { GoogleFormLevelBulkReport } from "./GoogleFormLevelBulkReport";
+import { LevelRawReport } from "./LevelRawReport";
 
-export class LevelBulkReport {
+export class LevelReport {
     private _reportId: number;
     private _targetLevel: number;
     private _musicCount: number;
@@ -11,8 +11,8 @@ export class LevelBulkReport {
     private _reportDate: Date;
     private _reportStatus: ReportStatus;
 
-    public static createByRow(row: Object[]): LevelBulkReport {
-        return new LevelBulkReport(
+    public static createByRow(row: Object[]): LevelReport {
+        return new LevelReport(
             parseInt(row[0].toString()),
             parseInt(row[1].toString()),
             parseInt(row[2].toString()),
@@ -24,8 +24,8 @@ export class LevelBulkReport {
         );
     }
 
-    public static createByGoogleFormBulkReport(reportId: number, bulkReport: GoogleFormLevelBulkReport, musicCount: number, reportDate: Date, reportStatus: ReportStatus): LevelBulkReport {
-        return new LevelBulkReport(
+    public static createByGoogleFormBulkReport(reportId: number, bulkReport: LevelRawReport, musicCount: number, reportDate: Date, reportStatus: ReportStatus): LevelReport {
+        return new LevelReport(
             reportId,
             bulkReport.targetLevel,
             musicCount,

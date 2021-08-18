@@ -1,6 +1,3 @@
-[submodule "DataManager/ReportForm/src/Repository"]
-	path = DataManager/ReportForm/src/Packages/Repository
-	url = https://github.com/MAX-eipi/GoogleAppsScript-Repository.git
 [submodule "DataManager/ReportForm/src/UrlFetch"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch
 	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.git
@@ -34,3 +31,6 @@
 [submodule "DataManager/ReportForm/src/Router"]
 	path = DataManager/ReportForm/src/Packages/Router
 	url = https://github.com/MAX-eipi/GoogleAppsScript-Router.git
+[submodule "DataManager/ReportForm/src/Packages/Database"]
+	path = DataManager/ReportForm/src/Packages/Database
+	url = https://github.com/MAX-eipi/GoogleAppsScript-Repository.git

@@ -1,5 +1,5 @@
 
-export class GoogleFormLevelBulkReport {
+export class LevelRawReport {
     private _targetLevel: number;
     private _op: number;
     private _opRatio: number;

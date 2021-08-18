@@ -14,7 +14,7 @@ import { TwitterModule } from "../../Layer2/Modules/TwitterModule";
 import { VersionModule } from "../../Layer2/Modules/VersionModule";
 import { Difficulty } from "../../Layer1/Difficulty";
 import { IReport } from "../../Layer2/Report/IReport";
-import { LevelBulkReport } from "../../Layer2/Report/LevelBulkReport/LevelBulkReport";
+import { LevelReport } from "../../Layer2/Report/LevelReport/LevelReport";
 import { Utility } from "../../Layer2/Utility";
 import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 import { ReportFormWebsiteController } from "../WebsiteControllers/@ReportFormController";
@@ -351,7 +351,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLink
         if (reportIds.length === 0) {
             return;
         }
-        const reports: LevelBulkReport[] = [];
+        const reports: LevelReport[] = [];
         const missingReportIds: number[] = [];
         for (const id of reportIds) {
             const r = this.reportModule.getLevelBulkReportSheet(versionName).getBulkReport(id);
@@ -403,7 +403,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLink
         if (reportIds.length === 0) {
             return;
         }
-        const reports: LevelBulkReport[] = [];
+        const reports: LevelReport[] = [];
         const missingReportIds: number[] = [];
         for (const id of reportIds) {
             const r = this.reportModule.getLevelBulkReportSheet(versionName).getBulkReport(id);
@@ -482,7 +482,7 @@ URL:${ReportFormWebsiteController.getFullPath(this.configuration, this._pageLink
         if (reportIds.length === 0) {
             return;
         }
-        const reports: LevelBulkReport[] = [];
+        const reports: LevelReport[] = [];
         const missingReportIds: number[] = [];
         for (const id of reportIds) {
             const r = this.reportModule.getLevelBulkReportSheet(versionName).getBulkReport(id);

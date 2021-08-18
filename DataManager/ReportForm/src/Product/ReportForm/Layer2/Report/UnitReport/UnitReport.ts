@@ -1,11 +1,11 @@
-import { calcBaseRating, ComboStatus } from "../../Layer1/Rating";
-import { Difficulty } from "../../Layer1/Difficulty";
-import { Utility } from "../Utility";
-import { IReport } from "./IReport";
-import { ReportInputFormat } from "./ReportInputFormat";
-import { ReportStatus } from "./ReportStatus";
-import { ColumnIndex, PostLocation } from "./ReportStorage";
-export class Report implements IReport {
+import { calcBaseRating, ComboStatus } from "../../../Layer1/Rating";
+import { Difficulty } from "../../../Layer1/Difficulty";
+import { Utility } from "../../Utility";
+import { IReport } from "../IReport";
+import { ReportInputFormat } from "../ReportInputFormat";
+import { ReportStatus } from "../ReportStatus";
+import { ColumnIndex, PostLocation } from "../ReportStorage";
+export class UnitReport implements IReport {
     public constructor(private readonly _buffer: (string | number | boolean)[]) {
     }
     private _isDirty = false;

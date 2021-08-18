@@ -1,8 +1,6 @@
 import { Instance } from "./Product/ReportForm/Instance";
-import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
-import { Music } from "./Product/ReportForm/Layer2/Music/Music";
-import { MusicRepository } from "./Product/ReportForm/Layer2/Music/MusicRepository";
+import { UnitReportTable, UnitReportSchema } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReportRepository";
 import { ReportForm } from "./Product/ReportForm/ReportForm";
 
 // implements test core here
@@ -32,39 +30,25 @@ function writeRatingDataTest() {
     Instance.instance.module.getModule(RatingDataAnalysisModule).test();
 }
 
-function writingTableTest() {
-    const spreadsheetId = '1PCZ33KHTKDrfpVbmXp7h0YTSK5cDqaNVSCFE43a54qg';
-    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function updateReportRepositoryTest() {
 
-    console.time('total');
+    function createUnitReport(reportId: number, musicId: number, musicName: string) {
+        const unitReport = new UnitReportSchema();
+        unitReport.reportId = reportId;
+        unitReport.musicId = musicId;
+        unitReport.musicName = musicName;
+        return unitReport;
+    }
 
-    console.time('music');
-    const repo = new MusicRepository(spreadsheet.getSheetByName('Music'));
-    repo.initialize();
-    console.timeEnd('music');
+    const sheetId = '1Nky3XwdpIxuOO6VXNtrOoyfRIcFAnC8ADzut3Io9cCM';
+    const sheet = SpreadsheetApp.openById(sheetId);
 
-    console.timeEnd('total');
-}
-
-function createMusic(id: number, name: string, genre: string) {
-    return new Music()
-        .apply('id', id)
-        .apply('name', name)
-        .apply('genre', genre);
-}
-
-function updateTableTest() {
-    const spreadsheetId = '1PCZ33KHTKDrfpVbmXp7h0YTSK5cDqaNVSCFE43a54qg';
-    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-
-    Instance.initialize();
-    const module = Instance.instance.module.getModule(MusicModule);
-    const repository = new MusicRepository(spreadsheet.getSheetByName('Music'));
-    repository.initialize();
-    const ret = module.updateRepository(repository, [
-        createMusic(10001, 'Hoge', 'HogeHoge'),
-        createMusic(10002, 'Fuga', 'FugaFuga'),
+    const table = new UnitReportTable(sheet.getSheetByName('UnitReport'));
+    const ret = table.update([
+        createUnitReport(1000, 100, 'Hoge'),
+        createUnitReport(1001, 101, 'HogeHoge'),
+        createUnitReport(1002, 102, 'Fuga'),
     ]);
-    console.log(ret.added);
-    console.log(ret.deleted);
+
+    console.log(ret);
 }

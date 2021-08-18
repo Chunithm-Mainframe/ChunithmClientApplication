@@ -1,6 +1,6 @@
 import { CustomCacheProvider } from "../../../Packages/CustomCacheProvider/CustomCacheProvider";
 import { IReport } from "./Report/IReport";
-import { LevelBulkReport } from "./Report/LevelBulkReport/LevelBulkReport";
+import { LevelReport } from "./Report/LevelReport/LevelReport";
 
 export class NoticeQueue {
     public constructor(private readonly _cacheProvider: CustomCacheProvider) { }
@@ -30,7 +30,7 @@ export class NoticeQueue {
     }
 
     private static readonly KEY_NOTICE_CREATE_LEVEL_REPORTS = 'notice_create_level_reports';
-    public enqueueCreateLevelReport(report: LevelBulkReport): void {
+    public enqueueCreateLevelReport(report: LevelReport): void {
         this.enqueue<number>(NoticeQueue.KEY_NOTICE_CREATE_LEVEL_REPORTS, report.reportId);
     }
     public dequeueCreateLevelReport(count: number): number[] {
@@ -38,7 +38,7 @@ export class NoticeQueue {
     }
 
     private static readonly KEY_NOTICE_APPROVE_LEVEL_REPORTS = 'notice_approve_level_reports';
-    public enqueueApproveLevelReport(report: LevelBulkReport): void {
+    public enqueueApproveLevelReport(report: LevelReport): void {
         this.enqueue<number>(NoticeQueue.KEY_NOTICE_APPROVE_LEVEL_REPORTS, report.reportId);
     }
     public dequeueApproveLevelReport(count: number): number[] {
@@ -46,7 +46,7 @@ export class NoticeQueue {
     }
 
     private static readonly KEY_NOTICE_REJECT_LEVEL_REPORTS = 'notice_reject_level_reports';
-    public enqueueRejectLevelReport(report: LevelBulkReport): void {
+    public enqueueRejectLevelReport(report: LevelReport): void {
         this.enqueue<number>(NoticeQueue.KEY_NOTICE_REJECT_LEVEL_REPORTS, report.reportId);
     }
     public dequeueRejectLevelReport(count: number): number[] {
