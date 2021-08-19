@@ -37,8 +37,8 @@ import { VersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandCon
 import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
 import { NoticeManager } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
-import { MusicRepositoryGetPostCommand } from "./Layer4/PostCommandControllers/MusicRepositoryGetPostCommand";
-import { MusicRepositoryUpdatePostCommand } from "./Layer4/PostCommandControllers/MusicRepositoryUpdatePostCommand";
+import { MusicTableGetPostCommand } from "./Layer4/PostCommandControllers/MusicTableGetPostCommand";
+import { MusicTableUpdatePostCommand } from "./Layer4/PostCommandControllers/MusicTableUpdatePostCommand";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer4/WebsiteControllers/@ReportFormController";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 
@@ -140,8 +140,8 @@ export class Instance {
     public setupPostCommandControllers(): void {
         const postCommandManager = new PostCommandManager();
 
-        postCommandManager.bindEquals("repo/get", MusicRepositoryGetPostCommand);
-        postCommandManager.bindEquals("repo/update", MusicRepositoryUpdatePostCommand);
+        postCommandManager.bindEquals("repo/get", MusicTableGetPostCommand);
+        postCommandManager.bindEquals("repo/update", MusicTableUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }

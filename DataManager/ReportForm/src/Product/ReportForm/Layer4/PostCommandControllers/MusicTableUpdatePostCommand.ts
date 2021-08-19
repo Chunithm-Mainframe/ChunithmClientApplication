@@ -10,18 +10,18 @@ import { VersionModule } from "../../Layer3/Modules/VersionModule";
 import { Music } from "../../Layer2/Music/Music";
 import { PostCommand, PostCommandParameter } from "./@PostCommand";
 
-interface MusicRepositoryUpdatePostCommandParameter extends PostCommandParameter {
+interface MusicTableUpdatePostCommandParameter extends PostCommandParameter {
     musics: Required<Music>[];
 }
 
-export class MusicRepositoryUpdatePostCommand extends PostCommand {
+export class MusicTableUpdatePostCommand extends PostCommand {
     private get versionModule(): VersionModule { return this.module.getModule(VersionModule); }
     private get musicModule(): MusicModule { return this.module.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this.module.getModule(ReportModule); }
     private get lineModule(): LINEModule { return this.module.getModule(LINEModule); }
     private get twitterModule(): TwitterModule { return this.module.getModule(TwitterModule); }
 
-    public invoke(postData: MusicRepositoryUpdatePostCommandParameter) {
+    public invoke(postData: MusicTableUpdatePostCommandParameter) {
         const currentTable = this.musicModule.getMusicTable(postData.versionName);
         const isNewlyCreatedTable = currentTable.records.length === 0;
 

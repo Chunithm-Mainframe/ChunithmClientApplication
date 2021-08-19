@@ -247,10 +247,10 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\PostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommandControllers\MusicRepositoryGetPostCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommandControllers\MusicTableGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommandControllers\MusicRepositoryUpdatePostCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommandControllers\MusicTableUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsiteControllers\%40ReportFormController.ts">

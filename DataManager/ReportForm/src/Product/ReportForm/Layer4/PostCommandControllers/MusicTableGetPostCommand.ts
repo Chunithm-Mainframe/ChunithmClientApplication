@@ -1,13 +1,13 @@
 import { PostCommand, PostCommandParameter } from "./@PostCommand";
 import { MusicModule } from "../../Layer3/Modules/MusicModule";
 
-interface MusicRepositroyGetPostCommandParameter extends PostCommandParameter {
+interface MusicTableGetPostCommandParameter extends PostCommandParameter {
 }
 
-export class MusicRepositoryGetPostCommand extends PostCommand {
+export class MusicTableGetPostCommand extends PostCommand {
     private get musicModule(): MusicModule { return this.module.getModule(MusicModule); }
 
-    public invoke(postData: MusicRepositroyGetPostCommandParameter) {
+    public invoke(postData: MusicTableGetPostCommandParameter) {
         const repository = this.musicModule.getMusicTable(postData.versionName);
         return {
             musics: repository.records,
