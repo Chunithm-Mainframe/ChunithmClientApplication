@@ -4,10 +4,11 @@ import { MusicModule } from "../../../Layer2/Modules/MusicModule";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
 import { MusicTable } from "../../../Layer2/Music/MusicTable";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { UnitReportGroup } from "../../../Layer2/Report/UnitReportGroup/UnitReportGroup";
+import { UnitReportBundle } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundle";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { UnitReportGroupListWebsiteController } from "./UnitReportGroupListWebsiteController";
+import { UnitReportBundleGroup } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundleGroup";
 
 export interface UnitReportGroupWebsiteParameter extends ReportFormWebsiteParameter {
     groupId: string;
@@ -28,14 +29,14 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
 
     public callInternal(parameter: UnitReportGroupWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const musicTable = this.musicModule.getMusicTable(this.targetGameVersion);
-        const reportGroups = this.reportModule.getUnitReportGroups(this.targetGameVersion, parameter.groupId);
+        const unitReportBundleGroup = this.reportModule.getUnitReportBundleGroup(this.targetGameVersion, parameter.groupId);
 
         console.log(parameter.groupId);
-        if (!reportGroups) {
+        if (!unitReportBundleGroup) {
             throw new Error("該当する検証報告グループが存在しません");
         }
 
-        const listHtml = this.getListHtml(musicTable, reportGroups);
+        const listHtml = this.getListHtml(musicTable, unitReportBundleGroup);
 
         let source = this.readHtml("Resources/Page/group_approval/main");
 
@@ -46,7 +47,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         source = source.replace(/%groupId%/g, parameter.groupId);
         source = source.replace(/%list%/g, listHtml);
 
-        if (reportGroups.every(x => x.verified)) {
+        if (unitReportBundleGroup.unitReportBundles.every(x => x.verified)) {
             source = source.replace(/%approveFormContainer%/g, this.getResovedFormContainerHtml());
         } else {
             source = source.replace(/%approveFormContainer%/g, this.getInProgressFormContainerHtml());
@@ -55,36 +56,36 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         return this.createHtmlOutput(source);
     }
 
-    private getListHtml(repository: MusicTable, unitReportGroups: UnitReportGroup[]): string {
+    private getListHtml(repository: MusicTable, unitReportBundleGroup: UnitReportBundleGroup): string {
         let source = '';
-        for (const reportGroup of unitReportGroups) {
-            if (reportGroup.verified) {
+        for (const unitReportBundle of unitReportBundleGroup.unitReportBundles) {
+            if (unitReportBundle.verified) {
                 continue;
             }
-            source += this.getListItemHtml(repository, reportGroup) + '\n';
+            source += this.getListItemHtml(repository, unitReportBundle) + '\n';
         }
         return source;
     }
 
-    private getListItemHtml(repository: MusicTable, reportGroup: UnitReportGroup): string {
-        const musicDetail = repository.find({ id: reportGroup.musicId });
-        const difficultyText = Utility.toDifficultyText(reportGroup.difficulty);
+    private getListItemHtml(repository: MusicTable, unitReportBundle: UnitReportBundle): string {
+        const musicDetail = repository.find({ id: unitReportBundle.musicId });
+        const difficultyText = Utility.toDifficultyText(unitReportBundle.difficulty);
 
         let template = '';
         if (!musicDetail) {
             template = this.unkownMusicTemplate;
-            template = template.replace(/%musicId%/g, reportGroup.musicId.toString());
+            template = template.replace(/%musicId%/g, unitReportBundle.musicId.toString());
             template = template.replace(/%difficultyLower%/g, difficultyText.toLowerCase());
             return template;
         }
 
-        const report = reportGroup.getMainReport();
+        const report = unitReportBundle.activeReport;
         if (!report) {
             template = this.unverifiedListItemTemplate;
             template = template.replace(/%musicName%/g, musicDetail.name);
             template = template.replace(/%difficultyLower%/g, difficultyText.toLowerCase());
             template = template.replace(/%difficulty%/g, difficultyText);
-            template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(reportGroup.difficulty));
+            template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(unitReportBundle.difficulty));
             return template;
         }
 
@@ -92,7 +93,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         template = template.replace(/%musicName%/g, musicDetail.name);
         template = template.replace(/%difficultyLower%/g, difficultyText.toLowerCase());
         template = template.replace(/%difficulty%/g, difficultyText);
-        template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(reportGroup.difficulty));
+        template = template.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(unitReportBundle.difficulty));
         {
             let progress = "-";
             const status = report ? report.reportStatus : null;

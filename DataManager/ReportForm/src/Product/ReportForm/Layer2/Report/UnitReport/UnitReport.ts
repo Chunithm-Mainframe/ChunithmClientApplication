@@ -20,6 +20,9 @@ export class UnitReport {
     public createdAt: Date = null;
 
     public get imagePaths(): string[] {
+        if (!this.imagePathText) {
+            return [];
+        }
         return this.imagePathText.split(',');
     }
 

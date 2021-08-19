@@ -7,13 +7,12 @@ import { BulkReportTableReader } from "../../Report/BulkReport/BulkReportTableRe
 import { LevelRawReport } from "../../Report/LevelReport/LevelRawReport";
 import { LevelReport } from "../../Report/LevelReport/LevelReport";
 import { LevelReportTable } from "../../Report/LevelReport/LevelReportTable";
-import { MusicReportGroupTable } from "../../Report/MusicReportGroup/MusicReportGroupTable";
+import { MasterUnitReportGroupTable } from "../../Report/MasterUnitRecordGroup/MasterUnitReportGroupTable";
 import { PostLocation } from "../../Report/PostLocation";
 import { ReportStatus } from "../../Report/ReportStatus";
 import { UnitRawReport } from "../../Report/UnitReport/UnitRawReport";
 import { UnitReport } from "../../Report/UnitReport/UnitReport";
 import { UnitReportTable } from "../../Report/UnitReport/UnitReportTable";
-import { UnitReportGroup } from "../../Report/UnitReportGroup/UnitReportGroup";
 import { Utility } from "../../Utility";
 import { ReportFormModule } from "../@ReportFormModule";
 import { LINEModule } from "../LINEModule";
@@ -21,6 +20,10 @@ import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
 import { LevelReportGoogleForm } from "./LevelReportGoogleForm";
 import { UnitReportGoogleForm } from "./UnitReportGoogleForm";
+import { UnitReportBundle } from "../../Report/UnitReportGroup/UnitReportBundle";
+import { UnitReportBundleGroup } from "../../Report/UnitReportGroup/UnitReportBundleGroup";
+import { MasterUnitRecordGroup } from "../../Report/MasterUnitRecordGroup/MasterUnitRecordGroup";
+import { MusicTable } from "../../Music/MusicTable";
 
 export class ReportModule extends ReportFormModule {
     public static readonly moduleName = 'report';
@@ -34,7 +37,7 @@ export class ReportModule extends ReportFormModule {
 
     private readonly _unitReportTableMap: Record<string, UnitReportTable> = {};
     private readonly _levelReportTableMap: Record<string, LevelReportTable> = {};
-    private readonly _musicReportGroupTableMap: Record<string, MusicReportGroupTable> = {};
+    private readonly _musicReportGroupTableMap: Record<string, MasterUnitReportGroupTable> = {};
 
     public get unitReportGoogleForm(): GoogleAppsScript.Forms.Form {
         return this._unitReportGoogleForm.form;
@@ -90,15 +93,15 @@ export class ReportModule extends ReportFormModule {
         return this.getLevelReportTable(versionName).records;
     }
 
-    public getMusicReportGroupTable(versionName: string): MusicReportGroupTable {
+    public getMasterUnitReportGroupTable(versionName: string): MasterUnitReportGroupTable {
         if (versionName in this._musicReportGroupTableMap) {
             return this._musicReportGroupTableMap[versionName];
         }
         const versionConfig = this.versionModule.getVersionConfig(versionName);
-        const spreadsheetId = versionConfig.musicReportGroupSpreadsheetId;
-        const worksheetName = versionConfig.musicReportGroupWorksheetName;
+        const spreadsheetId = versionConfig.masterUnitReportGroupSpreadsheetId;
+        const worksheetName = versionConfig.masterUnitReportGroupWorksheetName;
         const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(worksheetName)
-        this._musicReportGroupTableMap[versionName] = new MusicReportGroupTable(sheet);
+        this._musicReportGroupTableMap[versionName] = new MasterUnitReportGroupTable(sheet);
         return this._musicReportGroupTableMap[versionName];
     }
 
@@ -141,41 +144,104 @@ export class ReportModule extends ReportFormModule {
         table.update(target);
     }
 
-    public approveMusicReportGroup(versionName: string, groupId: string): void {
-        const unitReportGroups = this.getUnitReportGroups(versionName, groupId).filter(x => x.isValid());
+    public approveUnitReportGroup(versionName: string, masterUnitReportGroupId: string): void {
+        const unitReportBundleGroup = this.getUnitReportBundleGroup(versionName, masterUnitReportGroupId);
 
         const updatedUnitReports: UnitReport[] = [];
-        for (const unitReportGroup of unitReportGroups) {
-            const target = unitReportGroup.getMainReport();
+        for (const unitReportBundle of unitReportBundleGroup.unitReportBundles) {
+            const target = unitReportBundle.activeReport;
             if (!target) {
                 continue;
             }
             target.reportStatus = ReportStatus.Resolved;
             updatedUnitReports.push(target);
 
-            const duplicatedReports = unitReportGroup.getReports().filter(x => x.reportId !== target.reportId);
-            duplicatedReports.forEach(x => {
-                x.reportStatus = ReportStatus.Rejected;
-                updatedUnitReports.push(x);
-            });
+            unitReportBundle.unitReports
+                .filter(x => x.reportId !== target.reportId)
+                .forEach(x => {
+                    x.reportStatus = ReportStatus.Rejected;
+                    updatedUnitReports.push(x);
+                });
         }
 
         this.getUnitReportTable(versionName).update(updatedUnitReports);
     }
 
-    public getUnitReportGroups(versionName: string, groupId: string): UnitReportGroup[] {
-        const musicReportGroupTable = this.getMusicReportGroupTable(versionName);
-        const musicReportGroups = musicReportGroupTable.getByGroupId(groupId);
+    public getUnitReportBundleGroups(versionName: string): UnitReportBundleGroup[] {
+        const masterUnitReportGroupTable = this.getMasterUnitReportGroupTable(versionName);
         const unitReportTable = this.getUnitReportTable(versionName);
         const musicTable = this.musicModule.getMusicTable(versionName);
-        return musicReportGroups
-            .map(x => new UnitReportGroup(unitReportTable, x.musicId, x.difficulty, musicTable.find({ id: x.musicId })));
+
+        const masterUnitReportGroupCollectionMap: Record<string, MasterUnitRecordGroup[]> = {};
+        for (const record of masterUnitReportGroupTable.records) {
+            if (!(record.groupId in masterUnitReportGroupCollectionMap)) {
+                masterUnitReportGroupCollectionMap[record.groupId] = [];
+            }
+            masterUnitReportGroupCollectionMap[record.groupId].push(record);
+        }
+
+        const unitReportCollectionMap = this.getUnitReportCollectionMap(unitReportTable);
+        return Object.keys(masterUnitReportGroupCollectionMap)
+            .map(x => this.getUnitReportBundleGroupInternal(
+                musicTable,
+                x,
+                masterUnitReportGroupCollectionMap[x],
+                unitReportCollectionMap))
     }
 
-    public getUnitReportGroup(versionName: string, musicId: number, difficulty: Difficulty): UnitReportGroup {
-        const reportTable = this.getUnitReportTable(versionName);
+    public getUnitReportBundleGroup(versionName: string, masterUnitReportGroupId: string): UnitReportBundleGroup {
+        const masterUnitReportGroupTable = this.getMasterUnitReportGroupTable(versionName);
+        const targetRecords = masterUnitReportGroupTable.records
+            .filter(x => x.groupId === masterUnitReportGroupId);
+        if (targetRecords.length === 0) {
+            return null;
+        }
+
+        const unitReportTable = this.getUnitReportTable(versionName);
         const musicTable = this.musicModule.getMusicTable(versionName);
-        return new UnitReportGroup(reportTable, musicId, difficulty, musicTable.find({ id: musicId }));
+        return this.getUnitReportBundleGroupInternal(
+            musicTable,
+            masterUnitReportGroupId,
+            targetRecords,
+            this.getUnitReportCollectionMap(unitReportTable));
+    }
+
+    private getUnitReportBundleGroupInternal(
+        musicTable: MusicTable,
+        masterUnitReportGroupId: string,
+        masterUnitReprotGroups: MasterUnitRecordGroup[],
+        unitReportCollectionMap: Record<string, UnitReport[]>): UnitReportBundleGroup {
+
+        return new UnitReportBundleGroup(
+            masterUnitReportGroupId,
+            masterUnitReprotGroups.map(x => new UnitReportBundle(
+                x.musicId,
+                x.difficulty,
+                musicTable.find({ id: x.musicId }) ? true : false,
+                unitReportCollectionMap[`${x.musicId}:${x.difficulty}`] ?? [])));
+    }
+
+    private getUnitReportCollectionMap(unitReportTable: UnitReportTable): Record<string, UnitReport[]> {
+        const unitReportCollectionMap: Record<string, UnitReport[]> = {};
+        for (const unitReport of unitReportTable.records) {
+            const key = `${unitReport.musicId}:${unitReport.difficulty}`;
+            if (!(key in unitReportCollectionMap)) {
+                unitReportCollectionMap[key] = [];
+            }
+            unitReportCollectionMap[key].push(unitReport);
+        }
+        return unitReportCollectionMap;
+    }
+
+    public getUnitReportBundle(versionName: string, musicId: number, difficulty: Difficulty): UnitReportBundle {
+        const unitReportTable = this.getUnitReportTable(versionName);
+        const musicTable = this.musicModule.getMusicTable(versionName);
+
+        return new UnitReportBundle(
+            musicId,
+            difficulty,
+            musicTable.find({ id: musicId }) ? true : false,
+            unitReportTable.records.filter(x => x.musicId === musicId && x.difficulty === difficulty));
     }
 
     public getBulkReportTableContainer(versionName: string): BulkReportTableContainer {
@@ -197,8 +263,8 @@ export class ReportModule extends ReportFormModule {
                 if (Music.getVerified(music, row.difficulty)) {
                     continue;
                 }
-                const unitReportGroup = this.getUnitReportGroup(versionName, row.musicId, row.difficulty);
-                if (!unitReportGroup.getMainReport()) {
+                const unitReportBundle = this.getUnitReportBundle(versionName, row.musicId, row.difficulty);
+                if (!unitReportBundle.activeReport) {
                     const report = UnitReportTable.instantiateRecord(row);
                     report.postLocation = PostLocation.BulkSheet;
                     addedReports.push(report);

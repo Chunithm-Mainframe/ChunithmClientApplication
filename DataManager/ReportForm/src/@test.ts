@@ -80,7 +80,7 @@ function test_loadLevelReportTable() {
 function test_loadMusicReportGroup() {
     Instance.initialize();
     const versionName = Instance.instance.config.defaultVersionName;
-    const table = Instance.instance.module.getModule(ReportModule).getMusicReportGroupTable(versionName);
+    const table = Instance.instance.module.getModule(ReportModule).getMasterUnitReportGroupTable(versionName);
     console.log(table.records.length);
 }
 

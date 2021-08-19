@@ -1,33 +1,30 @@
-import { DatabaseTable } from "../../../../../Packages/Database/DatabaseTable";
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { UnitReport } from "../UnitReport/UnitReport";
-import { ReportStatus } from "../ReportStatus";
 import { PostLocation } from "../PostLocation";
-import { Music } from "../../Music/Music";
+import { ReportStatus } from "../ReportStatus";
+import { UnitReport } from "../UnitReport/UnitReport";
 
-export class UnitReportGroup {
+export class UnitReportBundle {
     public get musicId(): number { return this._musicId; }
-    public get difficulty(): Difficulty { return this._musicId; }
+    public get difficulty(): Difficulty { return this._difficulty; }
+    public get isValidMusic(): boolean { return this._isValidMusic; }
+    public get unitReports(): UnitReport[] { return this._unitReports; }
+
+    private readonly _activeReport: UnitReport;
+    public get activeReport(): UnitReport { return this._activeReport; }
+
+    public get verified(): boolean {
+        return this._activeReport && this._activeReport.reportStatus === ReportStatus.Resolved;
+    }
 
     public constructor(
-        private readonly _table: DatabaseTable<UnitReport, 'reportId'>,
         private readonly _musicId: number,
         private readonly _difficulty: Difficulty,
-        private readonly _music: Music
-    ) {
+        private readonly _isValidMusic: boolean,
+        private readonly _unitReports: UnitReport[]) {
+        this._activeReport = UnitReportBundle.getActiveReport(_unitReports);
     }
 
-    public isValid(): boolean {
-        return this._music ? true : false;
-    }
-
-    public getReports(): UnitReport[] {
-        return this._table.records
-            .filter(x => x.musicId === this._musicId && x.difficulty === this._difficulty);
-    }
-
-    public getMainReport(): UnitReport {
-        const reports = this.getReports();
+    private static getActiveReport(reports: UnitReport[]): UnitReport {
         let ret: UnitReport = null;
         for (const report of reports) {
             if (report.reportStatus === ReportStatus.Resolved) {
@@ -40,7 +37,6 @@ export class UnitReportGroup {
                 ret = report;
                 continue;
             }
-
             // ここに来る時点でretとreportはともにreportStatusがInProgressである
             // BulkSheetで報告されたものより、GoogleFormで報告されたものを優先する
             if (ret.postLocation === PostLocation.BulkSheet && report.postLocation === PostLocation.GoogleForm) {
@@ -54,10 +50,5 @@ export class UnitReportGroup {
             }
         }
         return ret;
-    }
-
-    public verified(): boolean {
-        const mainReport = this.getMainReport();
-        return mainReport && mainReport.reportStatus === ReportStatus.Resolved;
     }
 }
