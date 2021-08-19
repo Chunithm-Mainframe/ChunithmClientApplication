@@ -3,26 +3,6 @@ import { ComboStatus } from "../../../Layer1/Rating";
 import { MusicTable } from "../../Music/MusicTable";
 import { Utility } from "../../Utility";
 
-class PostReportExtends {
-    private static convertMusicNameMap: { [key: string]: string } = {
-        "チルノのパーフェクトさんすう教室 ⑨周年バージョン": "チルノのパーフェクトさんすう教室　⑨周年バージョン",
-        "ってゐ！ 〜えいえんてゐVer〜": "ってゐ！　〜えいえんてゐVer〜",
-        "少女幻葬戦慄曲 〜 Necro Fantasia": "少女幻葬戦慄曲　〜　Necro Fantasia",
-        "キュアリアス光吉古牌 −祭−": "キュアリアス光吉古牌　−祭−",
-        "セイクリッド ルイン": "セイクリッド　ルイン",
-        "オーケー？ オーライ！": "オーケー？　オーライ！",
-        "ここで一席！ Oshama Scramble!": "ここで一席！　Oshama Scramble!",
-        "札付きのワル 〜マイケルのうた〜": "札付きのワル　〜マイケルのうた〜",
-    };
-
-    public static convertMusicName(musicName: string): string {
-        if (musicName in this.convertMusicNameMap) {
-            return this.convertMusicNameMap[musicName];
-        }
-        return musicName;
-    }
-}
-
 export class UnitRawReport {
     private _musicId: number;
     private _musicnName = "";
@@ -35,7 +15,7 @@ export class UnitRawReport {
 
     public constructor(post: GoogleAppsScript.Forms.FormResponse) {
         const items = post.getItemResponses();
-        this._musicnName = PostReportExtends.convertMusicName(items[1].getResponse().toString());
+        this._musicnName = items[1].getResponse().toString();
         this._difficulty = Utility.toDifficulty(items[2].getResponse().toString());
         this._beforeOp = parseFloat(items[3].getResponse().toString());
         this._afterOp = parseFloat(items[4].getResponse().toString());

@@ -8,7 +8,7 @@ export class MusicModule extends ReportFormModule {
 
     private readonly _tableMap: Record<string, MusicTable> = {};
 
-    public getSpecifiedVersionTable(versionName: string): MusicTable {
+    public getMusicTable(versionName: string): MusicTable {
         if (versionName in this._tableMap) {
             return this._tableMap[versionName];
         }
@@ -25,12 +25,7 @@ export class MusicModule extends ReportFormModule {
         return this._tableMap[versionName];
     }
 
-    public updateSpecifiedVersionTable(versionName: string, musics: Music[]) {
-        const table = this.getSpecifiedVersionTable(versionName);
-        return this.updateTable(table, musics);
-    }
-
-    public updateTable(table: MusicTable, musics: Music[]) {
+    public updateMusicTable(table: MusicTable, musics: Required<Music>[]) {
         const added = musics
             .filter(x => !table.find({ id: x.id }))
             .map(x => Music.instantiate(x).apply('enabled', true));

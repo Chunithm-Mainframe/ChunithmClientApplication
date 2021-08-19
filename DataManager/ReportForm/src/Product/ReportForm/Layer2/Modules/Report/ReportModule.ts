@@ -167,14 +167,14 @@ export class ReportModule extends ReportFormModule {
         const musicReportGroupTable = this.getMusicReportGroupTable(versionName);
         const musicReportGroups = musicReportGroupTable.getByGroupId(groupId);
         const unitReportTable = this.getUnitReportTable(versionName);
-        const musicTable = this.musicModule.getSpecifiedVersionTable(versionName);
+        const musicTable = this.musicModule.getMusicTable(versionName);
         return musicReportGroups
             .map(x => new UnitReportGroup(unitReportTable, x.musicId, x.difficulty, musicTable.find({ id: x.musicId })));
     }
 
     public getUnitReportGroup(versionName: string, musicId: number, difficulty: Difficulty): UnitReportGroup {
         const reportTable = this.getUnitReportTable(versionName);
-        const musicTable = this.musicModule.getSpecifiedVersionTable(versionName);
+        const musicTable = this.musicModule.getMusicTable(versionName);
         return new UnitReportGroup(reportTable, musicId, difficulty, musicTable.find({ id: musicId }));
     }
 
@@ -193,7 +193,7 @@ export class ReportModule extends ReportFormModule {
                 if (!row.isValid()) {
                     continue;
                 }
-                const music = this.musicModule.getSpecifiedVersionTable(versionName).find({ id: row.musicId });
+                const music = this.musicModule.getMusicTable(versionName).find({ id: row.musicId });
                 if (Music.getVerified(music, row.difficulty)) {
                     continue;
                 }
@@ -209,7 +209,7 @@ export class ReportModule extends ReportFormModule {
     }
 
     public insertReport(versionName: string, formReport: UnitRawReport): UnitReport {
-        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const table = this.musicModule.getMusicTable(versionName);
 
         const targetMusic = table.getByName(formReport.musicName);
         if (!targetMusic) {
@@ -263,7 +263,7 @@ ${JSON.stringify(formReport)}`);
 
     public insertLevelBulkReport(versionName: string, formReport: LevelRawReport): LevelReport {
         const musicCount = this.musicModule
-            .getSpecifiedVersionTable(versionName)
+            .getMusicTable(versionName)
             .getTargetLowLevelMusicCount(formReport.targetLevel);
         const maxOp = Math.round((formReport.targetLevel + 3) * 5 * musicCount);
         const checkOp = maxOp + 0.5;

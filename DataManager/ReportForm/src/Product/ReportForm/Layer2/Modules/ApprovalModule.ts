@@ -42,7 +42,7 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
 
-        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const table = this.musicModule.getMusicTable(versionName);
         const targetMusic = table.find({ id: report.musicId });
         if (!targetMusic) {
             throw new ApprovalError(`楽曲情報取得の失敗. 楽曲名:${report.musicName}`);
@@ -104,7 +104,7 @@ export class ApprovalModule extends ReportFormModule {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
         }
 
-        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const table = this.musicModule.getMusicTable(versionName);
         const targetMusics: Music[] = [];
         const approvedReports: UnitReport[] = [];
         for (const reportGroup of unitReportGroups) {
@@ -175,7 +175,7 @@ export class ApprovalModule extends ReportFormModule {
 
         const targetLevelList = [levelReport.level];
 
-        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const table = this.musicModule.getMusicTable(versionName);
         const records = table.records;
         const targetMusics: Music[] = [];
         for (const row of records) {

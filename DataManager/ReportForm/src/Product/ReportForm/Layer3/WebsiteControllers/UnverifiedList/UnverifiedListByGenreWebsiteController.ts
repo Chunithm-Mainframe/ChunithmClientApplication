@@ -111,7 +111,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
     }
 
     private getUnverifiedMusicDatas(version: string): UnverifiedListByGenreListItemMusicData[] {
-        const musics = this.musicModule.getSpecifiedVersionTable(version).records;
+        const musics = this.musicModule.getMusicTable(version).records;
         const unverifiedMusicDatas: UnverifiedListByGenreListItemMusicData[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {

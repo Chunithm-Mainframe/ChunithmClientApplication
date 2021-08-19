@@ -59,7 +59,7 @@ function test_loadMusicTable() {
     Instance.initialize();
 
     const versionName = Instance.instance.config.defaultVersionName;
-    const musicTable = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+    const musicTable = Instance.instance.module.getModule(MusicModule).getMusicTable(versionName);
     console.log(musicTable.records.length);
 }
 
@@ -82,4 +82,14 @@ function test_loadMusicReportGroup() {
     const versionName = Instance.instance.config.defaultVersionName;
     const table = Instance.instance.module.getModule(ReportModule).getMusicReportGroupTable(versionName);
     console.log(table.records.length);
+}
+
+function test_searchMusic() {
+    const targetMusicName = "ってゐ！ ～えいえんてゐVer～";
+
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const table = Instance.instance.module.getModule(MusicModule).getMusicTable(versionName);
+    const music = table.getByName(targetMusicName);
+    console.log(music);
 }

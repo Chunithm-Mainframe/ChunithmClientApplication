@@ -22,12 +22,11 @@ export class MusicRepositoryUpdatePostCommand extends PostCommand {
     private get twitterModule(): TwitterModule { return this.module.getModule(TwitterModule); }
 
     public invoke(postData: MusicRepositoryUpdatePostCommandParameter) {
-        const currentTable = this.musicModule.getSpecifiedVersionTable(postData.versionName);
+        const currentTable = this.musicModule.getMusicTable(postData.versionName);
         const isNewlyCreatedTable = currentTable.records.length === 0;
 
-        const result = this.musicModule.updateSpecifiedVersionTable(
-            postData.versionName,
-            postData.musics.map(x => Music.instantiate(x)));
+        const table = this.musicModule.getMusicTable(postData.versionName);
+        const result = this.musicModule.updateMusicTable(table, postData.musics);
 
         if (result.added.length > 0) {
             const genres = this.versionModule.getVersionConfig(postData.versionName).genres;

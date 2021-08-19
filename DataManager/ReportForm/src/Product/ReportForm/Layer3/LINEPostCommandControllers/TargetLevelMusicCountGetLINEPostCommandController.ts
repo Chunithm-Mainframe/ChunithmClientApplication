@@ -8,7 +8,7 @@ export class TargetLevelMusicCountGetLINEPostCommandController extends LINEPostC
             return;
         }
         const versionName = this.module.configuration.defaultVersionName;
-        const table = this.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+        const table = this.module.getModule(MusicModule).getMusicTable(versionName);
         const musicCount = table.getTargetLowLevelMusicCount(targetLevel);
         this.replyMessage(this.event.replyToken, [`対象レベル:${targetLevel}
 楽曲数:${musicCount}`]);

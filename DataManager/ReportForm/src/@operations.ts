@@ -63,7 +63,7 @@ function getGenres(): string[] {
     return execute(instance => {
         const versionName = getDefaultVersionName(instance);
         const genres: string[] = [];
-        const musics = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName).records;
+        const musics = Instance.instance.module.getModule(MusicModule).getMusicTable(versionName).records;
         for (const m of musics) {
             const genre = m.genre;
             if (genres.indexOf(genre) === -1) {
@@ -233,8 +233,8 @@ function updateCurrentVersionBulkReportTable() {
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
         const musicModule = Instance.instance.module.getModule(MusicModule);
         container.update(
-            musicModule.getSpecifiedVersionTable(versionName),
-            musicModule.getSpecifiedVersionTable(prevVersionName));
+            musicModule.getMusicTable(versionName),
+            musicModule.getMusicTable(prevVersionName));
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);
 
@@ -259,7 +259,7 @@ function updateNextVersionBulkReportTable() {
             .nextVersionBulkReportSpreadsheetId;
         const reader = new BulkReportTableReader();
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
-        const repository = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+        const repository = Instance.instance.module.getModule(MusicModule).getMusicTable(versionName);
         container.update(repository, repository);
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);

@@ -8,7 +8,12 @@ export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
     }
 
     public getByName(name: string): Music {
-        return this.records.find(x => x.name === name);
+        let target = this.records.find(x => x.name === name);
+        if (!target) {
+            name = name.replace(/　/g, ' ');
+            target = this.records.find(x => x.name.toString().replace(/　/g, ' ') === name);
+        }
+        return target;
     }
 
     // Lv.1-6の楽曲数取得用
