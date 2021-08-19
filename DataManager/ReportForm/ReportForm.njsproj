@@ -76,8 +76,8 @@
     <Folder Include="src\Packages\CustomLogger.LINE\" />
     <Folder Include="src\Packages\CustomLogger.Slack\" />
     <Folder Include="src\Packages\CustomLogger\" />
+    <Folder Include="src\Packages\Database\" />
     <Folder Include="src\Packages\DIProperty\" />
-    <Folder Include="src\Packages\Repository\" />
     <Folder Include="src\Packages\Router\" />
     <Folder Include="src\Packages\UrlFetch.LINE\" />
     <Folder Include="src\Packages\UrlFetch.LINE\API\" />
@@ -92,6 +92,9 @@
     <Folder Include="src\Product\" />
     <Folder Include="Dependencies\" />
     <Folder Include="src\Product\ReportForm\Layer2\Music\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReport\" />
     <Folder Include="src\Product\ReportForm\Layer3\Managers\" />
     <Folder Include="src\Product\ReportForm\Layer1\" />
     <Folder Include="src\Product\ReportForm\Layer2\" />
@@ -107,7 +110,7 @@
     <Folder Include="src\Product\ReportForm\Layer2\Modules\Report\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\BulkReport\" />
-    <Folder Include="src\Product\ReportForm\Layer2\Report\LevelBulkReport\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\LevelReport\" />
     <Folder Include="src\Resources\Page\bulk_approval\" />
     <Folder Include="src\Resources\Page\wip_bulk_report_list\" />
     <Folder Include="src\Product\ReportForm\Layer2\Twitter\" />
@@ -157,11 +160,11 @@
     <TypeScriptCompile Include="src\Packages\CustomLogger\ConsoleLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogManager.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\DatabaseTable.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\DatabaseTableSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\GenericDatabaseSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\SpreadsheetDatabaseTable.ts" />
     <TypeScriptCompile Include="src\Packages\DIProperty\DIProperty.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\GenericSchema.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\Repository.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\RepositorySchema.ts" />
-    <TypeScriptCompile Include="src\Packages\Repository\SpreadsheetRepository.ts" />
     <TypeScriptCompile Include="src\Packages\Router\Router.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingController.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingEdge.ts" />
@@ -202,7 +205,22 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\Music.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\MusicRepository.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\MusicTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReportTable.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroup.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroupTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\PostLocation.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportGroup.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportInputFormat.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\BulkReportFormBuildLINEPostCommandController.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\BulkReportFormUrlGetLINEPostCommandController.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\DefaultGameVersionGetLINEPostCommandController.ts" />
@@ -268,8 +286,8 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Instance.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\Report\LevelBulkReportGoogleForm.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\Report\ReportGoogleForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\Report\LevelReportGoogleForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\Report\UnitReportGoogleForm.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\TwitterModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -295,33 +313,13 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableWriter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\IMusicDataReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\IReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelBulkReport\LevelBulkReport.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelBulkReport\LevelBulkReportSheet.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelBulkReport\GoogleFormLevelBulkReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\GoogleFormReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReportGroup.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReportGroupContainer.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\Report.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportInputFormat.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportStatus.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportStorage.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\WebhookModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

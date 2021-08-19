@@ -6,8 +6,8 @@ import { Difficulty } from "../../Layer1/Difficulty";
 import { Environment } from "../../Layer1/Environment";
 import { NoticeQueue } from "../@NoticeQueue";
 import { Music } from "../Music/Music";
-import { IReport } from "../Report/IReport";
 import { ReportStatus } from "../Report/ReportStatus";
+import { UnitReport } from "../Report/UnitReport/UnitReport";
 import { Utility } from "../Utility";
 import { ReportFormModule } from "./@ReportFormModule";
 import { ChunirecModule } from "./ChunirecModule";
@@ -37,23 +37,23 @@ export class ApprovalModule extends ReportFormModule {
     private readonly noticeQueue: NoticeQueue;
 
     public approve(versionName: string, reportId: number) {
-        const report = this.reportModule.getReport(versionName, reportId);
+        const report = this.reportModule.getUnitReport(versionName, reportId);
         if (!report) {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
-        const targetMusic = repository.find({ id: report.musicId });
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const targetMusic = table.find({ id: report.musicId });
         if (!targetMusic) {
             throw new ApprovalError(`楽曲情報取得の失敗. 楽曲名:${report.musicName}`);
         }
 
-        const baseRating = report.calcBaseRating();
+        const baseRating = report.calculateBaseRating();
         Music.setBaseRating(targetMusic, report.difficulty, baseRating);
         Music.setVerified(targetMusic, report.difficulty, true);
 
-        repository.update([targetMusic]);
-        this.reportModule.approve(versionName, reportId);
+        table.update([targetMusic]);
+        this.reportModule.approveUnitReport(versionName, reportId);
 
         this.requestChunirecUpdateMusics([report]);
         this.webhookModule.invoke(WebhookEventName.ON_APPROVE);
@@ -74,15 +74,15 @@ export class ApprovalModule extends ReportFormModule {
     }
 
     public reject(versionName: string, reportId: number): void {
-        const report = this.reportModule.getReport(versionName, reportId);
+        const report = this.reportModule.getUnitReport(versionName, reportId);
         if (!report) {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
-        this.reportModule.reject(versionName, reportId);
+        this.reportModule.rejectUnitReport(versionName, reportId);
 
         let musicName = report.musicName;
         let difficulty = Utility.toDifficultyText(report.difficulty);
-        let baseRating = report.calcBaseRating();
+        let baseRating = report.calculateBaseRating();
 
         CustomLogManager.log(
             LogLevel.Info,
@@ -99,38 +99,36 @@ export class ApprovalModule extends ReportFormModule {
     }
 
     public approveGroup(versionName: string, reportGroupId: string): void {
-        const reportGroup = this.reportModule
-            .getMusicDataReportGroupContainer(versionName)
-            .getMusicDataReportGroup(reportGroupId);
-        if (!reportGroup) {
+        const unitReportGroups = this.reportModule.getUnitReportGroups(versionName, reportGroupId);
+        if (!unitReportGroups) {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
         }
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
         const targetMusics: Music[] = [];
-        const approvedReports: IReport[] = [];
-        for (const rep of reportGroup.getMusicDataReports()) {
-            if (!rep.mainReport || rep.mainReport.reportStatus !== ReportStatus.InProgress) {
+        const approvedReports: UnitReport[] = [];
+        for (const reportGroup of unitReportGroups) {
+            const report = reportGroup.getMainReport();
+            if (!report || report.reportStatus !== ReportStatus.InProgress) {
                 continue;
             }
 
-            const report = rep.mainReport;
             approvedReports.push(report);
 
-            const targetMusic = repository.find({ id: report.musicId });
+            const targetMusic = table.find({ id: report.musicId });
             const difficulty = report.difficulty;
-            const baseRating = report.calcBaseRating();
+            const baseRating = report.calculateBaseRating();
             Music.setBaseRating(targetMusic, difficulty, baseRating);
             Music.setVerified(targetMusic, difficulty, true);
             targetMusics.push(targetMusic);
         }
 
-        repository.update(targetMusics);
-        this.reportModule.approveGroup(versionName, approvedReports.map(r => r.reportId));
+        table.update(targetMusics);
+        this.reportModule.approveMusicReportGroup(versionName, reportGroupId);
 
         for (const report of approvedReports) {
             const difficulty = Utility.toDifficultyText(report.difficulty);
-            const baseRating = report.calcBaseRating();
+            const baseRating = report.calculateBaseRating();
 
             CustomLogManager.log(
                 LogLevel.Info,
@@ -153,7 +151,7 @@ export class ApprovalModule extends ReportFormModule {
 グループID: ${reportGroupId}`);
     }
 
-    private requestChunirecUpdateMusics(reports: IReport[]): boolean {
+    private requestChunirecUpdateMusics(reports: UnitReport[]): boolean {
         if (this.configuration.environment !== Environment.Release) {
             return true;
         }
@@ -162,25 +160,25 @@ export class ApprovalModule extends ReportFormModule {
             params.push({
                 musicId: report.musicId,
                 difficulty: report.difficulty,
-                baseRating: report.calcBaseRating(),
+                baseRating: report.calculateBaseRating(),
             });
         }
         return this.chunirecModule.requestUpdateMusics(params);
     }
 
     // Lv.1-6用
-    public bulkApprove(versionName: string, bulkReportId: number): void {
-        const bulkReport = this.reportModule.getLevelBulkReportSheet(versionName).getBulkReport(bulkReportId);
-        if (!bulkReport) {
-            throw new ApprovalError(`一括検証報告取得の失敗. ID:${bulkReportId}`);
+    public bulkApprove(versionName: string, levelReportId: number): void {
+        const levelReport = this.reportModule.getLevelReport(versionName, levelReportId);
+        if (!levelReport) {
+            throw new ApprovalError(`一括検証報告取得の失敗. ID:${levelReportId}`);
         }
 
-        const targetLevelList = [bulkReport.targetLevel];
+        const targetLevelList = [levelReport.level];
 
-        const repository = this.musicModule.getSpecifiedVersionRepository(versionName);
-        const rows = repository.rows;
+        const table = this.musicModule.getSpecifiedVersionTable(versionName);
+        const records = table.records;
         const targetMusics: Music[] = [];
-        for (const row of rows) {
+        for (const row of records) {
             let update: Music = null;
             if (targetLevelList.indexOf(row.basicBaseRating) !== -1 && !row.basicVerified) {
                 update = row;
@@ -196,39 +194,39 @@ export class ApprovalModule extends ReportFormModule {
             }
         }
 
-        repository.update(targetMusics);
+        table.update(targetMusics);
 
-        this.reportModule.approveLevelBulkReport(versionName, bulkReportId);
+        this.reportModule.approveLevelReport(versionName, levelReportId);
 
         CustomLogManager.log(
             LogLevel.Info,
             {
                 header: '一括承認',
-                targetLevel: bulkReport.targetLevel,
+                targetLevel: levelReport.level,
             });
 
-        this.noticeQueue.enqueueApproveLevelReport(bulkReport);
+        this.noticeQueue.enqueueApproveLevelReport(levelReport);
         this.noticeQueue.save();
 
         this.webhookModule.invoke(WebhookEventName.ON_APPROVE);
     }
 
-    public bulkReject(versionName: string, bulkReportId: number): void {
-        const bulkReport = this.reportModule.getLevelBulkReportSheet(versionName).getBulkReport(bulkReportId);
-        if (!bulkReport) {
-            throw new ApprovalError(`一括検証報告取得の失敗. ID:${bulkReportId}`);
+    public bulkReject(versionName: string, levelReportId: number): void {
+        const levelReport = this.reportModule.getLevelReport(versionName, levelReportId);
+        if (!levelReport) {
+            throw new ApprovalError(`一括検証報告取得の失敗. ID:${levelReportId}`);
         }
 
-        this.reportModule.rejectLevelBulkReport(versionName, bulkReportId);
+        this.reportModule.rejectLevelReport(versionName, levelReportId);
 
         CustomLogManager.log(
             LogLevel.Info,
             {
                 header: '一括却下',
-                targetLevel: bulkReport.targetLevel,
+                targetLevel: levelReport.level,
             });
 
-        this.noticeQueue.enqueueRejectLevelReport(bulkReport);
+        this.noticeQueue.enqueueRejectLevelReport(levelReport);
         this.noticeQueue.save();
     }
 

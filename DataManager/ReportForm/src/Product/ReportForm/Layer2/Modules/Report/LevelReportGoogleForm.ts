@@ -4,7 +4,7 @@ import { Environment } from "../../../Layer1/Environment";
 import { ReportFormModule } from "../@ReportFormModule";
 import { VersionModule } from "../VersionModule";
 import { ReportModule } from "./ReportModule";
-export class LevelBulkReportGoogleForm {
+export class LevelReportGoogleForm {
     public constructor(private readonly _module: ReportFormModule) {
     }
 
@@ -28,7 +28,7 @@ export class LevelBulkReportGoogleForm {
     public buildForm(versionName: string): void {
         CustomLogManager.log(LogLevel.Info, `一括報告フォームを構築します: ${versionName}`);
         CustomLogManager.log(LogLevel.Info, 'フォームに送信された回答の削除...');
-        const form = this._module.getModule(ReportModule).levelBulkReportGoogleForm;
+        const form = this._module.getModule(ReportModule).levelReportGoogleForm;
         form.deleteAllResponses();
         {
             for (const item of form.getItems()) {

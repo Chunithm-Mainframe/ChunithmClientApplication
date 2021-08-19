@@ -1,16 +1,16 @@
 import { Music } from "../Music/Music";
-import { MusicRepository } from "../Music/MusicRepository";
+import { MusicTable } from "../Music/MusicTable";
 import { ReportFormModule } from "./@ReportFormModule";
 import { VersionModule } from "./VersionModule";
 
 export class MusicModule extends ReportFormModule {
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
 
-    private readonly _repositories: Record<string, MusicRepository> = {};
+    private readonly _tableMap: Record<string, MusicTable> = {};
 
-    public getSpecifiedVersionRepository(versionName: string): MusicRepository {
-        if (versionName in this._repositories) {
-            return this._repositories[versionName];
+    public getSpecifiedVersionTable(versionName: string): MusicTable {
+        if (versionName in this._tableMap) {
+            return this._tableMap[versionName];
         }
 
         const versionConfig = this.versionModule.getVersionConfig(versionName);
@@ -19,27 +19,26 @@ export class MusicModule extends ReportFormModule {
         }
 
         const sheet = SpreadsheetApp
-            .openById(versionConfig.musicDataTableSpreadsheetId)
-            .getSheetByName(versionConfig.musicDataTableWorksheetName)
-        this._repositories[versionName] = new MusicRepository(sheet);
-        this._repositories[versionName].initialize();
-        return this._repositories[versionName];
+            .openById(versionConfig.musicSpreadsheetId)
+            .getSheetByName(versionConfig.musicWorksheetName)
+        this._tableMap[versionName] = new MusicTable(sheet);
+        return this._tableMap[versionName];
     }
 
-    public updateSpecifiedVersionRepository(versionName: string, musics: Music[]) {
-        const repository = this.getSpecifiedVersionRepository(versionName);
-        return this.updateRepository(repository, musics);
+    public updateSpecifiedVersionTable(versionName: string, musics: Music[]) {
+        const table = this.getSpecifiedVersionTable(versionName);
+        return this.updateTable(table, musics);
     }
 
-    public updateRepository(repository: MusicRepository, musics: Music[]) {
+    public updateTable(table: MusicTable, musics: Music[]) {
         const added = musics
-            .filter(x => !repository.find({ id: x.id }))
+            .filter(x => !table.find({ id: x.id }))
             .map(x => Music.instantiate(x).apply('enabled', true));
-        const deleted = repository.rows
+        const deleted = table.records
             .filter(x => x.enabled && !musics.find(y => y.id === x.id))
             .map(x => Music.instantiate(x).apply('enabled', false));
 
-        repository.update(added.concat(deleted));
+        table.update(added.concat(deleted));
 
         return {
             added: added,

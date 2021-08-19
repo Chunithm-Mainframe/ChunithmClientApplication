@@ -1,5 +1,5 @@
-import { GenericSchema } from "../../../../Packages/Repository/GenericSchema";
-import { SpreadsheetRepository } from "../../../../Packages/Repository/SpreadsheetRepository";
+import { GenericDatabaseTableSchema } from "../../../../Packages/Database/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../Packages/Database/SpreadsheetDatabaseTable";
 import { ReportFormModule } from "./@ReportFormModule";
 
 interface PlayRecord {
@@ -83,9 +83,8 @@ export class RatingDataAnalysisModule extends ReportFormModule {
         const worksheet = spreadsheet.getSheetByName(config.ratingDataForAnalysisWorksheetName);
 
         const rows = data.map(d => this.toRow(d));
-        const schema = new GenericSchema(PlayerRecordRepositoryRow, ["id"]);
-        const repository = new SpreadsheetRepository(worksheet, schema);
-        repository.initialize();
-        repository.update(rows);
+        const schema = new GenericDatabaseTableSchema(PlayerRecordRepositoryRow, ["id"]);
+        const table = new SpreadsheetDatabaseTable(schema, worksheet);
+        table.update(rows);
     }
 }

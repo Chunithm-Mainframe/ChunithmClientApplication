@@ -1,7 +1,6 @@
-import { ComboStatus } from "../../Layer1/Rating";
-import { Difficulty } from "../../Layer1/Difficulty";
-
-export interface ReportInputFormat {
+import { ComboStatus } from "../../../Layer1/Rating";
+import { Difficulty } from "../../../Layer1/Difficulty";
+export interface UnitReportInputFormat {
     readonly musicId: number;
     readonly difficulty: Difficulty;
     readonly beforeOp: number;

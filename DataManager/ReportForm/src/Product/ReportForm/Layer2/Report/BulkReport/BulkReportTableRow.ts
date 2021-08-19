@@ -1,16 +1,16 @@
 import { Difficulty } from "../../../Layer1/Difficulty";
 import { ComboStatus } from "../../../Layer1/Rating";
-import { MusicRepository } from "../../Music/MusicRepository";
+import { MusicTable } from "../../Music/MusicTable";
 import { Utility } from "../../Utility";
-import { ReportInputFormat } from "../ReportInputFormat";
+import { UnitReportInputFormat } from "../UnitReport/UnitReportInputFormat";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";
 import { Music } from "../../Music/Music";
 
-export class BulkReportTableRow implements ReportInputFormat {
-    public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentMusicRepository: MusicRepository, previousMusicRepository: MusicRepository = null): BulkReportTableRow {
+export class BulkReportTableRow implements UnitReportInputFormat {
+    public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentTable: MusicTable, previousTable: MusicTable = null): BulkReportTableRow {
         const row = new BulkReportTableRow(header);
-        const musicData = currentMusicRepository.find({ id: musicId });
-        const previousMusicData = previousMusicRepository ? previousMusicRepository.find({ id: musicId }) : null;
+        const musicData = currentTable.find({ id: musicId });
+        const previousMusicData = previousTable ? previousTable.find({ id: musicId }) : null;
         for (const column of header.columns) {
             if (column.value.indexOf('@') !== 0) {
                 row.push(column.value);
@@ -131,10 +131,10 @@ export class BulkReportTableRow implements ReportInputFormat {
         return this._values[this._header.getColumnIndexByName(columnName)];
     }
 
-    public update(index: number, difficulty: Difficulty, newMusicRepository: MusicRepository, oldMusicRepository: MusicRepository = null): void {
+    public update(index: number, difficulty: Difficulty, newTable: MusicTable, oldTable: MusicTable = null): void {
         const musicId = this.musicId;
-        const music = newMusicRepository.find({ id: musicId });
-        const oldMusicData = oldMusicRepository ? oldMusicRepository.find({ id: musicId }) : null;
+        const music = newTable.find({ id: musicId });
+        const oldMusicData = oldTable ? oldTable.find({ id: musicId }) : null;
         for (let i = 0; i < this._header.columns.length; i++) {
             const column = this._header.columns[i];
 

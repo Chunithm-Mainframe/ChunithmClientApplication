@@ -63,7 +63,7 @@ function getGenres(): string[] {
     return execute(instance => {
         const versionName = getDefaultVersionName(instance);
         const genres: string[] = [];
-        const musics = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionRepository(versionName).rows;
+        const musics = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName).records;
         for (const m of musics) {
             const genre = m.genre;
             if (genres.indexOf(genre) === -1) {
@@ -153,7 +153,7 @@ export function notifyUnverified() {
         Instance.initialize();
 
         const versionName = Instance.instance.module.configuration.defaultVersionName;
-        const reports = Instance.instance.module.getModule(ReportModule).getReports(versionName);
+        const reports = Instance.instance.module.getModule(ReportModule).getUnitReports(versionName);
         let wipReportCount = 0;
         for (let i = 0; i < reports.length; i++) {
             if (reports[i].reportStatus === ReportStatus.InProgress) {
@@ -161,15 +161,15 @@ export function notifyUnverified() {
             }
         }
 
-        const bulkReports = Instance.instance.module.getModule(ReportModule).getLevelBulkReports(versionName);
-        let wipBulkReportCount = 0;
-        for (const bulkReport of bulkReports) {
-            if (bulkReport.reportStatus === ReportStatus.InProgress) {
-                wipBulkReportCount++;
+        const levelReports = Instance.instance.module.getModule(ReportModule).getLevelReports(versionName);
+        let wipLevelReportCount = 0;
+        for (const levelReport of levelReports) {
+            if (levelReport.reportStatus === ReportStatus.InProgress) {
+                wipLevelReportCount++;
             }
         }
 
-        if (wipReportCount > 0 || wipBulkReportCount > 0) {
+        if (wipReportCount > 0 || wipLevelReportCount > 0) {
             const blocks: Block[] = [];
             blocks.push(SlackBlockFactory.section(
                 SlackCompositionObjectFactory.markdownText('*[定期]未検証 件数報告*')
@@ -182,10 +182,10 @@ export function notifyUnverified() {
                 ));
                 blocks.push(SlackBlockFactory.divider());
             }
-            if (wipBulkReportCount > 0) {
+            if (wipLevelReportCount > 0) {
                 const wipBulkReporturl = Instance.instance.getPageUrl(LevelReportListWebsiteController, { version: versionName });
                 blocks.push(SlackBlockFactory.section(
-                    SlackCompositionObjectFactory.markdownText(`:page_with_curl:未承認のレベル別検証報告が${wipBulkReportCount}件あります
+                    SlackCompositionObjectFactory.markdownText(`:page_with_curl:未承認のレベル別検証報告が${wipLevelReportCount}件あります
 <${wipBulkReporturl}|検証報告一覧(レベル別)ページへ>`)
                 ))
                 blocks.push(SlackBlockFactory.divider());
@@ -233,8 +233,8 @@ function updateCurrentVersionBulkReportTable() {
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
         const musicModule = Instance.instance.module.getModule(MusicModule);
         container.update(
-            musicModule.getSpecifiedVersionRepository(versionName),
-            musicModule.getSpecifiedVersionRepository(prevVersionName));
+            musicModule.getSpecifiedVersionTable(versionName),
+            musicModule.getSpecifiedVersionTable(prevVersionName));
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);
 
@@ -259,7 +259,7 @@ function updateNextVersionBulkReportTable() {
             .nextVersionBulkReportSpreadsheetId;
         const reader = new BulkReportTableReader();
         const container = reader.read(spreadsheetId, 'Header', 'BASIC', 'ADVANCED', 'EXPERT', 'MASTER');
-        const repository = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionRepository(versionName);
+        const repository = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
         container.update(repository, repository);
         const writer = new BulkReportTableWriter();
         writer.write(spreadsheetId, container);

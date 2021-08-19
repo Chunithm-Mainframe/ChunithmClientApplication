@@ -22,20 +22,20 @@ export class MusicRepositoryUpdatePostCommand extends PostCommand {
     private get twitterModule(): TwitterModule { return this.module.getModule(TwitterModule); }
 
     public invoke(postData: MusicRepositoryUpdatePostCommandParameter) {
-        const currentRepository = this.musicModule.getSpecifiedVersionRepository(postData.versionName);
-        const isNewlyCreatedRepository = currentRepository.rows.length === 0;
+        const currentTable = this.musicModule.getSpecifiedVersionTable(postData.versionName);
+        const isNewlyCreatedTable = currentTable.records.length === 0;
 
-        const result = this.musicModule.updateSpecifiedVersionRepository(
+        const result = this.musicModule.updateSpecifiedVersionTable(
             postData.versionName,
             postData.musics.map(x => Music.instantiate(x)));
 
         if (result.added.length > 0) {
             const genres = this.versionModule.getVersionConfig(postData.versionName).genres;
 
-            this.updateMusicList(genres, currentRepository.rows);
+            this.updateMusicList(genres, currentTable.records);
 
-            if (isNewlyCreatedRepository) {
-                this.notifyRepositoryInitialization(genres, currentRepository.rows);
+            if (isNewlyCreatedTable) {
+                this.notifyRepositoryInitialization(genres, currentTable.records);
             }
             else {
                 this.notifyRepositoryUpdate(result.added);
@@ -46,7 +46,7 @@ export class MusicRepositoryUpdatePostCommand extends PostCommand {
     }
 
     private updateMusicList(genres: string[], musics: Music[]): void {
-        const form = this.reportModule.reportGoogleForm;
+        const form = this.reportModule.unitReportGoogleForm;
         const list = form.getItems(FormApp.ItemType.LIST);
 
         const genreList = genres.concat("ALL");

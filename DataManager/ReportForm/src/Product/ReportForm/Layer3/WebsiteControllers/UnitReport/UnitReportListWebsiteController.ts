@@ -1,8 +1,8 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Role } from "../../../Layer1/Role";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { IReport } from "../../../Layer2/Report/IReport";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
+import { UnitReport } from "../../../Layer2/Report/UnitReport/UnitReport";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
@@ -20,9 +20,9 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
     }
 
     protected callInternal(parameter: UnitReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const listHtml = this.reportModule.getReports(this.targetGameVersion)
-            .filter(r => r.reportStatus === ReportStatus.InProgress)
-            .map(r => this.getListItemHtml(this.targetGameVersion, r))
+        const listHtml = this.reportModule.getUnitReports(this.targetGameVersion)
+            .filter(x => x.reportStatus === ReportStatus.InProgress)
+            .map(x => this.getListItemHtml(this.targetGameVersion, x))
             .reduce((acc, src) => `${acc}\n${src}`, '');
 
         let source = this.readHtml("Resources/Page/wip_list/main");
@@ -34,7 +34,7 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
         return this.createHtmlOutput(source);
     }
 
-    private getListItemHtml(version: string, report: IReport): string {
+    private getListItemHtml(version: string, report: UnitReport): string {
         const parameter: UnitReportWebsiteParameter = {
             version: this.targetGameVersion,
             reportId: report.reportId.toString(),

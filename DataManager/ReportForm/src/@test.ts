@@ -1,8 +1,8 @@
 import { Instance } from "./Product/ReportForm/Instance";
 import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
-import { Music } from "./Product/ReportForm/Layer2/Music/Music";
-import { MusicRepository } from "./Product/ReportForm/Layer2/Music/MusicRepository";
+import { ReportModule } from "./Product/ReportForm/Layer2/Modules/Report/ReportModule";
+import { UnitReport } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReport";
 import { ReportForm } from "./Product/ReportForm/ReportForm";
 
 // implements test core here
@@ -32,39 +32,54 @@ function writeRatingDataTest() {
     Instance.instance.module.getModule(RatingDataAnalysisModule).test();
 }
 
-function writingTableTest() {
-    const spreadsheetId = '1PCZ33KHTKDrfpVbmXp7h0YTSK5cDqaNVSCFE43a54qg';
-    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+function updateReportRepositoryTest() {
 
-    console.time('total');
-
-    console.time('music');
-    const repo = new MusicRepository(spreadsheet.getSheetByName('Music'));
-    repo.initialize();
-    console.timeEnd('music');
-
-    console.timeEnd('total');
-}
-
-function createMusic(id: number, name: string, genre: string) {
-    return new Music()
-        .apply('id', id)
-        .apply('name', name)
-        .apply('genre', genre);
-}
-
-function updateTableTest() {
-    const spreadsheetId = '1PCZ33KHTKDrfpVbmXp7h0YTSK5cDqaNVSCFE43a54qg';
-    const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+    function createUnitReport(musicId: number, musicName: string) {
+        const unitReport = new UnitReport();
+        unitReport.musicId = musicId;
+        unitReport.musicName = musicName;
+        return unitReport;
+    }
 
     Instance.initialize();
-    const module = Instance.instance.module.getModule(MusicModule);
-    const repository = new MusicRepository(spreadsheet.getSheetByName('Music'));
-    repository.initialize();
-    const ret = module.updateRepository(repository, [
-        createMusic(10001, 'Hoge', 'HogeHoge'),
-        createMusic(10002, 'Fuga', 'FugaFuga'),
+
+    const versionName = Instance.instance.config.defaultVersionName;
+    const table = Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName);
+
+    const ret = table.update([
+        createUnitReport(100, 'Hoge'),
+        createUnitReport(101, 'HogeHoge'),
+        createUnitReport(102, 'Fuga'),
     ]);
-    console.log(ret.added);
-    console.log(ret.deleted);
+
+    console.log(ret);
+}
+
+function test_loadMusicTable() {
+    Instance.initialize();
+
+    const versionName = Instance.instance.config.defaultVersionName;
+    const musicTable = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+    console.log(musicTable.records.length);
+}
+
+function test_loadUnitReportTable() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const reportTable = Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName);
+    console.log(reportTable.records.length);
+}
+
+function test_loadLevelReportTable() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const reportTable = Instance.instance.module.getModule(ReportModule).getLevelReportTable(versionName);
+    console.log(reportTable.records.length);
+}
+
+function test_loadMusicReportGroup() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const table = Instance.instance.module.getModule(ReportModule).getMusicReportGroupTable(versionName);
+    console.log(table.records.length);
 }

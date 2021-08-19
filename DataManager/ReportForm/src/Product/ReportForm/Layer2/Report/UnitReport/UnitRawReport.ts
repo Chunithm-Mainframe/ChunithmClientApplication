@@ -1,7 +1,7 @@
-import { Difficulty } from "../../Layer1/Difficulty";
-import { ComboStatus } from "../../Layer1/Rating";
-import { MusicRepository } from "../Music/MusicRepository";
-import { Utility } from "../Utility";
+import { Difficulty } from "../../../Layer1/Difficulty";
+import { ComboStatus } from "../../../Layer1/Rating";
+import { MusicTable } from "../../Music/MusicTable";
+import { Utility } from "../../Utility";
 
 class PostReportExtends {
     private static convertMusicNameMap: { [key: string]: string } = {
@@ -23,7 +23,7 @@ class PostReportExtends {
     }
 }
 
-export class GoogleFormReport {
+export class UnitRawReport {
     private _musicId: number;
     private _musicnName = "";
     private _difficulty: Difficulty = Difficulty.Invalid;
@@ -50,8 +50,8 @@ export class GoogleFormReport {
         }
     }
 
-    public bindMusic(repository: MusicRepository): void {
-        const music = repository.getByName(this.musicName);
+    public bindMusic(table: MusicTable): void {
+        const music = table.getByName(this.musicName);
         if (music) {
             this._musicId = music.id;
         }

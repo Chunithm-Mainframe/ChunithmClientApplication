@@ -20,7 +20,7 @@ export class LevelReportWebsiteController extends ReportFormWebsiteController<Le
 
     protected callInternal(parameter: LevelReportWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const reportId = parseInt(parameter.reportId);
-        const report = this.reportModule.getLevelBulkReportSheet(this.targetGameVersion).getBulkReport(reportId);
+        const report = this.reportModule.getLevelReport(this.targetGameVersion, reportId);
 
         if (!report) {
             throw new Error("該当する検証報告が存在しません");
@@ -32,16 +32,16 @@ export class LevelReportWebsiteController extends ReportFormWebsiteController<Le
         source = this.replacePageLink(source, parameter, LevelReportWebsiteController);
         source = this.replacePageLink(source, parameter, LevelReportListWebsiteController);
 
-        const difficulty = report.targetLevel <= 3 ? Difficulty.Basic : Difficulty.Advanced;
+        const difficulty = report.level <= 3 ? Difficulty.Basic : Difficulty.Advanced;
 
         source = source.replace(/%reportId%/g, reportId.toString());
-        source = source.replace(/%targetMusicLevel%/g, report.targetLevel.toString());
+        source = source.replace(/%targetMusicLevel%/g, report.level.toString());
         source = source.replace(/%difficulty%/g, Utility.toDifficultyTextLowerCase(difficulty));
         source = source.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(difficulty));
         source = source.replace(/%musicCount%/g, report.musicCount.toString());
         source = source.replace(/%op%/g, report.op.toFixed(2));
         source = source.replace(/%opRatio%/g, report.opRatio.toFixed(2));
-        source = source.replace(/%reportDate%/g, this.getDateText(report.reportDate));
+        source = source.replace(/%reportDate%/g, this.getDateText(report.createdAt));
 
         const imagePaths = report.imagePaths;
         if (imagePaths.length > 0) {

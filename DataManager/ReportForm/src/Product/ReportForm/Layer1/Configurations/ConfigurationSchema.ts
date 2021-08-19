@@ -33,11 +33,14 @@ export interface GlobalConfigurationSchema {
 export interface VersionConfigurationSchema {
     readonly displayVersionName: string;
     readonly genres: string[];
-    readonly musicDataTableSpreadsheetId: string;
-    readonly musicDataTableWorksheetName: string;
-    readonly reportSpreadsheetId: string;
-    readonly reportWorksheetName: string;
-    readonly reportGroupWorksheetName: string;
+    readonly musicSpreadsheetId: string;
+    readonly musicWorksheetName: string;
+    readonly unitReportSpreadsheetId: string;
+    readonly unitReportWorksheetName: string;
+    readonly levelReportSpreadsheetId: string;
+    readonly levelReportWorksheetName: string;
+    readonly musicReportGroupSpreadsheetId: string;
+    readonly musicReportGroupWorksheetName: string;
     readonly bulkReportWorksheetName: string;
     readonly bulkReportSpreadsheetId: string;
     readonly nextVersionBulkReportSpreadsheetId: string;
