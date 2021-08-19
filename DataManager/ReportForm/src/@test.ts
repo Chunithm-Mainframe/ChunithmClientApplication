@@ -59,7 +59,7 @@ function test_loadMusicTable() {
     Instance.initialize();
 
     const versionName = Instance.instance.config.defaultVersionName;
-    const musicTable = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+    const musicTable = Instance.instance.module.getModule(MusicModule).getMusicTable(versionName);
     console.log(musicTable.records.length);
 }
 

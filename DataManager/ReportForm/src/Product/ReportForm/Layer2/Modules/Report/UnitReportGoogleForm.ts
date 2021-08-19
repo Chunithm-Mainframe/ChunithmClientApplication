@@ -43,7 +43,7 @@ export class UnitReportGoogleForm {
         genreSelect.setTitle('ジャンルを選択してください');
         genreSelect.setRequired(true);
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成...`);
-        const table = this._module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+        const table = this._module.getModule(MusicModule).getMusicTable(versionName);
         const genres = this._module.getModule(VersionModule).getVersionConfig(versionName).genres;
         genres.push('ALL');
         const musicSelectPages: {

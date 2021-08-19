@@ -105,7 +105,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
     }
 
     private getUnverifiedMusicDatas(version: string): UnverifiedListByLevelListItemMusicData[] {
-        const musics = this.musicModule.getSpecifiedVersionTable(version).records;
+        const musics = this.musicModule.getMusicTable(version).records;
         const unverifiedMusicDatas: UnverifiedListByLevelListItemMusicData[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {

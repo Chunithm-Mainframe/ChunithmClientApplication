@@ -27,7 +27,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
     }
 
     public callInternal(parameter: UnitReportGroupWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const musicTable = this.musicModule.getSpecifiedVersionTable(this.targetGameVersion);
+        const musicTable = this.musicModule.getMusicTable(this.targetGameVersion);
         const reportGroups = this.reportModule.getUnitReportGroups(this.targetGameVersion, parameter.groupId);
 
         console.log(parameter.groupId);
