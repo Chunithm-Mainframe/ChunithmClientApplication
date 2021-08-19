@@ -1,10 +1,9 @@
 import { Instance } from "./Product/ReportForm/Instance";
+import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
-import { UnitReportTable } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReportTable";
+import { ReportModule } from "./Product/ReportForm/Layer2/Modules/Report/ReportModule";
 import { UnitReport } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReport";
 import { ReportForm } from "./Product/ReportForm/ReportForm";
-import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
-import { ReportModule } from "./Product/ReportForm/Layer2/Modules/Report/ReportModule";
 
 // implements test core here
 function checkInitialize() {
