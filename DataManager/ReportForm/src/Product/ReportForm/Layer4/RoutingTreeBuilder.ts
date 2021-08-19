@@ -1,16 +1,16 @@
 import { RoutingController } from "../../../Packages/Router/RoutingController";
 import { RoutingParameterType } from "../../../Packages/Router/RoutingParameterType";
 import { RoutingTreeEditor } from "../../../Packages/Router/RoutingTreeEditor";
-import { ReportFormPageLinkResolver } from "../Layer3/@ReportFormPageLinkResolver";
-import { LevelReportListWebsiteController } from "../Layer3/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
-import { LevelReportWebsiteController } from "../Layer3/WebsiteControllers/LevelReport/LevelReportWebsiteController";
-import { TopWebsiteController } from "../Layer3/WebsiteControllers/TopWebsiteController";
-import { UnitReportListWebsiteController } from "../Layer3/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
-import { UnitReportWebsiteController } from "../Layer3/WebsiteControllers/UnitReport/UnitReportWebsiteController";
-import { UnitReportGroupListWebsiteController } from "../Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupListWebsiteController";
-import { UnitReportGroupWebsiteController } from "../Layer3/WebsiteControllers/UnitReportGroup/UnitReportGroupWebsiteController";
-import { UnverifiedListByGenreWebsiteController } from "../Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByGenreWebsiteController";
-import { UnverifiedListByLevelWebsiteController } from "../Layer3/WebsiteControllers/UnverifiedList/UnverifiedListByLevelWebsiteController";
+import { ReportFormPageLinkResolver } from "./@ReportFormPageLinkResolver";
+import { LevelReportListWebsiteController } from "./WebsiteControllers/LevelReport/LevelReportListWebsiteController";
+import { LevelReportWebsiteController } from "./WebsiteControllers/LevelReport/LevelReportWebsiteController";
+import { TopWebsiteController } from "./WebsiteControllers/TopWebsiteController";
+import { UnitReportListWebsiteController } from "./WebsiteControllers/UnitReport/UnitReportListWebsiteController";
+import { UnitReportWebsiteController } from "./WebsiteControllers/UnitReport/UnitReportWebsiteController";
+import { UnitReportGroupListWebsiteController } from "./WebsiteControllers/UnitReportGroup/UnitReportGroupListWebsiteController";
+import { UnitReportGroupWebsiteController } from "./WebsiteControllers/UnitReportGroup/UnitReportGroupWebsiteController";
+import { UnverifiedListByGenreWebsiteController } from "./WebsiteControllers/UnverifiedList/UnverifiedListByGenreWebsiteController";
+import { UnverifiedListByLevelWebsiteController } from "./WebsiteControllers/UnverifiedList/UnverifiedListByLevelWebsiteController";
 
 export class RoutingTreeBuilder {
     public static build(editor: RoutingTreeEditor, resolver: ReportFormPageLinkResolver): void {

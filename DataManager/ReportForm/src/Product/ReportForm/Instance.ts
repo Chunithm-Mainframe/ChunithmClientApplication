@@ -16,30 +16,30 @@ import { ReportFormConfigurationSchema } from "./Layer1/Configurations/Configura
 import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSourceType";
 import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
 import { NoticeQueue } from "./Layer2/@NoticeQueue";
-import { ReportFormModule } from "./Layer2/Modules/@ReportFormModule";
-import { ReportFormPageLinkResolver } from "./Layer3/@ReportFormPageLinkResolver";
-import { BulkReportFormBuildLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommandController";
-import { BulkReportFormUrlGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommandController";
-import { DefaultGameVersionGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommandController";
-import { EnvironmentGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/EnvironmentGetLINEPostCommandController";
-import { FormUrlGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/FormUrlGetLINEPostCommandController";
-import { GlobalConfigValueGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/GlobalConfigValueGetLINEPostCommandController";
-import { LatestGameVersionGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/LatestGameVersionGetLINEPostCommandController";
-import { PostTweetEnabledGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/PostTweetEnabledGetLINEPostCommandController";
-import { PostTweetEnabledSetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/PostTweetEnabledSetLINEPostCommandController";
-import { ReportFormBuildLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/ReportFormBuildLINEPostCommandController";
-import { ReportPostNoticeEnabledGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/ReportPostNoticeEnabledGetLINEPostCommandController";
-import { ReportPostNoticeEnabledSetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/ReportPostNoticeEnabledSetLINEPostCommandController";
-import { TargetLevelMusicCountGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/TargetLevelMusicCountGetLINEPostCommandController";
-import { TestLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/TestLINEPostCommandController";
-import { TopUrlGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/TopUrlGetLINEPostCommandController";
-import { VersionGetLINEPostCommandController } from "./Layer3/LINEPostCommandControllers/VersionGetLINEPostCommandController";
-import { LINEPostCommandManager } from "./Layer3/Managers/LINEPostCommandManager";
-import { NoticeManager } from "./Layer3/Managers/NoticeManager";
-import { PostCommandManager } from "./Layer3/Managers/PostCommandManager";
-import { MusicRepositoryGetPostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryGetPostCommand";
-import { MusicRepositoryUpdatePostCommand } from "./Layer3/PostCommandControllers/MusicRepositoryUpdatePostCommand";
-import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer3/WebsiteControllers/@ReportFormController";
+import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
+import { ReportFormPageLinkResolver } from "./Layer4/@ReportFormPageLinkResolver";
+import { BulkReportFormBuildLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommandController";
+import { BulkReportFormUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommandController";
+import { DefaultGameVersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommandController";
+import { EnvironmentGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/EnvironmentGetLINEPostCommandController";
+import { FormUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/FormUrlGetLINEPostCommandController";
+import { GlobalConfigValueGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/GlobalConfigValueGetLINEPostCommandController";
+import { LatestGameVersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/LatestGameVersionGetLINEPostCommandController";
+import { PostTweetEnabledGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledGetLINEPostCommandController";
+import { PostTweetEnabledSetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledSetLINEPostCommandController";
+import { ReportFormBuildLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportFormBuildLINEPostCommandController";
+import { ReportPostNoticeEnabledGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledGetLINEPostCommandController";
+import { ReportPostNoticeEnabledSetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledSetLINEPostCommandController";
+import { TargetLevelMusicCountGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TargetLevelMusicCountGetLINEPostCommandController";
+import { TestLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TestLINEPostCommandController";
+import { TopUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TopUrlGetLINEPostCommandController";
+import { VersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/VersionGetLINEPostCommandController";
+import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
+import { NoticeManager } from "./Layer4/Managers/NoticeManager";
+import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
+import { MusicTableGetPostCommand } from "./Layer4/PostCommandControllers/MusicTableGetPostCommand";
+import { MusicTableUpdatePostCommand } from "./Layer4/PostCommandControllers/MusicTableUpdatePostCommand";
+import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer4/WebsiteControllers/@ReportFormController";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 
 export class Instance {
@@ -140,8 +140,8 @@ export class Instance {
     public setupPostCommandControllers(): void {
         const postCommandManager = new PostCommandManager();
 
-        postCommandManager.bindEquals("repo/get", MusicRepositoryGetPostCommand);
-        postCommandManager.bindEquals("repo/update", MusicRepositoryUpdatePostCommand);
+        postCommandManager.bindEquals("repo/get", MusicTableGetPostCommand);
+        postCommandManager.bindEquals("repo/update", MusicTableUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }
