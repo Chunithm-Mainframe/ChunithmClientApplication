@@ -10,7 +10,8 @@ export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
     public getByName(name: string): Music {
         let target = this.records.find(x => x.name === name);
         if (!target) {
-            target = this.records.find(x => x.name.replace('　', ' ') === name);
+            name = name.replace(/　/g, ' ');
+            target = this.records.find(x => x.name.toString().replace(/　/g, ' ') === name);
         }
         return target;
     }
