@@ -1,9 +1,9 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Role } from "../../../Layer1/Role";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicDataReportGroup } from "../../../Layer2/Report/MusicDataReportGroup";
+import { Role } from "../../../Layer1/Role";
+import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
+import { MusicReportGroup } from "../../../Layer2/Report/MusicReportGroup/MusicReportGroup";
+import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
 import { UnitReportGroupWebsiteController, UnitReportGroupWebsiteParameter } from "./UnitReportGroupWebsiteController";
@@ -21,7 +21,7 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
     }
 
     protected callInternal(parameter: UnitReportGroupListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const reportGroups = this.reportModule.getMusicDataReportGroupContainer(this.targetGameVersion).musicDataReportGroups;
+        const reportGroups = this.reportModule.getMusicReportGroupTable(this.targetGameVersion).groupByGroupId();
         const listHtml = this.getListHtml(this.targetGameVersion, reportGroups);
 
         let source = this.readHtml("Resources/Page/report_group_list/main");
@@ -32,31 +32,32 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
         return this.createHtmlOutput(source);
     }
 
-    private getListHtml(version: string, reportGroups: MusicDataReportGroup[]): string {
+    private getListHtml(version: string, musicReportGroups: { groupId: string; records: MusicReportGroup[] }[]): string {
         let source = '';
-        for (const reportGroup of reportGroups) {
-            source += this.getListItemHtml(version, reportGroup) + '\n';
+        for (const reportGroup of musicReportGroups) {
+            source += this.getListItemHtml(version, reportGroup.groupId, reportGroup.records) + '\n';
         }
         return source;
     }
 
-    private getListItemHtml(version: string, reportGroup: MusicDataReportGroup): string {
-        let title = `ID: ${reportGroup.groupId}`;
+    private getListItemHtml(version: string, groupId: string, musicReportGroups: MusicReportGroup[]): string {
+        const unitReportGroups = musicReportGroups.map(x => this.reportModule.getUnitReportGroup(version, x.musicId, x.difficulty))
+        let title = `ID: ${groupId}`;
         let maxDiffuclty = Difficulty.Invalid;
-        if (reportGroup.verified) {
+        if (unitReportGroups.every(x => x.verified)) {
             title = `<span style="color:#02d507;">[DONE]</span>` + title;
         }
         else {
             let anyWip = false;
             let allWip = true;
-            for (const report of reportGroup.getMusicDataReports()) {
-                if (report.difficulty > maxDiffuclty) {
-                    maxDiffuclty = report.difficulty;
+            for (const reportGroup of unitReportGroups) {
+                if (reportGroup.difficulty > maxDiffuclty) {
+                    maxDiffuclty = reportGroup.difficulty;
                 }
-                if (report.verified) {
+                if (reportGroup.verified) {
                     continue;
                 }
-                if (report.mainReport) {
+                if (reportGroup.getMainReport()) {
                     anyWip = true;
                 }
                 else {
@@ -72,7 +73,7 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
         }
         const parameter: UnitReportGroupWebsiteParameter = {
             version: this.targetGameVersion,
-            groupId: reportGroup.groupId,
+            groupId: groupId,
         };
         const url = this.getFullPath(parameter, UnitReportGroupWebsiteController);
         const template = `<div class="music_list bg_${Utility.toDifficultyTextLowerCase(maxDiffuclty)}" onclick="window.open('${encodeURI(url)}', '_top')">${title}</div>`;

@@ -92,6 +92,7 @@
     <Folder Include="src\Product\" />
     <Folder Include="Dependencies\" />
     <Folder Include="src\Product\ReportForm\Layer2\Music\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReport\" />
     <Folder Include="src\Product\ReportForm\Layer3\Managers\" />
@@ -205,7 +206,19 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\MusicTable.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportRepository.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReportTable.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroup.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroupTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\PostLocation.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportGroup.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportInputFormat.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\LINEPostCommandControllers\BulkReportFormBuildLINEPostCommandController.ts" />
@@ -300,33 +313,13 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableWriter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\IMusicDataReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\IReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReportSheet.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReportGroup.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicDataReportGroupContainer.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReport.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportInputFormat.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportStatus.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportStorage.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Modules\WebhookModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

@@ -1,7 +1,10 @@
 import { Instance } from "./Product/ReportForm/Instance";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer2/Modules/RatingDataAnalysisModule";
-import { UnitReportTable, UnitReportSchema } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReportRepository";
+import { UnitReportTable } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReportTable";
+import { UnitReport } from "./Product/ReportForm/Layer2/Report/UnitReport/UnitReport";
 import { ReportForm } from "./Product/ReportForm/ReportForm";
+import { MusicModule } from "./Product/ReportForm/Layer2/Modules/MusicModule";
+import { ReportModule } from "./Product/ReportForm/Layer2/Modules/Report/ReportModule";
 
 // implements test core here
 function checkInitialize() {
@@ -32,23 +35,52 @@ function writeRatingDataTest() {
 
 function updateReportRepositoryTest() {
 
-    function createUnitReport(reportId: number, musicId: number, musicName: string) {
-        const unitReport = new UnitReportSchema();
-        unitReport.reportId = reportId;
+    function createUnitReport(musicId: number, musicName: string) {
+        const unitReport = new UnitReport();
         unitReport.musicId = musicId;
         unitReport.musicName = musicName;
         return unitReport;
     }
 
-    const sheetId = '1Nky3XwdpIxuOO6VXNtrOoyfRIcFAnC8ADzut3Io9cCM';
-    const sheet = SpreadsheetApp.openById(sheetId);
+    Instance.initialize();
 
-    const table = new UnitReportTable(sheet.getSheetByName('UnitReport'));
+    const versionName = Instance.instance.config.defaultVersionName;
+    const table = Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName);
+
     const ret = table.update([
-        createUnitReport(1000, 100, 'Hoge'),
-        createUnitReport(1001, 101, 'HogeHoge'),
-        createUnitReport(1002, 102, 'Fuga'),
+        createUnitReport(100, 'Hoge'),
+        createUnitReport(101, 'HogeHoge'),
+        createUnitReport(102, 'Fuga'),
     ]);
 
     console.log(ret);
+}
+
+function test_loadMusicTable() {
+    Instance.initialize();
+
+    const versionName = Instance.instance.config.defaultVersionName;
+    const musicTable = Instance.instance.module.getModule(MusicModule).getSpecifiedVersionTable(versionName);
+    console.log(musicTable.records.length);
+}
+
+function test_loadUnitReportTable() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const reportTable = Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName);
+    console.log(reportTable.records.length);
+}
+
+function test_loadLevelReportTable() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const reportTable = Instance.instance.module.getModule(ReportModule).getLevelReportTable(versionName);
+    console.log(reportTable.records.length);
+}
+
+function test_loadMusicReportGroup() {
+    Instance.initialize();
+    const versionName = Instance.instance.config.defaultVersionName;
+    const table = Instance.instance.module.getModule(ReportModule).getMusicReportGroupTable(versionName);
+    console.log(table.records.length);
 }

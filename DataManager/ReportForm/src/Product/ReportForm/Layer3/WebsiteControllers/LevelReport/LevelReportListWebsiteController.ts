@@ -1,7 +1,7 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { Role } from "../../../Layer1/Role";
 import { ReportModule } from "../../../Layer2/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer1/Difficulty";
 import { LevelReport } from "../../../Layer2/Report/LevelReport/LevelReport";
 import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
 import { Utility } from "../../../Layer2/Utility";
@@ -21,7 +21,7 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
     }
 
     protected callInternal(parameter: LevelReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
-        const listHtml = this.reportModule.getLevelBulkReports(this.targetGameVersion)
+        const listHtml = this.reportModule.getLevelReports(this.targetGameVersion)
             .filter(r => r.reportStatus === ReportStatus.InProgress)
             .map(report => this.getListItemHtml(this.targetGameVersion, report))
             .reduce((acc, src) => `${acc}\n${src}`, '');
@@ -33,17 +33,17 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
     }
 
     private getListItemHtml(version: string, report: LevelReport): string {
-        const bg = report.targetLevel <= 3
+        const bg = report.level <= 3
             ? Utility.toDifficultyTextLowerCase(Difficulty.Basic)
             : Utility.toDifficultyTextLowerCase(Difficulty.Advanced);
-        const date = report.reportDate;
+        const date = report.createdAt;
         const dateText = LevelReportListWebsiteController.getDateText(date);
         const parameter: LevelReportWebsiteParameter = {
             version: this.targetGameVersion,
             reportId: report.reportId.toString(),
         };
         const url = this.getFullPath(parameter, LevelReportWebsiteController);
-        return `<div class="music_list bg_${bg}" onclick="window.open('${encodeURI(url)}', '_top')">Lv.${report.targetLevel}/${report.musicCount}曲/${dateText}</div>`;
+        return `<div class="music_list bg_${bg}" onclick="window.open('${encodeURI(url)}', '_top')">Lv.${report.level}/${report.musicCount}曲/${dateText}</div>`;
     }
 
     private static getDateText(date: Date): string {

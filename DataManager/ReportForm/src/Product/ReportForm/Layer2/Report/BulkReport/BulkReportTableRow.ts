@@ -2,11 +2,11 @@ import { Difficulty } from "../../../Layer1/Difficulty";
 import { ComboStatus } from "../../../Layer1/Rating";
 import { MusicTable } from "../../Music/MusicTable";
 import { Utility } from "../../Utility";
-import { ReportInputFormat } from "../ReportInputFormat";
+import { UnitReportInputFormat } from "../UnitReport/UnitReportInputFormat";
 import { BulkReportTableHeader } from "./BulkReportTableHeader";
 import { Music } from "../../Music/Music";
 
-export class BulkReportTableRow implements ReportInputFormat {
+export class BulkReportTableRow implements UnitReportInputFormat {
     public static create(index: number, musicId: number, difficulty: Difficulty, header: BulkReportTableHeader, currentTable: MusicTable, previousTable: MusicTable = null): BulkReportTableRow {
         const row = new BulkReportTableRow(header);
         const musicData = currentTable.find({ id: musicId });

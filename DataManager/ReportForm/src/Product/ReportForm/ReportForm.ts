@@ -8,9 +8,10 @@ import { ReportModule } from "./Layer2/Modules/Report/ReportModule";
 import { UnitRawReport } from "./Layer2/Report/UnitReport/UnitRawReport";
 import { LevelRawReport } from "./Layer2/Report/LevelReport/LevelRawReport";
 import { ReportStatus } from "./Layer2/Report/ReportStatus";
-import { PostLocation } from "./Layer2/Report/ReportStorage";
+import { PostLocation } from "./Layer2/Report/PostLocation";
 import { Utility } from "./Layer2/Utility";
 import { ErrorWebsiteController } from "./Layer3/WebsiteControllers/ErrorWebsiteController";
+import { UnitReportTable } from "./Layer2/Report/UnitReport/UnitReportTable";
 
 export type DoGet = GoogleAppsScript.Events.DoGet & { pathInfo: string };
 
@@ -115,7 +116,7 @@ export class ReportForm {
                     reportId: report.reportId,
                     musicName: report.musicName,
                     difficulty: Utility.toDifficultyText(report.difficulty),
-                    baseRating: report.calcBaseRating().toFixed(1),
+                    baseRating: report.calculateBaseRating().toFixed(1),
                 };
                 CustomLogManager.log(LogLevel.Info, data);
 
@@ -133,18 +134,18 @@ export class ReportForm {
             if (!versionName) {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
-            let bulkReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
-            if (bulkReport) {
+            let levelReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
+            if (levelReport) {
                 const data = {
                     header: `一括検証報告`,
-                    reportId: bulkReport.reportId,
-                    targetLevel: bulkReport.targetLevel,
-                    musicCount: bulkReport.musicCount,
-                    op: bulkReport.op,
-                    opRatio: bulkReport.opRatio,
+                    reportId: levelReport.reportId,
+                    targetLevel: levelReport.level,
+                    musicCount: levelReport.musicCount,
+                    op: levelReport.op,
+                    opRatio: levelReport.opRatio,
                 };
                 CustomLogManager.log(LogLevel.Info, data);
-                Instance.getNoticeQueue().enqueueCreateLevelReport(bulkReport);
+                Instance.getNoticeQueue().enqueueCreateLevelReport(levelReport);
             }
         }
         catch (error) {
@@ -166,22 +167,20 @@ export class ReportForm {
                 .split(',')
                 .map(p => `https://drive.google.com/uc?id=${p}`);
 
-            const targetReport = Instance.instance.module.getModule(ReportModule)
-                .getReportStorage(versionName)
-                .getMusicDataReport(musicId, difficulty)
-                .find(r => r.postLocation === PostLocation.BulkSheet && r.reportStatus === ReportStatus.InProgress);
+            const targetReport = Instance.instance.module.getModule(ReportModule).getUnitReports(versionName)
+                .filter(x => x.musicId === musicId && x.difficulty === difficulty)
+                .find(x => x.postLocation === PostLocation.BulkSheet && x.reportStatus === ReportStatus.InProgress)
             if (targetReport) {
-                targetReport.setImagePaths(imagePaths);
-                Instance.instance.module.getModule(ReportModule).getReportStorage(versionName).write();
+                targetReport.imagePathText = imagePaths.join(',');
+                Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName).update(targetReport);
             }
             else {
                 const tableContainer = Instance.instance.module.getModule(ReportModule).getBulkReportTableContainer(versionName);
                 const row = tableContainer.getTableByDifficulty(difficulty).getRowByMusicId(musicId);
                 if (row && row.isValid()) {
-                    Instance.instance.module.getModule(ReportModule)
-                        .getReportStorage(versionName)
-                        .push(row, PostLocation.BulkSheet, imagePaths);
-                    Instance.instance.module.getModule(ReportModule).getReportStorage(versionName).write();
+                    const newReport = UnitReportTable.instantiateRecord(row);
+                    newReport.postLocation = PostLocation.BulkSheet;
+                    Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName).update(newReport);
                 }
                 else {
                     // 入力前に画像が投稿された
