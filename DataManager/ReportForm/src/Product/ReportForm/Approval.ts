@@ -1,5 +1,5 @@
 import { Instance } from "./Instance";
-import { ApprovalError, ApprovalModule } from "./Layer2/Modules/ApprovalModule";
+import { ApprovalError, ApprovalModule } from "./Layer3/Modules/ApprovalModule";
 
 function approve(reportIdText: string, versionName: string): void {
     try {
