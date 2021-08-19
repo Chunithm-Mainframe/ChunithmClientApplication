@@ -92,7 +92,7 @@
     <Folder Include="src\Product\" />
     <Folder Include="Dependencies\" />
     <Folder Include="src\Product\ReportForm\Layer2\Music\" />
-    <Folder Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReport\" />
     <Folder Include="src\Product\ReportForm\Layer3\Managers\" />
@@ -210,10 +210,11 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroup.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MusicReportGroup\MusicReportGroupTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\MasterUnitRecordGroup.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\MasterUnitReportGroupTable.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\PostLocation.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportGroup.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportBundle.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportBundleGroup.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportInputFormat.ts" />

@@ -39,8 +39,8 @@ export interface VersionConfigurationSchema {
     readonly unitReportWorksheetName: string;
     readonly levelReportSpreadsheetId: string;
     readonly levelReportWorksheetName: string;
-    readonly musicReportGroupSpreadsheetId: string;
-    readonly musicReportGroupWorksheetName: string;
+    readonly masterUnitReportGroupSpreadsheetId: string;
+    readonly masterUnitReportGroupWorksheetName: string;
     readonly bulkReportWorksheetName: string;
     readonly bulkReportSpreadsheetId: string;
     readonly nextVersionBulkReportSpreadsheetId: string;

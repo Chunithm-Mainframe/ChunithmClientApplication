@@ -99,16 +99,16 @@ export class ApprovalModule extends ReportFormModule {
     }
 
     public approveGroup(versionName: string, reportGroupId: string): void {
-        const unitReportGroups = this.reportModule.getUnitReportGroups(versionName, reportGroupId);
-        if (!unitReportGroups) {
+        const unitReportBundleGroup = this.reportModule.getUnitReportBundleGroup(versionName, reportGroupId);
+        if (!unitReportBundleGroup) {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
         }
 
         const table = this.musicModule.getMusicTable(versionName);
         const targetMusics: Music[] = [];
         const approvedReports: UnitReport[] = [];
-        for (const reportGroup of unitReportGroups) {
-            const report = reportGroup.getMainReport();
+        for (const reportGroup of unitReportBundleGroup.unitReportBundles) {
+            const report = reportGroup.activeReport;
             if (!report || report.reportStatus !== ReportStatus.InProgress) {
                 continue;
             }
@@ -124,7 +124,7 @@ export class ApprovalModule extends ReportFormModule {
         }
 
         table.update(targetMusics);
-        this.reportModule.approveMusicReportGroup(versionName, reportGroupId);
+        this.reportModule.approveUnitReportGroup(versionName, reportGroupId);
 
         for (const report of approvedReports) {
             const difficulty = Utility.toDifficultyText(report.difficulty);
