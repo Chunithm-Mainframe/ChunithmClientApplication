@@ -5,21 +5,21 @@ using System.Runtime.Serialization;
 
 namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Payloads
 {
-    namespace MusicRepositoryUpdate
+    namespace MusicTableUpdate
     {
-        public class Request : BaseRequest, IMusicRepositoryUpdateRequest
+        public class Request : BaseRequest, IMusicTableUpdateRequest
         {
             public IReadOnlyList<IMusic> Musics { get; set; }
         }
 
-        public class Response : BaseResponse, IMusicRepositoryUpdateResponse
+        public class Response : BaseResponse, IMusicTableUpdateResponse
         {
             public IReadOnlyList<IMusic> AddedMusics { get; set; }
             public IReadOnlyList<IMusic> DeletedMusics { get; set; }
         }
     }
 
-    namespace MusicRepositoryUpdate.Internal
+    namespace MusicTableUpdate.Internal
     {
         [DataContract]
         internal class Request : Payloads.Internal.BaseRequest
@@ -27,7 +27,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Payloa
             [DataMember(Name = "musics")]
             public List<Structs.Music> Musics { get; set; }
 
-            public Request() : base(CommandName.MusicRepositoryUpdate) { }
+            public Request() : base(CommandName.MusicTableUpdate) { }
         }
 
         [DataContract]

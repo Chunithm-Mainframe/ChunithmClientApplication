@@ -5,20 +5,20 @@ using System.Runtime.Serialization;
 
 namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Payloads
 {
-    namespace MusicRepositoryGet
+    namespace MusicTableGet
     {
-        public class Response : BaseResponse, IMusicRepositoryGetResponse
+        public class Response : BaseResponse, IMusicTableGetResponse
         {
             public IMusicRepository Repository { get; set; }
         }
     }
 
-    namespace MusicRepositoryGet.Internal
+    namespace MusicTableGet.Internal
     {
         [DataContract]
         internal class Request : Payloads.Internal.BaseRequest
         {
-            public Request() : base(CommandName.MusicRepositoryGet) { }
+            public Request() : base(CommandName.MusicTableGet) { }
         }
 
         [DataContract]

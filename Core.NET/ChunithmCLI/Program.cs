@@ -42,7 +42,7 @@ namespace ChunithmCLI
             using (var connector = new ChunithmMusicDatabaseHttpClientConnector("https://script.google.com/macros/s/AKfycbyvSk_-plhY_nx2764akClxjf38hMYjOmn9S0hWXtD3zZ4_PGSW5amPOhVZIecr-9w/exec"))
             {
                 var musics = repository.GetMusics();
-                var ret = connector.UpdateMusicRepositoryAsync(musics).Result;
+                var ret = connector.UpdateMusicTableAsync(musics).Result;
             }
 
             return true;

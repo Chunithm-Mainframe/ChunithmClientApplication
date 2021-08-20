@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
 {
-    using InternalRequest = Payloads.MusicRepositoryGet.Internal.Request;
-    using InternalResponse = Payloads.MusicRepositoryGet.Internal.Response;
-    using Response = Payloads.MusicRepositoryGet.Response;
+    using InternalRequest = Payloads.MusicTableGet.Internal.Request;
+    using InternalResponse = Payloads.MusicTableGet.Internal.Response;
+    using Response = Payloads.MusicTableGet.Response;
 
     public partial class ChunithmMusicDatabaseHttpClientConnector
     {
-        public async Task<IMusicRepositoryGetResponse> GetMusicRepositoryAsync()
+        public async Task<IMusicTableGetResponse> GetMusicTableAsync()
         {
             var internalResponse = await PostAsync<InternalRequest, InternalResponse>(new InternalRequest());
 
