@@ -4,7 +4,7 @@ import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
 import { WebhookEventName } from "../../Dependencies/WebhookEventDefinition";
 import { Difficulty } from "../../Layer1/Difficulty";
 import { Environment } from "../../Layer1/Environment";
-import { NoticeQueue } from "../../Layer2/@NoticeQueue";
+import { NoticeQueue } from "../../Layer2/NoticeQueue";
 import { Music } from "../../Layer2/Music/Music";
 import { ReportStatus } from "../../Layer2/Report/ReportStatus";
 import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
@@ -16,7 +16,7 @@ import { ReportModule } from "./Report/ReportModule";
 import { WebhookModule } from "./WebhookModule";
 
 export class ApprovalError implements Error {
-    public name: string = "ApprovalError";
+    public name = "ApprovalError";
     public message: string;
     public constructor(message: string) {
         this.message = message;
@@ -36,7 +36,7 @@ export class ApprovalModule extends ReportFormModule {
     @DIProperty.inject(NoticeQueue)
     private readonly noticeQueue: NoticeQueue;
 
-    public approve(versionName: string, reportId: number) {
+    public approveUnitReport(versionName: string, reportId: number) {
         const report = this.reportModule.getUnitReport(versionName, reportId);
         if (!report) {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
@@ -69,20 +69,16 @@ export class ApprovalModule extends ReportFormModule {
                 'baseRating': baseRating.toFixed(1),
             });
 
-        this.noticeQueue.enqueueApproveUnitReport(report);
+        this.noticeQueue.enqueueApproveUnitReport(report.reportId);
         this.noticeQueue.save();
     }
 
-    public reject(versionName: string, reportId: number): void {
+    public rejectUnitReport(versionName: string, reportId: number): void {
         const report = this.reportModule.getUnitReport(versionName, reportId);
         if (!report) {
             throw new ApprovalError(`検証報告取得の失敗. ID:${reportId}`);
         }
         this.reportModule.rejectUnitReport(versionName, reportId);
-
-        let musicName = report.musicName;
-        let difficulty = Utility.toDifficultyText(report.difficulty);
-        let baseRating = report.calculateBaseRating();
 
         CustomLogManager.log(
             LogLevel.Info,
@@ -90,15 +86,15 @@ export class ApprovalModule extends ReportFormModule {
                 'header': '検証報告却下',
                 'reportId': report.reportId,
                 'musicName': report.musicName,
-                'difficulty': difficulty,
-                'baseRating': baseRating.toFixed(1),
+                'difficulty': Utility.toDifficultyText(report.difficulty),
+                'baseRating': report.calculateBaseRating().toFixed(1),
             });
 
-        this.noticeQueue.enqueueRejectUnitReport(report);
+        this.noticeQueue.enqueueRejectUnitReport(report.reportId);
         this.noticeQueue.save();
     }
 
-    public approveGroup(versionName: string, reportGroupId: string): void {
+    public approveUnitReportGroup(versionName: string, reportGroupId: string): void {
         const unitReportBundleGroup = this.reportModule.getUnitReportBundleGroup(versionName, reportGroupId);
         if (!unitReportBundleGroup) {
             throw new ApprovalError(`報告グループ取得の失敗. ID:${reportGroupId}`);
@@ -140,7 +136,7 @@ export class ApprovalModule extends ReportFormModule {
                     'baseRating': baseRating.toFixed(1),
                 });
 
-            this.noticeQueue.enqueueApproveUnitReport(report);
+            this.noticeQueue.enqueueApproveUnitReport(report.reportId);
         }
 
         this.requestChunirecUpdateMusics(approvedReports);
@@ -155,7 +151,7 @@ export class ApprovalModule extends ReportFormModule {
         if (this.configuration.environment !== Environment.Release) {
             return true;
         }
-        const params: { musicId: number; difficulty: Difficulty; baseRating: number; }[] = [];
+        const params: { musicId: number; difficulty: Difficulty; baseRating: number }[] = [];
         for (const report of reports) {
             params.push({
                 musicId: report.musicId,
@@ -167,10 +163,10 @@ export class ApprovalModule extends ReportFormModule {
     }
 
     // Lv.1-6用
-    public bulkApprove(versionName: string, levelReportId: number): void {
-        const levelReport = this.reportModule.getLevelReport(versionName, levelReportId);
+    public approveLevelReport(versionName: string, reportId: number): void {
+        const levelReport = this.reportModule.getLevelReport(versionName, reportId);
         if (!levelReport) {
-            throw new ApprovalError(`一括検証報告取得の失敗. ID:${levelReportId}`);
+            throw new ApprovalError(`一括検証報告取得の失敗. ID:${reportId}`);
         }
 
         const targetLevelList = [levelReport.level];
@@ -196,7 +192,7 @@ export class ApprovalModule extends ReportFormModule {
 
         table.update(targetMusics);
 
-        this.reportModule.approveLevelReport(versionName, levelReportId);
+        this.reportModule.approveLevelReport(versionName, reportId);
 
         CustomLogManager.log(
             LogLevel.Info,
@@ -205,19 +201,19 @@ export class ApprovalModule extends ReportFormModule {
                 targetLevel: levelReport.level,
             });
 
-        this.noticeQueue.enqueueApproveLevelReport(levelReport);
+        this.noticeQueue.enqueueApproveLevelReport(levelReport.reportId);
         this.noticeQueue.save();
 
         this.webhookModule.invoke(WebhookEventName.ON_APPROVE);
     }
 
-    public bulkReject(versionName: string, levelReportId: number): void {
-        const levelReport = this.reportModule.getLevelReport(versionName, levelReportId);
+    public rejectLevelReport(versionName: string, reportId: number): void {
+        const levelReport = this.reportModule.getLevelReport(versionName, reportId);
         if (!levelReport) {
-            throw new ApprovalError(`一括検証報告取得の失敗. ID:${levelReportId}`);
+            throw new ApprovalError(`一括検証報告取得の失敗. ID:${reportId}`);
         }
 
-        this.reportModule.rejectLevelReport(versionName, levelReportId);
+        this.reportModule.rejectLevelReport(versionName, reportId);
 
         CustomLogManager.log(
             LogLevel.Info,

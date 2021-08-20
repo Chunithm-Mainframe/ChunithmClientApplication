@@ -1,7 +1,7 @@
 import { RoutingController } from "../../../Packages/Router/RoutingController";
 import { RoutingParameterType } from "../../../Packages/Router/RoutingParameterType";
 import { RoutingTreeEditor } from "../../../Packages/Router/RoutingTreeEditor";
-import { ReportFormPageLinkResolver } from "./@ReportFormPageLinkResolver";
+import { ReportFormPageLinkResolver } from "../Layer2/ReportFormPageLinkResolver";
 import { LevelReportListWebsiteController } from "./WebsiteControllers/LevelReport/LevelReportListWebsiteController";
 import { LevelReportWebsiteController } from "./WebsiteControllers/LevelReport/LevelReportWebsiteController";
 import { TopWebsiteController } from "./WebsiteControllers/TopWebsiteController";

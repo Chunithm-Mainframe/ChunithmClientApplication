@@ -6,7 +6,9 @@ import { LevelRawReport } from "./LevelRawReport";
 
 export class LevelReportTable extends SpreadsheetDatabaseTable<LevelReport, 'reportId'> {
     public constructor(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
-        super(new GenericDatabaseTableSchema(LevelReport, ['reportId']), sheet);
+        const schema = new GenericDatabaseTableSchema(LevelReport, ['reportId']);
+        schema.primaryColumn = 'reportId';
+        super(schema, sheet);
     }
 
     public static instantiateRecord(rawReport: LevelRawReport, musicCount: number): LevelReport {

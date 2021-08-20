@@ -37,6 +37,7 @@ function getDefaultVersionName(instance: Instance): string {
     return instance.module.configuration.defaultVersionName;
 }
 
+// eslint-disable-next-line
 function setupForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -44,6 +45,7 @@ function setupForm() {
     });
 }
 
+// eslint-disable-next-line
 function setupBulkReportForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -51,14 +53,17 @@ function setupBulkReportForm() {
     });
 }
 
+// eslint-disable-next-line
 function authorizeTwitter() {
     execute(instance => instance.module.getModule(TwitterModule).connector.authorize());
 }
 
+// eslint-disable-next-line
 function authCallback(request) {
     execute(instance => instance.module.getModule(TwitterModule).connector.authCallback(request));
 }
 
+// eslint-disable-next-line
 function getGenres(): string[] {
     return execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -86,6 +91,7 @@ export function noticeCreatedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueCreateUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeCreateUnitReport(versionName, reportIds);
@@ -97,6 +103,7 @@ export function noticeApprovedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueApproveUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeApproveUnitReport(versionName, reportIds);
@@ -108,6 +115,7 @@ export function noticeRejectedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueRejectUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeRejectUnitReport(versionName, reportIds);
@@ -119,6 +127,7 @@ export function noticeCreatedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueCreateLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeCreateLevelReport(versionName, reportIds);
@@ -130,6 +139,7 @@ export function noticeApprovedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueApproveLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeApproveLevelReport(versionName, reportIds);
@@ -141,6 +151,7 @@ export function noticeRejectedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueRejectLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeRejectLevelReport(versionName, reportIds);
@@ -203,6 +214,7 @@ export function notifyUnverified() {
     }
 }
 
+// eslint-disable-next-line
 function importBulkReportSheet() {
     try {
         Instance.initialize();
@@ -216,6 +228,7 @@ function importBulkReportSheet() {
     }
 }
 
+// eslint-disable-next-line
 function updateCurrentVersionBulkReportTable() {
     try {
         Instance.initialize();
@@ -245,6 +258,7 @@ function updateCurrentVersionBulkReportTable() {
     }
 }
 
+// eslint-disable-next-line
 function updateNextVersionBulkReportTable() {
     try {
         Instance.initialize();

@@ -5,8 +5,8 @@ import { RoutingController } from "../../../../Packages/Router/RoutingController
 import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
 import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
 import { Role } from "../../Layer1/Role";
+import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
 import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
-import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
     version: string;
