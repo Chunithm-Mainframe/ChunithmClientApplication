@@ -2,7 +2,7 @@ import { ReportForm, DoGet } from "./Product/ReportForm/ReportForm";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 
-const VERSION = "0.4.1.6";
+const VERSION = "0.4.1.7";
 export function getAppVersion(): string {
     return VERSION;
 }
