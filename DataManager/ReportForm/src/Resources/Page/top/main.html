@@ -1,6 +1,6 @@
 <html>
 <head>
-    <?!= ReportFormWebsiteController.includeStylesheet("common/common.css"); ?>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/common.css"); ?>
     <base target="_top" />
 </head>
 <body>
@@ -11,10 +11,10 @@
         <div class="box_2">
             <div class="box_2_title">未検証楽曲リスト</div>
             <div class="top_menu_list">
-                <a href="%link:UnverifiedListByGenreWebsiteController%">未検証楽曲リスト(ジャンル別)</a>
+                <a href="%link:UnverifiedListByGenreWebsitePresenter%">未検証楽曲リスト(ジャンル別)</a>
             </div>
             <div class="top_menu_list">
-                <a href="%link:UnverifiedListByLevelWebsiteController%">未検証楽曲リスト(レベル別)</a>
+                <a href="%link:UnverifiedListByLevelWebsitePresenter%">未検証楽曲リスト(レベル別)</a>
             </div>
         </div>
         %wip_list_container%

@@ -2,13 +2,13 @@
 
 <html>
 <head>
-    <?!= ReportFormWebsiteController.includeStylesheet("common/common.css"); ?>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/common.css"); ?>
     <script>
         function confirmApproval() {
             if (confirm("承認します。\nよろしいですか？")) {
                 let onSuccess = function () {
                     alert("承認しました");
-                    window.open("%link:UnitReportWebsiteController%", "_top");
+                    window.open("%link:UnitReportWebsitePresenter%", "_top");
                 }
                 let onFailure = function (error) {
                     alert("承認処理に失敗しました\n" + error.message);
@@ -23,7 +23,7 @@
             if (confirm("却下します。\nよろしいですか？")) {
                 let onSuccess = function () {
                     alert("却下しました");
-                    window.open("%link:UnitReportWebsiteController%", "_top");
+                    window.open("%link:UnitReportWebsitePresenter%", "_top");
                 }
                 let onFailure = function (error) {
                     alert("却下処理に失敗しました\n" + error.message);
@@ -69,7 +69,7 @@
         </div>
         %approveFormContainer%
         <div class="text_center">
-            <a href="%link:UnitReportListWebsiteController%">検証報告リストへ</a>
+            <a href="%link:UnitReportListWebsitePresenter%">検証報告リストへ</a>
         </div>
     </div>
 </body>
