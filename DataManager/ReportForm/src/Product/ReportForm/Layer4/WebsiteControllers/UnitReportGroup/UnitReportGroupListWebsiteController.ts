@@ -8,6 +8,7 @@ import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@Rep
 import { TopWebsiteController } from "../TopWebsiteController";
 import { UnitReportGroupWebsiteController, UnitReportGroupWebsiteParameter } from "./UnitReportGroupWebsiteController";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnitReportGroupListWebsiteParameter extends ReportFormWebsiteParameter {
 
 }
@@ -20,6 +21,7 @@ export class UnitReportGroupListWebsiteController extends ReportFormWebsiteContr
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: UnitReportGroupListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const unitReportBundleGroups = this.reportModule.getUnitReportBundleGroups(this.targetGameVersion);
         const listHtml = this.getListHtml(unitReportBundleGroups);

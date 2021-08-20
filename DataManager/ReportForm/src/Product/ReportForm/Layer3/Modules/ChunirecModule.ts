@@ -26,6 +26,7 @@ export class ChunirecModule extends ReportFormModule {
     }
 
     public requestUpdateMusics(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]): boolean {
+        // eslint-disable-next-line
         const requests: GoogleAppsScript.URL_Fetch.URLFetchRequest[] = [];
         for (const param of params) {
             requests.push({

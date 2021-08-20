@@ -5,8 +5,8 @@ import { RoutingController } from "../../../../Packages/Router/RoutingController
 import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
 import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
 import { Role } from "../../Layer1/Role";
+import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
 import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
-import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
     version: string;
@@ -22,6 +22,7 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
     @DIProperty.inject(ReportFormPageLinkResolver)
     private readonly pageLinkResolver: ReportFormPageLinkResolver;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected isAccessale(role: Role): boolean {
         return true;
     }
@@ -47,6 +48,7 @@ export class ReportFormWebsiteController<TParameter extends ReportFormWebsitePar
         return this.callInternal(parameter, node);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: Readonly<TParameter>, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         throw new Error("Method not implemented.");
     }

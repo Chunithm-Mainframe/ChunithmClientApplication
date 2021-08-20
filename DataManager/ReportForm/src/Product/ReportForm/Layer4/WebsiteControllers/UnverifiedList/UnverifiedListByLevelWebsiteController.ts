@@ -7,10 +7,9 @@ import { Utility } from "../../../Layer2/Utility";
 import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@ReportFormController";
 import { TopWebsiteController } from "../TopWebsiteController";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnverifiedListByLevelWebsiteParameter extends ReportFormWebsiteParameter {
 }
-
-interface GetParameter { }
 
 class UnverifiedListByLevelListItemMusicData {
     public name: string;
@@ -39,6 +38,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
     @DIProperty.inject("DoGet")
     private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: UnverifiedListByLevelWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_level/main");
 
@@ -52,7 +52,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         return this.createHtmlOutput(source);
     }
 
-    private getDifficultySelectListHtml(parameter: GetParameter): string {
+    private getDifficultySelectListHtml(parameter: object): string {
         let listHtml = "";
         for (const difficulty of this.difficulties) {
             listHtml += this.getDifficultySelectListItemHtml(parameter, difficulty) + "\n";
@@ -60,12 +60,12 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         return listHtml;
     }
 
-    private getDifficultySelectListItemHtml(parameter: GetParameter, difficulty: Difficulty): string {
+    private getDifficultySelectListItemHtml(parameter: object, difficulty: Difficulty): string {
         const checked = this.enabledDifficulty(parameter, difficulty) ? "checked" : "";
         return `<div><input type="checkbox" name="diff_${difficulty}" value="1" ${checked}>${Utility.toDifficultyText(difficulty)}</div>`;
     }
 
-    private getSelectLevelListHtml(parameter: GetParameter): string {
+    private getSelectLevelListHtml(parameter: object): string {
         return this.levelTexts
             .map(x => this.getSelectLevelListItemHtml(x, this.enabledLevel(parameter, x)))
             .reduce((acc, src) => `${acc}\n${src}`, "");
@@ -75,7 +75,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         return `<div><input type="checkbox" name="level_${levelText}" value="1" ${checked ? "checked" : ""}>Lv.${levelText.replace("p", "+")}</div>`;
     }
 
-    private getListHtml(version: string, parameter: GetParameter): string {
+    private getListHtml(version: string, parameter: object): string {
         let enabledDifficulty = false;
         for (const diff of this.difficulties) {
             if (this.enabledDifficulty(parameter, diff)) {
@@ -119,7 +119,7 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         return unverifiedMusicDatas;
     }
 
-    private getLevelListHtml(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: GetParameter): string {
+    private getLevelListHtml(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: object): string {
         if (!this.enabledLevel(parameter, levelText)) {
             return "";
         }
@@ -137,14 +137,14 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
 </div>`
     }
 
-    private filterByDifficulty(musicDatas: UnverifiedListByLevelListItemMusicData[], parameter: GetParameter): UnverifiedListByLevelListItemMusicData[] {
+    private filterByDifficulty(musicDatas: UnverifiedListByLevelListItemMusicData[], parameter: object): UnverifiedListByLevelListItemMusicData[] {
         if (!musicDatas || musicDatas.length === 0) {
             return [];
         }
         return musicDatas.filter(d => this.enabledDifficulty(parameter, d.difficulty));
     }
 
-    private filterByLevel(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: GetParameter): UnverifiedListByLevelListItemMusicData[] {
+    private filterByLevel(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: object): UnverifiedListByLevelListItemMusicData[] {
         if (!musicDatas || musicDatas.length === 0) {
             return [];
         }
@@ -159,11 +159,11 @@ export class UnverifiedListByLevelWebsiteController extends ReportFormWebsiteCon
         return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(musicData.difficulty)}'>${musicData.name}</div>\n`;
     }
 
-    private enabledLevel(parameter: GetParameter, levelText: string): boolean {
+    private enabledLevel(parameter: object, levelText: string): boolean {
         return parameter[`level_${levelText}`] ? true : false;
     }
 
-    private enabledDifficulty(parameter: GetParameter, difficulty: Difficulty): boolean {
+    private enabledDifficulty(parameter: object, difficulty: Difficulty): boolean {
         return parameter[`diff_${difficulty}`] ? true : false;
     }
 }

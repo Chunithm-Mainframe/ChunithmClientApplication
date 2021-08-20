@@ -11,6 +11,9 @@ export class LevelReport {
     public reportStatus = ReportStatus.InProgress;
     public createdAt: Date = null;
     public get imagePaths(): string[] {
+        if (!this.imagePathText) {
+            return [];
+        }
         return this.imagePathText.split(',');
     }
     public static instantiateByRawReport(rawReport: LevelRawReport, musicCount: number): LevelReport {

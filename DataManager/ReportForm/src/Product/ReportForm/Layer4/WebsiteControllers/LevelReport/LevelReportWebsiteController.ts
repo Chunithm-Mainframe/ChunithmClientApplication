@@ -18,6 +18,7 @@ export class LevelReportWebsiteController extends ReportFormWebsiteController<Le
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: LevelReportWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const reportId = parseInt(parameter.reportId);
         const report = this.reportModule.getLevelReport(this.targetGameVersion, reportId);

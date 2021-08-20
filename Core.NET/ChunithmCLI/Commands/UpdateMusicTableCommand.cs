@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ChunithmCLI.Commands
 {
-    public class UpdateMusicRepositoryCommand : ICommand
+    public class UpdateMusicTableCommand : ICommand
     {
         public class ParameterContainer
         {
@@ -76,7 +76,7 @@ namespace ChunithmCLI.Commands
             using (var connector = new ChunithmNetHttpClientConnector())
             using (var databaseConnector = new ChunithmMusicDatabaseHttpClientConnector(parameters.DataBaseUrl))
             {
-                var currentRepository = databaseConnector.GetMusicRepositoryAsync()
+                var currentRepository = databaseConnector.GetMusicTableAsync()
                     .GetMusicDatabaseApiResult("get current table... ")
                     .Repository;
 
@@ -104,7 +104,7 @@ namespace ChunithmCLI.Commands
 
                 var newRepository = new MusicRepository();
                 newRepository.Set(musicGenre, musicLevels);
-                var result = databaseConnector.UpdateMusicRepositoryAsync(newRepository.GetMusics())
+                var result = databaseConnector.UpdateMusicTableAsync(newRepository.GetMusics())
                     .GetMusicDatabaseApiResult("sending table... ");
 
                 Console.WriteLine("completed.");

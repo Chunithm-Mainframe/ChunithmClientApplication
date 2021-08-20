@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
 {
-    using InternalRequest = Payloads.MusicRepositoryUpdate.Internal.Request;
-    using InternalResponse = Payloads.MusicRepositoryUpdate.Internal.Response;
-    using Response = Payloads.MusicRepositoryUpdate.Response;
+    using InternalRequest = Payloads.MusicTableUpdate.Internal.Request;
+    using InternalResponse = Payloads.MusicTableUpdate.Internal.Response;
+    using Response = Payloads.MusicTableUpdate.Response;
 
     public partial class ChunithmMusicDatabaseHttpClientConnector
     {
-        public async Task<IMusicRepositoryUpdateResponse> UpdateMusicRepositoryAsync(IEnumerable<IMusic> musics)
+        public async Task<IMusicTableUpdateResponse> UpdateMusicTableAsync(IEnumerable<IMusic> musics)
         {
             var internalRequest = new InternalRequest
             {
@@ -31,9 +31,9 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
             };
         }
 
-        public Task<IMusicRepositoryUpdateResponse> UpdateMusicRepositoryAsync(IMusicRepositoryUpdateRequest request)
+        public Task<IMusicTableUpdateResponse> UpdateMusicTableAsync(IMusicTableUpdateRequest request)
         {
-            return UpdateMusicRepositoryAsync(request.Musics);
+            return UpdateMusicTableAsync(request.Musics);
         }
     }
 }

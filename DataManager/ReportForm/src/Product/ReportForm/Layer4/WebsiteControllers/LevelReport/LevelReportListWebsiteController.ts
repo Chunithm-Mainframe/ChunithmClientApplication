@@ -9,6 +9,7 @@ import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@Rep
 import { TopWebsiteController } from "../TopWebsiteController";
 import { LevelReportWebsiteController, LevelReportWebsiteParameter } from "./LevelReportWebsiteController";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LevelReportListWebsiteParameter extends ReportFormWebsiteParameter {
 }
 
@@ -20,10 +21,11 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: LevelReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const listHtml = this.reportModule.getLevelReports(this.targetGameVersion)
             .filter(r => r.reportStatus === ReportStatus.InProgress)
-            .map(report => this.getListItemHtml(this.targetGameVersion, report))
+            .map(report => this.getListItemHtml(report))
             .reduce((acc, src) => `${acc}\n${src}`, '');
 
         let source = this.readHtml("Resources/Page/wip_bulk_report_list/main");
@@ -32,7 +34,7 @@ export class LevelReportListWebsiteController extends ReportFormWebsiteControlle
         return this.createHtmlOutput(source);
     }
 
-    private getListItemHtml(version: string, report: LevelReport): string {
+    private getListItemHtml(report: LevelReport): string {
         const bg = report.level <= 3
             ? Utility.toDifficultyTextLowerCase(Difficulty.Basic)
             : Utility.toDifficultyTextLowerCase(Difficulty.Advanced);

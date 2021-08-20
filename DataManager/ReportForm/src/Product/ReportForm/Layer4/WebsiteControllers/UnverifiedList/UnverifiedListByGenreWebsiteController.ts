@@ -8,10 +8,9 @@ import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@Rep
 import { TopWebsiteController } from "../TopWebsiteController";
 import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnverifiedListByGenreWebsiteParameter extends ReportFormWebsiteParameter {
 }
-
-interface GetParameter { }
 
 class UnverifiedListByGenreListItemMusicData {
     public name: string;
@@ -38,6 +37,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
     @DIProperty.inject("DoGet")
     private readonly doGetParameter: GoogleAppsScript.Events.DoGet;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: UnverifiedListByGenreWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         let source = this.readHtml("Resources/Page/unverified_list_genre/main");
 
@@ -52,7 +52,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return this.createHtmlOutput(source);
     }
 
-    private getDifficultySelectListHtml(parameter: GetParameter): string {
+    private getDifficultySelectListHtml(parameter: object): string {
         let listHtml = "";
         for (const difficulty of this.difficulties) {
             listHtml += this.getDifficultySelectListItemHtml(parameter, difficulty) + "\n";
@@ -60,12 +60,12 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return listHtml;
     }
 
-    private getDifficultySelectListItemHtml(parameter: GetParameter, difficulty: Difficulty): string {
+    private getDifficultySelectListItemHtml(parameter: object, difficulty: Difficulty): string {
         const checked = this.enabledDifficulty(parameter, difficulty) ? "checked" : "";
         return `<div><input type="checkbox" name="diff_${difficulty}" value="1" ${checked}>${Utility.toDifficultyText(difficulty)}</div>`;
     }
 
-    private getGenreSelectListHtml(parameter: GetParameter, genres: string[]): string {
+    private getGenreSelectListHtml(parameter: object, genres: string[]): string {
         let listHtml = "";
         for (const genre of genres) {
             listHtml += this.getGenreSelectListItemHtml(parameter, genre) + "\n";
@@ -73,12 +73,12 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return listHtml;
     }
 
-    private getGenreSelectListItemHtml(parameter: GetParameter, genre: string): string {
+    private getGenreSelectListItemHtml(parameter: object, genre: string): string {
         const checked = this.enabledGenre(parameter, genre) ? "checked" : "";
         return `<div><div><input type="checkbox" name="genre_${genre}" value="1" ${checked}>${genre}</div></div>`;
     }
 
-    private getListHtml(version: string, parameter: GetParameter, genres: string[]): string {
+    private getListHtml(version: string, parameter: object, genres: string[]): string {
         let enabledDifficulty = false;
         for (const diff of this.difficulties) {
             if (this.enabledDifficulty(parameter, diff)) {
@@ -125,7 +125,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return unverifiedMusicDatas;
     }
 
-    private getGenreListHtml(parameter: GetParameter, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): string {
+    private getGenreListHtml(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): string {
         if (!this.enabledGenre(parameter, genre)) {
             return "";
         }
@@ -143,7 +143,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
 </div>`;
     }
 
-    private filterByGenre(parameter: GetParameter, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): UnverifiedListByGenreListItemMusicData[] {
+    private filterByGenre(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): UnverifiedListByGenreListItemMusicData[] {
         if (!musicDatas || musicDatas.length === 0) {
             return [];
         }
@@ -153,7 +153,7 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return musicDatas.filter(d => d.genre === genre);
     }
 
-    private filterByDifficulty(parameter: GetParameter, musicDatas: UnverifiedListByGenreListItemMusicData[]): UnverifiedListByGenreListItemMusicData[] {
+    private filterByDifficulty(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[]): UnverifiedListByGenreListItemMusicData[] {
         if (!musicDatas || musicDatas.length === 0) {
             return [];
         }
@@ -164,11 +164,11 @@ export class UnverifiedListByGenreWebsiteController extends ReportFormWebsiteCon
         return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(musicData.difficulty)}'>${musicData.name}</div>\n`;
     }
 
-    private enabledDifficulty(parameter: GetParameter, difficulty: Difficulty): boolean {
+    private enabledDifficulty(parameter: object, difficulty: Difficulty): boolean {
         return parameter[`diff_${difficulty}`] ? true : false;
     }
 
-    private enabledGenre(parameter: GetParameter, genre: string): boolean {
+    private enabledGenre(parameter: object, genre: string): boolean {
         return parameter[`genre_${genre}`] ? true : false;
     }
 }

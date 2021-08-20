@@ -16,7 +16,7 @@ import { VersionModule } from "../../Layer3/Modules/VersionModule";
 import { LevelReport } from "../../Layer2/Report/LevelReport/LevelReport";
 import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
 import { Utility } from "../../Layer2/Utility";
-import { ReportFormPageLinkResolver } from "../@ReportFormPageLinkResolver";
+import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
 import { ReportFormWebsiteController } from "../WebsiteControllers/@ReportFormController";
 import { LevelReportWebsiteController } from "../WebsiteControllers/LevelReport/LevelReportWebsiteController";
 import { UnitReportWebsiteController } from "../WebsiteControllers/UnitReport/UnitReportWebsiteController";

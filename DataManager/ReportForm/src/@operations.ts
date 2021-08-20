@@ -17,6 +17,8 @@ import { ReportStatus } from "./Product/ReportForm/Layer2/Report/ReportStatus";
 import { LevelReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
 import { UnitReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
 
+/* eslint @typescript-eslint/no-unused-vars: off */
+
 export function storeConfig(): GoogleAppsScript.Properties.Properties {
     const ret = ConfigurationEditor.store();
     CustomLogManager.log(LogLevel.Info, ret.getProperties());
@@ -86,6 +88,7 @@ export function noticeCreatedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueCreateUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeCreateUnitReport(versionName, reportIds);
@@ -97,6 +100,7 @@ export function noticeApprovedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueApproveUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeApproveUnitReport(versionName, reportIds);
@@ -108,6 +112,7 @@ export function noticeRejectedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueRejectUnitReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeRejectUnitReport(versionName, reportIds);
@@ -119,6 +124,7 @@ export function noticeCreatedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueCreateLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeCreateLevelReport(versionName, reportIds);
@@ -130,6 +136,7 @@ export function noticeApprovedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueApproveLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeApproveLevelReport(versionName, reportIds);
@@ -141,6 +148,7 @@ export function noticeRejectedLevelReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueRejectLevelReport(10);
     if (reportIds.length > 0) {
+        queue.save();
         execute(instance => {
             const versionName = getDefaultVersionName(instance);
             instance.noticeManager.noticeRejectLevelReport(versionName, reportIds);

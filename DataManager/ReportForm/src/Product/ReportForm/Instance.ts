@@ -15,9 +15,9 @@ import { ReportFormConfiguration } from "./Layer1/Configurations/@ReportFormConf
 import { ReportFormConfigurationSchema } from "./Layer1/Configurations/ConfigurationSchema";
 import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSourceType";
 import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
-import { NoticeQueue } from "./Layer2/@NoticeQueue";
+import { NoticeQueue } from "./Layer2/NoticeQueue";
 import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
-import { ReportFormPageLinkResolver } from "./Layer4/@ReportFormPageLinkResolver";
+import { ReportFormPageLinkResolver } from "./Layer2/ReportFormPageLinkResolver";
 import { BulkReportFormBuildLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommandController";
 import { BulkReportFormUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommandController";
 import { DefaultGameVersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommandController";
@@ -35,7 +35,7 @@ import { TestLINEPostCommandController } from "./Layer4/LINEPostCommandControlle
 import { TopUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TopUrlGetLINEPostCommandController";
 import { VersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/VersionGetLINEPostCommandController";
 import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
-import { NoticeManager } from "./Layer4/Managers/NoticeManager";
+import { NoticeManager  } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
 import { MusicTableGetPostCommand } from "./Layer4/PostCommandControllers/MusicTableGetPostCommand";
 import { MusicTableUpdatePostCommand } from "./Layer4/PostCommandControllers/MusicTableUpdatePostCommand";
@@ -63,9 +63,10 @@ export class Instance {
 
     public get linePostCommandManager() { return DIProperty.resolve(LINEPostCommandManager); }
     public get postCommandManager() { return DIProperty.resolve(PostCommandManager); }
-    public get noticeManager() { return DIProperty.resolve(NoticeManager); }
+    public get noticeQueue() { return DIProperty.resolve(NoticeQueue); }
+    public get noticeManager() { return DIProperty.resolve(NoticeManager ); }
 
-    public static createCacheProvider(): CustomCacheProvider {
+    private static createCacheProvider(): CustomCacheProvider {
         const cacheProvider = new ScriptCacheProvider();
         cacheProvider.expirationInSeconds = 3600;
         return cacheProvider;
@@ -96,7 +97,8 @@ export class Instance {
         const module = ReportFormModule.instantiate(config);
         DIProperty.register(ReportFormModule, module);
 
-        DIProperty.register('CacheProvider', Instance.createCacheProvider());
+        const cacheProvider = Instance.createCacheProvider();
+        DIProperty.register('CacheProvider', cacheProvider);
 
         const router = new Router();
         const pageLinkResolver = new ReportFormPageLinkResolver();
@@ -106,8 +108,8 @@ export class Instance {
         DIProperty.register(Router, router);
         DIProperty.register(ReportFormPageLinkResolver, pageLinkResolver);
 
-        DIProperty.bind(NoticeQueue, () => Instance.getNoticeQueue());
-        DIProperty.bind(NoticeManager, () => new NoticeManager());
+        DIProperty.bind(NoticeQueue, () => new NoticeQueue(cacheProvider));
+        DIProperty.bind(NoticeManager , () => new NoticeManager ());
     }
 
     public registerDoGetParameter(e: GoogleAppsScript.Events.DoGet): void {
@@ -140,8 +142,8 @@ export class Instance {
     public setupPostCommandControllers(): void {
         const postCommandManager = new PostCommandManager();
 
-        postCommandManager.bindEquals("repo/get", MusicTableGetPostCommand);
-        postCommandManager.bindEquals("repo/update", MusicTableUpdatePostCommand);
+        postCommandManager.bindEquals("table/get", MusicTableGetPostCommand);
+        postCommandManager.bindEquals("table/update", MusicTableUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }

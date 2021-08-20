@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ChunithmCLI.Commands
 {
-    public class GenerateMusicRepositoryHtmlCommand : ICommand
+    public class GenerateMusicTableHtmlCommand : ICommand
     {
         public class ParameterContainer
         {
@@ -68,7 +68,7 @@ namespace ChunithmCLI.Commands
         private IMusicRepository RequestMusicRepository(ParameterContainer param)
         {
             using var connector = new ChunithmMusicDatabaseHttpClientConnector(param.DatabaseUrl);
-            return connector.GetMusicRepositoryAsync().Result.Repository;
+            return connector.GetMusicTableAsync().Result.Repository;
         }
 
         private string GenerateSource(IMusicRepository repository, string templatePath)

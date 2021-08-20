@@ -3,7 +3,7 @@ import { Difficulty } from "../Layer1/Difficulty";
 
 export class Utility {
     public static toDifficulty(difficultyText: string): Difficulty {
-        let comparisonText = difficultyText ? difficultyText.toUpperCase() : "";
+        const comparisonText = difficultyText ? difficultyText.toUpperCase() : "";
         switch (comparisonText) {
             case "BASIC":
                 return Difficulty.Basic;

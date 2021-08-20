@@ -1,6 +1,6 @@
 import { LINEPostCommandController, LINEPostEvent } from "../LINEPostCommandControllers/@LINEPostCommandController";
 
-type Factory = { new(commandText: string, event: LINEPostEvent, postData: any): LINEPostCommandController };
+type Factory = { new(commandText: string, event: LINEPostEvent, postData): LINEPostCommandController };
 
 export class LINEPostCommandManager {
     private readonly _factories: { predicate: (commandText: string) => boolean; factory: Factory }[] = [];

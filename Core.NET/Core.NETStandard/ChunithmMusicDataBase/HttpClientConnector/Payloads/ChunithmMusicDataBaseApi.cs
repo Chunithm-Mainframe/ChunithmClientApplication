@@ -21,7 +21,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         internal class BaseRequest
         {
             [DataMember(Name = "command")]
-            public string Command { get; }
+            public string Command { get; set; }
 
             public BaseRequest(string command)
             {
@@ -33,7 +33,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         internal class BaseResponse
         {
             [DataMember(Name = "Success")]
-            public bool Success { get; }
+            public bool Success { get; set; }
         }
     }
 }

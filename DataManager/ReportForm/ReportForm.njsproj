@@ -295,7 +295,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\VersionModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\%40NoticeQueue.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\NoticeQueue.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTable.ts">
@@ -327,7 +327,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsiteControllers\ErrorWebsiteController.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\%40ReportFormPageLinkResolver.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\ReportFormPageLinkResolver.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsiteControllers\LevelReport\LevelReportListWebsiteController.ts">

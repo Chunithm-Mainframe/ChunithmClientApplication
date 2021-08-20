@@ -108,18 +108,24 @@ export class UnitReportGoogleForm {
         beforeOpInput.setRequired(true);
         beforeOpInput.setValidation(FormApp.createTextValidation()
             .requireNumberGreaterThanOrEqualTo(0)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             .build());
         const afterOpInput = form.addTextItem();
         afterOpInput.setTitle("変動後のOPを入力してください");
         afterOpInput.setRequired(true);
         afterOpInput.setValidation(FormApp.createTextValidation()
             .requireNumberGreaterThanOrEqualTo(0)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             .build());
         const scoreInput = form.addTextItem();
         scoreInput.setTitle("スコアを入力してください");
         scoreInput.setRequired(true);
         scoreInput.setValidation(FormApp.createTextValidation()
             .requireNumberBetween(950000, 1010000)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             .setHelpText("許容スコア範囲は[950000,1010000]です")
             .build());
         const comboStatusInput = form.addMultipleChoiceItem();

@@ -1,6 +1,7 @@
 import { PostCommand, PostCommandParameter } from "./@PostCommand";
 import { MusicModule } from "../../Layer3/Modules/MusicModule";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MusicTableGetPostCommandParameter extends PostCommandParameter {
 }
 

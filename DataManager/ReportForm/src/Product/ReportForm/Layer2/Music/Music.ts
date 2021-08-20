@@ -47,6 +47,7 @@ export class Music {
     }
 
     public apply<TKey extends keyof Music>(key: TKey, value: Music[TKey]): Music {
+        // eslint-disable-next-line
         const self: Music = this;
         self[key] = value;
         return this;

@@ -22,8 +22,8 @@ namespace ChunithmCLI
             return new List<ICommand>()
             {
                 new GenreGetCommand(),
-                new GenerateMusicRepositoryHtmlCommand(),
-                new UpdateMusicRepositoryCommand(),
+                new GenerateMusicTableHtmlCommand(),
+                new UpdateMusicTableCommand(),
             };
         }
     }

@@ -75,11 +75,10 @@ export class ReportForm {
                 const postCommand = Instance.instance.postCommandManager.findPostCommand(postData.command);
                 if (postCommand) {
                     const response = postCommand.invoke(postData);
-                    CustomLogManager.log(LogLevel.Error, JSON.stringify(response));
                     return this.getSuccessResponseContent(response);
                 }
                 else {
-                    CustomLogManager.log(LogLevel.Error, 'None');
+                    CustomLogManager.log(LogLevel.Error, 'No command found. ' + postCommand);
                 }
             }
             return this.getSuccessResponseContent();
@@ -90,7 +89,7 @@ export class ReportForm {
         }
     }
 
-    private static getSuccessResponseContent(response: any = null): GoogleAppsScript.Content.TextOutput {
+    private static getSuccessResponseContent(response = null): GoogleAppsScript.Content.TextOutput {
         if (!response) {
             response = {};
         }
@@ -98,7 +97,7 @@ export class ReportForm {
         return this.getResponseContent(response);
     }
 
-    private static getResponseContent(response: any): GoogleAppsScript.Content.TextOutput {
+    private static getResponseContent(response): GoogleAppsScript.Content.TextOutput {
         return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
     }
 
@@ -109,7 +108,7 @@ export class ReportForm {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
 
-            let report = Instance.instance.module.getModule(ReportModule).insertReport(versionName, new UnitRawReport(e.response));
+            const report = Instance.instance.module.getModule(ReportModule).insertReport(versionName, new UnitRawReport(e.response));
             if (report) {
                 const data = {
                     header: `検証報告`,
@@ -119,8 +118,8 @@ export class ReportForm {
                     baseRating: report.calculateBaseRating().toFixed(1),
                 };
                 CustomLogManager.log(LogLevel.Info, data);
-
-                Instance.getNoticeQueue().enqueueCreateUnitReport(report);
+                Instance.instance.noticeQueue.enqueueCreateUnitReport(report.reportId);
+                Instance.instance.noticeQueue.save();
             }
         }
         catch (error) {
@@ -128,13 +127,13 @@ export class ReportForm {
         }
     }
 
-    public static onPostLevelBulkReport(e: { response: GoogleAppsScript.Forms.FormResponse }, versionName: string = ""): void {
+    public static onPostLevelBulkReport(e: { response: GoogleAppsScript.Forms.FormResponse }, versionName = ""): void {
         try {
             Instance.initialize();
             if (!versionName) {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
-            let levelReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
+            const levelReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
             if (levelReport) {
                 const data = {
                     header: `一括検証報告`,
@@ -145,7 +144,8 @@ export class ReportForm {
                     opRatio: levelReport.opRatio,
                 };
                 CustomLogManager.log(LogLevel.Info, data);
-                Instance.getNoticeQueue().enqueueCreateLevelReport(levelReport);
+                Instance.instance.noticeQueue.enqueueCreateLevelReport(levelReport.reportId);
+                Instance.instance.noticeQueue.save();
             }
         }
         catch (error) {
