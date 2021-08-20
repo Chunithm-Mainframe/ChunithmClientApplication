@@ -14,8 +14,8 @@ import { VersionModule } from "./Product/ReportForm/Layer3/Modules/VersionModule
 import { BulkReportTableReader } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableReader";
 import { BulkReportTableWriter } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableWriter";
 import { ReportStatus } from "./Product/ReportForm/Layer2/Report/ReportStatus";
-import { LevelReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
-import { UnitReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
+import { LevelReportListWebsitePresenter } from "./Product/ReportForm/Layer4/WebsitePresenters/LevelReport/LevelReportListWebsitePresenter";
+import { UnitReportListWebsitePresenter } from "./Product/ReportForm/Layer4/WebsitePresenters/UnitReport/UnitReportListWebsitePresenter";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 
@@ -183,7 +183,7 @@ export function notifyUnverified() {
                 SlackCompositionObjectFactory.markdownText('*[定期]未検証 件数報告*')
             ));
             if (wipReportCount > 0) {
-                const wipReportsUrl = Instance.instance.getPageUrl(UnitReportListWebsiteController, { version: versionName });
+                const wipReportsUrl = Instance.instance.getPageUrl(UnitReportListWebsitePresenter, { version: versionName });
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:page_with_curl:未承認の単曲検証報告が${wipReportCount}件あります
 <${wipReportsUrl}|検証報告一覧(単曲)ページへ>`)
@@ -191,7 +191,7 @@ export function notifyUnverified() {
                 blocks.push(SlackBlockFactory.divider());
             }
             if (wipLevelReportCount > 0) {
-                const wipBulkReporturl = Instance.instance.getPageUrl(LevelReportListWebsiteController, { version: versionName });
+                const wipBulkReporturl = Instance.instance.getPageUrl(LevelReportListWebsitePresenter, { version: versionName });
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:page_with_curl:未承認のレベル別検証報告が${wipLevelReportCount}件あります
 <${wipBulkReporturl}|検証報告一覧(レベル別)ページへ>`)
