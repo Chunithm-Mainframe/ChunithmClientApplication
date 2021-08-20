@@ -10,7 +10,7 @@ import { LevelRawReport } from "./Layer2/Report/LevelReport/LevelRawReport";
 import { ReportStatus } from "./Layer2/Report/ReportStatus";
 import { PostLocation } from "./Layer2/Report/PostLocation";
 import { Utility } from "./Layer2/Utility";
-import { ErrorWebsiteController } from "./Layer4/WebsiteControllers/ErrorWebsiteController";
+import { ErrorWebsitePresenter } from "./Layer4/WebsitePresenters/ErrorWebsitePresenter";
 import { UnitReportTable } from "./Layer2/Report/UnitReport/UnitReportTable";
 
 export type DoGet = GoogleAppsScript.Events.DoGet & { pathInfo: string };
@@ -28,7 +28,7 @@ export class ReportForm {
         }
         catch (error) {
             CustomLogManager.exception(error);
-            return new ErrorWebsiteController().call({ version: Instance.instance.module.configuration.defaultVersionName, message: error.message }, null);
+            return new ErrorWebsitePresenter().call({ version: Instance.instance.module.configuration.defaultVersionName, message: error.message }, null);
         }
     }
 

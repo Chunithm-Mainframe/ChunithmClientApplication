@@ -1,6 +1,6 @@
-import { LINEPostCommandController, LINEPostEvent } from "../LINEPostCommandControllers/@LINEPostCommandController";
+import { LINEPostCommand, LINEPostEvent } from "../LINEPostCommandControllers/@LINEPostCommand";
 
-type Factory = { new(commandText: string, event: LINEPostEvent, postData): LINEPostCommandController };
+type Factory = { new(commandText: string, event: LINEPostEvent, postData): LINEPostCommand };
 
 export class LINEPostCommandManager {
     private readonly _factories: { predicate: (commandText: string) => boolean; factory: Factory }[] = [];
@@ -17,7 +17,7 @@ export class LINEPostCommandManager {
         this._factories.push({ predicate: predicate, factory: factory });
     }
 
-    public findController(postData: { events: LINEPostEvent[] }): LINEPostCommandController {
+    public findController(postData: { events: LINEPostEvent[] }): LINEPostCommand {
         if (!postData.events || !postData.events[0]) {
             return null;
         }

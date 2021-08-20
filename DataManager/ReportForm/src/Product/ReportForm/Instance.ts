@@ -16,31 +16,31 @@ import { ReportFormConfigurationSchema } from "./Layer1/Configurations/Configura
 import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSourceType";
 import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
 import { NoticeQueue } from "./Layer2/NoticeQueue";
-import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
 import { ReportFormPageLinkResolver } from "./Layer2/ReportFormPageLinkResolver";
-import { BulkReportFormBuildLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommandController";
-import { BulkReportFormUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommandController";
-import { DefaultGameVersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommandController";
-import { EnvironmentGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/EnvironmentGetLINEPostCommandController";
-import { FormUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/FormUrlGetLINEPostCommandController";
-import { GlobalConfigValueGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/GlobalConfigValueGetLINEPostCommandController";
-import { LatestGameVersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/LatestGameVersionGetLINEPostCommandController";
-import { PostTweetEnabledGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledGetLINEPostCommandController";
-import { PostTweetEnabledSetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledSetLINEPostCommandController";
-import { ReportFormBuildLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportFormBuildLINEPostCommandController";
-import { ReportPostNoticeEnabledGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledGetLINEPostCommandController";
-import { ReportPostNoticeEnabledSetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledSetLINEPostCommandController";
-import { TargetLevelMusicCountGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TargetLevelMusicCountGetLINEPostCommandController";
-import { TestLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TestLINEPostCommandController";
-import { TopUrlGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/TopUrlGetLINEPostCommandController";
-import { VersionGetLINEPostCommandController } from "./Layer4/LINEPostCommandControllers/VersionGetLINEPostCommandController";
+import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
+import { BulkReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommand";
+import { BulkReportFormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommand";
+import { DefaultGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommand";
+import { EnvironmentGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/EnvironmentGetLINEPostCommand";
+import { FormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/FormUrlGetLINEPostCommand";
+import { GlobalConfigValueGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/GlobalConfigValueGetLINEPostCommand";
+import { LatestGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/LatestGameVersionGetLINEPostCommand";
+import { PostTweetEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledGetLINEPostCommand";
+import { PostTweetEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledSetLINEPostCommand";
+import { ReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportFormBuildLINEPostCommand";
+import { ReportPostNoticeEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledGetLINEPostCommand";
+import { ReportPostNoticeEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledSetLINEPostCommand";
+import { TargetLevelMusicCountGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TargetLevelMusicCountGetLINEPostCommand";
+import { TestLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TestLINEPostCommand";
+import { TopUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TopUrlGetLINEPostCommand";
+import { VersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/VersionGetLINEPostCommand";
 import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
-import { NoticeManager  } from "./Layer4/Managers/NoticeManager";
+import { NoticeManager } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
-import { MusicTableGetPostCommand } from "./Layer4/PostCommandControllers/MusicTableGetPostCommand";
-import { MusicTableUpdatePostCommand } from "./Layer4/PostCommandControllers/MusicTableUpdatePostCommand";
-import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "./Layer4/WebsiteControllers/@ReportFormController";
+import { MusicTableGetPostCommand } from "./Layer4/PostCommands/MusicTableGetPostCommand";
+import { MusicTableUpdatePostCommand } from "./Layer4/PostCommands/MusicTableUpdatePostCommand";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
+import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "./Layer4/WebsitePresenters/@ReportFormPresenter";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -64,7 +64,7 @@ export class Instance {
     public get linePostCommandManager() { return DIProperty.resolve(LINEPostCommandManager); }
     public get postCommandManager() { return DIProperty.resolve(PostCommandManager); }
     public get noticeQueue() { return DIProperty.resolve(NoticeQueue); }
-    public get noticeManager() { return DIProperty.resolve(NoticeManager ); }
+    public get noticeManager() { return DIProperty.resolve(NoticeManager); }
 
     private static createCacheProvider(): CustomCacheProvider {
         const cacheProvider = new ScriptCacheProvider();
@@ -109,7 +109,7 @@ export class Instance {
         DIProperty.register(ReportFormPageLinkResolver, pageLinkResolver);
 
         DIProperty.bind(NoticeQueue, () => new NoticeQueue(cacheProvider));
-        DIProperty.bind(NoticeManager , () => new NoticeManager ());
+        DIProperty.bind(NoticeManager, () => new NoticeManager());
     }
 
     public registerDoGetParameter(e: GoogleAppsScript.Events.DoGet): void {
@@ -119,22 +119,22 @@ export class Instance {
     public setupLINEPostCommandControllers(): void {
         const linePostCommandManager = new LINEPostCommandManager();
 
-        linePostCommandManager.bindStartWith('build-bulk-report-form<<', BulkReportFormBuildLINEPostCommandController);
-        linePostCommandManager.bindEquals('bulk-report-form-url', BulkReportFormUrlGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('default-game-version', DefaultGameVersionGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('environment', EnvironmentGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('report-form-url', FormUrlGetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('get-global-config-value<<', GlobalConfigValueGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('latest-game-version', LatestGameVersionGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('post-tweet-enabled', PostTweetEnabledGetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('post-tweet-enabled=', PostTweetEnabledSetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('build-report-form<<', ReportFormBuildLINEPostCommandController);
-        linePostCommandManager.bindEquals('report-post-notice-enabled', ReportPostNoticeEnabledGetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('report-post-notice-enabled=', ReportPostNoticeEnabledSetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('get-target-level-music-count<<', TargetLevelMusicCountGetLINEPostCommandController);
-        linePostCommandManager.bindStartWith('test-', TestLINEPostCommandController);
-        linePostCommandManager.bindEquals('top-url', TopUrlGetLINEPostCommandController);
-        linePostCommandManager.bindEquals('version', VersionGetLINEPostCommandController);
+        linePostCommandManager.bindStartWith('build-bulk-report-form<<', BulkReportFormBuildLINEPostCommand);
+        linePostCommandManager.bindEquals('bulk-report-form-url', BulkReportFormUrlGetLINEPostCommand);
+        linePostCommandManager.bindEquals('default-game-version', DefaultGameVersionGetLINEPostCommand);
+        linePostCommandManager.bindEquals('environment', EnvironmentGetLINEPostCommand);
+        linePostCommandManager.bindEquals('report-form-url', FormUrlGetLINEPostCommand);
+        linePostCommandManager.bindStartWith('get-global-config-value<<', GlobalConfigValueGetLINEPostCommand);
+        linePostCommandManager.bindEquals('latest-game-version', LatestGameVersionGetLINEPostCommand);
+        linePostCommandManager.bindEquals('post-tweet-enabled', PostTweetEnabledGetLINEPostCommand);
+        linePostCommandManager.bindStartWith('post-tweet-enabled=', PostTweetEnabledSetLINEPostCommand);
+        linePostCommandManager.bindStartWith('build-report-form<<', ReportFormBuildLINEPostCommand);
+        linePostCommandManager.bindEquals('report-post-notice-enabled', ReportPostNoticeEnabledGetLINEPostCommand);
+        linePostCommandManager.bindStartWith('report-post-notice-enabled=', ReportPostNoticeEnabledSetLINEPostCommand);
+        linePostCommandManager.bindStartWith('get-target-level-music-count<<', TargetLevelMusicCountGetLINEPostCommand);
+        linePostCommandManager.bindStartWith('test-', TestLINEPostCommand);
+        linePostCommandManager.bindEquals('top-url', TopUrlGetLINEPostCommand);
+        linePostCommandManager.bindEquals('version', VersionGetLINEPostCommand);
 
         DIProperty.register(LINEPostCommandManager, linePostCommandManager);
     }
@@ -176,6 +176,6 @@ export class Instance {
     public getPageUrl<TParam extends ReportFormWebsiteParameter>(targetController: { prototype: RoutingController; name: string }, parameter: TParam): string {
         const configuration = DIProperty.resolve(ReportFormConfiguration);
         const pageLinkResolver = DIProperty.resolve(ReportFormPageLinkResolver);
-        return ReportFormWebsiteController.getFullPath(configuration, pageLinkResolver, targetController, parameter);
+        return ReportFormWebsitePresenter.getFullPath(configuration, pageLinkResolver, targetController, parameter);
     }
 }
