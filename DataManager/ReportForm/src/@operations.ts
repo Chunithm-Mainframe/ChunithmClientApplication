@@ -17,6 +17,8 @@ import { ReportStatus } from "./Product/ReportForm/Layer2/Report/ReportStatus";
 import { LevelReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/LevelReport/LevelReportListWebsiteController";
 import { UnitReportListWebsiteController } from "./Product/ReportForm/Layer4/WebsiteControllers/UnitReport/UnitReportListWebsiteController";
 
+/* eslint @typescript-eslint/no-unused-vars: off */
+
 export function storeConfig(): GoogleAppsScript.Properties.Properties {
     const ret = ConfigurationEditor.store();
     CustomLogManager.log(LogLevel.Info, ret.getProperties());
@@ -37,7 +39,6 @@ function getDefaultVersionName(instance: Instance): string {
     return instance.module.configuration.defaultVersionName;
 }
 
-// eslint-disable-next-line
 function setupForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -45,7 +46,6 @@ function setupForm() {
     });
 }
 
-// eslint-disable-next-line
 function setupBulkReportForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -53,17 +53,14 @@ function setupBulkReportForm() {
     });
 }
 
-// eslint-disable-next-line
 function authorizeTwitter() {
     execute(instance => instance.module.getModule(TwitterModule).connector.authorize());
 }
 
-// eslint-disable-next-line
 function authCallback(request) {
     execute(instance => instance.module.getModule(TwitterModule).connector.authCallback(request));
 }
 
-// eslint-disable-next-line
 function getGenres(): string[] {
     return execute(instance => {
         const versionName = getDefaultVersionName(instance);
@@ -214,7 +211,6 @@ export function notifyUnverified() {
     }
 }
 
-// eslint-disable-next-line
 function importBulkReportSheet() {
     try {
         Instance.initialize();
@@ -228,7 +224,6 @@ function importBulkReportSheet() {
     }
 }
 
-// eslint-disable-next-line
 function updateCurrentVersionBulkReportTable() {
     try {
         Instance.initialize();
@@ -258,7 +253,6 @@ function updateCurrentVersionBulkReportTable() {
     }
 }
 
-// eslint-disable-next-line
 function updateNextVersionBulkReportTable() {
     try {
         Instance.initialize();
