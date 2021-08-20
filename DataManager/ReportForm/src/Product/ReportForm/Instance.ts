@@ -140,8 +140,8 @@ export class Instance {
     public setupPostCommandControllers(): void {
         const postCommandManager = new PostCommandManager();
 
-        postCommandManager.bindEquals("repo/get", MusicTableGetPostCommand);
-        postCommandManager.bindEquals("repo/update", MusicTableUpdatePostCommand);
+        postCommandManager.bindEquals("table/get", MusicTableGetPostCommand);
+        postCommandManager.bindEquals("table/update", MusicTableUpdatePostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }
