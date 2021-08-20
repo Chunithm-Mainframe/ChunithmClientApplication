@@ -2,13 +2,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <?!= ReportFormWebsiteController.includeStylesheet("common/common.css"); ?>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/common.css"); ?>
     <script>
         function confirmGroupApproval() {
             if (confirm("承認します。\nよろしいですか？")) {
                 let onSuccess = function () {
                     alert("承認しました");
-                    window.open("%link:UnitReportGroupWebsiteController%", "_top");
+                    window.open("%link:UnitReportGroupWebsitePresenter%", "_top");
                 }
                 let onFailure = function (error) {
                     alert("承認処理に失敗しました\n" + error.message);
@@ -32,7 +32,7 @@
         </div>
         %approveFormContainer%
         <div class="text_center">
-            <a href="%link:UnitReportGroupListWebsiteController%">検証報告リストへ</a>
+            <a href="%link:UnitReportGroupListWebsitePresenter%">検証報告リストへ</a>
         </div>
     </div>
 </body>

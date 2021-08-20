@@ -1,6 +1,6 @@
 <head>
-    <?!= ReportFormWebsiteController.includeStylesheet("common/common.css"); ?>
-    <?!= ReportFormWebsiteController.includeStylesheet("common/unverified_list.css"); ?>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/common.css"); ?>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/unverified_list.css"); ?>
     <base target="_top" />
 </head>
 <body>
@@ -9,7 +9,7 @@
             未検証楽曲リスト(レベル別)
         </div>
         <div class="box_2">
-            <form action="%link:UnverifiedListByLevelWebsiteController%" method="get">
+            <form action="%link:UnverifiedListByLevelWebsitePresenter%" method="get">
                 <div class="select_box">
                     <div class="box_3_title">
                         難易度
@@ -29,7 +29,7 @@
         </div>
         %list%
         <div class="text_center">
-            <a href="%link:TopWebsiteController%">TOP</a>
+            <a href="%link:TopWebsitePresenter%">TOP</a>
         </div>
     </div>
 </body>
