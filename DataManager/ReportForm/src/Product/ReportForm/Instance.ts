@@ -139,7 +139,7 @@ export class Instance {
         DIProperty.register(LINEPostCommandManager, linePostCommandManager);
     }
 
-    public setupPostCommandControllers(): void {
+    public setupPostCommands(): void {
         const postCommandManager = new PostCommandManager();
 
         postCommandManager.bindEquals("table/get", MusicTableGetPostCommand);

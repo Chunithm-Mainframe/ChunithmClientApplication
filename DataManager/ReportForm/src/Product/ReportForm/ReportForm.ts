@@ -71,7 +71,7 @@ export class ReportForm {
                 }
             }
             else {
-                Instance.instance.setupPostCommandControllers();
+                Instance.instance.setupPostCommands();
                 const postCommand = Instance.instance.postCommandManager.findPostCommand(postData.command);
                 if (postCommand) {
                     const response = postCommand.invoke(postData);
