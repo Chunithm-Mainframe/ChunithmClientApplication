@@ -106,7 +106,7 @@
     <Folder Include="src\Product\ReportForm\Layer2\Logger\" />
     <Folder Include="src\Product\ReportForm\Layer1\Configurations\" />
     <Folder Include="src\Product\ReportForm\Dependencies\" />
-    <Folder Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\" />
+    <Folder Include="src\Product\ReportForm\Layer4\LINEPostCommands\" />
     <Folder Include="src\Product\ReportForm\Layer3\Modules\Report\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\BulkReport\" />
@@ -222,22 +222,22 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\BulkReportFormBuildLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\BulkReportFormUrlGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\DefaultGameVersionGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\EnvironmentGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\FormUrlGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\GlobalConfigValueGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\LatestGameVersionGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\PostTweetEnabledGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\PostTweetEnabledSetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\ReportFormBuildLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\ReportPostNoticeEnabledGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\ReportPostNoticeEnabledSetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\TargetLevelMusicCountGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\TestLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\TopUrlGetLINEPostCommand.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\VersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormBuildLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\DefaultGameVersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\EnvironmentGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\FormUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\GlobalConfigValueGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\LatestGameVersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledSetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportFormBuildLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportPostNoticeEnabledGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportPostNoticeEnabledSetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TargetLevelMusicCountGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TestLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TopUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\VersionGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\LINEPostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -282,7 +282,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Environment.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommandControllers\%40LINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\%40LINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationEditor.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Instance.ts">
       <SubType>Code</SubType>

@@ -63,7 +63,7 @@ export class ReportForm {
 
             const from: string = e.parameter['from'];
             if (from === 'line') {
-                Instance.instance.setupLINEPostCommandControllers();
+                Instance.instance.setupLINEPostCommands();
                 const lineCommand = Instance.instance.linePostCommandManager.findController(postData);
                 if (lineCommand) {
                     lineCommand.invoke();

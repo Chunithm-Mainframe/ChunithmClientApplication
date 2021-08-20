@@ -18,22 +18,22 @@ import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfi
 import { NoticeQueue } from "./Layer2/NoticeQueue";
 import { ReportFormPageLinkResolver } from "./Layer2/ReportFormPageLinkResolver";
 import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
-import { BulkReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommandControllers/BulkReportFormBuildLINEPostCommand";
-import { BulkReportFormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/BulkReportFormUrlGetLINEPostCommand";
-import { DefaultGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/DefaultGameVersionGetLINEPostCommand";
-import { EnvironmentGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/EnvironmentGetLINEPostCommand";
-import { FormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/FormUrlGetLINEPostCommand";
-import { GlobalConfigValueGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/GlobalConfigValueGetLINEPostCommand";
-import { LatestGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/LatestGameVersionGetLINEPostCommand";
-import { PostTweetEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledGetLINEPostCommand";
-import { PostTweetEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/PostTweetEnabledSetLINEPostCommand";
-import { ReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportFormBuildLINEPostCommand";
-import { ReportPostNoticeEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledGetLINEPostCommand";
-import { ReportPostNoticeEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/ReportPostNoticeEnabledSetLINEPostCommand";
-import { TargetLevelMusicCountGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TargetLevelMusicCountGetLINEPostCommand";
-import { TestLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TestLINEPostCommand";
-import { TopUrlGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/TopUrlGetLINEPostCommand";
-import { VersionGetLINEPostCommand } from "./Layer4/LINEPostCommandControllers/VersionGetLINEPostCommand";
+import { BulkReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommands/BulkReportFormBuildLINEPostCommand";
+import { BulkReportFormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/BulkReportFormUrlGetLINEPostCommand";
+import { DefaultGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/DefaultGameVersionGetLINEPostCommand";
+import { EnvironmentGetLINEPostCommand } from "./Layer4/LINEPostCommands/EnvironmentGetLINEPostCommand";
+import { FormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/FormUrlGetLINEPostCommand";
+import { GlobalConfigValueGetLINEPostCommand } from "./Layer4/LINEPostCommands/GlobalConfigValueGetLINEPostCommand";
+import { LatestGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/LatestGameVersionGetLINEPostCommand";
+import { PostTweetEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommands/PostTweetEnabledGetLINEPostCommand";
+import { PostTweetEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommands/PostTweetEnabledSetLINEPostCommand";
+import { ReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommands/ReportFormBuildLINEPostCommand";
+import { ReportPostNoticeEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommands/ReportPostNoticeEnabledGetLINEPostCommand";
+import { ReportPostNoticeEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommands/ReportPostNoticeEnabledSetLINEPostCommand";
+import { TargetLevelMusicCountGetLINEPostCommand } from "./Layer4/LINEPostCommands/TargetLevelMusicCountGetLINEPostCommand";
+import { TestLINEPostCommand } from "./Layer4/LINEPostCommands/TestLINEPostCommand";
+import { TopUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/TopUrlGetLINEPostCommand";
+import { VersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/VersionGetLINEPostCommand";
 import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
 import { NoticeManager } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
@@ -116,7 +116,7 @@ export class Instance {
         DIProperty.register("DoGet", e);
     }
 
-    public setupLINEPostCommandControllers(): void {
+    public setupLINEPostCommands(): void {
         const linePostCommandManager = new LINEPostCommandManager();
 
         linePostCommandManager.bindStartWith('build-bulk-report-form<<', BulkReportFormBuildLINEPostCommand);

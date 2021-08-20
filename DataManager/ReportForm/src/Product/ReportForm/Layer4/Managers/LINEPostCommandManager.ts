@@ -1,4 +1,4 @@
-import { LINEPostCommand, LINEPostEvent } from "../LINEPostCommandControllers/@LINEPostCommand";
+import { LINEPostCommand, LINEPostEvent } from "../LINEPostCommands/@LINEPostCommand";
 
 type Factory = { new(commandText: string, event: LINEPostEvent, postData): LINEPostCommand };
 
