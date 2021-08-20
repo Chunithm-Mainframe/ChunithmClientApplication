@@ -67,7 +67,7 @@ namespace ChunithmCLI.Commands
 
         private const int GENRE_CODE_ALL = 99;
 
-        public string GetCommandName() => "update-musicdata-table";
+        public string GetCommandName() => "update-music-table";
 
         public void Call(string[] args)
         {
