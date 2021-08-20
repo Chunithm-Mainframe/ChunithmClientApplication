@@ -1,0 +1,31 @@
+name: Update Music Table Develop
+on:
+  workflow_dispatch:
+    inputs:
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    env:
+      REPORTFORM_SERVER_URL: ${{ secrets.REPORTFORM_DEVELOP_SERVER_URL }}
+    steps:
+      - name: Setup repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: true
+
+      - name: Setup .NET Core SDK 5.0.x
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Update Music Table
+        run: "dotnet run --project Core.NET/Core.NET/ChunithmCLI -- \
+          update-music-table \
+          --sega-id ${{ secret.CLI_SEGA_ID }} \
+          --password ${{ secret.CLI_SEGA_PASSWORD }} \
+          --aime-index ${{ secret.CLI_SEGA_AIME_INDEX }} \
+          --max-level 21
+          --db-url https://script.google.com/macros/s/AKfycbyvSk_-plhY_nx2764akClxjf38hMYjOmn9S0hWXtD3zZ4_PGSW5amPOhVZIecr-9w/exec"
+
