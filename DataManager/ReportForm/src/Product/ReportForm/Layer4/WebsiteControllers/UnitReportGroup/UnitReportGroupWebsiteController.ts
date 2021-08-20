@@ -27,6 +27,7 @@ export class UnitReportGroupWebsiteController extends ReportFormWebsiteControlle
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public callInternal(parameter: UnitReportGroupWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const musicTable = this.musicModule.getMusicTable(this.targetGameVersion);
         const unitReportBundleGroup = this.reportModule.getUnitReportBundleGroup(this.targetGameVersion, parameter.groupId);

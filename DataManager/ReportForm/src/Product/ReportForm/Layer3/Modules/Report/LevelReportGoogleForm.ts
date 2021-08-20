@@ -62,6 +62,8 @@ export class LevelReportGoogleForm {
             opInput.setRequired(true);
             opInput.setValidation(FormApp.createTextValidation()
                 .requireNumberGreaterThan(0)
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
                 .build());
         }
         {
@@ -70,6 +72,8 @@ export class LevelReportGoogleForm {
             opRatioInput.setRequired(true);
             opRatioInput.setValidation(FormApp.createTextValidation()
                 .requireNumberBetween(0, 100)
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                // @ts-ignore
                 .build());
         }
         CustomLogManager.log(LogLevel.Info, `パラメータ記入画面の作成が完了しました`);

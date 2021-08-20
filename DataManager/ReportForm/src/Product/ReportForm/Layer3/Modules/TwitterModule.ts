@@ -23,7 +23,7 @@ export class TwitterModule extends ReportFormModule {
         return this._connector;
     }
 
-    public postTweet(message: string): any {
+    public postTweet(message: string) {
         if (!this.configuration.runtime.postTweetEnabled || !this.connector) {
             return null;
         }

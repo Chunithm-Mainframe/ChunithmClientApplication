@@ -9,6 +9,7 @@ import { UnitReportGroupListWebsiteController } from "./UnitReportGroup/UnitRepo
 import { UnverifiedListByGenreWebsiteController } from "./UnverifiedList/UnverifiedListByGenreWebsiteController";
 import { UnverifiedListByLevelWebsiteController } from "./UnverifiedList/UnverifiedListByLevelWebsiteController";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TopWebsiteParameter extends ReportFormWebsiteParameter {
 }
 
@@ -16,6 +17,7 @@ export class TopWebsiteController extends ReportFormWebsiteController<TopWebsite
 
     private get versionModule() { return this.getModule(VersionModule); }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: Readonly<TopWebsiteParameter>, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const versionText = this.versionModule.getVersionConfig(this.targetGameVersion).displayVersionName;
 

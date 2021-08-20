@@ -1,7 +1,7 @@
 import { ReportFormModule } from "./@ReportFormModule";
 
 export interface WebhookParameter {
-    parameters: { key: string, value: string }[];
+    parameters: { key: string; value: string }[];
 }
 
 export class WebhookModule extends ReportFormModule {
@@ -17,6 +17,7 @@ export class WebhookModule extends ReportFormModule {
         if (!this.settingsManager) {
             return;
         }
+        // eslint-disable-next-line
         const requests: GoogleAppsScript.URL_Fetch.URLFetchRequest[] = [];
         for (const callback of this.settingsManager.getCallbacks(eventName)) {
             requests.push(this.createRequest(callback, parameter));
@@ -24,6 +25,7 @@ export class WebhookModule extends ReportFormModule {
         UrlFetchApp.fetchAll(requests);
     }
 
+    // eslint-disable-next-line
     private createRequest(settings: WebhookSettings, parameter: WebhookParameter): GoogleAppsScript.URL_Fetch.URLFetchRequest {
         return {
             url: this.replaceUrlParameter(settings.callback, parameter),
@@ -33,7 +35,7 @@ export class WebhookModule extends ReportFormModule {
 
     private replaceUrlParameter(url: string, parameter: WebhookParameter): string {
         if (parameter) {
-            for (let param of parameter.parameters) {
+            for (const param of parameter.parameters) {
                 url = url.replace(param.key, param.value);
             }
         }
@@ -60,13 +62,13 @@ class WebhookSettings {
 
 export class WebhookSettingsManager {
     public static readBySheet(spreadsheetId: string, worksheetName: string): WebhookSettingsManager {
-        let sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(worksheetName);
+        const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName(worksheetName);
         if (!sheet) {
             throw new Error(`Worksheet not found. (${worksheetName})`);
         }
 
-        let datas = sheet.getDataRange().getValues();
-        const settings: { eventName: string, settings: WebhookSettings }[] = [];
+        const datas = sheet.getDataRange().getValues();
+        const settings: { eventName: string; settings: WebhookSettings }[] = [];
         for (let i = 1; i < datas.length; i++) {
             settings.push({
                 eventName: datas[i][0],
@@ -76,8 +78,8 @@ export class WebhookSettingsManager {
         return new WebhookSettingsManager(settings);
     }
 
-    public constructor(settingsList: { eventName: string, settings: WebhookSettings }[]) {
-        for (let settings of settingsList) {
+    public constructor(settingsList: { eventName: string; settings: WebhookSettings }[]) {
+        for (const settings of settingsList) {
             if (!(settings.eventName in this._callbackMap)) {
                 this._callbackMap[settings.eventName] = [];
             }

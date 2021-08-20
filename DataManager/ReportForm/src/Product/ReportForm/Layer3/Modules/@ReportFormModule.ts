@@ -2,7 +2,7 @@ import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportForm
 
 export class ReportFormModule {
     public static instantiate(config: ReportFormConfiguration): ReportFormModule {
-        let module = new ReportFormModule();
+        const module = new ReportFormModule();
         module._root = module;
         module._config = config;
         return module;
@@ -20,12 +20,9 @@ export class ReportFormModule {
         const module = new factory();
         module._root = this._root;
         module._config = this._config;
-        module.initialize();
         this._root._modules[factory.name] = module;
         return module;
     }
-
-    protected initialize(): void { }
 
     protected get module(): ReportFormModule { return this._root; }
 

@@ -18,6 +18,7 @@ export class UnitReportWebsiteController extends ReportFormWebsiteController<Uni
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public callInternal(parameter: UnitReportWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const reportId = parseInt(parameter.reportId);
         const report = this.reportModule.getUnitReport(this.targetGameVersion, reportId);

@@ -8,6 +8,7 @@ import { ReportFormWebsiteController, ReportFormWebsiteParameter } from "../@Rep
 import { TopWebsiteController } from "../TopWebsiteController";
 import { UnitReportWebsiteController, UnitReportWebsiteParameter } from "./UnitReportWebsiteController";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnitReportListWebsiteParameter extends ReportFormWebsiteParameter {
 }
 
@@ -19,10 +20,11 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
         return role === Role.Operator;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected callInternal(parameter: UnitReportListWebsiteParameter, node: RoutingNode): GoogleAppsScript.HTML.HtmlOutput {
         const listHtml = this.reportModule.getUnitReports(this.targetGameVersion)
             .filter(x => x.reportStatus === ReportStatus.InProgress)
-            .map(x => this.getListItemHtml(this.targetGameVersion, x))
+            .map(x => this.getListItemHtml(x))
             .reduce((acc, src) => `${acc}\n${src}`, '');
 
         let source = this.readHtml("Resources/Page/wip_list/main");
@@ -34,7 +36,7 @@ export class UnitReportListWebsiteController extends ReportFormWebsiteController
         return this.createHtmlOutput(source);
     }
 
-    private getListItemHtml(version: string, report: UnitReport): string {
+    private getListItemHtml(report: UnitReport): string {
         const parameter: UnitReportWebsiteParameter = {
             version: this.targetGameVersion,
             reportId: report.reportId.toString(),

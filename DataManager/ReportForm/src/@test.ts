@@ -2,7 +2,11 @@ import { execute, noticeCreatedUnitReports } from "./@operations";
 import { Instance } from "./Product/ReportForm/Instance";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer3/Modules/RatingDataAnalysisModule";
 
+/* eslint @typescript-eslint/no-unused-vars: off */
+/* eslint @typescript-eslint/camelcase: off */
+
 // implements test core here
+
 function writeRatingDataTest() {
     Instance.initialize();
     Instance.instance.module.getModule(RatingDataAnalysisModule).test();

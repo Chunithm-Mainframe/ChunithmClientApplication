@@ -49,12 +49,12 @@ export class SpreadsheetLogger {
 export class LogSheet {
     private static logSheetMap: { [key: string]: LogSheet } = {};
     public static openLogSheet(spreadsheetId: string, worksheetName: string): LogSheet {
-        let key = `${spreadsheetId}/${worksheetName}`;
+        const key = `${spreadsheetId}/${worksheetName}`;
         if (key in this.logSheetMap) {
             return this.logSheetMap[key];
         }
-        let spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-        let worksheet = spreadsheet.getSheetByName(worksheetName);
+        const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+        const worksheet = spreadsheet.getSheetByName(worksheetName);
         if (!worksheet) {
             throw new Error(`worksheet is null. ${spreadsheet}:${worksheetName}`);
         }

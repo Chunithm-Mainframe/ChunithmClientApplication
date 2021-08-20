@@ -15,6 +15,7 @@ export class TwitterConnector {
         this.twitter.authCallback(request);
     }
 
+    // eslint-disable-next-line
     public postTweet(message: string): GoogleAppsScript.URL_Fetch.HTTPResponse {
         const service = this.twitter.getService();
         const endPointUrl = 'https://api.twitter.com/1.1/statuses/update.json';

@@ -25,24 +25,29 @@ class PlayerRecordRepositoryRow {
 
 export class RatingDataAnalysisModule extends ReportFormModule {
     private createPlayRecord(sortNum: number, musicId: number, difficulty: string, score: number): PlayRecord {
+        /* eslint-disable @typescript-eslint/camelcase */
         return {
             sort_num: sortNum,
             music_idx: musicId,
             music_diff: difficulty,
             score: score,
         };
+        /* eslint-enable */
     }
 
     private toRow(data: PlayerRecord): PlayerRecordRepositoryRow {
+        /* eslint-disable @typescript-eslint/camelcase */
         const ret = new PlayerRecordRepositoryRow();
         ret.id = data.id;
         ret.best_json = JSON.stringify(data.best);
         ret.outside_best_json = JSON.stringify(data.outside_best);
         ret.recent_json = JSON.stringify(data.recent);
         return ret;
+        /* eslint-enable */
     }
 
     public test(): void {
+        /* eslint-disable @typescript-eslint/camelcase */
         const data: PlayerRecord[] = [
             {
                 id: 1,
@@ -75,6 +80,7 @@ export class RatingDataAnalysisModule extends ReportFormModule {
                 ],
             }
         ]
+        /* eslint-enable */
 
         const version = this.configuration.defaultVersionName;
         const config = this.configuration.versions[version];

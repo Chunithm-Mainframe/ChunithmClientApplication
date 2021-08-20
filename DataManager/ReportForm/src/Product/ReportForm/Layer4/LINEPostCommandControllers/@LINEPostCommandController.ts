@@ -18,7 +18,7 @@ export abstract class LINEPostCommandController {
     public constructor(
         protected readonly commandText: string,
         protected readonly event: LINEPostEvent,
-        protected readonly postData: any
+        protected readonly postData
     ) {
     }
 
