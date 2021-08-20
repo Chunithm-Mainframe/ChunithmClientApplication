@@ -7,7 +7,7 @@ using System.Web;
 
 namespace ChunithmCLI.Commands
 {
-    public class GenerateMusicRepositoryHtmlCommand : ICommand
+    public class GenerateMusicTableHtmlCommand : ICommand
     {
         public class ParameterContainer
         {

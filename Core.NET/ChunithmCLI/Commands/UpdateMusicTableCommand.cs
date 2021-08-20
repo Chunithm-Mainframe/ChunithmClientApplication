@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ChunithmCLI.Commands
 {
-    public class UpdateMusicRepositoryCommand : ICommand
+    public class UpdateMusicTableCommand : ICommand
     {
         public class ParameterContainer
         {
