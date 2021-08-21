@@ -25,7 +25,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Payloa
         internal class Response : Payloads.Internal.BaseResponse
         {
             [DataMember(Name = "musics")]
-            public List<Structs.Music> Musics { get; }
+            public List<Structs.Music> Musics { get; set; }
         }
     }
 }
