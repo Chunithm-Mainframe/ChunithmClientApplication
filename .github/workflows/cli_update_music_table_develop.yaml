@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
 jobs:
-  dump:
+  update-music-table:
     runs-on: ubuntu-latest
     env:
       REPORTFORM_SERVER_URL: ${{ secrets.REPORTFORM_DEVELOP_SERVER_URL }}
