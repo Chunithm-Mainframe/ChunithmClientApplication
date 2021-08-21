@@ -1,6 +1,8 @@
 import { execute, noticeCreatedUnitReports } from "./@operations";
 import { Instance } from "./Product/ReportForm/Instance";
 import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer3/Modules/RatingDataAnalysisModule";
+import { ReportModule } from "./Product/ReportForm/Layer3/Modules/Report/ReportModule";
+import { VersionModule } from "./Product/ReportForm/Layer3/Modules/VersionModule";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 /* eslint @typescript-eslint/camelcase: off */
@@ -25,4 +27,30 @@ function test_pushNotice() {
     noticeQueue.save();
 
     noticeCreatedUnitReports();
+}
+
+function test_iterateFormListItems() {
+    Instance.initialize();
+    const obj = Instance.instance;
+
+    const form = obj.module.getModule(ReportModule).unitReportGoogleForm;
+    const list = form.getItems(FormApp.ItemType.LIST);
+
+    const genres = obj.module.getModule(VersionModule)
+        .getVersionConfig(obj.config.defaultVersionName)
+        .genres;
+
+    console.log(genres);
+    for (let i = 0; i < genres.length; i++) {
+        const genre = genres[i];
+        const musicList = list[i + 1];
+        console.log(`${genre}:${musicList}`);
+        console.log(musicList?.asListItem?.().getTitle?.());
+    }
+}
+
+function test_updateMusicsUnitReportForm() {
+    Instance.initialize();
+    Instance.instance.module.getModule(ReportModule).updateMusicsUnitReportForm(
+        Instance.instance.config.defaultVersionName);
 }

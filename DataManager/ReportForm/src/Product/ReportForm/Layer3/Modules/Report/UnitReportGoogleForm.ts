@@ -45,10 +45,7 @@ export class UnitReportGoogleForm {
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成...`);
         const table = this._module.getModule(MusicModule).getMusicTable(versionName);
         const genres = this._module.getModule(VersionModule).getVersionConfig(versionName).genres;
-        genres.push('ALL');
-        const musicSelectPages: {
-            [key: string]: GoogleAppsScript.Forms.PageBreakItem;
-        } = {};
+        const musicSelectPages: Record<string, GoogleAppsScript.Forms.PageBreakItem> = {};
         for (const genre of genres) {
             musicSelectPages[genre] = this.buildFormMusicSelectPage(form, table, genre);
             Utilities.sleep(500);
@@ -73,25 +70,22 @@ export class UnitReportGoogleForm {
         const page = form.addPageBreakItem();
         page.setTitle('楽曲選択');
         const musicList = form.addListItem();
-        const displayGenreText = targetGenre === 'ALL' ? '全ジャンル' : targetGenre;
-        musicList.setTitle(`楽曲を選択してください(${displayGenreText})`);
+        musicList.setTitle(`楽曲を選択してください(${targetGenre})`);
         musicList.setRequired(true);
-        const targetMusicDatas = targetGenre === 'ALL'
-            ? table.records
-            : table.records.filter(m => m.genre === targetGenre);
-        if (targetMusicDatas.length > 0) {
-            musicList.setChoiceValues(targetMusicDatas.map(m => m.name));
+        const musics = table.records.filter(m => m.genre === targetGenre)
+        if (musics.length > 0) {
+            musicList.setChoiceValues(musics.map(m => m.name));
         }
         return page;
     }
-    private buildGenreSelect(genreSelect: GoogleAppsScript.Forms.ListItem, genres: string[], musicSelectPages: {
-        [key: string]: GoogleAppsScript.Forms.PageBreakItem;
-    }): void {
+    private buildGenreSelect(
+        genreSelect: GoogleAppsScript.Forms.ListItem,
+        genres: string[],
+        musicSelectPages: Record<string, GoogleAppsScript.Forms.PageBreakItem>): void {
         const choices: GoogleAppsScript.Forms.Choice[] = [];
         for (const genre of genres) {
-            const displayGenreText = genre === 'ALL' ? '全ジャンル' : genre;
             const page = musicSelectPages[genre];
-            const choice = genreSelect.createChoice(displayGenreText, page);
+            const choice = genreSelect.createChoice(genre, page);
             choices.push(choice);
         }
         genreSelect.setChoices(choices);

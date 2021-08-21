@@ -31,7 +31,7 @@ export class MusicTableUpdatePostCommand extends PostCommand {
         if (result.added.length > 0) {
             const genres = this.versionModule.getVersionConfig(postData.versionName).genres;
 
-            this.updateMusicList(genres, currentTable.records);
+            this.reportModule.updateMusicsUnitReportForm(postData.versionName);
 
             if (isNewlyCreatedTable) {
                 this.notifyRepositoryInitialization(genres, currentTable.records);
@@ -42,26 +42,6 @@ export class MusicTableUpdatePostCommand extends PostCommand {
         }
 
         return result;
-    }
-
-    private updateMusicList(genres: string[], musics: Music[]): void {
-        const form = this.reportModule.unitReportGoogleForm;
-        const list = form.getItems(FormApp.ItemType.LIST);
-
-        const genreList = genres.concat("ALL");
-        for (let i = 0; i < genreList.length; i++) {
-            const genre = genreList[i];
-            const musicList = list[i + 1].asListItem();
-            const musicNames = musics
-                .filter(x => x.genre === "ALL" ? true : x.genre === genre)
-                .map(x => x.name);
-            if (musicNames.length > 0) {
-                musicList.setChoiceValues(musicNames);
-            }
-            else {
-                musicList.setChoiceValues([""]);
-            }
-        }
     }
 
     private notifyRepositoryInitialization(genres: string[], musics: Music[]): void {
