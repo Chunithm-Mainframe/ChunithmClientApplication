@@ -7,8 +7,8 @@ export class ReportFormBuildLINEPostCommand extends LINEPostCommand {
             versionName = this.module.configuration.defaultVersionName;
         }
         this.replyMessage(this.event.replyToken, [`報告フォームを構築します:${versionName}`]);
-        this.module.getModule(ReportModule).buildForm(versionName);
-        const url = this.module.getModule(ReportModule).unitReportGoogleForm.getPublishedUrl();
+        this.module.getModule(ReportModule).buildUnitReportGroupByGenreForm(versionName);
+        const url = this.module.getModule(ReportModule).unitReportGroupByGenreGoogleForm.getPublishedUrl();
         this.pushMessage([`報告フォームの構築が完了しました
 URL: ${url}`]);
     }

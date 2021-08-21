@@ -190,9 +190,6 @@
     <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetch.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchManager.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchStreamStatus.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ReportConfiguration.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -220,6 +217,12 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportInputFormat.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReport.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByGenreGoogleForm.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByLevelGoogleForm.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormBuildLINEPostCommand.ts" />
@@ -288,7 +291,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\LevelReportGoogleForm.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGoogleForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\%40ReportGoogleForm.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\TwitterModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

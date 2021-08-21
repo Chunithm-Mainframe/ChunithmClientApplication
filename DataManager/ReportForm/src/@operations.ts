@@ -39,18 +39,39 @@ function getDefaultVersionName(instance: Instance): string {
     return instance.module.configuration.defaultVersionName;
 }
 
-function setupForm() {
+function buildUnitReportGroupByGenreForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
-        instance.module.getModule(ReportModule).buildForm(versionName);
+        instance.module.getModule(ReportModule).buildUnitReportGroupByGenreForm(versionName);
     });
 }
 
-function setupBulkReportForm() {
+function buildUnitReportGroupByLevelForm() {
     execute(instance => {
         const versionName = getDefaultVersionName(instance);
-        instance.module.getModule(ReportModule).buildBulkReportForm(versionName);
+        instance.module.getModule(ReportModule).buildUnitReportGroupByLevelForm(versionName);
     });
+}
+
+function buildLevelReportForm() {
+    execute(instance => {
+        const versionName = getDefaultVersionName(instance);
+        instance.module.getModule(ReportModule).buildLevelReportForm(versionName);
+    });
+}
+
+function updateMusics() {
+    execute(instance => {
+        const versionName = getDefaultVersionName(instance);
+
+        CustomLogManager.log(LogLevel.Info, 'ジャンル別単曲検証報告フォームの楽曲リスト更新開始');
+        instance.module.getModule(ReportModule).updateMusicsUnitReportGroupByGenreForm(versionName);
+        CustomLogManager.log(LogLevel.Info, '完了');
+
+        CustomLogManager.log(LogLevel.Info, 'レベル別単曲検証報告フォームの楽曲リスト更新開始');
+        instance.module.getModule(ReportModule).updateMusicsUnitReportForm(versionName);
+        CustomLogManager.log(LogLevel.Info, '完了');
+    })
 }
 
 function authorizeTwitter() {

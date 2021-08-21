@@ -21,8 +21,9 @@ export interface GlobalConfigurationSchema {
     readonly rootUrl: string;
     readonly defaultVersionName: string;
     readonly role: Role;
-    readonly reportFormId: string;
-    readonly bulkReportFormId: string;
+    readonly unitReportGroupByGenreFormId: string;
+    readonly unitReportGroupByLevelFormId: string;
+    readonly levelReportFormId: string;
     readonly jenkinsApiToken: string;
     readonly chunirecApiHost: string;
     readonly chunirecApiToken: string;

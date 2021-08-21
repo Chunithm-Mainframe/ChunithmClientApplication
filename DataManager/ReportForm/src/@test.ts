@@ -33,7 +33,7 @@ function test_iterateFormListItems() {
     Instance.initialize();
     const obj = Instance.instance;
 
-    const form = obj.module.getModule(ReportModule).unitReportGoogleForm;
+    const form = obj.module.getModule(ReportModule).unitReportGroupByGenreGoogleForm;
     const list = form.getItems(FormApp.ItemType.LIST);
 
     const genres = obj.module.getModule(VersionModule)

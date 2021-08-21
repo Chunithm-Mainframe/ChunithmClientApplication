@@ -1,33 +1,28 @@
 import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
+import { Music } from "../../../Layer2/Music/Music";
 import { MusicTable } from "../../../Layer2/Music/MusicTable";
 import { ReportFormModule } from "../@ReportFormModule";
 import { MusicModule } from "../MusicModule";
-import { VersionModule } from "../VersionModule";
+import { ReportGoogleForm } from "./@ReportGoogleForm";
 
-export class UnitReportGoogleForm {
-    public constructor(private readonly _module: ReportFormModule) { }
+export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
+    public static getLevelInfos() {
+        return [14, 13.7, 13, 12.7, 12, 11.7, 11, 10.7, 10, 9.7, 9, 8.7, 8, 7.7, 7, 6, 5, 4, 3, 2, 1]
+            .map(x => {
+                return {
+                    value: x,
+                    text: ((x * 10) % 10 >= 7) ? `${Math.floor(x)}+` : `${x}`,
+                };
+            });
+    }
 
-    private _form: GoogleAppsScript.Forms.Form;
-    public get form(): GoogleAppsScript.Forms.Form {
-        if (!this._form) {
-            const formId = this._module.configuration.global.reportFormId;
-            if (!formId) {
-                CustomLogManager.log(LogLevel.Error, `reportFormId is not set.`);
-                return null;
-            }
-            const form = FormApp.openById(formId);
-            if (!form) {
-                CustomLogManager.log(LogLevel.Error, `Form is invalid. formId: ${formId}`);
-                return null;
-            }
-            this._form = form;
-        }
-        return this._form;
+    public constructor(module: ReportFormModule) {
+        super(module, () => module.configuration.global.unitReportGroupByLevelFormId);
     }
 
     public buildForm(versionName: string): void {
-        CustomLogManager.log(LogLevel.Info, `報告フォームを構築します: ${versionName}`);
+        CustomLogManager.log(LogLevel.Info, `単曲検証報告(レベル)報告フォームを構築します: ${versionName}`);
         CustomLogManager.log(LogLevel.Info, 'フォームに送信された回答の削除...');
         const form = this.form;
         form.deleteAllResponses();
@@ -39,56 +34,79 @@ export class UnitReportGoogleForm {
         }
         CustomLogManager.log(LogLevel.Info, `フォームに送信された回答の削除が完了しました`);
         form.setTitle('譜面定数 検証報告');
-        const genreSelect = form.addListItem();
-        genreSelect.setTitle('ジャンルを選択してください');
-        genreSelect.setRequired(true);
+        const levelSelect = form.addListItem();
+        levelSelect.setTitle('レベルを選択してください');
+        levelSelect.setRequired(true);
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成...`);
         const table = this._module.getModule(MusicModule).getMusicTable(versionName);
-        const genres = this._module.getModule(VersionModule).getVersionConfig(versionName).genres;
+
+        const levelInfos = UnitReportGroupByLevelGoogleForm.getLevelInfos();
         const musicSelectPages: Record<string, GoogleAppsScript.Forms.PageBreakItem> = {};
-        for (const genre of genres) {
-            musicSelectPages[genre] = this.buildFormMusicSelectPage(form, table, genre);
-            Utilities.sleep(500);
+        for (const levelInfo of levelInfos) {
+            musicSelectPages[levelInfo.text] = this.buildFormMusicSelectPage(form, table, levelInfo.value, levelInfo.text);
         }
+
         CustomLogManager.log(LogLevel.Info, `楽曲選択画面の作成が完了しました`);
-        CustomLogManager.log(LogLevel.Info, `ジャンル選択画面の構築...`);
-        this.buildGenreSelect(genreSelect, genres, musicSelectPages);
-        CustomLogManager.log(LogLevel.Info, `ジャンル選択画面の構築中が完了しました`);
+        CustomLogManager.log(LogLevel.Info, `レベル選択画面の構築...`);
+        this.buildLevelSelect(levelSelect, levelInfos.map(x => x.text), musicSelectPages);
+        CustomLogManager.log(LogLevel.Info, `レベル選択画面の構築中が完了しました`);
         Utilities.sleep(1000);
         CustomLogManager.log(LogLevel.Info, `パラメータ記入画面の作成...`);
         const scoreInputPage = this.buildInputPage(form);
         CustomLogManager.log(LogLevel.Info, `パラメータ記入画面の作成が完了しました`);
         Utilities.sleep(1000);
         CustomLogManager.log(LogLevel.Info, `ページ遷移の構築...`);
-        for (const genre of genres) {
-            musicSelectPages[genre].setGoToPage(scoreInputPage);
+        for (const levelInfo of levelInfos) {
+            musicSelectPages[levelInfo.text].setGoToPage(scoreInputPage);
         }
         CustomLogManager.log(LogLevel.Info, `ページ遷移の構築が完了しました`);
         CustomLogManager.log(LogLevel.Info, `報告フォームの構築が完了しました`);
     }
-    private buildFormMusicSelectPage(form: GoogleAppsScript.Forms.Form, table: MusicTable, targetGenre: string): GoogleAppsScript.Forms.PageBreakItem {
+    private buildFormMusicSelectPage(
+        form: GoogleAppsScript.Forms.Form,
+        table: MusicTable,
+        targetLevel: number,
+        targetLevelText: string): GoogleAppsScript.Forms.PageBreakItem {
         const page = form.addPageBreakItem();
         page.setTitle('楽曲選択');
         const musicList = form.addListItem();
-        musicList.setTitle(`楽曲を選択してください(${targetGenre})`);
+        musicList.setTitle(`楽曲を選択してください(Lv.${targetLevelText})`);
         musicList.setRequired(true);
-        const musics = table.records.filter(m => m.genre === targetGenre)
+        const musics = UnitReportGroupByLevelGoogleForm.getFilteredMusics(table.records, targetLevel);
         if (musics.length > 0) {
             musicList.setChoiceValues(musics.map(m => m.name));
         }
         return page;
     }
-    private buildGenreSelect(
-        genreSelect: GoogleAppsScript.Forms.ListItem,
-        genres: string[],
+
+    public static getFilteredMusics(musics: Music[], targetLevel: number): Music[] {
+        const filteredMusics: Music[] = [];
+        for (const music of musics) {
+            if (this.isTargetLevel(music.masterBaseRating, targetLevel)
+                || this.isTargetLevel(music.expertBaseRating, targetLevel)
+                || this.isTargetLevel(music.advancedBaseRating, targetLevel)
+                || this.isTargetLevel(music.basicBaseRating, targetLevel)) {
+                filteredMusics.push(music);
+            }
+        }
+        return filteredMusics;
+    }
+
+    private static isTargetLevel(baseRating: number, targetLevel): boolean {
+        return baseRating >= targetLevel && baseRating < Math.floor(targetLevel) + 1;
+    }
+
+    private buildLevelSelect(
+        levelSelect: GoogleAppsScript.Forms.ListItem,
+        levelTexts: string[],
         musicSelectPages: Record<string, GoogleAppsScript.Forms.PageBreakItem>): void {
         const choices: GoogleAppsScript.Forms.Choice[] = [];
-        for (const genre of genres) {
-            const page = musicSelectPages[genre];
-            const choice = genreSelect.createChoice(genre, page);
+        for (const levelText of levelTexts) {
+            const page = musicSelectPages[levelText];
+            const choice = levelSelect.createChoice(levelText, page);
             choices.push(choice);
         }
-        genreSelect.setChoices(choices);
+        levelSelect.setChoices(choices);
     }
     private buildInputPage(form: GoogleAppsScript.Forms.Form): GoogleAppsScript.Forms.PageBreakItem {
         const scoreInputPage = form.addPageBreakItem();
