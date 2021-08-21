@@ -108,7 +108,7 @@ export class ReportForm {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
 
-            const report = Instance.instance.module.getModule(ReportModule).insertReport(versionName, new UnitRawReport(e.response));
+            const report = Instance.instance.module.getModule(ReportModule).insertUnitReport(versionName, new UnitRawReport(e.response));
             if (report) {
                 const data = {
                     header: `検証報告`,
@@ -133,7 +133,7 @@ export class ReportForm {
             if (!versionName) {
                 versionName = Instance.instance.module.configuration.defaultVersionName;
             }
-            const levelReport = Instance.instance.module.getModule(ReportModule).insertLevelBulkReport(versionName, new LevelRawReport(e.response));
+            const levelReport = Instance.instance.module.getModule(ReportModule).insertLevelReport(versionName, new LevelRawReport(e.response));
             if (levelReport) {
                 const data = {
                     header: `一括検証報告`,

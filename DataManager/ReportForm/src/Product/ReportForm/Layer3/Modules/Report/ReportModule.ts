@@ -280,7 +280,7 @@ export class ReportModule extends ReportFormModule {
         this.getUnitReportTable(versionName).update(addedReports);
     }
 
-    public insertReport(versionName: string, formReport: UnitRawReport): UnitReport {
+    public insertUnitReport(versionName: string, formReport: UnitRawReport): UnitReport {
         const table = this.musicModule.getMusicTable(versionName);
 
         const targetMusic = table.getByName(formReport.musicName);
@@ -333,7 +333,7 @@ ${JSON.stringify(formReport)}`);
         table.update(target);
     }
 
-    public insertLevelBulkReport(versionName: string, formReport: LevelRawReport): LevelReport {
+    public insertLevelReport(versionName: string, formReport: LevelRawReport): LevelReport {
         const musicCount = this.musicModule
             .getMusicTable(versionName)
             .getTargetLowLevelMusicCount(formReport.targetLevel);
