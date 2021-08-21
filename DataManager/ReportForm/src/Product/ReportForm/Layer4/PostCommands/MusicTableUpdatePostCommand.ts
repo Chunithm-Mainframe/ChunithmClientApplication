@@ -98,7 +98,7 @@ export class MusicTableUpdatePostCommand extends PostCommand {
 
     private getNotificationMessageOfRepositoryInitialization(musicCountMap: Record<string, number>): string {
         let message = '[新規定数表作成]\n';
-        for (const genre in musicCountMap) {
+        for (const genre of Object.keys(musicCountMap)) {
             message += `${genre}: ${musicCountMap[genre]}\n`;
         }
         return message;
@@ -106,7 +106,7 @@ export class MusicTableUpdatePostCommand extends PostCommand {
 
     private getNotificationSlackMessageOfRepositoryInitialization(musicCountMap: Record<string, number>): string {
         let message = ':musical_keyboard: *新規定数表作成*';
-        for (const genre in musicCountMap) {
+        for (const genre of Object.keys(musicCountMap)) {
             message += `
 ${genre}: ${musicCountMap[genre]}曲`;
         }

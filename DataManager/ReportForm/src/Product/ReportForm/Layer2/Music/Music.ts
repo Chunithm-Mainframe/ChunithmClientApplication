@@ -13,6 +13,7 @@ export class Music {
     public expertVerified = false;
     public masterVerified = false;
     public enabled = true;
+    public createdAt: Date = null;
 
     private static _baseRatingKeyMap: Record<number, keyof Music> = null;
     private static get baseRatingKeyMap(): Record<Difficulty, keyof Music> {
@@ -40,7 +41,7 @@ export class Music {
 
     public static instantiate(obj: Required<Music>): Music {
         const instance = new Music();
-        for (const key in instance) {
+        for (const key of Object.keys(instance)) {
             instance[key] = obj[key];
         }
         return instance;

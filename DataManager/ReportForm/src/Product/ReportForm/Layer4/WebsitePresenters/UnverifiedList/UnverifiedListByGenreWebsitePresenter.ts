@@ -1,28 +1,30 @@
+import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicModule } from "../../../Layer3/Modules/MusicModule";
-import { VersionModule } from "../../../Layer3/Modules/VersionModule";
 import { Music } from "../../../Layer2/Music/Music";
 import { Utility } from "../../../Layer2/Utility";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
+import { MusicModule } from "../../../Layer3/Modules/MusicModule";
+import { VersionModule } from "../../../Layer3/Modules/VersionModule";
+import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "../@ReportFormPresenter";
 import { TopWebsitePresenter } from "../TopWebsitePresenter";
-import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnverifiedListByGenreWebsiteParameter extends ReportFormWebsiteParameter {
 }
 
-class UnverifiedListByGenreListItemMusicData {
-    public name: string;
-    public difficulty: Difficulty;
-    public genre: string;
-    public level: number;
+class UnverifiedListByGenreListItem {
+    public readonly name: string;
+    public readonly difficulty: Difficulty;
+    public readonly genre: string;
+    public readonly level: number;
+    public readonly createdAt: Date;
 
-    public setByMusicData(music: Music, difficulty: Difficulty): void {
+    public constructor(music: Music, difficulty: Difficulty) {
         this.name = music.name;
         this.difficulty = difficulty;
         this.genre = music.genre;
         this.level = Music.getBaseRating(music, difficulty);
+        this.createdAt = music.createdAt;
     }
 }
 
@@ -101,8 +103,10 @@ export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePres
             return "";
         }
 
-        const unverifiedMusicDatas = this.getUnverifiedMusicDatas(version);
-        const genreListHtmls = genres.map(g => this.getGenreListHtml(parameter, unverifiedMusicDatas, g));
+        const listItems = this.sortListItems(this.getListItems(version));
+        const genreListHtmls = genres
+            .filter(x => this.enabledGenre(parameter, x))
+            .map(g => this.getGenreListHtml(parameter, listItems, g));
         let listHtml = "";
         for (const html of genreListHtmls) {
             listHtml += html + "\n";
@@ -110,14 +114,13 @@ export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePres
         return listHtml;
     }
 
-    private getUnverifiedMusicDatas(version: string): UnverifiedListByGenreListItemMusicData[] {
+    private getListItems(version: string): UnverifiedListByGenreListItem[] {
         const musics = this.musicModule.getMusicTable(version).records;
-        const unverifiedMusicDatas: UnverifiedListByGenreListItemMusicData[] = [];
+        const unverifiedMusicDatas: UnverifiedListByGenreListItem[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {
                 if (!Music.getVerified(music, difficulty)) {
-                    const md = new UnverifiedListByGenreListItemMusicData();
-                    md.setByMusicData(music, difficulty);
+                    const md = new UnverifiedListByGenreListItem(music, difficulty);
                     unverifiedMusicDatas.push(md);
                 }
             }
@@ -125,15 +128,32 @@ export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePres
         return unverifiedMusicDatas;
     }
 
-    private getGenreListHtml(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): string {
+    private sortListItems(listItems: UnverifiedListByGenreListItem[]): UnverifiedListByGenreListItem[] {
+        const map: Record<number, UnverifiedListByGenreListItem[]> = {};
+        const createdAts: number[] = [];
+
+        for (const listItem of listItems) {
+            const key = listItem.createdAt.getTime();
+            if (!(key in map)) {
+                map[key] = [];
+                createdAts.push(key);
+            }
+            map[key].push(listItem);
+        }
+
+        return createdAts.sort((x1, x2) => x2 - x1)
+            .map(x => map[x])
+            .flat();
+    }
+
+    private getGenreListHtml(parameter: object, allListItem: UnverifiedListByGenreListItem[], genre: string): string {
         if (!this.enabledGenre(parameter, genre)) {
             return "";
         }
-        let filteredMusicDatas = this.filterByGenre(parameter, musicDatas, genre);
-        filteredMusicDatas = this.filterByDifficulty(parameter, filteredMusicDatas);
+        const listItems = this.filterListItems(allListItem, parameter, genre);
         let html = "";
-        for (const musicData of filteredMusicDatas) {
-            html += this.getListItemHtml(musicData);
+        for (const listItem of listItems) {
+            html += this.getListItemHtml(listItem);
         }
 
         return `
@@ -143,25 +163,15 @@ export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePres
 </div>`;
     }
 
-    private filterByGenre(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[], genre: string): UnverifiedListByGenreListItemMusicData[] {
-        if (!musicDatas || musicDatas.length === 0) {
+    private filterListItems(musicDatas: UnverifiedListByGenreListItem[], parameter: object, genre: string): UnverifiedListByGenreListItem[] {
+        if (!musicDatas || musicDatas.length === 0 || !this.enabledGenre(parameter, genre)) {
             return [];
         }
-        if (!this.enabledGenre(parameter, genre)) {
-            return [];
-        }
-        return musicDatas.filter(d => d.genre === genre);
+        return musicDatas.filter(x => x.genre === genre && this.enabledDifficulty(parameter, x.difficulty));
     }
 
-    private filterByDifficulty(parameter: object, musicDatas: UnverifiedListByGenreListItemMusicData[]): UnverifiedListByGenreListItemMusicData[] {
-        if (!musicDatas || musicDatas.length === 0) {
-            return [];
-        }
-        return musicDatas.filter(d => this.enabledDifficulty(parameter, d.difficulty));
-    }
-
-    private getListItemHtml(musicData: UnverifiedListByGenreListItemMusicData): string {
-        return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(musicData.difficulty)}'>${musicData.name}</div>\n`;
+    private getListItemHtml(listItem: UnverifiedListByGenreListItem): string {
+        return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(listItem.difficulty)}'>${listItem.name}</div>\n`;
     }
 
     private enabledDifficulty(parameter: object, difficulty: Difficulty): boolean {

@@ -11,17 +11,19 @@ import { TopWebsitePresenter } from "../TopWebsitePresenter";
 export interface UnverifiedListByLevelWebsiteParameter extends ReportFormWebsiteParameter {
 }
 
-class UnverifiedListByLevelListItemMusicData {
-    public name: string;
-    public difficulty: Difficulty;
-    public genre: string;
-    public level: number;
+class UnverifiedListByLevelListItem {
+    public readonly name: string;
+    public readonly difficulty: Difficulty;
+    public readonly genre: string;
+    public readonly level: number;
+    public readonly createdAt: Date;
 
-    public setByMusicData(music: Music, difficulty: Difficulty): void {
+    public constructor(music: Music, difficulty: Difficulty) {
         this.name = music.name;
         this.difficulty = difficulty;
         this.genre = music.genre;
         this.level = Music.getBaseRating(music, difficulty);
+        this.createdAt = music.createdAt;
     }
 }
 
@@ -98,36 +100,52 @@ export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePres
             return "";
         }
 
-        const unverifiedMusicDatas = this.getUnverifiedMusicDatas(version);
+        const listItems = this.sortListItems(this.getListItems(version));
         return this.levelTexts
-            .map(x => this.getLevelListHtml(unverifiedMusicDatas, x, parameter))
+            .map(x => this.getLevelListHtml(listItems, parameter, x))
             .reduce((acc, src) => `${acc}\n${src}`, "");
     }
 
-    private getUnverifiedMusicDatas(version: string): UnverifiedListByLevelListItemMusicData[] {
+    private getListItems(version: string): UnverifiedListByLevelListItem[] {
         const musics = this.musicModule.getMusicTable(version).records;
-        const unverifiedMusicDatas: UnverifiedListByLevelListItemMusicData[] = [];
+        const listItems: UnverifiedListByLevelListItem[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {
                 if (!Music.getVerified(music, difficulty)) {
-                    const md = new UnverifiedListByLevelListItemMusicData();
-                    md.setByMusicData(music, difficulty);
-                    unverifiedMusicDatas.push(md);
+                    const md = new UnverifiedListByLevelListItem(music, difficulty);
+                    listItems.push(md);
                 }
             }
         }
-        return unverifiedMusicDatas;
+        return listItems;
     }
 
-    private getLevelListHtml(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: object): string {
+    private sortListItems(listItems: UnverifiedListByLevelListItem[]): UnverifiedListByLevelListItem[] {
+        const map: Record<number, UnverifiedListByLevelListItem[]> = {};
+        const createdAts: number[] = [];
+
+        for (const listItem of listItems) {
+            const key = listItem.createdAt.getTime();
+            if (!(key in map)) {
+                map[key] = [];
+                createdAts.push(key);
+            }
+            map[key].push(listItem);
+        }
+
+        return createdAts.sort((x1, x2) => x2 - x1)
+            .map(x => map[x])
+            .flat();
+    }
+
+    private getLevelListHtml(allListItem: UnverifiedListByLevelListItem[], parameter: object, levelText: string): string {
         if (!this.enabledLevel(parameter, levelText)) {
             return "";
         }
-        let filteredMusicDatas = this.filterByLevel(musicDatas, levelText, parameter);
-        filteredMusicDatas = this.filterByDifficulty(filteredMusicDatas, parameter);
+
         let html = "";
-        for (const data of filteredMusicDatas) {
-            html += this.getListItemHtml(data);
+        for (const listItem of this.filterListItems(allListItem, parameter, levelText)) {
+            html += this.getListItemHtml(listItem);
         }
 
         return `
@@ -137,26 +155,16 @@ export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePres
 </div>`
     }
 
-    private filterByDifficulty(musicDatas: UnverifiedListByLevelListItemMusicData[], parameter: object): UnverifiedListByLevelListItemMusicData[] {
-        if (!musicDatas || musicDatas.length === 0) {
-            return [];
-        }
-        return musicDatas.filter(d => this.enabledDifficulty(parameter, d.difficulty));
-    }
-
-    private filterByLevel(musicDatas: UnverifiedListByLevelListItemMusicData[], levelText: string, parameter: object): UnverifiedListByLevelListItemMusicData[] {
-        if (!musicDatas || musicDatas.length === 0) {
-            return [];
-        }
-        if (!this.enabledLevel(parameter, levelText)) {
+    private filterListItems(listItems: UnverifiedListByLevelListItem[], parameter: object, levelText: string): UnverifiedListByLevelListItem[] {
+        if (!listItems || listItems.length === 0 || !this.enabledLevel(parameter, levelText)) {
             return [];
         }
         levelText = levelText.replace(/p/g, ".7");
-        return musicDatas.filter(d => d.level.toString() === levelText);
+        return listItems.filter(x => this.enabledDifficulty(parameter, x.difficulty) && x.level.toString() === levelText);
     }
 
-    private getListItemHtml(musicData: UnverifiedListByLevelListItemMusicData): string {
-        return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(musicData.difficulty)}'>${musicData.name}</div>\n`;
+    private getListItemHtml(listItem: UnverifiedListByLevelListItem): string {
+        return `<div class='music_list bg_${Utility.toDifficultyTextLowerCase(listItem.difficulty)}'>${listItem.name}</div>\n`;
     }
 
     private enabledLevel(parameter: object, levelText: string): boolean {

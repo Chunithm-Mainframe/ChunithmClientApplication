@@ -12,7 +12,7 @@ export class UnitReportTable extends SpreadsheetDatabaseTable<UnitReport, "repor
 
     public static instantiateRecord(value: Partial<UnitReport>): UnitReport {
         const instance = new UnitReport();
-        for (const key in instance) {
+        for (const key of Object.keys(instance)) {
             instance[key] = value[key];
         }
         return instance;
