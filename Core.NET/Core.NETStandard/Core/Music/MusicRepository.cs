@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ChunithmClientLibrary.Core
 {
-    public interface IReadOnlyMusicRepository
+    public interface IMusicRepository
     {
         IReadOnlyList<string> GetMusicGenres();
         IReadOnlyList<IMasterMusic> GetMasterMusics();
@@ -17,30 +17,25 @@ namespace ChunithmClientLibrary.Core
         IMusic GetMusic(string name, Difficulty difficulty);
     }
 
-    public interface IMusicRepository : IReadOnlyMusicRepository
-    {
-        void Set(IEnumerable<IMasterMusic> masterMusics, IEnumerable<IMusicRating> musicRatings);
-    }
-
     public class MusicRepository : IMusicRepository
     {
-        private readonly List<Music> musics = new List<Music>();
+        private readonly IReadOnlyList<string> genres;
+        private readonly IReadOnlyDictionary<int, IMasterMusic> masterMusicTable;
+        private readonly List<Music> musics;
 
-        public IReadOnlyList<string> GetMusicGenres() => musics.Select(x => x.MasterMusic.Genre).Distinct().ToList();
+        public IReadOnlyList<string> GetMusicGenres() => genres;
 
-        public IReadOnlyList<IMasterMusic> GetMasterMusics() => GetMusics().GroupBy(x => x.MasterMusic.Id).Select(x => x.First().MasterMusic).ToList();
+        public IReadOnlyList<IMasterMusic> GetMasterMusics() => masterMusicTable.Values.ToList();
 
         public IReadOnlyList<IMusic> GetMusics() => musics;
 
-        public IMasterMusic GetMasterMusic(int id) => musics.FirstOrDefault(x => x.MasterMusic.Id == id)?.MasterMusic;
+        public IMasterMusic GetMasterMusic(int id) => masterMusicTable.GetValueOrDefault(id);
 
-        public IMasterMusic GetMasterMusic(string name) => musics.FirstOrDefault(x => x.MasterMusic.Name == name)?.MasterMusic;
+        public IMasterMusic GetMasterMusic(string name) => masterMusicTable.Values.FirstOrDefault(x => x.Name == name);
 
-        public IMusic GetMusic(int id, Difficulty difficulty)
-            => GetMusic(musics.FirstOrDefault(x => x.MasterMusic.Id == id)?.MasterMusic, difficulty);
+        public IMusic GetMusic(int id, Difficulty difficulty) => GetMusic(GetMasterMusic(id), difficulty);
 
-        public IMusic GetMusic(string name, Difficulty difficulty)
-            => GetMusic(musics.FirstOrDefault(x => x.MasterMusic.Name == name)?.MasterMusic, difficulty);
+        public IMusic GetMusic(string name, Difficulty difficulty) => GetMusic(GetMasterMusic(name), difficulty);
 
         private IMusic GetMusic(IMasterMusic masterMusic, Difficulty difficulty)
         {
@@ -52,35 +47,31 @@ namespace ChunithmClientLibrary.Core
             return musics.FirstOrDefault(x => x.MasterMusic.Id == masterMusic.Id && x.Difficulty == difficulty);
         }
 
-        public void Set(MusicGenre musicGenre, IEnumerable<MusicLevel> musicLevels)
+        public MusicRepository(MusicGenre musicGenre, IEnumerable<MusicLevel> musicLevels)
         {
-            var masterMusics = musicGenre.Units.Select(x => new MasterMusic
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Genre = x.Genre,
-            });
-
-            var musicRatings = musicLevels
-                .SelectMany(x => x.Units)
-                .Select(x => new MusicRating
-                {
-                    MasterMusicId = x.Id,
-                    Difficulty = x.Difficulty,
-                    BaseRating = x.Level,
-                    Verified = false,
-                });
-
-            Set(masterMusics, musicRatings);
+            masterMusicTable = musicGenre.Units.Select(x => new MasterMusic(x)).ToDictionary(x => x.Id, x => x as IMasterMusic);
+            genres = CreateGenres(masterMusicTable.Values);
+            musics = CreateMusics(masterMusicTable.Values, musicLevels.SelectMany(x => x.Units).Select(x => new MusicRating(x)));
         }
 
-        public void Set(IEnumerable<IMasterMusic> masterMusics, IEnumerable<IMusicRating> musicRatings)
+        public MusicRepository(IEnumerable<IMasterMusic> masterMusics, IEnumerable<IMusicRating> musicRatings)
         {
-            var masterMusicMap = masterMusics.ToDictionary(x => x.Id, x => x);
-            var musics = musicRatings.Where(x => masterMusicMap.ContainsKey(x.MasterMusicId))
-                .Select(x => new Music(masterMusicMap[x.MasterMusicId], x));
+            masterMusicTable = masterMusics.ToDictionary(x => x.Id, x => x);
+            genres = CreateGenres(masterMusicTable.Values);
+            musics = CreateMusics(masterMusicTable.Values, musicRatings);
+        }
 
-            this.musics.AddRange(musics);
+        private static IReadOnlyList<string> CreateGenres(IEnumerable<IMasterMusic> masterMusics)
+        {
+            return masterMusics.Select(x => x.Genre).Distinct().ToList();
+        }
+
+        private static List<Music> CreateMusics(IEnumerable<IMasterMusic> masterMusics, IEnumerable<IMusicRating> musicRatings)
+        {
+            return masterMusics
+                .GroupJoin(musicRatings, x => x.Id, x => x.MasterMusicId, (masterMusic, musicRatings) => (masterMusic, musicRatings))
+                .SelectMany(x => x.musicRatings.Select(y => new Music(x.masterMusic, y)).OrderBy(x => x.Difficulty))
+                .ToList();
         }
     }
 }

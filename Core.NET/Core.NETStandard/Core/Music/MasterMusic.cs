@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChunithmClientLibrary.ChunithmNet.Data;
+using System;
 
 namespace ChunithmClientLibrary.Core
 {
@@ -10,6 +11,18 @@ namespace ChunithmClientLibrary.Core
 
         public MasterMusic() { }
 
+        public MasterMusic(int id, string name, string genre)
+        {
+            Set(id, name, genre);
+        }
+
+        public MasterMusic(MusicGenre.Unit unit)
+        {
+            _ = unit ?? throw new ArgumentNullException(nameof(unit));
+
+            Set(unit.Id, unit.Name, unit.Genre);
+        }
+
         public MasterMusic(IMasterMusic masterMusic)
         {
             Set(masterMusic);
@@ -19,9 +32,14 @@ namespace ChunithmClientLibrary.Core
         {
             _ = masterMusic ?? throw new ArgumentNullException(nameof(masterMusic));
 
-            Id = masterMusic.Id;
-            Name = masterMusic.Name;
-            Genre = masterMusic.Genre;
+            Set(masterMusic.Id, masterMusic.Name, masterMusic.Genre);
+        }
+
+        public void Set(int id, string name, string genre)
+        {
+            Id = id;
+            Name = name;
+            Genre = genre;
         }
     }
 }
