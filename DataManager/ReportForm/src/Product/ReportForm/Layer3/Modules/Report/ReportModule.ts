@@ -372,4 +372,22 @@ OP割合[万分率]:${opRatio100Fold}
     public buildBulkReportForm(versionName: string): void {
         this._levelReportGoogleForm.buildForm(versionName);
     }
+
+    public updateMusicsUnitReportForm(versionName: string): void {
+        const musics = this.musicModule.getMusicTable(versionName).records;
+        const genres = this.versionModule.getVersionConfig(versionName).genres;
+        const listItems = this._unitReportGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
+
+        for (let i = 0; i < genres.length; i++) {
+            const musicNames = musics
+                .filter(x => x.genre === genres[i])
+                .map(x => x.name);
+            if (musicNames.length > 0) {
+                listItems[i + 1].setChoiceValues(musicNames);
+            }
+            else {
+                listItems[i + 1].setChoiceValues([""]);
+            }
+        }
+    }
 }
