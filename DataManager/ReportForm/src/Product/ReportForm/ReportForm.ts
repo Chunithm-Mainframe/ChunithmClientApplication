@@ -101,7 +101,7 @@ export class ReportForm {
         return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
     }
 
-    public static onPost(e: { response: GoogleAppsScript.Forms.FormResponse }, versionName = ""): void {
+    public static onPost(e: { response: GoogleAppsScript.Forms.FormResponse }, versionName: string): void {
         try {
             Instance.initialize();
             if (!versionName) {

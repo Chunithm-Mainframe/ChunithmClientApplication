@@ -3,32 +3,17 @@ import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLog
 import { Environment } from "../../../Layer1/Environment";
 import { ReportFormModule } from "../@ReportFormModule";
 import { VersionModule } from "../VersionModule";
-import { ReportModule } from "./ReportModule";
-export class LevelReportGoogleForm {
-    public constructor(private readonly _module: ReportFormModule) {
-    }
+import { ReportGoogleForm } from "./@ReportGoogleForm";
 
-    private _form: GoogleAppsScript.Forms.Form;
-    public get form(): GoogleAppsScript.Forms.Form {
-        if (!this._form) {
-            const formId = this._module.configuration.global.bulkReportFormId;
-            if (!formId) {
-                CustomLogManager.log(LogLevel.Error, `bulkReportFormId is not set.`);
-                return null;
-            }
-            const form = FormApp.openById(formId);
-            if (!form) {
-                throw new Error(`Form is invalid. formId: ${formId}`);
-            }
-            this._form = form;
-        }
-        return this._form;
+export class LevelReportGoogleForm extends ReportGoogleForm {
+    public constructor(module: ReportFormModule) {
+        super(module, () => module.configuration.global.levelReportFormId);
     }
 
     public buildForm(versionName: string): void {
-        CustomLogManager.log(LogLevel.Info, `一括報告フォームを構築します: ${versionName}`);
+        CustomLogManager.log(LogLevel.Info, `レベル検証報告フォームを構築します: ${versionName}`);
         CustomLogManager.log(LogLevel.Info, 'フォームに送信された回答の削除...');
-        const form = this._module.getModule(ReportModule).levelReportGoogleForm;
+        const form = this.form;
         form.deleteAllResponses();
         {
             for (const item of form.getItems()) {
@@ -39,10 +24,10 @@ export class LevelReportGoogleForm {
         CustomLogManager.log(LogLevel.Info, `フォームに送信された回答の削除が完了しました`);
         const versionConfig = this._module.getModule(VersionModule).getVersionConfig(versionName);
         if (this._module.configuration.environment === Environment.Release) {
-            form.setTitle(`譜面定数 一括検証報告 ${versionConfig.displayVersionName}`);
+            form.setTitle(`レベル検証報告 ${versionConfig.displayVersionName}`);
         }
         else {
-            form.setTitle(`譜面定数 一括検証報告 ${versionConfig.displayVersionName} [Dev]`);
+            form.setTitle(`[Dev]レベル検証報告 ${versionConfig.displayVersionName}`);
         }
         CustomLogManager.log(LogLevel.Info, 'パラメータ記入画面の作成...');
         {

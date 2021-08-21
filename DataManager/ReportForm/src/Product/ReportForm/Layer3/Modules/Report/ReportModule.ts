@@ -23,7 +23,8 @@ import { LINEModule } from "../LINEModule";
 import { MusicModule } from "../MusicModule";
 import { VersionModule } from "../VersionModule";
 import { LevelReportGoogleForm } from "./LevelReportGoogleForm";
-import { UnitReportGoogleForm } from "./UnitReportGoogleForm";
+import { UnitReportGroupByGenreGoogleForm } from "./UnitReportGroupByGenreGoogleForm";
+import { UnitReportGroupByLevelGoogleForm } from "./UnitReportGroupByLevelGoogleForm";
 
 export class ReportModule extends ReportFormModule {
     public static readonly moduleName = 'report';
@@ -32,15 +33,20 @@ export class ReportModule extends ReportFormModule {
     private get musicModule(): MusicModule { return this.getModule(MusicModule); }
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
 
-    private readonly _unitReportGoogleForm = new UnitReportGoogleForm(this);
+    private readonly _unitReportGroupByGenreGoogleForm = new UnitReportGroupByGenreGoogleForm(this);
+    private readonly _unitReportGroupByLevelGoogleForm = new UnitReportGroupByLevelGoogleForm(this);
     private readonly _levelReportGoogleForm = new LevelReportGoogleForm(this);
 
     private readonly _unitReportTableMap: Record<string, UnitReportTable> = {};
     private readonly _levelReportTableMap: Record<string, LevelReportTable> = {};
     private readonly _musicReportGroupTableMap: Record<string, MasterUnitReportGroupTable> = {};
 
-    public get unitReportGoogleForm(): GoogleAppsScript.Forms.Form {
-        return this._unitReportGoogleForm.form;
+    public get unitReportGroupByGenreGoogleForm(): GoogleAppsScript.Forms.Form {
+        return this._unitReportGroupByGenreGoogleForm.form;
+    }
+
+    public get unitReportGroupByLevelGoogleForm(): GoogleAppsScript.Forms.Form {
+        return this._unitReportGroupByLevelGoogleForm.form;
     }
 
     public get levelReportGoogleForm(): GoogleAppsScript.Forms.Form {
@@ -365,22 +371,48 @@ OP割合[万分率]:${opRatio100Fold}
         return table.update(report).added[0];
     }
 
-    public buildForm(versionName: string): void {
-        this._unitReportGoogleForm.buildForm(versionName);
+    public buildUnitReportGroupByGenreForm(versionName: string): void {
+        this._unitReportGroupByGenreGoogleForm.buildForm(versionName);
     }
 
-    public buildBulkReportForm(versionName: string): void {
+    public buildUnitReportGroupByLevelForm(versionName: string): void {
+        this._unitReportGroupByLevelGoogleForm.buildForm(versionName);
+    }
+
+    public buildLevelReportForm(versionName: string): void {
         this._levelReportGoogleForm.buildForm(versionName);
     }
 
     public updateMusicsUnitReportForm(versionName: string): void {
+        this.updateMusicsUnitReportGroupByGenreForm(versionName);
+        this.updateMusicsUnitReportGroupByLevelForm(versionName);
+    }
+
+    public updateMusicsUnitReportGroupByGenreForm(versionName: string): void {
         const musics = this.musicModule.getMusicTable(versionName).records;
         const genres = this.versionModule.getVersionConfig(versionName).genres;
-        const listItems = this._unitReportGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
+        const listItems = this._unitReportGroupByGenreGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
 
         for (let i = 0; i < genres.length; i++) {
             const musicNames = musics
                 .filter(x => x.genre === genres[i])
+                .map(x => x.name);
+            if (musicNames.length > 0) {
+                listItems[i + 1].setChoiceValues(musicNames);
+            }
+            else {
+                listItems[i + 1].setChoiceValues([""]);
+            }
+        }
+    }
+
+    public updateMusicsUnitReportGroupByLevelForm(versionName: string): void {
+        const musics = this.musicModule.getMusicTable(versionName).records;
+        const levelInfos = UnitReportGroupByLevelGoogleForm.getLevelInfos();
+        const listItems = this._unitReportGroupByLevelGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
+
+        for (let i = 0; i < levelInfos.length; i++) {
+            const musicNames = UnitReportGroupByLevelGoogleForm.getFilteredMusics(musics, levelInfos[i].value)
                 .map(x => x.name);
             if (musicNames.length > 0) {
                 listItems[i + 1].setChoiceValues(musicNames);

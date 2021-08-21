@@ -7,7 +7,7 @@ export class BulkReportFormBuildLINEPostCommand extends LINEPostCommand {
             versionName = this.module.configuration.defaultVersionName;
         }
         this.replyMessage(this.event.replyToken, [`一括報告フォームを構築します:${versionName}`]);
-        this.module.getModule(ReportModule).buildBulkReportForm(versionName);
+        this.module.getModule(ReportModule).buildLevelReportForm(versionName);
         const url = this.module.getModule(ReportModule).levelReportGoogleForm.getPublishedUrl();
         this.pushMessage([`一括報告フォームの構築が完了しました
 URL: ${url}`]);

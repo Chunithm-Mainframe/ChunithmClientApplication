@@ -36,7 +36,8 @@ export class TopWebsitePresenter extends ReportFormWebsitePresenter<TopWebsitePa
         source = this.replacePageLink(source, parameter, UnverifiedListByGenreWebsitePresenter);
         source = this.replacePageLink(source, parameter, UnverifiedListByLevelWebsitePresenter);
 
-        source = source.replace(/%link:unit_report_form%/g, this.reportModule.unitReportGoogleForm.getPublishedUrl());
+        source = source.replace(/%link:unit_report_genre_form%/g, this.reportModule.unitReportGroupByGenreGoogleForm.getPublishedUrl());
+        source = source.replace(/%link:unit_report_level_form%/g, this.reportModule.unitReportGroupByLevelGoogleForm.getPublishedUrl());
         source = source.replace(/%link:level_report_form%/g, this.reportModule.levelReportGoogleForm.getPublishedUrl());
 
         return this.createHtmlOutput(source);

@@ -8,7 +8,7 @@ export class ChunirecModule extends ReportFormModule {
     private _apiHost: string = null;
     public get apiHost(): string {
         if (!this._apiHost) {
-            this._apiHost = this.module.configuration.global.chunirecApiHost;
+            this._apiHost = this.rootModule.configuration.global.chunirecApiHost;
         }
         return this._apiHost;
     }
@@ -16,7 +16,7 @@ export class ChunirecModule extends ReportFormModule {
     private _apiToken: string = null;
     public get apiToken(): string {
         if (!this._apiToken) {
-            this._apiToken = this.module.configuration.global.chunirecApiToken;
+            this._apiToken = this.rootModule.configuration.global.chunirecApiToken;
         }
         return this._apiToken;
     }

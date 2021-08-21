@@ -27,7 +27,7 @@ export class TwitterModule extends ReportFormModule {
         if (!this.configuration.runtime.postTweetEnabled || !this.connector) {
             return null;
         }
-        if (this.module.configuration.environment === Environment.Develop) {
+        if (this.rootModule.configuration.environment === Environment.Develop) {
             message = "FROM DEV\n" + message;
         }
         return this.connector.postTweet(message);
