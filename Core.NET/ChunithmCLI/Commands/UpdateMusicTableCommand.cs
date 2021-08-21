@@ -102,8 +102,7 @@ namespace ChunithmCLI.Commands
                     musicLevels.Add(musicLevel);
                 }
 
-                var newRepository = new MusicRepository();
-                newRepository.Set(musicGenre, musicLevels);
+                var newRepository = new MusicRepository(musicGenre, musicLevels);
                 var result = databaseConnector.UpdateMusicTableAsync(newRepository.GetMusics())
                     .GetMusicDatabaseApiResult("sending table... ");
 

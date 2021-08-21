@@ -15,8 +15,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         {
             var internalResponse = await PostAsync<InternalRequest, InternalResponse>(new InternalRequest());
 
-            var repository = new MusicRepository();
-            repository.Set(
+            var repository = new MusicRepository(
                 internalResponse.Musics.Select(x => x.GetMasterMusic()),
                 internalResponse.Musics.SelectMany(x => x.GetMusicRatingMap().Values));
 
