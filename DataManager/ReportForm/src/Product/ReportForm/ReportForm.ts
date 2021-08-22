@@ -1,4 +1,4 @@
-import { storeConfig } from "../../@operations";
+import { storeConfig, storeRuntimeConfig } from "../../@operations";
 import { LogLevel } from "../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../Packages/DIProperty/DIProperty";
@@ -52,6 +52,7 @@ export class ReportForm {
 
             if (this.isStoreConfigRequest(postData)) {
                 storeConfig();
+                storeRuntimeConfig();
                 return this.getSuccessResponseContent();
             }
 
