@@ -1,3 +1,4 @@
+using ChunithmCLI.Commands;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,10 +21,9 @@ namespace ChunithmCLI
         {
             return new List<ICommand>()
             {
-                new GenreGet(),
-                new GenerateTableHtml(),
-                new GenerateBlogTable(),
-                new UpdateMusicDataTable(),
+                new GenreGetCommand(),
+                new GenerateMusicTableHtmlCommand(),
+                new UpdateMusicTableCommand(),
             };
         }
     }

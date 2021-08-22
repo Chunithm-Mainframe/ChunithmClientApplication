@@ -55,54 +55,67 @@
     <Content Include="src\Resources\Page\group_approval\unverified_list_item.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="src\Resources\Page\top\main.html" />
+    <Content Include="src\Resources\Page\top\wip_list_container.html" />
     <Content Include="src\Resources\Page\wip_bulk_report_list\main.html" />
     <Content Include="src\Resources\Page\bulk_approval\rejected_form_container.html" />
     <Content Include="src\Resources\Page\bulk_approval\resoved_form_container.html" />
     <Content Include="src\Resources\Page\bulk_approval\wip_form_container.html" />
     <Content Include="src\Resources\Page\wip_list\main.html" />
     <Content Include="src\Resources\Page\report_group_list\main.html" />
-    <Content Include="src\Resources\Page\top\main.html" />
     <Content Include="src\Resources\Page\common\unverified_list.css.html" />
-    <Content Include="src\Resources\Page\top\wip_list_container.html">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="src\Resources\Page\unverified_list_genre\main.html" />
     <Content Include="src\Resources\Page\unverified_list_level\main.html" />
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dependencies\OAuth1\" />
-    <Folder Include="src\LINE\API\" />
-    <Folder Include="src\LINE\API\Message\" />
-    <Folder Include="src\LINE\API\Message\Reply\" />
-    <Folder Include="src\LINE\API\Message\Push\" />
-    <Folder Include="src\MusicDataTable\" />
-    <Folder Include="src\LINE\" />
+    <Folder Include="src\Packages\" />
+    <Folder Include="src\Packages\Configuration\" />
+    <Folder Include="src\Packages\CustomCacheProvider\" />
+    <Folder Include="src\Packages\CustomLogger.LINE\" />
+    <Folder Include="src\Packages\CustomLogger.Slack\" />
+    <Folder Include="src\Packages\CustomLogger\" />
+    <Folder Include="src\Packages\Database\" />
+    <Folder Include="src\Packages\DIProperty\" />
+    <Folder Include="src\Packages\Router\" />
+    <Folder Include="src\Packages\UrlFetch.LINE\" />
+    <Folder Include="src\Packages\UrlFetch.LINE\API\" />
+    <Folder Include="src\Packages\UrlFetch.LINE\API\Message\" />
+    <Folder Include="src\Packages\UrlFetch.LINE\API\Message\Push\" />
+    <Folder Include="src\Packages\UrlFetch.LINE\API\Message\Reply\" />
+    <Folder Include="src\Packages\UrlFetch.Slack\" />
+    <Folder Include="src\Packages\UrlFetch.Slack\API\" />
+    <Folder Include="src\Packages\UrlFetch.Slack\API\Chat\" />
+    <Folder Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\" />
+    <Folder Include="src\Packages\UrlFetch\" />
+    <Folder Include="src\Product\" />
     <Folder Include="Dependencies\" />
-    <Folder Include="src\Cache\" />
-    <Folder Include="src\ReportForm\Modules\Notice\" />
-    <Folder Include="src\Slack\API\Chat\" />
-    <Folder Include="src\Slack\API\Chat\PostMessage\" />
-    <Folder Include="src\Spreadsheet\" />
-    <Folder Include="src\UrlFetch\" />
-    <Folder Include="src\Slack\" />
-    <Folder Include="src\ReportForm\Modules\" />
-    <Folder Include="src\Configurations\" />
-    <Folder Include="src\ReportForm\Logger\" />
-    <Folder Include="src\ReportForm\Configurations\" />
-    <Folder Include="src\ReportForm\Dependencies\" />
-    <Folder Include="src\ReportForm\LineCommand\" />
-    <Folder Include="src\ReportForm\Modules\Report\" />
-    <Folder Include="src\ReportForm\Report\" />
-    <Folder Include="src\ReportForm\Page\" />
-    <Folder Include="src\ReportForm\Report\BulkReport\" />
-    <Folder Include="src\ReportForm\Report\LevelBulkReport\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Music\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReport\" />
+    <Folder Include="src\Product\ReportForm\Layer4\Managers\" />
+    <Folder Include="src\Product\ReportForm\Layer1\" />
+    <Folder Include="src\Product\ReportForm\Layer2\" />
+    <Folder Include="src\Product\ReportForm\Layer4\" />
+    <Folder Include="src\Product\ReportForm\Layer3\" />
+    <Folder Include="src\Resources\Page\top\" />
+    <Folder Include="src\Product\ReportForm\Layer4\WebsitePresenters\" />
+    <Folder Include="src\Product\ReportForm\Layer3\Modules\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Logger\" />
+    <Folder Include="src\Product\ReportForm\Layer1\Configurations\" />
+    <Folder Include="src\Product\ReportForm\Dependencies\" />
+    <Folder Include="src\Product\ReportForm\Layer4\LINEPostCommands\" />
+    <Folder Include="src\Product\ReportForm\Layer3\Modules\Report\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\BulkReport\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Report\LevelReport\" />
     <Folder Include="src\Resources\Page\bulk_approval\" />
     <Folder Include="src\Resources\Page\wip_bulk_report_list\" />
-    <Folder Include="src\Slack\API\" />
-    <Folder Include="src\Twitter\" />
-    <Folder Include="src\ReportForm\" />
-    <Folder Include="src\ReportForm\PostCommand\" />
+    <Folder Include="src\Product\ReportForm\Layer2\Twitter\" />
+    <Folder Include="src\Product\ReportForm\" />
+    <Folder Include="src\Product\ReportForm\Layer4\PostCommands\" />
     <Folder Include="src\Resources\" />
     <Folder Include="src\Resources\Page\" />
     <Folder Include="src\Resources\Page\common\" />
@@ -112,8 +125,11 @@
     <Folder Include="src\Resources\Page\wip_list\" />
     <Folder Include="src\Resources\Page\unverified_list_level\" />
     <Folder Include="src\Resources\Page\unverified_list_genre\" />
-    <Folder Include="src\Resources\Page\top\" />
     <Folder Include="src\Resources\Page\report_group_list\" />
+    <Folder Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\" />
+    <Folder Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\" />
+    <Folder Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\" />
+    <Folder Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\" />
     <Folder Include="test\" />
     <Folder Include="src\" />
   </ItemGroup>
@@ -128,284 +144,236 @@
     <TypeScriptCompile Include="src\%40test.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Cache\CacheProvider.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Cache\CacheServiceProvider.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Cache\SpreadsheetCacheProvider.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Configurations\ConfigurationDefinition.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Configurations\ConfigurationObject.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Configurations\JsonConfiguration.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\ConstDefinition.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\MessageObjects.ts">
+    <TypeScriptCompile Include="src\Packages\Configuration\Configuration.ts" />
+    <TypeScriptCompile Include="src\Packages\Configuration\JsonConfigurationFactory.ts" />
+    <TypeScriptCompile Include="src\Packages\Configuration\JsonFileRuntimeConfiguration.ts" />
+    <TypeScriptCompile Include="src\Packages\Configuration\RuntimeConfiguration.ts" />
+    <TypeScriptCompile Include="src\Packages\Configuration\ScriptPropertyRuntimeConfiguration.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomCacheProvider\CustomCacheProvider.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomCacheProvider\ScriptCacheProvider.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomCacheProvider\SpreadsheetCacheProvider.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger.LINE\LINELogger.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger.Slack\SlackLogger.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger\ConsoleLogger.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogger.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogManager.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\DatabaseTable.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\DatabaseTableSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\GenericDatabaseSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Database\SpreadsheetDatabaseTable.ts" />
+    <TypeScriptCompile Include="src\Packages\DIProperty\DIProperty.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\Router.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingController.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingEdge.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingNode.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingParameterType.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingPath.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingTree.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingTreeEditor.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\LINEPayload.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\MessageObjects.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\Payload.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\Stream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\Payload.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\Stream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\BlockElements.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Blocks.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\Payload.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\Stream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\CompositionObjects.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\BlockElementFactory.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\BlockFactory.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\CompositionObjectFactory.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetch.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchManager.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchStreamStatus.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\LINEPayload.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\MusicModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\Message\Push\Payload.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\RatingDataAnalysisModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\Message\Reply\Payload.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\Music.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\Message\Push\Stream.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\MusicTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\LINE\API\Message\Reply\Stream.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\MasterUnitRecordGroup.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\MasterUnitReportGroupTable.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\PostLocation.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportBundle.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\UnitReportBundleGroup.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Configurations\CommonConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportInputFormat.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReport.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Configurations\LogConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByGenreGoogleForm.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Configurations\ReportConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByLevelGoogleForm.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Configurations\TwitterConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormBuildLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\DefaultGameVersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\EnvironmentGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\FormUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\GlobalConfigValueGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\LatestGameVersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledSetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportFormBuildLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportPostNoticeEnabledGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportPostNoticeEnabledSetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TargetLevelMusicCountGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TestLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TopUrlGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\VersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\LINEPostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Logger\DefaultLogger.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Dependencies\LINECommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\NoticeManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Dependencies\Logger.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\PostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Dependencies\Page.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Dependencies\PostCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Dependencies\WebhookEventDefinition.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\%40ReportFormPresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\BulkReportFormBuildCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Dependencies\Logger.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\BulkReportFormUrlGetCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Dependencies\WebhookEventDefinition.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\GlobalConfigValueGetCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\ApprovalModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\ReportFormBuildCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\ChunirecModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\TargetLevelMusicCountGetCommand.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\LINEModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Logger\SlackLogger.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\%40ReportFormModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\ApprovalModule.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\ChunirecModule.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\LINEModule.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\%40ReportFormModule.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\MusicDataTable\MusicData.ts" />
-    <TypeScriptCompile Include="src\MusicDataTable\MusicDataTable.ts" />
-    <TypeScriptCompile Include="src\MusicDataTable\MusicDataTableReader.ts" />
-    <TypeScriptCompile Include="src\MusicDataTable\MusicDataTableWriter.ts" />
-    <TypeScriptCompile Include="src\MusicDataTable\Difficulty.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Difficulty.ts" />
     <TypeScriptCompile Include="src\%40app.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Configurations\LINEConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\%40ReportFormConfiguration.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Configurations\%40ReportFormConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Environment.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Configurations\ScriptPropertiesConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\%40LINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationEditor.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Instance.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Configurations\SpreadsheetConfiguration.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\LevelReportGoogleForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\%40ReportGoogleForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\TwitterModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Environment.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\VersionModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\%40LINECommand.ts" />
-    <TypeScriptCompile Include="src\LINE\LINEConnector.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Configurations\ConfigurationEditor.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Debug.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\NoticeQueue.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Instance.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\DefaultGameVersionGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\EnvironmentGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\FormUrlGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\LatestGameVersionGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\PostTweetEnabledGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\PostTweetEnabledSetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\ReportPostNoticeEnabledGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\ReportPostNoticeEnabledSetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\TestCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\TopUrlGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\LineCommand\VersionGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Logger\LINELogger.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableContainer.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Logger\Logger.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableHeader.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableRow.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Logger\ReportFormLogger.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableReader.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\MusicDataModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\BulkReport\BulkReportTableWriter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\Report\LevelBulkReportGoogleForm.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Modules\Report\ReportGoogleForm.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Modules\TwitterModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\LevelReport\LevelRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\VersionModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitRawReport.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\Notice\NoticeModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\ReportStatus.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\WebhookModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\Notice\NoticeQueue.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\ErrorWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Page\ApprovalPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\LevelBulkApprovalPage.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\ReportFormPageLinkResolver.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Page\LevelBulkReportListPage.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportListWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Page\ErrorPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\GroupApprovalPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\InProgressListPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\%40ReportFormPage.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Page\ReportGroupListPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\TopPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\UnverifiedListByGenrePage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Page\UnverifiedListByLevelPage.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Modules\PostCommandModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\UnitReportGroupWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTable.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportListWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTableContainer.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\UnitReportGroupListWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTableHeader.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTableRow.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\TopWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTableReader.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\BulkReport\BulkReportTableWriter.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\IMusicDataReport.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\IReport.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\LevelBulkReport\LevelBulkReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\LevelBulkReport\LevelBulkReportSheet.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\LevelBulkReport\GoogleFormLevelBulkReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\GoogleFormReport.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\MusicDataReport.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\MusicDataReportGroup.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\MusicDataReportGroupContainer.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Report\Report.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\ReportInputFormat.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\ReportStatus.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Report\ReportStorage.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\ReportForm\Modules\WebhookModule.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\BlockElementFactory.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\API\Chat\PostMessage\Payload.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\API\Chat\PostMessage\Stream.ts" />
-    <TypeScriptCompile Include="src\Slack\API\BlockElements.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\BlockFactory.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\CompositionObjectFactory.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\API\CompositionObjects.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Slack\API\Blocks.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Spreadsheet\SpreadsheetRegistry.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Twitter\TwitterConnector.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Approval.ts" />
-    <TypeScriptCompile Include="src\Configurations\Configuration.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Twitter\TwitterConnector.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Approval.ts" />
     <TypeScriptCompile Include="src\%40events.ts" />
     <TypeScriptCompile Include="src\%40operations.ts" />
-    <TypeScriptCompile Include="src\ReportForm\PostCommand\%40PostCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\PostCommand\TableGetCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\PostCommand\TableUpadateCommand.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Rating.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Modules\Report\ReportModule.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Role.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Modules\Router.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Logger\SpreadSheetLogger.ts" />
-    <TypeScriptCompile Include="src\ReportForm\Utility.ts" />
-    <TypeScriptCompile Include="src\ReportForm\ReportForm.ts" />
-    <TypeScriptCompile Include="src\UrlFetch\UrlFetch.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\%40PostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Rating.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\ReportModule.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Role.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadSheetLogger.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Utility.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\RoutingTreeBuilder.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\UrlFetch\UrlFetchManager.ts" />
-    <TypeScriptCompile Include="src\UrlFetch\UrlFetchStreamStatus.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\ReportForm.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSchema.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSourceType.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="test\MusicDataTable.spec.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByLevelWebsitePresenter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByGenreWebsitePresenter.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="test\Rating.spec.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />

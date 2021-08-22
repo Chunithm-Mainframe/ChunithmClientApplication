@@ -2,23 +2,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <?!= ReportFormPage.includeStylesheet("common/common.css"); ?>
-    <script>
-        function transition(reportId) {
-            window.open("%link:bulk_approval%&reportId=" + reportId, "_top");
-        }
-    </script>
+    <?!= ReportFormWebsitePresenter.includeStylesheet("common/common.css"); ?>
     <base target="_top" />
 </head>
 <body>
     <div class="box_1">
-        <div class="box_1_title">承認待ち一括検証報告リスト</div>
+        <div class="box_1_title">レベル検証報告 リスト</div>
         <div class="box_2">
             <div class="box_2_title"></div>
             %list%
         </div>
         <div class="text_center">
-            <a href="%link:top%">TOP</a>
+            <a href="%link:TopWebsitePresenter%">TOP</a>
         </div>
     </div>
 </body>

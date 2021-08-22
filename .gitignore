@@ -330,9 +330,9 @@ ASALocalRun/
 .mfractor/
 
 # Origin
+.publish/
 CoreTS/CoreTS/out
 **/.clasp.json
 **/appsscript.json
 **/@const.ts
-DataManager/VerificationReportForm/.**
-.**
+DataManager/ReportForm/**/.**

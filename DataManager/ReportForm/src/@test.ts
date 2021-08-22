@@ -1,85 +1,56 @@
-import { CacheServiceProvider } from "./Cache/CacheServiceProvider";
-import { LINEMessagePushStream } from "./LINE/API/Message/Push/Stream";
-import { TextMessage } from "./LINE/API/MessageObjects";
-import { Instance } from "./ReportForm/Instance";
-import { NoticeModule } from "./ReportForm/Modules/Notice/NoticeModule";
-import { UrlFetchManager } from "./UrlFetch/UrlFetchManager";
-import { execute } from "./ReportForm/operations";
+import { execute, noticeCreatedUnitReports } from "./@operations";
+import { Instance } from "./Product/ReportForm/Instance";
+import { RatingDataAnalysisModule } from "./Product/ReportForm/Layer3/Modules/RatingDataAnalysisModule";
+import { ReportModule } from "./Product/ReportForm/Layer3/Modules/Report/ReportModule";
+import { VersionModule } from "./Product/ReportForm/Layer3/Modules/VersionModule";
+
+/* eslint @typescript-eslint/no-unused-vars: off */
+/* eslint @typescript-eslint/camelcase: off */
 
 // implements test core here
-function cacheTest() {
-    const cacheProvider = new CacheServiceProvider();
-    console.time('access cache');
-    cacheProvider.put('hoge', '{value:"value"}');
-    console.log(cacheProvider.get('hoge'));
-    console.timeEnd('access cache');
-}
 
-function lineMessagePushStreamTest() {
+function writeRatingDataTest() {
     Instance.initialize();
-    const text: TextMessage = {
-        type: 'text',
-        text: 'push test',
-    };
-    const stream = new LINEMessagePushStream({
-        channelAccessToken: Instance.instance.module.config.line.channelAccessToken,
-        to: 'Cf49e3dcf00a5c3dea9b4a3f697cf0968',
-        messages: [text]
-    });
-    UrlFetchManager.execute([stream]);
-    console.log(stream.response);
+    Instance.instance.module.getModule(RatingDataAnalysisModule).test();
 }
 
-function noticeCreateUnitReportsToSlackTest() {
-    Instance.initialize();
-    const versionName = Instance.instance.module.config.common.latestVersionName;
-    const reportIds = [1, 2, 3, 11, 12, 13];
-    Instance.instance.module.getModule(NoticeModule)
-        .noticeCreateUnitReport(versionName, reportIds);
-}
-
-function noticeApproveUnitReportsTest() {
-    Instance.initialize();
-    const versionName = Instance.instance.module.config.common.latestVersionName;
-    const reportIds = [1, 2, 3, 11, 12, 13];
-    Instance.instance.module.getModule(NoticeModule)
-        .noticeApproveUnitReport(versionName, reportIds);
-}
-
-function noticeRejectUnitReportsTest() {
+function test_noticeReport() {
     execute(instance => {
-        const versionName = instance.module.config.common.latestVersionName;
-        const reportIds = [1, 2, 3, 11, 12, 13];
-        instance.module.getModule(NoticeModule).noticeRejectUnitReport(versionName, reportIds);
+        const versionName = instance.config.defaultVersionName;
+        instance.noticeManager.noticeCreateUnitReport(versionName, [4, 5, 6, 7, 8]);
     });
 }
 
-function noticeCreateLevelReportToSlackTest() {
-    Instance.initialize();
-    const versionName = Instance.instance.module.config.common.latestVersionName;
-    const reportIds = [1, 2, 10];
-    Instance.instance.module.getModule(NoticeModule)
-        .noticeCreateLevelReport(versionName, reportIds);
+function test_pushNotice() {
+    const noticeQueue = Instance.getNoticeQueue();
+    noticeQueue.enqueueCreateUnitReport(4);
+    noticeQueue.save();
+
+    noticeCreatedUnitReports();
 }
 
-function noticeApproveLevelReportsTest() {
+function test_iterateFormListItems() {
     Instance.initialize();
-    const versionName = Instance.instance.module.config.common.latestVersionName;
-    const reportIds = [1, 2, 10];
-    Instance.instance.module.getModule(NoticeModule)
-        .noticeApproveLevelReport(versionName, reportIds);
+    const obj = Instance.instance;
+
+    const form = obj.module.getModule(ReportModule).unitReportGroupByGenreGoogleForm;
+    const list = form.getItems(FormApp.ItemType.LIST);
+
+    const genres = obj.module.getModule(VersionModule)
+        .getVersionConfig(obj.config.defaultVersionName)
+        .genres;
+
+    console.log(genres);
+    for (let i = 0; i < genres.length; i++) {
+        const genre = genres[i];
+        const musicList = list[i + 1];
+        console.log(`${genre}:${musicList}`);
+        console.log(musicList?.asListItem?.().getTitle?.());
+    }
 }
 
-function noticeRejectLevelReportsTest() {
+function test_updateMusicsUnitReportForm() {
     Instance.initialize();
-    const versionName = Instance.instance.module.config.common.latestVersionName;
-    const reportIds = [1, 2, 10];
-    Instance.instance.module.getModule(NoticeModule)
-        .noticeRejectLevelReport(versionName, reportIds);
-}
-
-function dumpNoticeQueue() {
-    Instance.initialize();
-    const queue = Instance.instance.module.getModule(NoticeModule).getQueue();
-    queue.dump();
+    Instance.instance.module.getModule(ReportModule).updateMusicsUnitReportForm(
+        Instance.instance.config.defaultVersionName);
 }

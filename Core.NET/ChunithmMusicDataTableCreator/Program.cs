@@ -1,5 +1,6 @@
 using ChunithmClientLibrary;
 using ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector;
+using ChunithmClientLibrary.Core;
 using ChunithmClientLibrary.MusicData;
 using ChunithmClientLibrary.Writer;
 using System;
@@ -91,7 +92,7 @@ namespace ChunithmMusicDataTableCreator
             Console.WriteLine("completed.");
         }
 
-        private static IMusicDataTable<IMusicDataTableUnit> GetTable(Argument arg)
+        private static IMusicDataTable GetTable(Argument arg)
         {
             using (var connector = new ChunithmMusicDatabaseHttpClientConnector(arg.Host))
             {
@@ -110,7 +111,7 @@ namespace ChunithmMusicDataTableCreator
             }
         }
 
-        private static IWriter<IMusicDataTable<IMusicDataTableUnit>> GetWriter(Argument arg)
+        private static IWriter<IMusicDataTable> GetWriter(Argument arg)
         {
             switch (arg.OutputType)
             {
@@ -125,13 +126,13 @@ namespace ChunithmMusicDataTableCreator
         }
     }
 
-    class MusicDataTableCsvWriter : CsvWriter<IMusicDataTable<IMusicDataTableUnit>>
+    class MusicDataTableCsvWriter : CsvWriter<IMusicDataTable>
     {
-        public override string CreateCsv(IMusicDataTable<IMusicDataTableUnit> data)
+        public override string CreateCsv(IMusicDataTable data)
         {
             var csv = new StringBuilder();
             AppendHeader(csv);
-            foreach (var unit in data.GetTableUnits())
+            foreach (var unit in data.MusicDatas)
             {
                 AppendRow(csv, unit);
             }
@@ -143,29 +144,19 @@ namespace ChunithmMusicDataTableCreator
             Append(csv, "ID");
             Append(csv, "楽曲名");
             Append(csv, "ジャンル");
-            Append(csv, "BASIC");
-            Append(csv, "ADVANCED");
-            Append(csv, "EXPERT");
-            Append(csv, "MASTER");
-            Append(csv, "BASIC検証");
-            Append(csv, "ADVANCED検証");
-            Append(csv, "EXPERT検証");
-            Append(csv, "MASTER検証", true);
+            Append(csv, "難易度");
+            Append(csv, "譜面定数");
+            Append(csv, "検証", true);
         }
 
-        private void AppendRow(StringBuilder csv, IMusicDataTableUnit unit)
+        private void AppendRow(StringBuilder csv, IMusicData unit)
         {
             Append(csv, unit.Id);
             Append(csv, unit.Name);
             Append(csv, unit.Genre);
-            Append(csv, unit.GetBaseRating(Difficulty.Basic));
-            Append(csv, unit.GetBaseRating(Difficulty.Advanced));
-            Append(csv, unit.GetBaseRating(Difficulty.Expert));
-            Append(csv, unit.GetBaseRating(Difficulty.Master));
-            Append(csv, unit.VerifiedBaseRating(Difficulty.Basic));
-            Append(csv, unit.VerifiedBaseRating(Difficulty.Advanced));
-            Append(csv, unit.VerifiedBaseRating(Difficulty.Expert));
-            Append(csv, unit.VerifiedBaseRating(Difficulty.Master), true);
+            Append(csv, Utility.ToDifficultyText(unit.Difficulty));
+            Append(csv, unit.BaseRating);
+            Append(csv, unit.Verified, true);
         }
     }
 }

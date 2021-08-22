@@ -1,17 +1,16 @@
-import * as Rating from "../src/Rating";
-import { Rank, ComboStatus, getRating, getOverPower, getBorderScore, calcBaseRating } from "../src/Rating";
+import { calcBaseRating, ComboStatus, getBorderScore, getOverPower, getRating, Rank } from "../src/Product/ReportForm/Layer1/Rating";
 
 function checkCommon(expectedRating: number, baseRating: number, score: number): void {
-    var actualRating = getRating(baseRating, score);
+    const actualRating = getRating(baseRating, score);
     expect(expectedRating).toBe(actualRating);
 }
 
 function checkBorder(expectedRating: number, baseRating: number, rank: Rank): void {
-    checkCommon(expectedRating, baseRating,getBorderScore(rank));
+    checkCommon(expectedRating, baseRating, getBorderScore(rank));
 }
 
 function checkMedian(expectedRating: number, baseRating: number, rank1: Rank, rank2: Rank) {
-    var score = (getBorderScore(rank1) + getBorderScore(rank2)) / 2;
+    const score = (getBorderScore(rank1) + getBorderScore(rank2)) / 2;
     checkCommon(expectedRating, baseRating, score);
 }
 
@@ -20,7 +19,7 @@ function checkJustBeforeBorder(expectedRating: number, baseRating: number, rank:
 }
 
 function checkJustBeforeMedian(expectedRating: number, baseRating: number, rank1: Rank, rank2: Rank) {
-    var score = (getBorderScore(rank1) + getBorderScore(rank2)) / 2 - 1;
+    const score = (getBorderScore(rank1) + getBorderScore(rank2)) / 2 - 1;
     checkCommon(expectedRating, baseRating, score);
 }
 
@@ -477,15 +476,15 @@ describe("rating", () => {
 
     it("範囲外チェック", () => {
         checkOutOfRange(0, 0, 0);
-        checkOutOfRange(0, 0, Rating.getBorderScore(Rank.S));
-        checkOutOfRange(0, 0, Rating.getBorderScore(Rank.SSS));
-        checkOutOfRange(0, 0, Rating.getBorderScore(Rank.Max));
+        checkOutOfRange(0, 0, getBorderScore(Rank.S));
+        checkOutOfRange(0, 0, getBorderScore(Rank.SSS));
+        checkOutOfRange(0, 0, getBorderScore(Rank.Max));
         checkOutOfRange(0, 0, 10000000);
 
         checkOutOfRange(0, -1, 0);
-        checkOutOfRange(0, -1, Rating.getBorderScore(Rank.S));
-        checkOutOfRange(0, -1, Rating.getBorderScore(Rank.SSS));
-        checkOutOfRange(0, -1, Rating.getBorderScore(Rank.Max));
+        checkOutOfRange(0, -1, getBorderScore(Rank.S));
+        checkOutOfRange(0, -1, getBorderScore(Rank.SSS));
+        checkOutOfRange(0, -1, getBorderScore(Rank.Max));
         checkOutOfRange(0, -1, 10000000);
 
         checkOutOfRange(0, 3, -1);
@@ -559,19 +558,19 @@ describe("逆算", () => {
     });
 
     {
-        let startBaseRating = 70;
-        let endBaseRating = 70;
-        let startScore = 925000;
-        let endScore = 1010000;
-        let addScore = 1;
+        const startBaseRating = 70;
+        const endBaseRating = 70;
+        const startScore = 925000;
+        const endScore = 1010000;
+        const addScore = 1;
 
-        var currentBaseRating = startBaseRating;
+        let currentBaseRating = startBaseRating;
         while (currentBaseRating <= endBaseRating) {
-            let expectedBaseRating = currentBaseRating / 10;
+            const expectedBaseRating = currentBaseRating / 10;
             it(`プロシージャルテスト ${expectedBaseRating}`, () => {
-                for (var score = startScore; score <= endScore; score += addScore) {
-                    var diffOp = 0;
-                    var actualBaseRating = 0;
+                for (let score = startScore; score <= endScore; score += addScore) {
+                    let diffOp = 0;
+                    let actualBaseRating = 0;
                     if (score < 1010000) {
                         diffOp = Math.floor(getOverPower(expectedBaseRating, score, ComboStatus.None) * 100) / 100;
                         actualBaseRating = calcBaseRating(0, diffOp, score, ComboStatus.None);

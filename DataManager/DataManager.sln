@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DataManager", "DataManager\DataManager.njsproj", "{FA1E7DFF-C2D6-4BBF-B0C0-5B2F0109461C}"
-EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ReportForm", "ReportForm\ReportForm.njsproj", "{0E2E001F-768E-427E-B7A6-5241795BA14D}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA1E7DFF-C2D6-4BBF-B0C0-5B2F0109461C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA1E7DFF-C2D6-4BBF-B0C0-5B2F0109461C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA1E7DFF-C2D6-4BBF-B0C0-5B2F0109461C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA1E7DFF-C2D6-4BBF-B0C0-5B2F0109461C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E2E001F-768E-427E-B7A6-5241795BA14D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E2E001F-768E-427E-B7A6-5241795BA14D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E2E001F-768E-427E-B7A6-5241795BA14D}.Release|Any CPU.ActiveCfg = Release|Any CPU

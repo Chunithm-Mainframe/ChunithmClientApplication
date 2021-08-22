@@ -4,24 +4,6 @@ namespace ChunithmClientLibrary
 {
     public static partial class Utility
     {
-        public static int GetId(string name)
-        {
-            var musicData = globalMusicDataTable?.GetTableUnit(name);
-            return (musicData != null) ? musicData.Id : -1;
-        }
-
-        public static double GetBaseRating(int id, Difficulty difficulty)
-        {
-            var musicData = globalMusicDataTable?.GetTableUnit(id);
-            return (musicData != null) ? musicData.GetBaseRating(difficulty) : 0;
-        }
-
-        public static double GetBaseRating(string name, Difficulty difficulty)
-        {
-            var musicData = globalMusicDataTable?.GetTableUnit(name);
-            return (musicData != null) ? musicData.GetBaseRating(difficulty) : 0;
-        }
-
         public static double GetRating(double baseRating, int score)
         {
             var playRating = GetPlayRating(baseRating, score);
