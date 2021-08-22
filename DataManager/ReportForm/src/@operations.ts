@@ -7,20 +7,26 @@ import { SlackCompositionObjectFactory } from "./Packages/UrlFetch.Slack/Composi
 import { UrlFetchManager } from "./Packages/UrlFetch/UrlFetchManager";
 import { Instance } from "./Product/ReportForm/Instance";
 import { ConfigurationEditor } from "./Product/ReportForm/Layer1/Configurations/ConfigurationEditor";
+import { BulkReportTableReader } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableReader";
+import { BulkReportTableWriter } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableWriter";
+import { ReportStatus } from "./Product/ReportForm/Layer2/Report/ReportStatus";
 import { MusicModule } from "./Product/ReportForm/Layer3/Modules/MusicModule";
 import { ReportModule } from "./Product/ReportForm/Layer3/Modules/Report/ReportModule";
 import { TwitterModule } from "./Product/ReportForm/Layer3/Modules/TwitterModule";
 import { VersionModule } from "./Product/ReportForm/Layer3/Modules/VersionModule";
-import { BulkReportTableReader } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableReader";
-import { BulkReportTableWriter } from "./Product/ReportForm/Layer2/Report/BulkReport/BulkReportTableWriter";
-import { ReportStatus } from "./Product/ReportForm/Layer2/Report/ReportStatus";
 import { LevelReportListWebsitePresenter } from "./Product/ReportForm/Layer4/WebsitePresenters/LevelReport/LevelReportListWebsitePresenter";
 import { UnitReportListWebsitePresenter } from "./Product/ReportForm/Layer4/WebsitePresenters/UnitReport/UnitReportListWebsitePresenter";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 
 export function storeConfig(): GoogleAppsScript.Properties.Properties {
-    const ret = ConfigurationEditor.store();
+    const ret = ConfigurationEditor.storeConfig();
+    CustomLogManager.log(LogLevel.Info, ret.getProperties());
+    return ret;
+}
+
+export function storeRuntimeConfig(): GoogleAppsScript.Properties.Properties {
+    const ret = ConfigurationEditor.storeRuntimeConfig();
     CustomLogManager.log(LogLevel.Info, ret.getProperties());
     return ret;
 }
@@ -298,4 +304,13 @@ function updateNextVersionBulkReportTable() {
     catch (e) {
         Instance.exception(e);
     }
+}
+
+function tweetTestMessage() {
+    execute(instance => {
+        const message = `テストツイート
+これは、うにボットからの送信機能を確認するためのツイートです
+${new Date()}`
+        instance.module.getModule(TwitterModule).postTweet(message);
+    });
 }
