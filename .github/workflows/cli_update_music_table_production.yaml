@@ -1,5 +1,7 @@
 name: Update Music Table Production
 on:
+  schedule:
+    - cron: '0,30 4-6 * * 3'
   workflow_dispatch:
     inputs:
 jobs:
@@ -11,6 +13,7 @@ jobs:
       - name: Setup repository
         uses: actions/checkout@v2
         with:
+          ref: master
           fetch-depth: 0
           token: ${{ secrets.SUBMODULE_TOKEN }}
           submodules: true
