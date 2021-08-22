@@ -122,7 +122,7 @@ export class UnitReportGroupWebsitePresenter extends ReportFormWebsitePresenter<
         const imagePaths = report.imagePaths;
         if (imagePaths.length > 0) {
             const img = imagePaths
-                .map(p => `<div class="result_image"><img src="${p}" /></div>`)
+                .map(x => `<div class="result_image"><img src="${x}" /></div>`)
                 .reduce((acc, src) => acc + src);
             template = template.replace(/%verificationImageContainer%/, `<div class="result_box w400">${img}</div>`);
         }

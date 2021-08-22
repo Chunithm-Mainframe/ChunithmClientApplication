@@ -53,8 +53,7 @@ export class UnitReportWebsitePresenter extends ReportFormWebsitePresenter<UnitR
         const imagePaths = report.imagePaths;
         if (imagePaths.length > 0) {
             const img = imagePaths
-                .map(p => `${p}&access_token=${ScriptApp.getOAuthToken()}`)
-                .map(p => `<div class="result_image"><img src="${p}" /></div>`)
+                .map(x => `<div class="result_image"><img src="${x}" /></div>`)
                 .reduce((acc, src) => acc + src);
             source = source.replace(/%verificationImageContainer%/, `<div class="result_box w400">${img}</div>`);
         }
