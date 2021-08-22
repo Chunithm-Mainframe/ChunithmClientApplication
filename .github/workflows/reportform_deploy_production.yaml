@@ -1,0 +1,60 @@
+name: Deploy ReportFrom Production
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'DataManager/ReportForm/**'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      ACCESS_TOKEN: ${{ secrets.REPORTFORM_ACCESS_TOKEN }}
+      REFRESH_TOKEN: ${{ secrets.REPORTFORM_REFRESH_TOKEN }}
+      CLIENT_ID: ${{ secrets.REPORTFORM_CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.REPORTFORM_CLIENT_SECRET }}
+      DEPLOY_ID: ${{ secrets.REPORTFORM_PRODUCTION_DEPLOY_ID }}
+    steps:
+      - name: Notificate Slack
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.REPORTFORM_DEVELOP_SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: "デプロイを開始します"
+
+      - name: Setup repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SUBMODULE_TOKEN }}
+          submodules: true
+      - name: Steup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install Clasp
+        run: npm install -g @google/clasp
+
+      - name: Generate ~/.clasprc.json
+        run: |
+          bash DataManager/ReportForm/scripts/setup.sh
+      - name: Generate Consts
+        run: |
+          cd DataManager/ReportForm/scripts
+          bash ./generate.sh ./release.rc
+
+      - name: Push
+        run: |
+          cd DataManager/ReportForm
+          clasp push --force
+      - name: Deploy
+        run: |
+          cd DataManager/ReportForm
+          clasp deploy --deploymentId $DEPLOY_ID
+
+      - name: Notificate Slack
+        uses: rtCamp/action-slack-notify@v2
+        if: always()
+        env:
+          SLACK_WEBHOOK: ${{ secrets.REPORTFORM_DEVELOP_SLACK_WEBHOOK_URL }}
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: "デプロイ結果: ${{ job.status }}"
