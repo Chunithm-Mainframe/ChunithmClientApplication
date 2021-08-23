@@ -193,6 +193,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadsheetLog.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\MusicModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
