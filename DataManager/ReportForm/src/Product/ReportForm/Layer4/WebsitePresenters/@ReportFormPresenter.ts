@@ -7,6 +7,7 @@ import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportForm
 import { Role } from "../../Layer1/Role";
 import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
 import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
+import { UserAgentModule } from "../../Layer3/Modules/UserAgentModule";
 
 export interface ReportFormWebsiteParameter extends Record<string, number | string> {
     version: string;
@@ -96,5 +97,14 @@ export class ReportFormWebsitePresenter<TParameter extends ReportFormWebsitePara
 
     public static includeStylesheet(fileName: string): string {
         return HtmlService.createHtmlOutputFromFile(`Resources/Page/${fileName}`).getContent();
+    }
+
+    protected convertImageUrl(originUrl: string): string {
+        if (this.getModule(UserAgentModule).IsReplaceImageUrlsPlatform()) {
+            CustomLogManager.log(LogLevel.Debug, 'request replace ' + originUrl);
+            const response = UrlFetchApp.fetch(originUrl, { followRedirects: false, muteHttpExceptions: false });
+            return response?.getHeaders()?.['Location'];
+        }
+        return originUrl;
     }
 }

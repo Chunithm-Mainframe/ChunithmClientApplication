@@ -9,6 +9,7 @@ export interface ReportFormConfigurationSchema {
 }
 
 export interface GlobalConfigurationSchema {
+    readonly logger: LoggerConfigurationSchema;
     readonly logSpreadSheetId: string;
     readonly logWorkSheetName: string;
     readonly errorLogSpreadSheetId: string;
@@ -29,6 +30,28 @@ export interface GlobalConfigurationSchema {
     readonly chunirecApiToken: string;
     readonly slackApiToken: string;
     readonly slackChannelIdTable: Record<string, string>;
+}
+
+export interface LoggerConfigurationSchema {
+    readonly slack: {
+        readonly debug: string[];
+        readonly info: string[];
+        readonly warning: string[];
+        readonly error: string[];
+    };
+    readonly line: {
+        readonly debug: string[];
+        readonly info: string[];
+        readonly warning: string[];
+        readonly error: string[];
+    };
+    readonly spreadsheet: {
+        readonly id: string;
+        readonly debug: string;
+        readonly info: string;
+        readonly warning: string;
+        readonly error: string;
+    };
 }
 
 export interface VersionConfigurationSchema {

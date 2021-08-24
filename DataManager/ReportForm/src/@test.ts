@@ -54,3 +54,8 @@ function test_updateMusicsUnitReportForm() {
     Instance.instance.module.getModule(ReportModule).updateMusicsUnitReportForm(
         Instance.instance.config.defaultVersionName);
 }
+
+function test_driveImageUrl() {
+    const response = UrlFetchApp.fetch('https://drive.google.com/uc?id=1iSM6WkeUuJFYx10HpGUqnMvBdvHrOjy5', { followRedirects: false, muteHttpExceptions: false });
+    console.log(response.getHeaders()['Location']);
+}

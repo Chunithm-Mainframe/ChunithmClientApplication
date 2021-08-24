@@ -1,76 +1,111 @@
-export class SpreadsheetLogger {
-    private _log: LogSheet;
-    private _warning: LogSheet;
-    private _error: LogSheet;
+import { CustomLogger, LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
+import { DatabaseTable } from "../../../../Packages/Database/DatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../Packages/Database/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../Packages/Database/SpreadsheetDatabaseTable";
+import { SpreadsheetLog } from "./SpreadsheetLog";
 
-    private threadId: string;
+type LogTable = DatabaseTable<SpreadsheetLog, 'id'>;
 
-    public constructor(log: LogSheet, warning: LogSheet, error: LogSheet) {
-        this._log = log;
-        this._warning = warning;
-        this._error = error;
+export class SpreadsheetLogger implements CustomLogger {
+    private readonly _threadId: number;
 
-        this.threadId = SpreadsheetLogger.getThreadId().toString();
-    }
+    private _spreadsheet: GoogleAppsScript.Spreadsheet.Spreadsheet;
 
-    private static getThreadId(): number {
+    private _debugLogTable: LogTable;
+    private _infoLogTable: LogTable;
+    private _warningLogTable: LogTable;
+    private _errorLogTable: LogTable;
+
+    public constructor(
+        private readonly _spreadsheetId: string,
+        private readonly _debugSheetName: string,
+        private readonly _infoSheetName: string,
+        private readonly _warningSheetName: string,
+        private readonly _errorSheetName: string) {
         const min = 100000;
         const max = 999999;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        this._threadId = Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    public get logSheet(): LogSheet {
-        return this._log;
-    }
-    public get warningSheet(): LogSheet {
-        return this._warning;
-    }
-    public get errorSheet(): LogSheet {
-        return this._error;
+    private getSpreadsheet() {
+        if (!this._spreadsheetId) {
+            return null;
+        }
+        if (!this._spreadsheet) {
+            this._spreadsheet = SpreadsheetApp.openById(this._spreadsheetId);
+        }
+        return this._spreadsheet;
     }
 
-    public log(message): void {
-        if (this._log) {
-            this._log.write([this.threadId, new Date().toString(), 'log', message]);
+    private getLogTable(level: LogLevel) {
+        switch (level) {
+            case LogLevel.Debug:
+                return this.getDebugLogTable();
+            case LogLevel.Info:
+                return this.getInfoLogTable();
+            case LogLevel.Warning:
+                return this.getWarningLogTable();
+            case LogLevel.Error:
+                return this.getErrorLogTable();
         }
-    }
-    public logWarning(message): void {
-        if (this._warning) {
-            this._warning.write([this.threadId, new Date().toString(), 'warning', message]);
-        }
-    }
-    public logError(message): void {
-        if (this._error) {
-            this._error.write([this.threadId, new Date().toString(), 'error', message]);
-        }
-    }
-}
-
-export class LogSheet {
-    private static logSheetMap: { [key: string]: LogSheet } = {};
-    public static openLogSheet(spreadsheetId: string, worksheetName: string): LogSheet {
-        const key = `${spreadsheetId}/${worksheetName}`;
-        if (key in this.logSheetMap) {
-            return this.logSheetMap[key];
-        }
-        const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
-        const worksheet = spreadsheet.getSheetByName(worksheetName);
-        if (!worksheet) {
-            throw new Error(`worksheet is null. ${spreadsheet}:${worksheetName}`);
-        }
-        this.logSheetMap[key] = new LogSheet(worksheet);
-        return this.logSheetMap[key];
     }
 
-    private _worksheet: GoogleAppsScript.Spreadsheet.Sheet;
-    private _currentRow: number;
-    private constructor(worksheet: GoogleAppsScript.Spreadsheet.Sheet) {
-        this._worksheet = worksheet;
-        this._currentRow = this._worksheet.getLastRow();
+    private getDebugLogTable() {
+        this._debugLogTable = this.getOrCreateLogTable(this._debugLogTable, this._debugSheetName);
+        return this._debugLogTable;
+    }
+    private getInfoLogTable() {
+        this._infoLogTable = this.getOrCreateLogTable(this._infoLogTable, this._infoSheetName);
+        return this._infoLogTable;
+    }
+    private getWarningLogTable() {
+        this._warningLogTable = this.getOrCreateLogTable(this._warningLogTable, this._warningSheetName);
+        return this._warningLogTable;
+    }
+    private getErrorLogTable() {
+        this._errorLogTable = this.getOrCreateLogTable(this._errorLogTable, this._errorSheetName);
+        return this._errorLogTable;
+    }
+    private getOrCreateLogTable(table: DatabaseTable<SpreadsheetLog, 'id'>, sheetName: string) {
+        if (table) {
+            return table;
+        }
+        if (!sheetName) {
+            return null;
+        }
+        const sheet = this.getSpreadsheet?.().getSheetByName?.(sheetName);
+        if (!sheet) {
+            return null;
+        }
+        const schema = new GenericDatabaseTableSchema(SpreadsheetLog, ['id']);
+        schema.primaryColumn = 'id';
+        return new SpreadsheetDatabaseTable(schema, sheet);
     }
 
-    public write(messages: string[]): void {
-        this._worksheet.getRange(this._currentRow + 1, 1, 1, messages.length).setValues([messages]);
-        ++this._currentRow;
+    public log(level: LogLevel, message): void {
+        const table = this.getLogTable(level);
+        if (!table) {
+            return;
+        }
+
+        const log = new SpreadsheetLog();
+        log.threadId = this._threadId;
+        log.logLevel = level;
+        log.userAgent = HtmlService.getUserAgent();
+        log.message = message;
+        table.update(log);
+    }
+
+    public exception(error: Error): void {
+        const table = this.getErrorLogTable();
+        if (!table) {
+            return;
+        }
+
+        const log = new SpreadsheetLog();
+        log.threadId = this._threadId;
+        log.logLevel = LogLevel.Error;
+        log.userAgent = HtmlService.getUserAgent();
+        log.message = error.message;
     }
 }

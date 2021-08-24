@@ -41,6 +41,7 @@ import { MusicTableGetPostCommand } from "./Layer4/PostCommands/MusicTableGetPos
 import { MusicTableUpdatePostCommand } from "./Layer4/PostCommands/MusicTableUpdatePostCommand";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "./Layer4/WebsitePresenters/@ReportFormPresenter";
+import { Environment } from "./Layer1/Environment";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -79,6 +80,7 @@ export class Instance {
     private constructor(config: ReportFormConfiguration) {
         this.setupDIContainer(config);
 
+        CustomLogManager.isDevelopment = config.environment === Environment.Develop;
         LoggerDI.initialize(config);
 
         //const webhookConfig = this.config.webhook;
