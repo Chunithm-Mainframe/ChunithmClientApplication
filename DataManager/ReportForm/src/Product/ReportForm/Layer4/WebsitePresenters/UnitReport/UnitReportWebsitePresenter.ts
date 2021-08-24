@@ -1,10 +1,10 @@
 import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
+import { Difficulty } from "../../../Layer1/Difficulty";
 import { Role } from "../../../Layer1/Role";
+import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
 import { Utility } from "../../../Layer2/Utility";
 import { ReportModule } from "../../../Layer3/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
+import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "../@ReportFormPresenter";
 import { UnitReportListWebsitePresenter } from "./UnitReportListWebsitePresenter";
 
 export interface UnitReportWebsiteParameter extends ReportFormWebsiteParameter {
@@ -42,7 +42,7 @@ export class UnitReportWebsitePresenter extends ReportFormWebsitePresenter<UnitR
         source = source.replace(/%reportId%/g, reportId.toString());
         source = source.replace(/%musicName%/g, report.musicName);
         source = source.replace(/%difficulty%/g, Utility.toDifficultyTextLowerCase(report.difficulty));
-        source = source.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(report.difficulty));
+        source = source.replace(/%difficultyImagePath%/g, this.convertImageUrl(Utility.getDifficultyImagePath(report.difficulty)));
         source = source.replace(/%beforeOp%/g, beforeOp.toString());
         source = source.replace(/%afterOp%/g, afterOp.toString());
         source = source.replace(/%diffOp%/g, diffOp.toString());
@@ -53,6 +53,7 @@ export class UnitReportWebsitePresenter extends ReportFormWebsitePresenter<UnitR
         const imagePaths = report.imagePaths;
         if (imagePaths.length > 0) {
             const img = imagePaths
+                .map(x => this.convertImageUrl(x))
                 .map(x => `<div class="result_image"><img src="${x}" /></div>`)
                 .reduce((acc, src) => acc + src);
             source = source.replace(/%verificationImageContainer%/, `<div class="result_box w400">${img}</div>`);
