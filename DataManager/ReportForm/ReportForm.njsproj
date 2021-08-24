@@ -194,6 +194,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadsheetLog.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\UserAgentParser.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\MusicModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -224,6 +227,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByLevelGoogleForm.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\UserAgentModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormBuildLINEPostCommand.ts" />
