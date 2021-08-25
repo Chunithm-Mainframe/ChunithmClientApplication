@@ -23,7 +23,7 @@ namespace BeatsmapConstIdentifier
 
             for (int i = 1; i <= SongNum; i++)
             {
-                var songData = _BeatsmapConstIdentifier.ReadSongData();
+                var songData = ReadSongData();
                 instance.AddSongData(i, songData); // 曲IDがi番の曲について、筐体表示レベルを入力
             }
 
@@ -47,7 +47,7 @@ namespace BeatsmapConstIdentifier
                 // Best枠かRecent枠のデータを、1個分取得する
                 if (s == "Set")
                 {
-                    var setData = _BeatsmapConstIdentifier.ReadSetData();
+                    var setData = ReadSetData();
                     if (!instance.AddSetData(setData))
                     {
                         // データがどこかで破損している
@@ -58,7 +58,7 @@ namespace BeatsmapConstIdentifier
                 // ある曲について、制約を追加
                 if (s == "One")
                 {
-                    var oneData = _BeatsmapConstIdentifier.ReadOneData();
+                    var oneData = ReadOneData();
                     if (!instance.AddOneData(oneData))
                     {
                         // データがどこかで破損している
@@ -75,6 +75,45 @@ namespace BeatsmapConstIdentifier
                 Console.WriteLine($"{i}:[{instance.ConstIneq[i].first},{instance.ConstIneq[i].second}]");
             }
             return;
+        }
+
+        public static _BeatsmapConstIdentifier.SongData ReadSongData()
+        {
+            var inputData = new _BeatsmapConstIdentifier.SongData();
+            inputData.fir = int.Parse(Console.ReadLine());
+            inputData.sec = int.Parse(Console.ReadLine());
+            return inputData;
+        }
+
+        public static _BeatsmapConstIdentifier.OneData ReadOneData()
+        {
+            var inputData = new _BeatsmapConstIdentifier.OneData();
+            inputData.id = int.Parse(Console.ReadLine());
+            inputData.first = int.Parse(Console.ReadLine());
+            inputData.second = int.Parse(Console.ReadLine());
+            return inputData;
+        }
+
+        public static _BeatsmapConstIdentifier.SetData ReadSetData()
+        {
+            var inputData = new _BeatsmapConstIdentifier.SetData();
+            inputData.SetSong = int.Parse(Console.ReadLine());
+            for (var i = 0; i < inputData.SetSong; i++)
+            {
+                var inid = int.Parse(Console.ReadLine());
+                var insc = int.Parse(Console.ReadLine());
+                insc = _BeatsmapConstIdentifier.ScoreToOffset(insc); // スコアをオフセットに変換
+                if (insc < 0)
+                {
+                    // Sに満たない、オフセット 0 未満ならデータを破棄
+                    continue;
+                }
+                inputData.Songid.Add(inid);
+                inputData.Offset.Add(insc);
+            }
+            inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
+
+            return inputData;
         }
     }
 }

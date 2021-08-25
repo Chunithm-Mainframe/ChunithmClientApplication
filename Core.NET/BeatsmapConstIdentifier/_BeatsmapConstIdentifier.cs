@@ -105,23 +105,15 @@ namespace BeatsmapConstIdentifier
             return true;
         }
 
-        public static SongData ReadSongData()
-        {
-            var inputData = new SongData();
-            inputData.fir = int.Parse(Console.ReadLine());
-            inputData.sec = int.Parse(Console.ReadLine());
-            return inputData;
-        }
-
         // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
         public void AddSongData(int id, SongData inputData)
         {
             ConstIneq[id] = (inputData.fir, inputData.sec);
         }
 
-        public const int BaseElement = 5;
-        public static readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };
-        public static readonly List<int> BaseOffset = new List<int> { 200, 100, 0, -300, -500 };
+        private const int BaseElement = 5;
+        private static readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };
+        private static readonly List<int> BaseOffset = new List<int> { 200, 100, 0, -300, -500 };
 
         public static int ScoreToOffset(int score)
         {
@@ -174,28 +166,6 @@ namespace BeatsmapConstIdentifier
             return true;
         }
 
-        public static SetData ReadSetData()
-        {
-            var inputData = new SetData();
-            inputData.SetSong = int.Parse(Console.ReadLine());
-            for (var i = 0; i < inputData.SetSong; i++)
-            {
-                var inid = int.Parse(Console.ReadLine());
-                var insc = int.Parse(Console.ReadLine());
-                insc = ScoreToOffset(insc); // スコアをオフセットに変換
-                if (insc < 0)
-                {
-                    // Sに満たない、オフセット 0 未満ならデータを破棄
-                    continue;
-                }
-                inputData.Songid.Add(inid);
-                inputData.Offset.Add(insc);
-            }
-            inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
-
-            return inputData;
-        }
-
         // Best枠 (Recent枠) 情報入力
         // 返り値 : bool
         // true : 成功 , false : データ破損
@@ -234,15 +204,6 @@ namespace BeatsmapConstIdentifier
             var qu = new Queue<int>(); // Runに渡すqueue
             for (int i = 0; i < inputData.SetSong; i++) { qu.Enqueue(inputData.Songid[i]); } // 関係が動きうる全曲を追加
             return Run(qu); // 影響を伝播
-        }
-
-        public static OneData ReadOneData()
-        {
-            var inputData = new OneData();
-            inputData.id = int.Parse(Console.ReadLine());
-            inputData.first = int.Parse(Console.ReadLine());
-            inputData.second = int.Parse(Console.ReadLine());
-            return inputData;
         }
 
         // 単曲制約追加
