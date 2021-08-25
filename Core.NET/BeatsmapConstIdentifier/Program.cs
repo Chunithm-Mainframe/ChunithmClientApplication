@@ -10,7 +10,12 @@ namespace BeatsmapConstIdentifier
             Exec();
         }
 
-        private static void Exec()
+        public static void Exec()
+        {
+            Exec(Console.ReadLine);
+        }
+
+        public static void Exec(Func<string> readLine)
         {
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
             int SongNum = _BeatsmapConstIdentifier.GetSongNum(); // 総曲数(曲IDの最大値)の取得
@@ -23,7 +28,7 @@ namespace BeatsmapConstIdentifier
 
             for (int i = 1; i <= SongNum; i++)
             {
-                var songData = ReadSongData();
+                var songData = ReadSongData(readLine);
                 instance.AddSongData(i, songData); // 曲IDがi番の曲について、筐体表示レベルを入力
             }
 
@@ -39,7 +44,7 @@ namespace BeatsmapConstIdentifier
                 string s;
                 while (true)
                 {
-                    s = Console.ReadLine();
+                    s = readLine();
                     if (s == "Set" || s == "One" || s == "No") { break; }
                     Console.WriteLine("Error : Input should be Set / One / No (Case-sensitive)");
                 }
@@ -47,7 +52,7 @@ namespace BeatsmapConstIdentifier
                 // Best枠かRecent枠のデータを、1個分取得する
                 if (s == "Set")
                 {
-                    var setData = ReadSetData();
+                    var setData = ReadSetData(readLine);
                     if (!instance.AddSetData(setData))
                     {
                         // データがどこかで破損している
@@ -58,7 +63,7 @@ namespace BeatsmapConstIdentifier
                 // ある曲について、制約を追加
                 if (s == "One")
                 {
-                    var oneData = ReadOneData();
+                    var oneData = ReadOneData(readLine);
                     if (!instance.AddOneData(oneData))
                     {
                         // データがどこかで破損している
@@ -77,11 +82,6 @@ namespace BeatsmapConstIdentifier
             return;
         }
 
-        public static _BeatsmapConstIdentifier.SongData ReadSongData()
-        {
-            return ReadSongData(Console.ReadLine);
-        }
-
         public static _BeatsmapConstIdentifier.SongData ReadSongData(Func<string> readLine)
         {
             var inputData = new _BeatsmapConstIdentifier.SongData();
@@ -89,11 +89,6 @@ namespace BeatsmapConstIdentifier
             inputData.fir = int.Parse(read[0]);
             inputData.sec = int.Parse(read[1]);
             return inputData;
-        }
-
-        public static _BeatsmapConstIdentifier.OneData ReadOneData()
-        {
-            return ReadOneData(Console.ReadLine);
         }
 
         public static _BeatsmapConstIdentifier.OneData ReadOneData(Func<string> readLine)
@@ -104,11 +99,6 @@ namespace BeatsmapConstIdentifier
             inputData.first = int.Parse(read[1]);
             inputData.second = int.Parse(read[2]);
             return inputData;
-        }
-
-        public static _BeatsmapConstIdentifier.SetData ReadSetData()
-        {
-            return ReadSetData(Console.ReadLine);
         }
 
         public static _BeatsmapConstIdentifier.SetData ReadSetData(Func<string> readLine)
