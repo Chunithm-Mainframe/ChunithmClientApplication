@@ -79,8 +79,13 @@ namespace BeatsmapConstIdentifier
 
         public static _BeatsmapConstIdentifier.SongData ReadSongData()
         {
+            return ReadSongData(Console.ReadLine);
+        }
+
+        public static _BeatsmapConstIdentifier.SongData ReadSongData(Func<string> readLine)
+        {
             var inputData = new _BeatsmapConstIdentifier.SongData();
-            var read = Console.ReadLine().Split(' ');
+            var read = readLine().Split(' ');
             inputData.fir = int.Parse(read[0]);
             inputData.sec = int.Parse(read[1]);
             return inputData;
@@ -88,8 +93,13 @@ namespace BeatsmapConstIdentifier
 
         public static _BeatsmapConstIdentifier.OneData ReadOneData()
         {
+            return ReadOneData(Console.ReadLine);
+        }
+
+        public static _BeatsmapConstIdentifier.OneData ReadOneData(Func<string> readLine)
+        {
             var inputData = new _BeatsmapConstIdentifier.OneData();
-            var read = Console.ReadLine().Split(' ');
+            var read = readLine().Split(' ');
             inputData.id = int.Parse(read[0]);
             inputData.first = int.Parse(read[1]);
             inputData.second = int.Parse(read[2]);
@@ -98,14 +108,16 @@ namespace BeatsmapConstIdentifier
 
         public static _BeatsmapConstIdentifier.SetData ReadSetData()
         {
+            return ReadSetData(Console.ReadLine);
+        }
+
+        public static _BeatsmapConstIdentifier.SetData ReadSetData(Func<string> readLine)
+        {
             var inputData = new _BeatsmapConstIdentifier.SetData();
-            inputData.SetSong = int.Parse(Console.ReadLine());
+            inputData.SetSong = int.Parse(readLine());
             for (var i = 0; i < inputData.SetSong; i++)
             {
-                var line = Console.ReadLine().Split(' ');
-                var inid = int.Parse(line[0]);
-                var insc = int.Parse(line[1]);
-                insc = _BeatsmapConstIdentifier.ScoreToOffset(insc); // スコアをオフセットに変換
+                var (inid, insc) = ReadSetDataUnit(readLine);
                 if (insc < 0)
                 {
                     // Sに満たない、オフセット 0 未満ならデータを破棄
@@ -117,6 +129,15 @@ namespace BeatsmapConstIdentifier
             inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
 
             return inputData;
+        }
+
+        public static (int inid, int insc) ReadSetDataUnit(Func<string> readLine)
+        {
+            var line = readLine().Split(' ');
+            var inid = int.Parse(line[0]);
+            var insc = int.Parse(line[1]);
+            insc = _BeatsmapConstIdentifier.ScoreToOffset(insc); // スコアをオフセットに変換
+            return (inid, insc);
         }
     }
 }
