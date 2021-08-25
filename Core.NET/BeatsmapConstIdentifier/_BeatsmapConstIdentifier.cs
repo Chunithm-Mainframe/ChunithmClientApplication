@@ -62,14 +62,6 @@ namespace BeatsmapConstIdentifier
         // 最も緩い制約は、v=inf
         public Dictionary<(int id1, int id2), int> ReqMax;
 
-        // 総曲数(曲IDの最大値)を取得
-        // もし4難易度全てについて調べるなら、収録曲数の4倍必要
-        public static int GetSongNum()
-        {
-            var res = int.Parse(Console.ReadLine());
-            return res;
-        }
-
         // 譜面定数が小数第1位までしか持たないことを前提にして、
         // cfir <= (定数) <= csec を検証し、範囲を狭める
         // Ex)

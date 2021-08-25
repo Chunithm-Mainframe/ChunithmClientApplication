@@ -18,7 +18,7 @@ namespace BeatsmapConstIdentifier
         public static void Exec(Func<string> readLine)
         {
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
-            int SongNum = _BeatsmapConstIdentifier.GetSongNum(); // 総曲数(曲IDの最大値)の取得
+            int SongNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
 
             var instance = new _BeatsmapConstIdentifier();
 
@@ -80,6 +80,14 @@ namespace BeatsmapConstIdentifier
                 Console.WriteLine($"{i}:[{instance.ConstIneq[i].first},{instance.ConstIneq[i].second}]");
             }
             return;
+        }
+
+        // 総曲数(曲IDの最大値)を取得
+        // もし4難易度全てについて調べるなら、収録曲数の4倍必要
+        public static int GetSongNum(Func<string> readLine)
+        {
+            var res = int.Parse(readLine());
+            return res;
         }
 
         public static _BeatsmapConstIdentifier.SongData ReadSongData(Func<string> readLine)
