@@ -7,10 +7,15 @@ namespace BeatsmapConstIdentifier
     {
         public static void Main(string[] args)
         {
-            // 実運用の場合、初期化を行うのは最初の1回だけでよい
-            int SongNum = BeatsmapConstIdentifier.GetSongNum(); // 総曲数(曲IDの最大値)の取得
+            Exec();
+        }
 
-            var instance = new BeatsmapConstIdentifier();
+        private static void Exec()
+        {
+            // 実運用の場合、初期化を行うのは最初の1回だけでよい
+            int SongNum = _BeatsmapConstIdentifier.GetSongNum(); // 総曲数(曲IDの最大値)の取得
+
+            var instance = new _BeatsmapConstIdentifier();
 
             instance.ConstIneq = new List<(int first, int second)>(SongNum + 1);
             instance.RelateSong = new List<HashSet<int>>(SongNum + 1);

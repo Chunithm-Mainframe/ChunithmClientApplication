@@ -16,8 +16,29 @@ namespace BeatsmapConstIdentifier
     // 仮にするようになった場合、physics0523が修正します。多分。
     // 最悪、空間計算量を O(曲数 ^ 2) くらい食います。曲数が5000とかになるとせぐふぉするかも。
 
-    public class BeatsmapConstIdentifier
+    public class _BeatsmapConstIdentifier
     {
+        public class SongData
+        {
+            public int fir;
+            public int sec;
+        }
+
+        public class SetData
+        {
+            public int SetSong;
+
+            public List<int> Songid = new List<int>();
+            public List<int> Offset = new List<int>();
+        }
+
+        public class OneData
+        {
+            public int id;
+            public int first;
+            public int second;
+        }
+
         // 十分大きな値として inf を定義
         public const int inf = 1000000007;
 
@@ -87,9 +108,10 @@ namespace BeatsmapConstIdentifier
         // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
         public void InitSongLevel(int id)
         {
-            var fir = int.Parse(Console.ReadLine());
-            var sec = int.Parse(Console.ReadLine());
-            ConstIneq[id] = (fir, sec);
+            var inputData = new SongData();
+            inputData.fir = int.Parse(Console.ReadLine());
+            inputData.sec = int.Parse(Console.ReadLine());
+            ConstIneq[id] = (inputData.fir, inputData.sec);
             return;
         }
 
@@ -153,28 +175,28 @@ namespace BeatsmapConstIdentifier
         // true : 成功 , false : データ破損
         public bool InputSetData()
         {
-            // 入力は全て標準入力から行っている
-
-            var SetSong = int.Parse(Console.ReadLine()); // 何曲からなるデータか? (Bestなら30、Recentなら10)
-                                                         // 初めは空
-            var Songid = new List<int>();
-            var Offset = new List<int>();
-            for (int i = 0; i < SetSong; i++)
+            var inputData = new SetData();
+            inputData.SetSong = int.Parse(Console.ReadLine());
+            for (var i = 0; i < inputData.SetSong; i++)
             {
                 var inid = int.Parse(Console.ReadLine());
                 var insc = int.Parse(Console.ReadLine());
                 insc = ScoreToOffset(insc); // スコアをオフセットに変換
-                if (insc < 0) { continue; } // Sに満たない、オフセット 0 未満ならデータを破棄
-                Songid.Add(inid);
-                Offset.Add(insc);
+                if (insc < 0)
+                {
+                    // Sに満たない、オフセット 0 未満ならデータを破棄
+                    continue;
+                }
+                inputData.Songid.Add(inid);
+                inputData.Offset.Add(insc);
             }
-            SetSong = Songid.Count; // 有効なデータが何曲あるかに更新
+            inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
 
             // i-1個目とi個目のデータについて、データを追加
-            for (int i = 1; i < SetSong; i++)
+            for (int i = 1; i < inputData.SetSong; i++)
             {
-                int Uid = Songid[i - 1], Uofs = Offset[i - 1]; // 順位が高い方
-                int Lid = Songid[i], Lofs = Offset[i]; // 順位が低い方
+                int Uid = inputData.Songid[i - 1], Uofs = inputData.Offset[i - 1]; // 順位が高い方
+                int Lid = inputData.Songid[i], Lofs = inputData.Offset[i]; // 順位が低い方
                 if (Uid == Lid) { continue; } // 同じ曲同士なら、処理を無視
                 (int id1, int id2) ULp = (Uid, Lid);
                 (int id1, int id2) LUp = (Lid, Uid);
@@ -201,7 +223,7 @@ namespace BeatsmapConstIdentifier
             }
 
             var qu = new Queue<int>(); // Runに渡すqueue
-            for (int i = 0; i < SetSong; i++) { qu.Enqueue(Songid[i]); } // 関係が動きうる全曲を追加
+            for (int i = 0; i < inputData.SetSong; i++) { qu.Enqueue(inputData.Songid[i]); } // 関係が動きうる全曲を追加
             return Run(qu); // 影響を伝播
         }
 
@@ -210,12 +232,14 @@ namespace BeatsmapConstIdentifier
         // true : 成功 , false : データ破損
         public bool InputOneData()
         {
-            var id = int.Parse(Console.ReadLine());
-            var first = int.Parse(Console.ReadLine());
-            var second = int.Parse(Console.ReadLine());
-            if (!ConstUpdate(id, first, second)) { return false; } // 単曲で定数制約更新
+            var inputData = new OneData();
+            inputData.id = int.Parse(Console.ReadLine());
+            inputData.first = int.Parse(Console.ReadLine());
+            inputData.second = int.Parse(Console.ReadLine());
+
+            if (!ConstUpdate(inputData.id, inputData.first, inputData.second)) { return false; } // 単曲で定数制約更新
             var qu = new Queue<int>();
-            qu.Enqueue(id);
+            qu.Enqueue(inputData.id);
             return Run(qu);
         }
     }
