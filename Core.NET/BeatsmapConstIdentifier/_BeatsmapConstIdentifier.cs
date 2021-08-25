@@ -105,13 +105,6 @@ namespace BeatsmapConstIdentifier
             return true;
         }
 
-        // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
-        public void InitSongLevel(int id)
-        {
-            var inputData = ReadSongData();
-            AddSongData(id, inputData);
-        }
-
         public static SongData ReadSongData()
         {
             var inputData = new SongData();
@@ -120,6 +113,7 @@ namespace BeatsmapConstIdentifier
             return inputData;
         }
 
+        // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
         public void AddSongData(int id, SongData inputData)
         {
             ConstIneq[id] = (inputData.fir, inputData.sec);
@@ -180,15 +174,6 @@ namespace BeatsmapConstIdentifier
             return true;
         }
 
-        // Best枠 (Recent枠) 情報入力
-        // 返り値 : bool
-        // true : 成功 , false : データ破損
-        public bool InputSetData()
-        {
-            var inputData = ReadSetData();
-            return AddSetData(inputData);
-        }
-
         public static SetData ReadSetData()
         {
             var inputData = new SetData();
@@ -211,6 +196,9 @@ namespace BeatsmapConstIdentifier
             return inputData;
         }
 
+        // Best枠 (Recent枠) 情報入力
+        // 返り値 : bool
+        // true : 成功 , false : データ破損
         public bool AddSetData(SetData inputData)
         {
             // i-1個目とi個目のデータについて、データを追加
@@ -248,15 +236,6 @@ namespace BeatsmapConstIdentifier
             return Run(qu); // 影響を伝播
         }
 
-        // 単曲制約追加
-        // 返り値 : bool
-        // true : 成功 , false : データ破損
-        public bool InputOneData()
-        {
-            var inputData = ReadOneData();
-            return AddOneData(inputData);
-        }
-
         public static OneData ReadOneData()
         {
             var inputData = new OneData();
@@ -266,6 +245,9 @@ namespace BeatsmapConstIdentifier
             return inputData;
         }
 
+        // 単曲制約追加
+        // 返り値 : bool
+        // true : 成功 , false : データ破損
         public bool AddOneData(OneData inputData)
         {
             if (!ConstUpdate(inputData.id, inputData.first, inputData.second)) { return false; } // 単曲で定数制約更新
