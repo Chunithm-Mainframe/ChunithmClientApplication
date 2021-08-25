@@ -80,17 +80,19 @@ namespace BeatsmapConstIdentifier
         public static _BeatsmapConstIdentifier.SongData ReadSongData()
         {
             var inputData = new _BeatsmapConstIdentifier.SongData();
-            inputData.fir = int.Parse(Console.ReadLine());
-            inputData.sec = int.Parse(Console.ReadLine());
+            var read = Console.ReadLine().Split(' ');
+            inputData.fir = int.Parse(read[0]);
+            inputData.sec = int.Parse(read[1]);
             return inputData;
         }
 
         public static _BeatsmapConstIdentifier.OneData ReadOneData()
         {
             var inputData = new _BeatsmapConstIdentifier.OneData();
-            inputData.id = int.Parse(Console.ReadLine());
-            inputData.first = int.Parse(Console.ReadLine());
-            inputData.second = int.Parse(Console.ReadLine());
+            var read = Console.ReadLine().Split(' ');
+            inputData.id = int.Parse(read[0]);
+            inputData.first = int.Parse(read[1]);
+            inputData.second = int.Parse(read[2]);
             return inputData;
         }
 
@@ -100,8 +102,9 @@ namespace BeatsmapConstIdentifier
             inputData.SetSong = int.Parse(Console.ReadLine());
             for (var i = 0; i < inputData.SetSong; i++)
             {
-                var inid = int.Parse(Console.ReadLine());
-                var insc = int.Parse(Console.ReadLine());
+                var line = Console.ReadLine().Split(' ');
+                var inid = int.Parse(line[0]);
+                var insc = int.Parse(line[1]);
                 insc = _BeatsmapConstIdentifier.ScoreToOffset(insc); // スコアをオフセットに変換
                 if (insc < 0)
                 {
