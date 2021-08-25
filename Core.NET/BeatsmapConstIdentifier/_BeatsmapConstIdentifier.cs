@@ -112,7 +112,7 @@ namespace BeatsmapConstIdentifier
             AddSongData(id, inputData);
         }
 
-        private SongData ReadSongData()
+        public static SongData ReadSongData()
         {
             var inputData = new SongData();
             inputData.fir = int.Parse(Console.ReadLine());
@@ -126,10 +126,10 @@ namespace BeatsmapConstIdentifier
         }
 
         public const int BaseElement = 5;
-        public readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };
-        public readonly List<int> BaseOffset = new List<int> { 200, 100, 0, -300, -500 };
+        public static readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };
+        public static readonly List<int> BaseOffset = new List<int> { 200, 100, 0, -300, -500 };
 
-        public int ScoreToOffset(int score)
+        public static int ScoreToOffset(int score)
         {
             if (score >= BaseScore[0]) { return BaseOffset[0]; }
             for (int i = 1; i < BaseElement; i++)
@@ -189,7 +189,7 @@ namespace BeatsmapConstIdentifier
             return AddSetData(inputData);
         }
 
-        private SetData ReadSetData()
+        public static SetData ReadSetData()
         {
             var inputData = new SetData();
             inputData.SetSong = int.Parse(Console.ReadLine());
@@ -257,7 +257,7 @@ namespace BeatsmapConstIdentifier
             return AddOneData(inputData);
         }
 
-        private OneData ReadOneData()
+        public static OneData ReadOneData()
         {
             var inputData = new OneData();
             inputData.id = int.Parse(Console.ReadLine());
