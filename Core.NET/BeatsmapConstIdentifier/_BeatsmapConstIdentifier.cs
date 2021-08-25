@@ -108,11 +108,21 @@ namespace BeatsmapConstIdentifier
         // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
         public void InitSongLevel(int id)
         {
+            var inputData = ReadSongData();
+            AddSongData(id, inputData);
+        }
+
+        private SongData ReadSongData()
+        {
             var inputData = new SongData();
             inputData.fir = int.Parse(Console.ReadLine());
             inputData.sec = int.Parse(Console.ReadLine());
+            return inputData;
+        }
+
+        public void AddSongData(int id, SongData inputData)
+        {
             ConstIneq[id] = (inputData.fir, inputData.sec);
-            return;
         }
 
         public const int BaseElement = 5;
@@ -175,6 +185,12 @@ namespace BeatsmapConstIdentifier
         // true : 成功 , false : データ破損
         public bool InputSetData()
         {
+            var inputData = ReadSetData();
+            return AddSetData(inputData);
+        }
+
+        private SetData ReadSetData()
+        {
             var inputData = new SetData();
             inputData.SetSong = int.Parse(Console.ReadLine());
             for (var i = 0; i < inputData.SetSong; i++)
@@ -192,6 +208,11 @@ namespace BeatsmapConstIdentifier
             }
             inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
 
+            return inputData;
+        }
+
+        public bool AddSetData(SetData inputData)
+        {
             // i-1個目とi個目のデータについて、データを追加
             for (int i = 1; i < inputData.SetSong; i++)
             {
@@ -232,11 +253,21 @@ namespace BeatsmapConstIdentifier
         // true : 成功 , false : データ破損
         public bool InputOneData()
         {
+            var inputData = ReadOneData();
+            return AddOneData(inputData);
+        }
+
+        private OneData ReadOneData()
+        {
             var inputData = new OneData();
             inputData.id = int.Parse(Console.ReadLine());
             inputData.first = int.Parse(Console.ReadLine());
             inputData.second = int.Parse(Console.ReadLine());
+            return inputData;
+        }
 
+        public bool AddOneData(OneData inputData)
+        {
             if (!ConstUpdate(inputData.id, inputData.first, inputData.second)) { return false; } // 単曲で定数制約更新
             var qu = new Queue<int>();
             qu.Enqueue(inputData.id);
