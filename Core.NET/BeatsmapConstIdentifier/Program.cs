@@ -23,7 +23,8 @@ namespace BeatsmapConstIdentifier
 
             for (int i = 1; i <= SongNum; i++)
             {
-                instance.InitSongLevel(i); // 曲IDがi番の曲について、筐体表示レベルを入力
+                var songData = _BeatsmapConstIdentifier.ReadSongData();
+                instance.AddSongData(i, songData); // 曲IDがi番の曲について、筐体表示レベルを入力
             }
 
             // Best枠 (Recent枠) 情報入力ゾーン
@@ -46,7 +47,8 @@ namespace BeatsmapConstIdentifier
                 // Best枠かRecent枠のデータを、1個分取得する
                 if (s == "Set")
                 {
-                    if (!instance.InputSetData())
+                    var setData = _BeatsmapConstIdentifier.ReadSetData();
+                    if (!instance.AddSetData(setData))
                     {
                         // データがどこかで破損している
                         Console.WriteLine("Error : Crashed!!");
@@ -56,7 +58,8 @@ namespace BeatsmapConstIdentifier
                 // ある曲について、制約を追加
                 if (s == "One")
                 {
-                    if (!instance.InputOneData())
+                    var oneData = _BeatsmapConstIdentifier.ReadOneData();
+                    if (!instance.AddOneData(oneData))
                     {
                         // データがどこかで破損している
                         Console.WriteLine("Error : Crashed!!");
