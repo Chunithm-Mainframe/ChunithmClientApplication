@@ -77,7 +77,10 @@ namespace BeatsmapConstIdentifier
             if (cfir % 10 != 0) { cfir += 10 - cfir % 10; }
             csec -= csec % 10;
 
-            if (cfir > csec) { return false; }
+            if (cfir > csec)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -90,7 +93,10 @@ namespace BeatsmapConstIdentifier
             int cfir = Math.Max(ConstIneq[id].first, first);
             int csec = Math.Min(ConstIneq[id].second, second);
 
-            if (!ConstValidate(ref cfir, ref csec)) { return false; }
+            if (!ConstValidate(ref cfir, ref csec))
+            {
+                return false;
+            }
 
             ConstIneq[id] = (cfir, csec);
 
@@ -102,6 +108,17 @@ namespace BeatsmapConstIdentifier
         {
             ConstIneq[id] = (inputData.fir, inputData.sec);
         }
+
+        // スコアを (定数) + x という形に変換、xを返す
+        // 例 :
+        // 1007500 : 返答は 200 (+2.00なので)
+        // 990000 : 返答は 60 (+0.60なので)
+        // 一応、この関数はAまでの定数に対応しておく
+        // それ未満は、-infを返答とする
+
+        // 定数用基準スコア
+        // BaseScore[i]であれば丁度BaseOffset[i] 加点される
+        // 間は線形補間
 
         private const int BaseElement = 5;
         private static readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };

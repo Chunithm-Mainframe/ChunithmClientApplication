@@ -9,22 +9,7 @@ namespace BeatsmapConstIdentifier
     {
         public static void Main(string[] args)
         {
-        }
-
-        public static Func<string> CreateReadLineFile(string path)
-        {
-            using var reader = new StreamReader(path);
-            var lines = reader.ReadToEnd().Replace("\r\n", "\n").Split("\n", StringSplitOptions.RemoveEmptyEntries);
-            return CreateReadLine(lines.AsEnumerable().GetEnumerator());
-        }
-
-        public static Func<string> CreateReadLine(IEnumerator<string> lines)
-        {
-            return () =>
-            {
-                lines.MoveNext();
-                return lines.Current;
-            };
+            Exec();
         }
 
         public static IReadOnlyCollection<string> Exec()
@@ -49,6 +34,9 @@ namespace BeatsmapConstIdentifier
                 instance.AddSongData(i, songData); // 曲IDがi番の曲について、筐体表示レベルを入力
             }
 
+            var setDatas = new List<_BeatsmapConstIdentifier.SetData>();
+            var oneDatas = new List<_BeatsmapConstIdentifier.OneData>();
+
             // Best枠 (Recent枠) 情報入力ゾーン
             // 旧バージョンの状態の各枠を間違って取り込まないよう、注意!
             // (直近プレイ記録の最新プレイ時刻とかで判定してください)
@@ -70,23 +58,33 @@ namespace BeatsmapConstIdentifier
                 if (s == "Set")
                 {
                     var setData = ReadSetData(readLine);
-                    if (!instance.AddSetData(setData))
-                    {
-                        // データがどこかで破損している
-                        Console.WriteLine("Error : Crashed!!");
-                        return Array.Empty<string>();
-                    }
+                    setDatas.Add(setData);
                 }
                 // ある曲について、制約を追加
                 if (s == "One")
                 {
                     var oneData = ReadOneData(readLine);
-                    if (!instance.AddOneData(oneData))
-                    {
-                        // データがどこかで破損している
-                        Console.WriteLine("Error : Crashed!!");
-                        return Array.Empty<string>();
-                    }
+                    oneDatas.Add(oneData);
+                }
+            }
+
+            foreach (var oneData in oneDatas)
+            {
+                if (!instance.AddOneData(oneData))
+                {
+                    // データがどこかで破損している
+                    Console.WriteLine("Error : Crashed!!");
+                    return Array.Empty<string>();
+                }
+            }
+
+            foreach (var setData in setDatas)
+            {
+                if (!instance.AddSetData(setData))
+                {
+                    // データがどこかで破損している
+                    Console.WriteLine("Error : Crashed!!");
+                    return Array.Empty<string>();
                 }
             }
 
