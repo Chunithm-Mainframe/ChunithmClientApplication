@@ -69,7 +69,7 @@ namespace BeatsmapConstIdentifier
         public _BeatsmapConstIdentifier(int songNum)
         {
             songs = new List<Song>(songNum + 1);
-            relateSong = Enumerable.Repeat(new HashSet<int>(), songNum + 1).ToList();
+            relateSong = Enumerable.Range(0, songNum + 1).Select(_ => new HashSet<int>()).ToList();
         }
 
         // 譜面定数が小数第1位までしか持たないことを前提にして、
