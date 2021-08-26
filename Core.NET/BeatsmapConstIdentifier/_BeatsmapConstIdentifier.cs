@@ -54,13 +54,13 @@ namespace BeatsmapConstIdentifier
         // keyが pair<int,int> であり value が int である map
         // 「 (tの譜面定数) >= (sの譜面定数) + v 」(vが負になる可能性もある)
         // 最も緩い制約は、v=-inf
-        public Dictionary<(int id1, int id2), int> ReqMin;
+        public Dictionary<(int id1, int id2), int> ReqMin = new Dictionary<(int id1, int id2), int>();
 
         // ReqMax[ (曲ID : s , 曲ID : t) ] = {数値v} の、
         // keyが pair<int,int> であり value が int である map
         // 「 (tの譜面定数) <= (sの譜面定数) + v 」(vが負になる可能性もある)
         // 最も緩い制約は、v=inf
-        public Dictionary<(int id1, int id2), int> ReqMax;
+        public Dictionary<(int id1, int id2), int> ReqMax = new Dictionary<(int id1, int id2), int>();
 
         // 譜面定数が小数第1位までしか持たないことを前提にして、
         // cfir <= (定数) <= csec を検証し、範囲を狭める
@@ -138,15 +138,15 @@ namespace BeatsmapConstIdentifier
                     bool change = false; // nidに関する制約に変動があったかどうか
                     (int id1, int id2) CNp = (cid, nid);
                     // 最大値規定制約
-                    if (ConstIneq[cid].second + ReqMax[CNp] < ConstIneq[nid].second) { change = true; }
+                    if (ConstIneq[cid].second + ReqMax.GetValueOrDefault(CNp) < ConstIneq[nid].second) { change = true; }
                     // 最小値規定制約
-                    if (ConstIneq[cid].first + ReqMin[CNp] > ConstIneq[nid].first) { change = true; }
+                    if (ConstIneq[cid].first + ReqMin.GetValueOrDefault(CNp) > ConstIneq[nid].first) { change = true; }
 
                     // ConstIneq[nid] に変動が生じる場合
                     if (change)
                     {
                         // 新たな制約を追加して壊れたら、破滅
-                        if (!ConstUpdate(nid, ConstIneq[cid].first + ReqMin[CNp], ConstIneq[cid].second + ReqMax[CNp]))
+                        if (!ConstUpdate(nid, ConstIneq[cid].first + ReqMin.GetValueOrDefault(CNp), ConstIneq[cid].second + ReqMax.GetValueOrDefault(CNp)))
                         {
                             return false;
                         }
