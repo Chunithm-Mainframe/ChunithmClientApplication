@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace BeatsmapConstIdentifier
 {
@@ -7,24 +9,39 @@ namespace BeatsmapConstIdentifier
     {
         public static void Main(string[] args)
         {
-            Exec();
         }
 
-        public static void Exec()
+        public static Func<string> CreateReadLineFile(string path)
         {
-            Exec(Console.ReadLine);
+            using var reader = new StreamReader(path);
+            var lines = reader.ReadToEnd().Replace("\r\n", "\n").Split("\n", StringSplitOptions.RemoveEmptyEntries);
+            return CreateReadLine(lines.AsEnumerable().GetEnumerator());
         }
 
-        public static void Exec(Func<string> readLine)
+        public static Func<string> CreateReadLine(IEnumerator<string> lines)
+        {
+            return () =>
+            {
+                lines.MoveNext();
+                return lines.Current;
+            };
+        }
+
+        public static IReadOnlyCollection<string> Exec()
+        {
+            return Exec(Console.ReadLine);
+        }
+
+        public static IReadOnlyCollection<string> Exec(Func<string> readLine)
         {
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
             int SongNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
 
             var instance = new _BeatsmapConstIdentifier();
 
-            instance.ConstIneq = new List<(int first, int second)>(SongNum + 1);
-            instance.RelateSong = new List<HashSet<int>>(SongNum + 1);
-            instance.ConstIneq.Add((-1, -2)); // 曲ID0番に、無効なデータを番兵として置く
+            instance.ConstIneq = Enumerable.Repeat<(int first, int second)>(default, SongNum + 1).ToList();
+            instance.RelateSong = Enumerable.Repeat(new HashSet<int>(), SongNum + 1).ToList();
+            instance.ConstIneq[0] = (-1, -2); // 曲ID0番に、無効なデータを番兵として置く
 
             for (int i = 1; i <= SongNum; i++)
             {
@@ -57,7 +74,7 @@ namespace BeatsmapConstIdentifier
                     {
                         // データがどこかで破損している
                         Console.WriteLine("Error : Crashed!!");
-                        return;
+                        return Array.Empty<string>();
                     }
                 }
                 // ある曲について、制約を追加
@@ -68,18 +85,23 @@ namespace BeatsmapConstIdentifier
                     {
                         // データがどこかで破損している
                         Console.WriteLine("Error : Crashed!!");
-                        return;
+                        return Array.Empty<string>();
                     }
                 }
             }
 
             // 終了処理
-            for (int i = 1; i <= SongNum; i++)
+            var outputs = Enumerable.Range(1, SongNum)
+                .Select(x => $"{x}:[{instance.ConstIneq[x].first},{instance.ConstIneq[x].second}]")
+                .ToArray();
+
+            foreach (var output in outputs)
             {
                 // 最終結果の出力
-                Console.WriteLine($"{i}:[{instance.ConstIneq[i].first},{instance.ConstIneq[i].second}]");
+                Console.WriteLine(output);
             }
-            return;
+
+            return outputs;
         }
 
         // 総曲数(曲IDの最大値)を取得
