@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+
+using static BeatsmapConstIdentifier._BeatsmapConstIdentifier;
 
 namespace BeatsmapConstIdentifier
 {
@@ -20,22 +21,15 @@ namespace BeatsmapConstIdentifier
         public static IReadOnlyCollection<string> Exec(Func<string> readLine)
         {
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
-            int SongNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
+            int songNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
 
-            var instance = new _BeatsmapConstIdentifier();
+            var instance = new _BeatsmapConstIdentifier(songNum);
 
-            instance.ConstIneq = Enumerable.Repeat<(int first, int second)>(default, SongNum + 1).ToList();
-            instance.RelateSong = Enumerable.Repeat(new HashSet<int>(), SongNum + 1).ToList();
-            instance.ConstIneq[0] = (-1, -2); // 曲ID0番に、無効なデータを番兵として置く
+            instance.AddSong(new Song(-1, -2)); // 曲ID0番に、無効なデータを番兵として置く
+            instance.AddSongs(Enumerable.Range(0, songNum).Select(_ => ReadSongData(readLine)));
 
-            for (int i = 1; i <= SongNum; i++)
-            {
-                var songData = ReadSongData(readLine);
-                instance.AddSongData(i, songData); // 曲IDがi番の曲について、筐体表示レベルを入力
-            }
-
-            var setDatas = new List<_BeatsmapConstIdentifier.SetData>();
-            var oneDatas = new List<_BeatsmapConstIdentifier.OneData>();
+            var setDatas = new List<SetData>();
+            var oneDatas = new List<OneData>();
 
             // Best枠 (Recent枠) 情報入力ゾーン
             // 旧バージョンの状態の各枠を間違って取り込まないよう、注意!
@@ -89,8 +83,8 @@ namespace BeatsmapConstIdentifier
             }
 
             // 終了処理
-            var outputs = Enumerable.Range(1, SongNum)
-                .Select(x => $"{x}:[{instance.ConstIneq[x].first},{instance.ConstIneq[x].second}]")
+            var outputs = instance.Songs
+                .Select((x, i) => $"{i}:[{x.LowerLimit},{x.UpperLimit}]")
                 .ToArray();
 
             foreach (var output in outputs)
@@ -110,30 +104,30 @@ namespace BeatsmapConstIdentifier
             return res;
         }
 
-        public static _BeatsmapConstIdentifier.SongData ReadSongData(Func<string> readLine)
+        public static Song ReadSongData(Func<string> readLine)
         {
-            var inputData = new _BeatsmapConstIdentifier.SongData();
+            var inputData = new Song();
             var read = readLine().Split(' ');
-            inputData.fir = int.Parse(read[0]);
-            inputData.sec = int.Parse(read[1]);
+            inputData.LowerLimit = int.Parse(read[0]);
+            inputData.UpperLimit = int.Parse(read[1]);
             return inputData;
         }
 
-        public static _BeatsmapConstIdentifier.OneData ReadOneData(Func<string> readLine)
+        public static OneData ReadOneData(Func<string> readLine)
         {
-            var inputData = new _BeatsmapConstIdentifier.OneData();
+            var inputData = new OneData();
             var read = readLine().Split(' ');
-            inputData.id = int.Parse(read[0]);
-            inputData.first = int.Parse(read[1]);
-            inputData.second = int.Parse(read[2]);
+            inputData.Id = int.Parse(read[0]);
+            inputData.LowerLimit = int.Parse(read[1]);
+            inputData.UpperLimit = int.Parse(read[2]);
             return inputData;
         }
 
-        public static _BeatsmapConstIdentifier.SetData ReadSetData(Func<string> readLine)
+        public static SetData ReadSetData(Func<string> readLine)
         {
-            var inputData = new _BeatsmapConstIdentifier.SetData();
-            inputData.SetSong = int.Parse(readLine());
-            for (var i = 0; i < inputData.SetSong; i++)
+            var inputData = new SetData();
+            var songCount = int.Parse(readLine());
+            for (var i = 0; i < songCount; i++)
             {
                 var (inid, insc) = ReadSetDataUnit(readLine);
                 if (insc < 0)
@@ -141,10 +135,9 @@ namespace BeatsmapConstIdentifier
                     // Sに満たない、オフセット 0 未満ならデータを破棄
                     continue;
                 }
-                inputData.Songid.Add(inid);
-                inputData.Offset.Add(insc);
+                inputData.SongIds.Add(inid);
+                inputData.Offsets.Add(insc);
             }
-            inputData.SetSong = inputData.Songid.Count; // 有効なデータが何曲あるかに更新
 
             return inputData;
         }
@@ -154,7 +147,7 @@ namespace BeatsmapConstIdentifier
             var line = readLine().Split(' ');
             var inid = int.Parse(line[0]);
             var insc = int.Parse(line[1]);
-            insc = _BeatsmapConstIdentifier.ScoreToOffset(insc); // スコアをオフセットに変換
+            insc = ScoreToOffset(insc); // スコアをオフセットに変換
             return (inid, insc);
         }
     }

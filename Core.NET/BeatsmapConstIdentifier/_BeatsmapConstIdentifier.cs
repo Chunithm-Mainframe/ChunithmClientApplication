@@ -18,95 +18,107 @@ namespace BeatsmapConstIdentifier
 
     public class _BeatsmapConstIdentifier
     {
-        public class SongData
+        public class Song
         {
-            public int fir;
-            public int sec;
+            public int LowerLimit { get; set; }
+            public int UpperLimit { get; set; }
+
+            public Song() { }
+
+            public Song(int lowerLimit, int upperLimit)
+            {
+                LowerLimit = lowerLimit;
+                UpperLimit = upperLimit;
+            }
         }
 
         public class SetData
         {
-            public int SetSong;
-
-            public List<int> Songid = new List<int>();
-            public List<int> Offset = new List<int>();
+            public List<int> SongIds = new List<int>();
+            public List<int> Offsets = new List<int>();
         }
 
         public class OneData
         {
-            public int id;
-            public int first;
-            public int second;
+            public int Id;
+            public int LowerLimit;
+            public int UpperLimit;
         }
 
         // 十分大きな値として inf を定義
         public const int inf = 1000000007;
 
-        // ConstIneq[ 曲ID ] : pair<int,int> の vector
-        // .first <= (曲IDの譜面定数) <= .second
-        public List<(int first, int second)> ConstIneq;
+        public IReadOnlyList<Song> Songs => songs;
 
-        // RelateSong[ 曲ID ] : set<int> の vector
+        // ConstIneq
+        private readonly List<Song> songs;
+
         // RelateSong[ i ] の要素 = (曲ID i)と何らかの関係式が存在する曲IDの集合
-        public List<HashSet<int>> RelateSong;
+        private readonly List<HashSet<int>> relateSong;
 
-        // ReqMin[ (曲ID : s , 曲ID : t) ] = {数値v} の、
-        // keyが pair<int,int> であり value が int である map
+        // ReqMin[ (曲ID : s , 曲ID : t) ] = {数値v}
         // 「 (tの譜面定数) >= (sの譜面定数) + v 」(vが負になる可能性もある)
         // 最も緩い制約は、v=-inf
-        public Dictionary<(int id1, int id2), int> ReqMin = new Dictionary<(int id1, int id2), int>();
+        private readonly Dictionary<(int id1, int id2), int> requiredMin = new Dictionary<(int id1, int id2), int>();
 
-        // ReqMax[ (曲ID : s , 曲ID : t) ] = {数値v} の、
-        // keyが pair<int,int> であり value が int である map
+        // ReqMax[ (曲ID : s , 曲ID : t) ] = {数値v}
         // 「 (tの譜面定数) <= (sの譜面定数) + v 」(vが負になる可能性もある)
         // 最も緩い制約は、v=inf
-        public Dictionary<(int id1, int id2), int> ReqMax = new Dictionary<(int id1, int id2), int>();
+        private readonly Dictionary<(int id1, int id2), int> requireMax = new Dictionary<(int id1, int id2), int>();
+
+        public _BeatsmapConstIdentifier(int songNum)
+        {
+            songs = new List<Song>(songNum + 1);
+            relateSong = Enumerable.Repeat(new HashSet<int>(), songNum + 1).ToList();
+        }
 
         // 譜面定数が小数第1位までしか持たないことを前提にして、
-        // cfir <= (定数) <= csec を検証し、範囲を狭める
+        // lowerLimit <= (定数) <= upperLimit を検証し、範囲を狭める
         // Ex)
         // 1328 <= (定数) <= 1342
         // -> 1330 <= (定数) <= 1340
         // 1333 <= (定数) <= 1339
         // -> 矛盾しているので、エラーを送出
-        // 返り値 : bool
         // true - 異常なし , false - 矛盾が発生
-        public bool ConstValidate(ref int cfir, ref int csec)
+        public bool ConstValidate(ref int lowerLimit, ref int upperLimit)
         {
             // 10単位(本来の0.1単位)に丸める
-            if (cfir % 10 != 0) { cfir += 10 - cfir % 10; }
-            csec -= csec % 10;
+            if (lowerLimit % 10 != 0) { lowerLimit += 10 - lowerLimit % 10; }
+            upperLimit -= upperLimit % 10;
 
-            if (cfir > csec)
+            if (lowerLimit > upperLimit)
             {
                 return false;
             }
             return true;
         }
 
-        // [曲ID] の譜面定数が first 以上 second 以下であるとの情報を ConstIneq に追加
+        // [曲ID] の譜面定数が currentLowerLimit 以上 currentUpperLimit 以下であるとの情報を Songs に追加
         // (ConstValidateを含む)
-        // 返り値 : bool
         // true - 異常なし , false - 矛盾が発生
-        public bool ConstUpdate(int id, int first, int second)
+        public bool ConstUpdate(int id, int currentLowerLimit, int currentUpperLimit)
         {
-            int cfir = Math.Max(ConstIneq[id].first, first);
-            int csec = Math.Min(ConstIneq[id].second, second);
+            int nextLowerLimit = Math.Max(songs[id].LowerLimit, currentLowerLimit);
+            int nextUpperLimit = Math.Min(songs[id].UpperLimit, currentUpperLimit);
 
-            if (!ConstValidate(ref cfir, ref csec))
+            if (!ConstValidate(ref nextLowerLimit, ref nextUpperLimit))
             {
                 return false;
             }
 
-            ConstIneq[id] = (cfir, csec);
+            songs[id] = new Song(nextLowerLimit, nextUpperLimit);
 
             return true;
         }
 
-        // 曲IDがid番の曲について、筐体表示レベルで定数を初期化
-        public void AddSongData(int id, SongData inputData)
+        public void AddSong(Song song)
         {
-            ConstIneq[id] = (inputData.fir, inputData.sec);
+            songs.Add(song);
+        }
+
+        public void AddSongs(IEnumerable<Song> songs)
+        {
+            this.songs.AddRange(songs);
         }
 
         // スコアを (定数) + x という形に変換、xを返す
@@ -143,32 +155,29 @@ namespace BeatsmapConstIdentifier
         // 追加した情報を処理
         // ここがメインパート! むずかしい!
         // 下のInputSetData内で呼ばれる
-        // 返り値 : bool
         // true : 成功 , false : データ破損
-        public bool Run(Queue<int> qu)
+        public bool Run(Queue<int> requests)
         {
-            while (qu.Any())
+            while (requests.Any())
             {
-                int cid = qu.Dequeue(); // 着目する曲ID
-                foreach (var nid in RelateSong[cid])
-                { // nid を cid と関連する曲ID全てについて走査
-                    bool change = false; // nidに関する制約に変動があったかどうか
-                    (int id1, int id2) CNp = (cid, nid);
-                    // 最大値規定制約
-                    if (ConstIneq[cid].second + ReqMax.GetValueOrDefault(CNp) < ConstIneq[nid].second) { change = true; }
-                    // 最小値規定制約
-                    if (ConstIneq[cid].first + ReqMin.GetValueOrDefault(CNp) > ConstIneq[nid].first) { change = true; }
+                int currentId = requests.Dequeue();
+                foreach (var targetId in relateSong[currentId])
+                {
+                    var reqKey = (currentId, targetId);
+                    var nextUpperLimit = songs[currentId].UpperLimit + requireMax.GetValueOrDefault(reqKey);
+                    var nextLowerLimit = songs[currentId].LowerLimit + requiredMin.GetValueOrDefault(reqKey);
 
-                    // ConstIneq[nid] に変動が生じる場合
-                    if (change)
+                    // Songs[targetId] に変動が生じる場合
+                    if (nextUpperLimit < songs[targetId].UpperLimit || nextLowerLimit > songs[targetId].LowerLimit)
                     {
                         // 新たな制約を追加して壊れたら、破滅
-                        if (!ConstUpdate(nid, ConstIneq[cid].first + ReqMin.GetValueOrDefault(CNp), ConstIneq[cid].second + ReqMax.GetValueOrDefault(CNp)))
+                        if (!ConstUpdate(targetId, nextLowerLimit, nextUpperLimit))
                         {
                             return false;
                         }
-                        // nid を基準とする処理を処理待ち queue に追加
-                        qu.Enqueue(nid);
+
+                        // targetId を基準とする処理を処理待ち queue に追加
+                        requests.Enqueue(targetId);
                     }
                 }
             }
@@ -176,54 +185,55 @@ namespace BeatsmapConstIdentifier
         }
 
         // Best枠 (Recent枠) 情報入力
-        // 返り値 : bool
         // true : 成功 , false : データ破損
-        public bool AddSetData(SetData inputData)
+        public bool AddSetData(SetData setData)
         {
             // i-1個目とi個目のデータについて、データを追加
-            for (int i = 1; i < inputData.SetSong; i++)
+            for (int i = 1; i < setData.SongIds.Count; i++)
             {
-                int Uid = inputData.Songid[i - 1], Uofs = inputData.Offset[i - 1]; // 順位が高い方
-                int Lid = inputData.Songid[i], Lofs = inputData.Offset[i]; // 順位が低い方
-                if (Uid == Lid) { continue; } // 同じ曲同士なら、処理を無視
-                (int id1, int id2) ULp = (Uid, Lid);
-                (int id1, int id2) LUp = (Lid, Uid);
+                // 順位が高い方
+                var upperId = setData.SongIds[i - 1];
+                var upperOffset = setData.Offsets[i - 1];
+
+                // 順位が低い方
+                var lowerId = setData.SongIds[i];
+                var lowerOffset = setData.Offsets[i];
+
+                if (upperId == lowerId) { continue; } // 同じ曲同士なら、処理を無視
 
                 //はじめての関係なら、その関係の初期化処理を行う
-                if (!RelateSong[Uid].Contains(Lid))
+                if (!relateSong[upperId].Contains(lowerId))
                 {
                     //関係を追加
-                    RelateSong[Uid].Add(Lid);
-                    RelateSong[Lid].Add(Uid);
+                    relateSong[upperId].Add(lowerId);
+                    relateSong[lowerId].Add(upperId);
+
                     //最も甘い条件で初期化
-                    ReqMin[ULp] = -inf;
-                    ReqMax[ULp] = inf;
-                    ReqMin[LUp] = -inf;
-                    ReqMax[LUp] = inf;
+                    requiredMin[(upperId, lowerId)] = -inf;
+                    requireMax[(upperId, lowerId)] = inf;
+                    requiredMin[(lowerId, upperId)] = -inf;
+                    requireMax[(lowerId, upperId)] = inf;
                 }
 
-                // (上の定数) + Uofs >= (下の定数) + Lofs
+                // (上の定数) + upperOffset >= (下の定数) + lowerOffset
                 // 上を基準に、下の最大値制約が規定、必要があれば更新される
-                ReqMax[ULp] = Math.Min(Uofs - Lofs, ReqMax[ULp]);
+                requireMax[(upperId, lowerId)] = Math.Min(upperOffset - lowerOffset, requireMax[(upperId, lowerId)]);
                 // 下を基準に、上の最小値制約が規定、必要があれば更新される
-                ReqMin[LUp] = Math.Max(Lofs - Uofs, ReqMin[LUp]);
+                requiredMin[(lowerId, upperId)] = Math.Max(lowerOffset - upperOffset, requiredMin[(lowerId, upperId)]);
                 // ここで、minとmaxが逆に対応することに注意(これで正しいです)
             }
 
-            var qu = new Queue<int>(); // Runに渡すqueue
-            for (int i = 0; i < inputData.SetSong; i++) { qu.Enqueue(inputData.Songid[i]); } // 関係が動きうる全曲を追加
-            return Run(qu); // 影響を伝播
+            return Run(new Queue<int>(setData.SongIds)); // 影響を伝播
         }
 
         // 単曲制約追加
-        // 返り値 : bool
         // true : 成功 , false : データ破損
-        public bool AddOneData(OneData inputData)
+        public bool AddOneData(OneData oneData)
         {
-            if (!ConstUpdate(inputData.id, inputData.first, inputData.second)) { return false; } // 単曲で定数制約更新
-            var qu = new Queue<int>();
-            qu.Enqueue(inputData.id);
-            return Run(qu);
+            if (!ConstUpdate(oneData.Id, oneData.LowerLimit, oneData.UpperLimit)) { return false; } // 単曲で定数制約更新
+            var requests = new Queue<int>();
+            requests.Enqueue(oneData.Id);
+            return Run(requests);
         }
     }
 }
