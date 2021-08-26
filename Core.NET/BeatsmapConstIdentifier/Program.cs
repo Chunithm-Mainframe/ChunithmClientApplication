@@ -10,15 +10,15 @@ namespace BeatsmapConstIdentifier
     {
         public static void Main(string[] args)
         {
-            Exec();
+            Dump(Exec());
         }
 
-        public static IReadOnlyCollection<string> Exec()
+        public static IReadOnlyCollection<Song> Exec()
         {
             return Exec(Console.ReadLine);
         }
 
-        public static IReadOnlyCollection<string> Exec(Func<string> readLine)
+        public static IReadOnlyCollection<Song> Exec(Func<string> readLine)
         {
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
             int songNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
@@ -68,7 +68,7 @@ namespace BeatsmapConstIdentifier
                 {
                     // データがどこかで破損している
                     Console.WriteLine("Error : Crashed!!");
-                    return Array.Empty<string>();
+                    return Array.Empty<Song>();
                 }
             }
 
@@ -78,22 +78,20 @@ namespace BeatsmapConstIdentifier
                 {
                     // データがどこかで破損している
                     Console.WriteLine("Error : Crashed!!");
-                    return Array.Empty<string>();
+                    return Array.Empty<Song>();
                 }
             }
 
-            // 終了処理
-            var outputs = instance.Songs
-                .Select((x, i) => $"{i}:[{x.LowerLimit},{x.UpperLimit}]")
-                .ToArray();
+            return instance.Songs.Skip(1).ToArray();
+        }
 
-            foreach (var output in outputs)
+        // 最終結果の出力
+        public static void Dump(IEnumerable<Song> songs)
+        {
+            foreach (var (song, id) in songs.Select((x, i) => (x, i + 1)))
             {
-                // 最終結果の出力
-                Console.WriteLine(output);
+                Console.WriteLine($"{id}:[{song.LowerLimit},{song.UpperLimit}]");
             }
-
-            return outputs;
         }
 
         // 総曲数(曲IDの最大値)を取得
