@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using static BeatsmapConstIdentifier._BeatsmapConstIdentifier;
+using static BeatsmapConstIdentifier.Utility;
 
 namespace BeatsmapConstIdentifier_UnitTest
 {
@@ -43,7 +43,7 @@ namespace BeatsmapConstIdentifier_UnitTest
             Assert.AreEqual(-302, ScoreToOffset(924875 - 1));
 
             Assert.AreEqual(-500, ScoreToOffset(900000));
-            Assert.AreEqual(-inf, ScoreToOffset(900000 - 1));
+            Assert.AreEqual(-Infinity, ScoreToOffset(900000 - 1));
         }
     }
 }

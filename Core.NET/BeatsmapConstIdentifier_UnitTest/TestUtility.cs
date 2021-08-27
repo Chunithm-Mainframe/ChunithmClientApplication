@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BeatsmapConstIdentifier;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static BeatsmapConstIdentifier._BeatsmapConstIdentifier;
 using static BeatsmapConstIdentifier.Program;
 
 namespace BeatsmapConstIdentifier_UnitTest

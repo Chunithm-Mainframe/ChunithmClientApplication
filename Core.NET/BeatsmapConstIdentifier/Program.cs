@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using static BeatsmapConstIdentifier._BeatsmapConstIdentifier;
-
 namespace BeatsmapConstIdentifier
 {
     public class Program
@@ -23,13 +21,14 @@ namespace BeatsmapConstIdentifier
             // 実運用の場合、初期化を行うのは最初の1回だけでよい
             int songNum = GetSongNum(readLine); // 総曲数(曲IDの最大値)の取得
 
-            var instance = new _BeatsmapConstIdentifier(songNum);
-
-            instance.AddSong(new Song(-1, -2)); // 曲ID0番に、無効なデータを番兵として置く
-            instance.AddSongs(Enumerable.Range(0, songNum).Select(_ => ReadSongData(readLine)));
+            var songs = new List<Song>();
+            Enumerable.Range(1, songNum)
+                .Select(id => ReadSongData(id, readLine))
+                .ToList()
+                .ForEach(songs.Add);
 
             var setDatas = new List<SetData>();
-            var oneDatas = new List<OneData>();
+            var oneDatas = new List<Song>();
 
             // Best枠 (Recent枠) 情報入力ゾーン
             // 旧バージョンの状態の各枠を間違って取り込まないよう、注意!
@@ -62,9 +61,17 @@ namespace BeatsmapConstIdentifier
                 }
             }
 
+            return Exec(songs, oneDatas, setDatas);
+        }
+
+        public static IReadOnlyCollection<Song> Exec(IReadOnlyList<Song> songs, IReadOnlyList<Song> oneDatas, IReadOnlyList<SetData> setDatas)
+        {
+            var instance = new BeatsmapConstIdentifier();
+            instance.AddSongs(songs);
+
             foreach (var oneData in oneDatas)
             {
-                if (!instance.AddOneData(oneData))
+                if (!instance.UpdateSong(oneData))
                 {
                     // データがどこかで破損している
                     Console.WriteLine("Error : Crashed!!");
@@ -82,15 +89,15 @@ namespace BeatsmapConstIdentifier
                 }
             }
 
-            return instance.Songs.Skip(1).ToArray();
+            return instance.Songs;
         }
 
         // 最終結果の出力
         public static void Dump(IEnumerable<Song> songs)
         {
-            foreach (var (song, id) in songs.Select((x, i) => (x, i + 1)))
+            foreach (var song in songs)
             {
-                Console.WriteLine($"{id}:[{song.LowerLimit},{song.UpperLimit}]");
+                Console.WriteLine($"{song.Id}:[{song.LowerLimit},{song.UpperLimit}]");
             }
         }
 
@@ -102,23 +109,19 @@ namespace BeatsmapConstIdentifier
             return res;
         }
 
-        public static Song ReadSongData(Func<string> readLine)
+        public static Song ReadSongData(int id, Func<string> readLine)
         {
-            var inputData = new Song();
             var read = readLine().Split(' ');
-            inputData.LowerLimit = int.Parse(read[0]);
-            inputData.UpperLimit = int.Parse(read[1]);
-            return inputData;
+            return new Song(id, int.Parse(read[0]), int.Parse(read[1]));
         }
 
-        public static OneData ReadOneData(Func<string> readLine)
+        public static Song ReadOneData(Func<string> readLine)
         {
-            var inputData = new OneData();
             var read = readLine().Split(' ');
-            inputData.Id = int.Parse(read[0]);
-            inputData.LowerLimit = int.Parse(read[1]);
-            inputData.UpperLimit = int.Parse(read[2]);
-            return inputData;
+            return new Song(
+                int.Parse(read[0]),
+                int.Parse(read[1]),
+                int.Parse(read[2]));
         }
 
         public static SetData ReadSetData(Func<string> readLine)
@@ -127,26 +130,24 @@ namespace BeatsmapConstIdentifier
             var songCount = int.Parse(readLine());
             for (var i = 0; i < songCount; i++)
             {
-                var (inid, insc) = ReadSetDataUnit(readLine);
-                if (insc < 0)
+                var unit = ReadSetDataUnit(readLine);
+                if (unit.Offset < 0)
                 {
                     // Sに満たない、オフセット 0 未満ならデータを破棄
                     continue;
                 }
-                inputData.SongIds.Add(inid);
-                inputData.Offsets.Add(insc);
+                inputData.Units.Add(unit);
             }
 
             return inputData;
         }
 
-        public static (int inid, int insc) ReadSetDataUnit(Func<string> readLine)
+        public static SetData.Unit ReadSetDataUnit(Func<string> readLine)
         {
             var line = readLine().Split(' ');
-            var inid = int.Parse(line[0]);
-            var insc = int.Parse(line[1]);
-            insc = ScoreToOffset(insc); // スコアをオフセットに変換
-            return (inid, insc);
+            return new SetData.Unit(
+                int.Parse(line[0]),
+                int.Parse(line[1]));
         }
     }
 }
