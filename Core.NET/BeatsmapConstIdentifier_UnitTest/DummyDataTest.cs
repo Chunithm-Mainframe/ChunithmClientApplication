@@ -17,7 +17,9 @@ namespace BeatsmapConstIdentifier_UnitTest
 
             var diffs = actuals.Zip(expecteds)
                 .Select((x, index) => (actual: x.First, expected: x.Second, lineNumber: index + 1))
-                .Where(x => !(x.actual.LowerLimit <= x.expected && x.expected <= x.actual.UpperLimit))
+                .Where(x => x.actual.Established
+                    ? x.actual.LowerLimit != x.expected
+                    : !(x.actual.LowerLimit <= x.expected && x.expected <= x.actual.UpperLimit))
                 .Select(x => $"{x.lineNumber}\nexpected: {x.expected}\nactual: {x.actual}\n")
                 .ToList();
 
@@ -44,13 +46,6 @@ namespace BeatsmapConstIdentifier_UnitTest
         public void Test_Error1()
         {
             var outputs = TestUtility.TestFile("input_error_01.txt");
-            Assert.IsFalse(outputs.Any());
-        }
-
-        [TestMethod]
-        public void Test_Error2()
-        {
-            var outputs = TestUtility.TestFile("input_error_02.txt");
             Assert.IsFalse(outputs.Any());
         }
     }

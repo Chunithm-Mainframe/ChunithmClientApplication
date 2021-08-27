@@ -1,14 +1,12 @@
 ﻿namespace BeatsmapConstIdentifier
 {
-    public class Song
+    public readonly struct BaseRatingRange
     {
-        public int Id { get; }
         public int LowerLimit { get; }
         public int UpperLimit { get; }
 
-        public Song(int id, int lowerLimit, int upperLimit)
+        public BaseRatingRange(int lowerLimit, int upperLimit)
         {
-            Id = id;
             LowerLimit = lowerLimit;
             UpperLimit = upperLimit;
         }
