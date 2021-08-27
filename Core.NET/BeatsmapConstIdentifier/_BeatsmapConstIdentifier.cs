@@ -121,31 +121,33 @@ namespace BeatsmapConstIdentifier
             this.songs.AddRange(songs);
         }
 
-        // スコアを (定数) + x という形に変換、xを返す
-        // 例 :
-        // 1007500 : 返答は 200 (+2.00なので)
-        // 990000 : 返答は 60 (+0.60なので)
-        // 一応、この関数はAまでの定数に対応しておく
-        // それ未満は、-infを返答とする
+        private static readonly List<(int score, int offset)> borders = new()
+        {
+            (1007500,  200),
+            (1005000,  150),
+            (1000000,  100),
+            ( 975000,    0),
+            ( 925000, -300),
+            ( 900000, -500),
+        };
 
-        // 定数用基準スコア
-        // BaseScore[i]であれば丁度BaseOffset[i] 加点される
-        // 間は線形補間
-
-        private const int BaseElement = 5;
-        private static readonly List<int> BaseScore = new List<int> { 1007500, 1000000, 975000, 925000, 900000 };
-        private static readonly List<int> BaseOffset = new List<int> { 200, 100, 0, -300, -500 };
 
         public static int ScoreToOffset(int score)
         {
-            if (score >= BaseScore[0]) { return BaseOffset[0]; }
-            for (int i = 1; i < BaseElement; i++)
+            if (score >= borders.First().score)
             {
-                if (score >= BaseScore[i])
+                return borders.First().offset;
+            }
+
+            for (var i = 1; i < borders.Count; i++)
+            {
+                if (score >= borders[i].score)
                 {
+                    var nextBorder = borders[i - 1];
+                    var currentBorder = borders[i];
                     // 小数第3位より下は自動切り捨て
                     // 計算順に注意! C++の int(32bit符号付き整数) には収まる
-                    return BaseOffset[i] + (BaseOffset[i - 1] - BaseOffset[i]) * (score - BaseScore[i]) / (BaseScore[i - 1] - BaseScore[i]);
+                    return currentBorder.offset + (nextBorder.offset - currentBorder.offset) * (score - currentBorder.score) / (nextBorder.score - currentBorder.score);
                 }
             }
             // A未満なので、データ破棄
