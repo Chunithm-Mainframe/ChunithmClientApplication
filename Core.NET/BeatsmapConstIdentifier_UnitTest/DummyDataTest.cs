@@ -29,7 +29,7 @@ namespace BeatsmapConstIdentifier_UnitTest
         [TestMethod]
         public void TestFiles()
         {
-            var testCount = 12;
+            var testCount = 11;
             var testFileNamePairs = Enumerable.Range(1, testCount)
                 .Select(x => (input: string.Format("input{0:D2}.txt", x), output: string.Format("output{0:D2}.txt", x)))
                 .ToArray();
