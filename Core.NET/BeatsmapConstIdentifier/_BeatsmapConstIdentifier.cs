@@ -64,7 +64,7 @@ namespace BeatsmapConstIdentifier
         // ReqMax[ (曲ID : s , 曲ID : t) ] = {数値v}
         // 「 (tの譜面定数) <= (sの譜面定数) + v 」(vが負になる可能性もある)
         // 最も緩い制約は、v=inf
-        private readonly Dictionary<(int id1, int id2), int> requireMax = new Dictionary<(int id1, int id2), int>();
+        private readonly Dictionary<(int id1, int id2), int> requiredMax = new Dictionary<(int id1, int id2), int>();
 
         public _BeatsmapConstIdentifier(int songNum)
         {
@@ -164,8 +164,8 @@ namespace BeatsmapConstIdentifier
                 foreach (var targetId in relateSong[currentId])
                 {
                     var reqKey = (currentId, targetId);
-                    var nextUpperLimit = songs[currentId].UpperLimit + requireMax.GetValueOrDefault(reqKey);
-                    var nextLowerLimit = songs[currentId].LowerLimit + requiredMin.GetValueOrDefault(reqKey);
+                    var nextUpperLimit = songs[currentId].UpperLimit + requiredMax[reqKey];
+                    var nextLowerLimit = songs[currentId].LowerLimit + requiredMin[reqKey];
 
                     // Songs[targetId] に変動が生じる場合
                     if (nextUpperLimit < songs[targetId].UpperLimit || nextLowerLimit > songs[targetId].LowerLimit)
@@ -210,16 +210,21 @@ namespace BeatsmapConstIdentifier
 
                     //最も甘い条件で初期化
                     requiredMin[(upperId, lowerId)] = -inf;
-                    requireMax[(upperId, lowerId)] = inf;
+                    requiredMax[(upperId, lowerId)] = inf;
                     requiredMin[(lowerId, upperId)] = -inf;
-                    requireMax[(lowerId, upperId)] = inf;
+                    requiredMax[(lowerId, upperId)] = inf;
                 }
 
-                // (上の定数) + upperOffset >= (下の定数) + lowerOffset
+                // (上の定数) + upperOffset >= (下の定数) + lowerOffset ... (1)
+
+                // (1) => (下の定数) <= (上の定数) + (upperOffset - lowerOffset)
                 // 上を基準に、下の最大値制約が規定、必要があれば更新される
-                requireMax[(upperId, lowerId)] = Math.Min(upperOffset - lowerOffset, requireMax[(upperId, lowerId)]);
+                requiredMax[(upperId, lowerId)] = Math.Min(upperOffset - lowerOffset, requiredMax[(upperId, lowerId)]);
+
+                // (1) => (上の定数) >= (下の定数) + lowerOffset - upperOffset
                 // 下を基準に、上の最小値制約が規定、必要があれば更新される
                 requiredMin[(lowerId, upperId)] = Math.Max(lowerOffset - upperOffset, requiredMin[(lowerId, upperId)]);
+
                 // ここで、minとmaxが逆に対応することに注意(これで正しいです)
             }
 
