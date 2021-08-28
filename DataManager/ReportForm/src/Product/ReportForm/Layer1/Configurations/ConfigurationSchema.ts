@@ -10,13 +10,8 @@ export interface ReportFormConfigurationSchema {
 
 export interface GlobalConfigurationSchema {
     readonly logger: LoggerConfigurationSchema;
-    readonly logSpreadSheetId: string;
-    readonly logWorkSheetName: string;
-    readonly errorLogSpreadSheetId: string;
-    readonly errorLogWorkSheetName: string;
     readonly lineChannelAccessToken: string;
     readonly lineNoticeTargetIdList: string[];
-    readonly lineErrorNoticeTargetIdList: string[];
     readonly twitterApiToken: string;
     readonly twitterSecretKey: string;
     readonly rootUrl: string;
@@ -25,7 +20,6 @@ export interface GlobalConfigurationSchema {
     readonly unitReportGroupByGenreFormId: string;
     readonly unitReportGroupByLevelFormId: string;
     readonly levelReportFormId: string;
-    readonly jenkinsApiToken: string;
     readonly chunirecApiHost: string;
     readonly chunirecApiToken: string;
     readonly slackApiToken: string;
@@ -68,8 +62,8 @@ export interface VersionConfigurationSchema {
     readonly bulkReportWorksheetName: string;
     readonly bulkReportSpreadsheetId: string;
     readonly nextVersionBulkReportSpreadsheetId: string;
-    readonly ratingDataForAnalysisSpreadsheetId: string;
-    readonly ratingDataForAnalysisWorksheetName: string;
+    readonly playerRatingSpreadsheetId: string;
+    readonly playerRatingWorksheetName: string;
 }
 
 export interface WebhookConfigurationSchema {

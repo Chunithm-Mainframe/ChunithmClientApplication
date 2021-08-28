@@ -1,9 +1,8 @@
-import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
+import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
 
 export interface PostCommandParameter {
     versionName?: string;
-    API: string;
 }
 
 export abstract class PostCommand {
