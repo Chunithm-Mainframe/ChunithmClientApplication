@@ -13,6 +13,11 @@ namespace ChunithmClientLibrary.Core
         {
         }
 
+        public MusicRating(int id, Difficulty difficulty, double baseRating, bool verified)
+        {
+            Set(id, difficulty, baseRating, verified);
+        }
+
         public MusicRating(MusicLevel.Unit unit)
         {
             _ = unit ?? throw new System.ArgumentNullException(nameof(unit));

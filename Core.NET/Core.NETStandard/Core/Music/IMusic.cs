@@ -6,5 +6,7 @@
         Difficulty Difficulty { get; }
         double BaseRating { get; }
         bool Verified { get; }
+
+        void VerifyBaseRating(double baseRating);
     }
 }
