@@ -4,5 +4,6 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.API
     {
         public const string MusicTableGet = "table/get";
         public const string MusicTableUpdate = "table/update";
+        public const string PlayerRatingTableGet = "playerRating/table/get";
     }
 }
