@@ -269,6 +269,9 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicUpdatePostCommand.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\PlayerRatingGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
