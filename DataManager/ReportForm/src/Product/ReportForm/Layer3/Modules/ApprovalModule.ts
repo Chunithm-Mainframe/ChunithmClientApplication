@@ -3,9 +3,8 @@ import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogMan
 import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
 import { WebhookEventName } from "../../Dependencies/WebhookEventDefinition";
 import { Difficulty } from "../../Layer1/Difficulty";
-import { Environment } from "../../Layer1/Environment";
-import { NoticeQueue } from "../../Layer2/NoticeQueue";
 import { Music } from "../../Layer2/Music/Music";
+import { NoticeQueue } from "../../Layer2/NoticeQueue";
 import { ReportStatus } from "../../Layer2/Report/ReportStatus";
 import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
 import { Utility } from "../../Layer2/Utility";
@@ -148,9 +147,6 @@ export class ApprovalModule extends ReportFormModule {
     }
 
     private requestChunirecUpdateMusics(reports: UnitReport[]): boolean {
-        if (this.configuration.environment !== Environment.Release) {
-            return true;
-        }
         const params: { musicId: number; difficulty: Difficulty; baseRating: number }[] = [];
         for (const report of reports) {
             params.push({

@@ -40,6 +40,7 @@ import { NoticeManager } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
 import { MusicTableGetPostCommand } from "./Layer4/PostCommands/MusicTableGetPostCommand";
 import { MusicTableUpdatePostCommand } from "./Layer4/PostCommands/MusicTableUpdatePostCommand";
+import { MusicUpdatePostCommand } from "./Layer4/PostCommands/MusicUpdatePostCommand";
 import { PlayerRatingGetPostCommand } from "./Layer4/PostCommands/PlayerRatingGetPostCommand";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "./Layer4/WebsitePresenters/@ReportFormPresenter";
@@ -147,6 +148,7 @@ export class Instance {
 
         postCommandManager.bindEquals("table/get", MusicTableGetPostCommand);
         postCommandManager.bindEquals("table/update", MusicTableUpdatePostCommand);
+        postCommandManager.bindEquals("music/update", MusicUpdatePostCommand);
         postCommandManager.bindEquals("playerRating/table/get", PlayerRatingGetPostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
