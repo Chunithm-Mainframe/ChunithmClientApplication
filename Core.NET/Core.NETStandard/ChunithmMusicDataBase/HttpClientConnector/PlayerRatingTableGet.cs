@@ -16,10 +16,12 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
         {
             var internalResponse = await PostAsync<InternalRequest, InternalResponse>(new InternalRequest());
 
-            var table = new PlayerRatingTable();
-            table.Records = internalResponse.Records
+            var table = new PlayerRatingTable
+            {
+                Records = internalResponse.Records
                 .Select(CreatePlayerRating)
-                .ToList();
+                .ToList()
+            };
 
             return new Response
             {

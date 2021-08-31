@@ -85,7 +85,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
 
         private IMusicRating CreateMusicRating(IMasterMusic masterMusic, Difficulty difficulty, double baseRating, bool verified)
         {
-            return new MusicRating
+            return new Core.MusicRating
             {
                 MasterMusicId = masterMusic.Id,
                 Difficulty = difficulty,
