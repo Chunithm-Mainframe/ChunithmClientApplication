@@ -15,6 +15,7 @@ import { ReportFormConfiguration } from "./Layer1/Configurations/@ReportFormConf
 import { ReportFormConfigurationSchema } from "./Layer1/Configurations/ConfigurationSchema";
 import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSourceType";
 import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
+import { Environment } from "./Layer1/Environment";
 import { NoticeQueue } from "./Layer2/NoticeQueue";
 import { ReportFormPageLinkResolver } from "./Layer2/ReportFormPageLinkResolver";
 import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
@@ -39,9 +40,10 @@ import { NoticeManager } from "./Layer4/Managers/NoticeManager";
 import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
 import { MusicTableGetPostCommand } from "./Layer4/PostCommands/MusicTableGetPostCommand";
 import { MusicTableUpdatePostCommand } from "./Layer4/PostCommands/MusicTableUpdatePostCommand";
+import { MusicUpdatePostCommand } from "./Layer4/PostCommands/MusicUpdatePostCommand";
+import { PlayerRatingGetPostCommand } from "./Layer4/PostCommands/PlayerRatingGetPostCommand";
 import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
 import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "./Layer4/WebsitePresenters/@ReportFormPresenter";
-import { Environment } from "./Layer1/Environment";
 
 export class Instance {
     private static _instance: Instance = null;
@@ -146,6 +148,8 @@ export class Instance {
 
         postCommandManager.bindEquals("table/get", MusicTableGetPostCommand);
         postCommandManager.bindEquals("table/update", MusicTableUpdatePostCommand);
+        postCommandManager.bindEquals("music/update", MusicUpdatePostCommand);
+        postCommandManager.bindEquals("playerRating/table/get", PlayerRatingGetPostCommand);
 
         DIProperty.register(PostCommandManager, postCommandManager);
     }

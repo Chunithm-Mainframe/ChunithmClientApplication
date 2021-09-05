@@ -40,5 +40,31 @@ namespace ChunithmClientLibrary.Core
             BaseRating = baseRating;
             Verified = verified;
         }
+
+        public void VerifyBaseRating(double baseRating)
+        {
+            if (Verified)
+            {
+                throw new InvalidOperationException("Already verified.");
+            }
+
+            var range = GetRangeBaseRating(BaseRating);
+            if (!(range.lowerLimit <= baseRating && baseRating <= range.upperLimit))
+            {
+                throw new InvalidOperationException($"baseRating is out of range. baseRating: {baseRating}, range: [{range.lowerLimit},{range.upperLimit}]");
+            }
+
+            Verified = true;
+            BaseRating = baseRating;
+        }
+
+        public static (double lowerLimit, double upperLimit) GetRangeBaseRating(double baseRating)
+        {
+            var integerPart = Math.Floor(baseRating);
+            var decimalPart = baseRating - integerPart;
+            return decimalPart >= 0.7
+                    ? (integerPart + 0.7, integerPart + 0.9)
+                    : (integerPart + 0.0, integerPart + 0.6);
+        }
     }
 }

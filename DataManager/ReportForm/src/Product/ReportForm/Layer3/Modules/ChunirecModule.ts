@@ -2,6 +2,7 @@
 import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { Difficulty } from "../../Layer1/Difficulty";
+import { Environment } from "../../Layer1/Environment";
 import { ReportFormModule } from "./@ReportFormModule";
 
 export class ChunirecModule extends ReportFormModule {
@@ -21,11 +22,11 @@ export class ChunirecModule extends ReportFormModule {
         return this._apiToken;
     }
 
-    public requestUpdateMusic(musicId: number, difficulty: Difficulty, baseRating: number): boolean {
-        return this.requestUpdateMusics([{ musicId: musicId, difficulty: difficulty, baseRating: baseRating }]);
-    }
-
     public requestUpdateMusics(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]): boolean {
+        if (this.configuration.environment !== Environment.Release) {
+            return true;
+        }
+
         // eslint-disable-next-line
         const requests: GoogleAppsScript.URL_Fetch.URLFetchRequest[] = [];
         for (const param of params) {

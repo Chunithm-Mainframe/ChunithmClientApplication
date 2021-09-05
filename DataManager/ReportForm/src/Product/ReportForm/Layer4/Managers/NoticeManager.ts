@@ -9,14 +9,16 @@ import { UrlFetchStream } from "../../../../Packages/UrlFetch/UrlFetch";
 import { UrlFetchManager } from "../../../../Packages/UrlFetch/UrlFetchManager";
 import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
 import { Difficulty } from "../../Layer1/Difficulty";
+import { Music } from "../../Layer2/Music/Music";
+import { LevelReport } from "../../Layer2/Report/LevelReport/LevelReport";
+import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
+import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
+import { Utility } from "../../Layer2/Utility";
 import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
+import { MusicModule } from "../../Layer3/Modules/MusicModule";
 import { ReportModule } from "../../Layer3/Modules/Report/ReportModule";
 import { TwitterModule } from "../../Layer3/Modules/TwitterModule";
 import { VersionModule } from "../../Layer3/Modules/VersionModule";
-import { LevelReport } from "../../Layer2/Report/LevelReport/LevelReport";
-import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
-import { Utility } from "../../Layer2/Utility";
-import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
 import { ReportFormWebsitePresenter } from "../WebsitePresenters/@ReportFormPresenter";
 import { LevelReportWebsitePresenter } from "../WebsitePresenters/LevelReport/LevelReportWebsitePresenter";
 import { UnitReportWebsitePresenter } from "../WebsitePresenters/UnitReport/UnitReportWebsitePresenter";
@@ -25,6 +27,7 @@ export class NoticeManager {
     @DIProperty.inject(ReportFormModule)
     private readonly _module: ReportFormModule;
 
+    private get musicModule(): MusicModule { return this._module.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this._module.getModule(ReportModule); }
     private get twitterModule(): TwitterModule { return this._module.getModule(TwitterModule); }
     private get versionModule(): VersionModule { return this._module.getModule(VersionModule); }
@@ -33,6 +36,116 @@ export class NoticeManager {
 
     @DIProperty.inject(ReportFormPageLinkResolver)
     private readonly _pageLinkResolver: ReportFormPageLinkResolver;
+
+    public noticeUpdateMusic(versionName: string, targetMusics: { id: number; difficulty: Difficulty }[]) {
+        if (targetMusics.length === 0) {
+            return;
+        }
+
+        const musicTable = this.musicModule.getMusicTable(versionName);
+        const notices: { music: Music; difficulty: Difficulty }[] = [];
+        const missingMusicId: number[] = [];
+        for (const t of targetMusics) {
+            const m = musicTable.find({ id: t.id });
+            if (m) {
+                notices.push({
+                    music: m,
+                    difficulty: t.difficulty
+                });
+            }
+            else {
+                missingMusicId.push(t.id);
+            }
+        }
+
+        const errors: Error[] = [];
+
+        // 通知処理
+        // twitter
+        if (this.configuration.runtime.postTweetEnabled) {
+            for (const n of notices) {
+                try {
+                    this.twitterModule.postTweet(`[譜面定数 検証結果]
+楽曲名:${n.music.name}
+難易度:${Utility.toDifficultyText(n.difficulty)}
+譜面定数:${Music.getBaseRating(n.music, n.difficulty).toFixed(1)}
+
+バージョン:${this.versionModule.getVersionConfig(versionName).displayVersionName}`);
+                }
+                catch (e) {
+                    const diffText = Utility.toDifficultyTextLowerCase(n.difficulty);
+                    errors.push(e);
+                    errors.push(new Error(`Twitter報告エラー: :chunithm_difficulty_${diffText}: ${n.music.name}`))
+                }
+            }
+        }
+
+        // slack-結果承認
+        {
+            const streams: UrlFetchStream[] = [];
+            // 定数表更新
+            {
+                const blocks: Block[] = [];
+                blocks.push(SlackBlockFactory.section(
+                    SlackCompositionObjectFactory.markdownText(`:pushpin: *自動解析:譜面定数更新(${notices.length}件)*`)
+                ));
+                for (const n of notices) {
+                    const diffText = Utility.toDifficultyTextLowerCase(n.difficulty);
+                    blocks.push(SlackBlockFactory.section(
+                        SlackCompositionObjectFactory.markdownText(`:chunithm_difficulty_${diffText}: ${n.music.name}
+:arrow_right: 譜面定数: ${Music.getBaseRating(n.music, n.difficulty).toFixed(1)}`)
+                    ));
+                }
+                const stream = new SlackChatPostMessageStream({
+                    token: this.configuration.global.slackApiToken,
+                    channel: this.configuration.global.slackChannelIdTable['updateMusicDataTable'],
+                    text: '譜面定数更新',
+                    blocks: blocks,
+                });
+                streams.push(stream);
+            }
+
+            try {
+                UrlFetchManager.execute(streams);
+            }
+            catch (e) {
+                errors.push(e);
+            }
+        }
+
+        // line
+        if (this.configuration.runtime.lineNoticeUnitReportEnabled) {
+            const streams: LINEMessagePushStream[] = [];
+            for (const n of notices) {
+                if (n.difficulty !== Difficulty.Master && (n.difficulty !== Difficulty.Expert || Music.getBaseRating(n.music, n.difficulty) < 11)) {
+                    continue;
+                }
+                const message: TextMessage = {
+                    type: 'text',
+                    text: `[譜面定数 自動解析]
+楽曲名:${n.music.name}
+難易度:${Utility.toDifficultyText(n.difficulty)}
+譜面定数:${Music.getBaseRating(n.music, n.difficulty).toFixed(1)}`
+                };
+                for (const target of this.configuration.global.lineNoticeTargetIdList) {
+                    streams.push(new LINEMessagePushStream({
+                        channelAccessToken: this.configuration.global.lineChannelAccessToken,
+                        to: target,
+                        messages: [message]
+                    }));
+                }
+            }
+            try {
+                UrlFetchManager.execute(streams);
+            }
+            catch (e) {
+                errors.push(e);
+            }
+        }
+
+        this.noticeMissingMusics(missingMusicId);
+        this.noticeErrors(errors);
+    }
 
     public noticeCreateUnitReport(versionName: string, reportIds: number[]): void {
         if (reportIds.length === 0) {
@@ -313,6 +426,39 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
         this.noticeMissingUnitReports(missingReportIds);
         this.noticeErrors(errors);
     }
+
+    private noticeMissingMusics(musicIds: number[]): void {
+        if (!musicIds || musicIds.length === 0) {
+            return
+        }
+
+        let idsText = '';
+        for (const id of musicIds) {
+            if (idsText) {
+                idsText += ',' + id;
+            }
+            else {
+                idsText = id.toString();
+            }
+        }
+        const stream = new SlackChatPostMessageStream({
+            token: this.configuration.global.slackApiToken,
+            channel: this.configuration.global.slackChannelIdTable['alert'],
+            text: 'Missing Music',
+            blocks: [
+                SlackBlockFactory.section(
+                    SlackCompositionObjectFactory.markdownText(`:error: 楽曲の取得に失敗しました\nmusic id(s):[${idsText}]`)
+                )
+            ],
+        });
+        try {
+            UrlFetchManager.execute([stream]);
+        }
+        catch (e) {
+            console.error(e);
+        }
+    }
+
     private noticeMissingUnitReports(reportIds: number[]): void {
         if (!reportIds || reportIds.length === 0) {
             return

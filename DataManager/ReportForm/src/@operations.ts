@@ -111,6 +111,23 @@ function getGenres(): string[] {
     });
 }
 
+export function dumpNoticeQueue() {
+    const queue = Instance.getNoticeQueue();
+    queue.dump();
+}
+
+export function noticeUpdateMusics() {
+    const queue = Instance.getNoticeQueue();
+    const musics = queue.dequeueUpdateMusic(10);
+    if (musics.length > 0) {
+        queue.save();
+        execute(instance => {
+            const versionName = getDefaultVersionName(instance);
+            instance.noticeManager.noticeUpdateMusic(versionName, musics);
+        });
+    }
+}
+
 export function noticeCreatedUnitReports() {
     const queue = Instance.getNoticeQueue();
     const reportIds = queue.dequeueCreateUnitReport(10);

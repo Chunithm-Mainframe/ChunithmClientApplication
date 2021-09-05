@@ -1,7 +1,25 @@
 import { CustomCacheProvider } from "../../../Packages/CustomCacheProvider/CustomCacheProvider";
+import { Difficulty } from "../Layer1/Difficulty";
 
 export class NoticeQueue {
     public constructor(private readonly _cacheProvider: CustomCacheProvider) { }
+
+    private static readonly KEY_NOTICE_UPDATE_MUSICS = 'notice_update_musics';
+    public enqueueUpdateMusic(musicId: number, difficulty: Difficulty): void {
+        this.enqueue<string>(NoticeQueue.KEY_NOTICE_UPDATE_MUSICS, `${musicId}#${difficulty}`);
+    }
+    public dequeueUpdateMusic(count: number) {
+        const ret: { id: number; difficulty: Difficulty }[] = [];
+        const values = this.dequeue<string>(NoticeQueue.KEY_NOTICE_UPDATE_MUSICS, count);
+        for (const value of values) {
+            const tmp = value.split('#');
+            ret.push({
+                id: parseInt(tmp[0]),
+                difficulty: parseInt(tmp[1]),
+            })
+        }
+        return ret;
+    }
 
     private static readonly KEY_NOTICE_CREATE_UNIT_REPORTS = 'notice_create_unit_reports';
     public enqueueCreateUnitReport(reportId: number): void {
@@ -77,6 +95,7 @@ export class NoticeQueue {
 
     public dump(): void {
         const keys = [
+            NoticeQueue.KEY_NOTICE_UPDATE_MUSICS,
             NoticeQueue.KEY_NOTICE_CREATE_UNIT_REPORTS,
             NoticeQueue.KEY_NOTICE_APPROVE_UNIT_REPORTS,
             NoticeQueue.KEY_NOTICE_REJECT_UNIT_REPORTS,

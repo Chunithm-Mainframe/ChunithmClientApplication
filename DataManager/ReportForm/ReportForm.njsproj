@@ -92,6 +92,7 @@
     <Folder Include="src\Product\" />
     <Folder Include="Dependencies\" />
     <Folder Include="src\Product\ReportForm\Layer2\Music\" />
+    <Folder Include="src\Product\ReportForm\Layer2\PlayerRating\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\MasterUnitRecordGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReportGroup\" />
     <Folder Include="src\Product\ReportForm\Layer2\Report\UnitReport\" />
@@ -194,13 +195,18 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadsheetLog.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\PlayerRating\PlayerRatingTable.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\UserAgentParser.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\MusicModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\RatingDataAnalysisModule.ts">
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\PlayerRating\MusicRating.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\PlayerRating\PlayerRating.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\PlayerRatingModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Music\Music.ts">
@@ -261,6 +267,12 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableUpdatePostCommand.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicUpdatePostCommand.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\PlayerRatingGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\%40ReportFormPresenter.ts">
