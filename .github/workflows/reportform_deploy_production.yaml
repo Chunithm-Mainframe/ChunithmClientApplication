@@ -1,5 +1,7 @@
 name: Deploy ReportFrom Production
 on:
+  workflow_dispatch:
+    inputs:
   push:
     branches:
       - master

@@ -1,7 +1,7 @@
-import { notifyUnverified } from "../../../../@operations";
 import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { TwitterModule } from "../../Layer3/Modules/TwitterModule";
+import { Operations } from "../Operations";
 import { LINEPostCommand } from "./@LINEPostCommand";
 export class TestLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
@@ -17,7 +17,7 @@ export class TestLINEPostCommand extends LINEPostCommand {
                 CustomLogManager.log(LogLevel.Error, 'テスト:エラー通知');
                 break;
             case "operation-notifyUnverified":
-                notifyUnverified();
+                Operations.notifyUnverified();
                 this.pushMessage(['完了']);
                 break;
             case "tweet":

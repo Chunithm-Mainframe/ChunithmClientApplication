@@ -42,7 +42,7 @@ const RANK_C_BORDER_SCORE = 500000;
 const RANK_D_BORDER_SCORE = 0;
 const RANK_NONE_BORDER_SCORE = 0;
 
-export function getBorderScore(rank: Rank): number {
+function getBorderScore(rank: Rank): number {
     switch (rank) {
         case Rank.Max:
             return RANK_MAX_BORDER_SCORE;
@@ -74,7 +74,7 @@ export function getBorderScore(rank: Rank): number {
     return RANK_NONE_BORDER_SCORE;
 }
 
-export function getBorderBaseRating(levelText: string): number {
+function getBorderBaseRating(levelText: string): number {
     let integer = 0;
     let decimal = 0;
 
@@ -150,11 +150,11 @@ function getIntegerPlayRating(baseRating: number, score: number, asOverPower = f
     return 0;
 }
 
-export function getRating(baseRating: number, score: number): number {
+function getRating(baseRating: number, score: number): number {
     return Math.floor(getIntegerPlayRating(baseRating, score)) / 100;
 }
 
-export function getOverPower(baseRating: number, score: number, comboStatus: ComboStatus): number {
+function getOverPower(baseRating: number, score: number, comboStatus: ComboStatus): number {
     const integerPlayRating = getIntegerPlayRating(baseRating, score, true);
     if (integerPlayRating <= 0) {
         return 0;
@@ -186,7 +186,7 @@ export function getOverPower(baseRating: number, score: number, comboStatus: Com
     return overPower;
 }
 
-export function calcBaseRating(beforeOp: number, afterOp: number, score: number, comboStatus: ComboStatus): number {
+function calcBaseRating(beforeOp: number, afterOp: number, score: number, comboStatus: ComboStatus): number {
     if (score < RANK_AA_BORDER_SCORE || score > RANK_MAX_BORDER_SCORE) {
         return 0;
     }
@@ -232,4 +232,26 @@ export function calcBaseRating(beforeOp: number, afterOp: number, score: number,
         ? Math.round((diffOp / 5 - added) * 100) / 100
         : Math.round((diffOp / 5 - added) * 10) / 10
     return baseRating;
+}
+
+export class Rating {
+    public static getBorderScore(rank: Rank): number {
+        return getBorderScore(rank);
+    }
+
+    public static getBorderBaseRating(levelText: string): number {
+        return getBorderBaseRating(levelText);
+    }
+
+    public static getRating(baseRating: number, score: number): number {
+        return getRating(baseRating, score);
+    }
+
+    public static getOverPower(baseRating: number, score: number, comboStatus: ComboStatus): number {
+        return getOverPower(baseRating, score, comboStatus);
+    }
+
+    public static calcBaseRating(beforeOp: number, afterOp: number, score: number, comboStatus: ComboStatus): number {
+        return calcBaseRating(beforeOp, afterOp, score, comboStatus);
+    }
 }

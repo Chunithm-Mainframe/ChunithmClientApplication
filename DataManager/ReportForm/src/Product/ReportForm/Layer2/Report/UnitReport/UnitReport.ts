@@ -1,5 +1,5 @@
 import { Difficulty } from "../../../Layer1/Difficulty";
-import { ComboStatus, calcBaseRating } from "../../../Layer1/Rating";
+import { ComboStatus, Rating } from "../../../Layer1/Rating";
 import { ReportStatus } from "../ReportStatus";
 import { PostLocation } from "../PostLocation";
 import { UnitRawReport } from "./UnitRawReport";
@@ -43,6 +43,6 @@ export class UnitReport {
                 comboStatus = ComboStatus.FullCombo;
                 break;
         }
-        return calcBaseRating(this.beforeOp, this.afterOp, this.score, comboStatus);
+        return Rating.calcBaseRating(this.beforeOp, this.afterOp, this.score, comboStatus);
     }
 }

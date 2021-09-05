@@ -1,5 +1,7 @@
 name: Deploy ReportFrom Develop
 on:
+  workflow_dispatch:
+    inputs:
   push:
     branches:
       - develop

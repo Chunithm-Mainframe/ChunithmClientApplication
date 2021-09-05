@@ -1,5 +1,5 @@
-import { getAppVersion } from "../../../../@app";
 import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
+import { Version } from "../../Version";
 import { Role } from "../../Layer1/Role";
 import { ReportModule } from "../../Layer3/Modules/Report/ReportModule";
 import { VersionModule } from "../../Layer3/Modules/VersionModule";
@@ -25,7 +25,7 @@ export class TopWebsitePresenter extends ReportFormWebsitePresenter<TopWebsitePa
 
         let source = this.readHtml("Resources/Page/top/main");
 
-        source = source.replace(/%version%/s, getAppVersion());
+        source = source.replace(/%version%/s, Version.toolVersion);
         source = source.replace(/%versionText%/g, versionText);
 
         source = this.replaceWipContainer(source, this.configuration.role);
