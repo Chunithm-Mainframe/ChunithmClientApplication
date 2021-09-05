@@ -394,8 +394,8 @@ OP割合[万分率]:${opRatio100Fold}
         const listItems = this._unitReportGroupByGenreGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
 
         for (let i = 0; i < genres.length; i++) {
-            const musicNames = musics
-                .filter(x => x.genre === genres[i])
+            const targetMusics = musics.filter(x => x.genre === genres[i]);
+            const musicNames = ReportModule.sortMusics(targetMusics).filter(x => x.genre === genres[i])
                 .map(x => x.name);
             if (musicNames.length > 0) {
                 listItems[i + 1].setChoiceValues(musicNames);
@@ -412,8 +412,8 @@ OP割合[万分率]:${opRatio100Fold}
         const listItems = this._unitReportGroupByLevelGoogleForm.form.getItems(FormApp.ItemType.LIST).map(x => x.asListItem());
 
         for (let i = 0; i < levelInfos.length; i++) {
-            const musicNames = UnitReportGroupByLevelGoogleForm.getFilteredMusics(musics, levelInfos[i].value)
-                .map(x => x.name);
+            const targetMusics = UnitReportGroupByLevelGoogleForm.getFilteredMusics(musics, levelInfos[i].value);
+            const musicNames = ReportModule.sortMusics(targetMusics).map(x => x.name);
             if (musicNames.length > 0) {
                 listItems[i + 1].setChoiceValues(musicNames);
             }
@@ -421,5 +421,23 @@ OP割合[万分率]:${opRatio100Fold}
                 listItems[i + 1].setChoiceValues([""]);
             }
         }
+    }
+
+    private static sortMusics(musics: Music[]) {
+        const map: Record<number, Music[]> = {};
+        const createdAts: number[] = [];
+
+        for (const music of musics) {
+            const key = music.createdAt.getTime();
+            if (!(key in map)) {
+                map[key] = [];
+                createdAts.push(key);
+            }
+            map[key].push(music);
+        }
+
+        return createdAts.sort((x1, x2) => x2 - x1)
+            .map(x => map[x])
+            .flat();
     }
 }
