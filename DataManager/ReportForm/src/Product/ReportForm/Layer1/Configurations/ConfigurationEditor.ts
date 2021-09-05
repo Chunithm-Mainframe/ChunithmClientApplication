@@ -1,8 +1,8 @@
-import { getConstValues } from "../../../../@const";
+import { ReportFormConstants } from "../../../../@const";
 
 export class ConfigurationEditor {
     public static storeConfig(): GoogleAppsScript.Properties.Properties {
-        const jsonFile = DriveApp.getFileById(getConstValues().configurationJsonFileId);
+        const jsonFile = DriveApp.getFileById(ReportFormConstants.getConstValues().configurationJsonFileId);
         const json = jsonFile.getBlob().getDataAsString();
         return PropertiesService.getScriptProperties().setProperty(
             'config',
@@ -10,7 +10,7 @@ export class ConfigurationEditor {
     }
 
     public static storeRuntimeConfig(): GoogleAppsScript.Properties.Properties {
-        const jsonFile = DriveApp.getFileById(getConstValues().runtimeConfigurationJsonFileId);
+        const jsonFile = DriveApp.getFileById(ReportFormConstants.getConstValues().runtimeConfigurationJsonFileId);
         const json = jsonFile.getBlob().getDataAsString();
         return PropertiesService.getScriptProperties().setProperty(
             'runtime_config',

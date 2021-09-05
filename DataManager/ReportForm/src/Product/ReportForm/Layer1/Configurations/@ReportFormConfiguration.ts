@@ -1,4 +1,4 @@
-import { getConstValues } from "../../../../@const";
+import { ReportFormConstants } from "../../../../@const";
 import { Configuration } from "../../../../Packages/Configuration/Configuration";
 import { RuntimeConfiguration } from "../../../../Packages/Configuration/RuntimeConfiguration";
 import { Environment } from "../Environment";
@@ -32,7 +32,9 @@ export class ReportFormConfiguration {
         return this._config.properties.webhook;
     }
 
-    public get environment(): Environment { return getConstValues().environment; }
+    public get environment(): Environment {
+        return ReportFormConstants.getConstValues().environment;
+    }
 
     private _overrideRootUrl: string = null;
     public get rootUrl(): string {
