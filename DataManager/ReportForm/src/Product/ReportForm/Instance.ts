@@ -1,4 +1,4 @@
-import { getConstValues } from "../../@const";
+import { ReportFormConstants } from "../../@const";
 import { Configuration } from "../../Packages/Configuration/Configuration";
 import { JsonConfigurationFactory } from "../../Packages/Configuration/JsonConfigurationFactory";
 import { JsonFileRuntimeConfiguration } from "../../Packages/Configuration/JsonFileRuntimeConfiguration";
@@ -162,20 +162,20 @@ export class Instance {
     }
 
     private static createStaticConfiguration(propTable: { [key: string]: string }): Configuration<ReportFormConfigurationSchema> {
-        switch (getConstValues().configurationSourceType) {
+        switch (ReportFormConstants.getConstValues().configurationSourceType) {
             case ConfigurationSourceType.ScriptProperties:
                 return JsonConfigurationFactory.create(propTable['config']);
             case ConfigurationSourceType.Json:
-                return JsonConfigurationFactory.createByFile(getConstValues().configurationJsonFileId);
+                return JsonConfigurationFactory.createByFile(ReportFormConstants.getConstValues().configurationJsonFileId);
         }
     }
 
     private static createRuntimeConfiguration(props: GoogleAppsScript.Properties.Properties): RuntimeConfiguration<RuntimeConfigurationSchema> {
-        switch (getConstValues().runtimeConfigurationSourceType) {
+        switch (ReportFormConstants.getConstValues().runtimeConfigurationSourceType) {
             case ConfigurationSourceType.ScriptProperties:
                 return new ScriptPropertyRuntimeConfiguration(props, 'runtime_config');
             case ConfigurationSourceType.Json:
-                return JsonFileRuntimeConfiguration.createByFileId(getConstValues().runtimeConfigurationJsonFileId);
+                return JsonFileRuntimeConfiguration.createByFileId(ReportFormConstants.getConstValues().runtimeConfigurationJsonFileId);
         }
     }
 
