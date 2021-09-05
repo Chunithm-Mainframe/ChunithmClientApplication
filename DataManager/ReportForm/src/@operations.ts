@@ -90,7 +90,7 @@ function dumpNoticeQueue() {
     queue.dump();
 }
 
-export function notifyUnverified() {
+function notifyUnverified() {
     Operations.notifyUnverified();
 }
 
