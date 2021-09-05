@@ -1,17 +1,17 @@
-import { storeConfig, storeRuntimeConfig } from "../../@operations";
 import { LogLevel } from "../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
 import { DIProperty } from "../../Packages/DIProperty/DIProperty";
 import { Router } from "../../Packages/Router/Router";
 import { Instance } from "./Instance";
-import { ReportModule } from "./Layer3/Modules/Report/ReportModule";
-import { UnitRawReport } from "./Layer2/Report/UnitReport/UnitRawReport";
 import { LevelRawReport } from "./Layer2/Report/LevelReport/LevelRawReport";
-import { ReportStatus } from "./Layer2/Report/ReportStatus";
 import { PostLocation } from "./Layer2/Report/PostLocation";
-import { Utility } from "./Layer2/Utility";
-import { ErrorWebsitePresenter } from "./Layer4/WebsitePresenters/ErrorWebsitePresenter";
+import { ReportStatus } from "./Layer2/Report/ReportStatus";
+import { UnitRawReport } from "./Layer2/Report/UnitReport/UnitRawReport";
 import { UnitReportTable } from "./Layer2/Report/UnitReport/UnitReportTable";
+import { Utility } from "./Layer2/Utility";
+import { ReportModule } from "./Layer3/Modules/Report/ReportModule";
+import { Operations } from "./Layer4/Operations";
+import { ErrorWebsitePresenter } from "./Layer4/WebsitePresenters/ErrorWebsitePresenter";
 
 export type DoGet = GoogleAppsScript.Events.DoGet & { pathInfo: string };
 
@@ -52,8 +52,8 @@ export class ReportForm {
             const postData = JSON.parse(e.postData.contents);
 
             if (this.isStoreConfigRequest(postData)) {
-                storeConfig();
-                storeRuntimeConfig();
+                Operations.storeConfig();
+                Operations.storeRuntimeConfig();
                 return this.getSuccessResponseContent();
             }
 

@@ -1,4 +1,4 @@
-import { noticeApprovedLevelReports, noticeApprovedUnitReports, noticeCreatedLevelReports, noticeCreatedUnitReports, noticeRejectedLevelReports, noticeRejectedUnitReports, notifyUnverified } from "./@operations";
+import { Operations } from "./Product/ReportForm/Layer4/Operations";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 
@@ -6,30 +6,34 @@ function onNotifyUnverified() {
     const now = new Date();
     const hours = now.getHours();
     if (hours === 9 || hours === 17) {
-        notifyUnverified();
+        Operations.notifyUnverified();
     }
 }
 
+function onNoticeUpdateMusics() {
+    Operations.noticeUpdateMusics();
+}
+
 function onNoticeCreatedUnitReports() {
-    noticeCreatedUnitReports();
+    Operations.noticeCreatedUnitReports();
 }
 
 function onNoticeApprovedUnitReports() {
-    noticeApprovedUnitReports();
+    Operations.noticeApprovedUnitReports();
 }
 
 function onNoticeRejectedUnitReports() {
-    noticeRejectedUnitReports();
+    Operations.noticeRejectedUnitReports();
 }
 
 function onNoticeCreatedLevelReports() {
-    noticeCreatedLevelReports();
+    Operations.noticeCreatedLevelReports();
 }
 
 function onNoticeApprovedLevelReports() {
-    noticeApprovedLevelReports();
+    Operations.noticeApprovedLevelReports();
 }
 
 function onNoticeRejectedLevelReports() {
-    noticeRejectedLevelReports();
+    Operations.noticeRejectedLevelReports();
 }

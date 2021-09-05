@@ -263,6 +263,9 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\PostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Operations.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -393,6 +396,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByGenreWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Version.ts" />
     <TypeScriptCompile Include="test\Rating.spec.ts" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
