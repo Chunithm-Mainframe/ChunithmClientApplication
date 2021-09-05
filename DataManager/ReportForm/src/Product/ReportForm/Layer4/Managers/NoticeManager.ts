@@ -64,12 +64,19 @@ export class NoticeManager {
         // twitter
         if (this.configuration.runtime.postTweetEnabled) {
             for (const n of notices) {
-                this.twitterModule.postTweet(`[譜面定数 検証結果]
+                try {
+                    this.twitterModule.postTweet(`[譜面定数 検証結果]
 楽曲名:${n.music.name}
 難易度:${Utility.toDifficultyText(n.difficulty)}
 譜面定数:${Music.getBaseRating(n.music, n.difficulty).toFixed(1)}
 
 バージョン:${this.versionModule.getVersionConfig(versionName).displayVersionName}`);
+                }
+                catch (e) {
+                    const diffText = Utility.toDifficultyTextLowerCase(n.difficulty);
+                    errors.push(e);
+                    errors.push(new Error(`Twitter報告エラー: :chunithm_difficulty_${diffText}: ${n.music.name}`))
+                }
             }
         }
 
