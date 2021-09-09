@@ -69,6 +69,57 @@ export class ChunirecModule extends ReportFormModule {
         }
     }
 
+    public requestUpdateMusicAll(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]) {
+        if (this.configuration.environment !== Environment.Release) {
+            return {
+                ok: params.map(x => { return { idx: x.musicId, diff: this.toDifficultyText(x.difficulty) }; }),
+                failed: [] as { idx: number; diff: string }[],
+                success: true,
+            };
+        }
+
+        const url = `${this.apiHost}/1.2/music/update_all.json`;
+        const payload = params.map(x => {
+            return {
+                idx: x.musicId,
+                diff: this.toDifficultyText(x.difficulty),
+                const: x.baseRating,
+            };
+        });
+        // eslint-disable-next-line
+        const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
+            contentType: 'application/json',
+            method: 'post',
+            headers: {
+                'X-Autho-Token': this.apiToken,
+            },
+            payload: JSON.stringify(payload),
+            muteHttpExceptions: true,
+        };
+        try {
+            const response = UrlFetchApp.fetch(url, options);
+            if (response.getResponseCode() !== 200) {
+                throw new Error(`failure ChunirecModule.requestUpdateMusicAll.\n${payload}`);
+            }
+
+            const result = JSON.parse(response.getContentText()) as {
+                ok: { idx: number; diff: string }[];
+                failed: { idx: number; diff: string }[];
+                success: boolean;
+            };
+            result.success = true;
+            return result;
+        }
+        catch (e) {
+            CustomLogManager.exception(e);
+            return {
+                ok: [],
+                failed: [],
+                success: false,
+            }
+        }
+    }
+
     public requestUpdateMusics(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]): boolean {
         if (this.configuration.environment !== Environment.Release) {
             return true;
