@@ -39,22 +39,35 @@ export class ChunirecModule extends ReportFormModule {
     }
 
     public requestPlayerRatings(sinceId: number, count: number) {
-        if (this.configuration.environment !== Environment.Release) {
+        if (!this.configuration.runtime.postChunirecEnabled) {
             return [];
         }
 
-        const url = `${this.apiHost}/1.2/repository/rating_data.json?token=${this.apiToken}&since_id=${sinceId}&count=${count}`;
-        const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-        const json: RatingData[] = JSON.parse(response.getContentText());
+        try {
+            const url = `${this.apiHost}/1.2/repository/rating_data.json?token=${this.apiToken}&since_id=${sinceId}&count=${count}`;
+            const response = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
 
-        return json.map(x => {
-            const p = new PlayerRating();
-            p.id = parseInt(x.id);
-            p.setBest(ChunirecModule.convertToMusicRatings(x.best));
-            p.setOutsideBest(ChunirecModule.convertToMusicRatings(x.outside_best));
-            p.setRecent(ChunirecModule.convertToMusicRatings(x.recent));
-            return p;
-        })
+            if (response.getResponseCode() !== 200) {
+                throw new Error(`failure ChunirecModule.requestPlayerRatings.
+code: ${response.getResponseCode()}
+content: ${response.getContentText()}`);
+            }
+
+            const json: RatingData[] = JSON.parse(response.getContentText());
+
+            return json.map(x => {
+                const p = new PlayerRating();
+                p.id = parseInt(x.id);
+                p.setBest(ChunirecModule.convertToMusicRatings(x.best));
+                p.setOutsideBest(ChunirecModule.convertToMusicRatings(x.outside_best));
+                p.setRecent(ChunirecModule.convertToMusicRatings(x.recent));
+                return p;
+            })
+        }
+        catch (e) {
+            CustomLogManager.exception(e);
+            return [];
+        }
     }
 
     private static convertToMusicRatings(records: RatingDataRecord[]): MusicRating[] {
@@ -70,7 +83,7 @@ export class ChunirecModule extends ReportFormModule {
     }
 
     public requestUpdateMusicAll(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]) {
-        if (this.configuration.environment !== Environment.Release) {
+        if (!this.configuration.runtime.postChunirecEnabled) {
             return {
                 ok: params.map(x => { return { idx: x.musicId, diff: this.toDifficultyText(x.difficulty) }; }),
                 failed: [] as { idx: number; diff: string }[],
@@ -91,7 +104,7 @@ export class ChunirecModule extends ReportFormModule {
             contentType: 'application/json',
             method: 'post',
             headers: {
-                'X-Autho-Token': this.apiToken,
+                'X-Auth-Token': this.apiToken,
             },
             payload: JSON.stringify(payload),
             muteHttpExceptions: true,
@@ -99,7 +112,13 @@ export class ChunirecModule extends ReportFormModule {
         try {
             const response = UrlFetchApp.fetch(url, options);
             if (response.getResponseCode() !== 200) {
-                throw new Error(`failure ChunirecModule.requestUpdateMusicAll.\n${payload}`);
+                throw new Error(`failure ChunirecModule.requestUpdateMusicAll.
+code: ${response.getResponseCode()}
+content:
+${response.getContentText()}
+
+payload:
+${JSON.stringify(payload)}`);
             }
 
             const result = JSON.parse(response.getContentText()) as {
@@ -121,7 +140,7 @@ export class ChunirecModule extends ReportFormModule {
     }
 
     public requestUpdateMusics(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]): boolean {
-        if (this.configuration.environment !== Environment.Release) {
+        if (!this.configuration.runtime.postChunirecEnabled) {
             return true;
         }
 
