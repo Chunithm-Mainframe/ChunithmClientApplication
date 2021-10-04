@@ -38,7 +38,7 @@ export class MusicUpdatePostCommand extends PostCommand {
             }
             this.noticeQueue.save();
 
-            this.chunirectModule.requestUpdateMusics(
+            this.chunirectModule.requestUpdateMusicAll(
                 updatedMusics
                     .filter(x => x.baseRating >= 7)
                     .map(x => {
