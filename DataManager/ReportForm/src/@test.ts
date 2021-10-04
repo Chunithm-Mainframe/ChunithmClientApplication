@@ -2,6 +2,7 @@ import { Instance } from "./Product/ReportForm/Instance";
 import { Difficulty } from "./Product/ReportForm/Layer1/Difficulty";
 import { MusicRating } from "./Product/ReportForm/Layer2/PlayerRating/MusicRating";
 import { PlayerRating } from "./Product/ReportForm/Layer2/PlayerRating/PlayerRating";
+import { ChunirecModule } from "./Product/ReportForm/Layer3/Modules/ChunirecModule";
 import { PlayerRatingModule } from "./Product/ReportForm/Layer3/Modules/PlayerRatingModule";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
@@ -56,3 +57,21 @@ function test_invokePlayerRatingGetPostCommand() {
     console.log(result);
 }
 
+function test_getPlayerRating() {
+    Instance.initialize();
+    const module = Instance.instance.module.getModule(ChunirecModule);
+    const result = module.requestPlayerRatings(1, 100);
+    console.log(result);
+}
+
+function test_requestUpdateMusicAll() {
+    Instance.initialize();
+    const module = Instance.instance.module.getModule(ChunirecModule);
+
+    const params = [
+        { musicId: 180, difficulty: Difficulty.Master, baseRating: 14.1 },
+        { musicId: 219, difficulty: Difficulty.Master, baseRating: 14.1 }];
+
+    const result = module.requestUpdateMusicAll(params);
+    console.log(result);
+}
