@@ -82,6 +82,32 @@ content: ${response.getContentText()}`);
         }
     }
 
+    public getUpdateMusicAllUrl() {
+        return `${this.apiHost}/1.2/music/update_all.json`;
+    }
+
+    public getUpdateMusicAllRequestOptions(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]):
+        // eslint-disable-next-line
+        GoogleAppsScript.URL_Fetch.URLFetchRequestOptions {
+        const payload = params.map(x => {
+            return {
+                idx: x.musicId,
+                diff: this.toDifficultyText(x.difficulty),
+                const: x.baseRating,
+            };
+        });
+
+        return {
+            contentType: 'application/json',
+            method: 'post',
+            headers: {
+                'X-Auth-Token': this.apiToken,
+            },
+            payload: JSON.stringify(payload),
+            muteHttpExceptions: true,
+        };
+    }
+
     public requestUpdateMusicAll(params: { musicId: number; difficulty: Difficulty; baseRating: number }[]) {
         if (!this.configuration.runtime.postChunirecEnabled) {
             return {
@@ -91,24 +117,8 @@ content: ${response.getContentText()}`);
             };
         }
 
-        const url = `${this.apiHost}/1.2/music/update_all.json`;
-        const payload = params.map(x => {
-            return {
-                idx: x.musicId,
-                diff: this.toDifficultyText(x.difficulty),
-                const: x.baseRating,
-            };
-        });
-        // eslint-disable-next-line
-        const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
-            contentType: 'application/json',
-            method: 'post',
-            headers: {
-                'X-Auth-Token': this.apiToken,
-            },
-            payload: JSON.stringify(payload),
-            muteHttpExceptions: true,
-        };
+        const url = this.getUpdateMusicAllUrl();
+        const options = this.getUpdateMusicAllRequestOptions(params);
         try {
             const response = UrlFetchApp.fetch(url, options);
             if (response.getResponseCode() !== 200) {
@@ -118,7 +128,7 @@ content:
 ${response.getContentText()}
 
 payload:
-${JSON.stringify(payload)}`);
+${JSON.stringify(options.payload)}`);
             }
 
             const result = JSON.parse(response.getContentText()) as {
