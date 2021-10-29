@@ -86,6 +86,9 @@ export class BulkReportTableRow implements UnitReportInputFormat {
     public get musicId(): number {
         return this.getValueByIndex(this.getColumnIndex(BulkReportTableHeader.VALUE_ID)) as number;
     }
+    public get musicName(): string {
+        return this.name;
+    }
     public get name(): string {
         return this.getValueByIndex(this.getColumnIndex(BulkReportTableHeader.VALUE_NAME)) as string;
     }
