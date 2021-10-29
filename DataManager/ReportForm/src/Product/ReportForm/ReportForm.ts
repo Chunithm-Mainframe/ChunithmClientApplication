@@ -180,7 +180,7 @@ export class ReportForm {
                 const tableContainer = Instance.instance.module.getModule(ReportModule).getBulkReportTableContainer(versionName);
                 const row = tableContainer.getTableByDifficulty(difficulty).getRowByMusicId(musicId);
                 if (row && row.isValid()) {
-                    const newReport = UnitReportTable.instantiateRecord(row);
+                    const newReport = UnitReportTable.instantiateRecordByRawReport(row);
                     newReport.postLocation = PostLocation.BulkSheet;
                     Instance.instance.module.getModule(ReportModule).getUnitReportTable(versionName).update(newReport);
                 }
