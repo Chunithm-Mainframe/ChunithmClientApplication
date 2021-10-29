@@ -155,7 +155,7 @@ export class ApprovalModule extends ReportFormModule {
                 baseRating: report.calculateBaseRating(),
             });
         }
-        return this.chunirecModule.requestUpdateMusics(params);
+        return this.chunirecModule.requestUpdateMusicAll(params).success;
     }
 
     // Lv.1-6用
