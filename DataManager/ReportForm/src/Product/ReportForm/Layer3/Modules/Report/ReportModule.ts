@@ -271,7 +271,7 @@ export class ReportModule extends ReportFormModule {
                 }
                 const unitReportBundle = this.getUnitReportBundle(versionName, row.musicId, row.difficulty);
                 if (!unitReportBundle.activeReport) {
-                    const report = UnitReportTable.instantiateRecord(row);
+                    const report = UnitReportTable.instantiateRecordByRawReport(row);
                     report.postLocation = PostLocation.BulkSheet;
                     addedReports.push(report);
                 }

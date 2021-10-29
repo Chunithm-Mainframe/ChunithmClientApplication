@@ -26,13 +26,6 @@ export class UnitReport {
         return this.imagePathText.split(',');
     }
 
-    public static instantiate(obj: Required<UnitReport>): UnitReport {
-        return UnitReportTable.instantiateRecord(obj);
-    }
-    public static instantiateByRawReport(rawReport: UnitRawReport): UnitReport {
-        return UnitReportTable.instantiateRecordByRawReport(rawReport);
-    }
-
     public calculateBaseRating(): number {
         let comboStatus = ComboStatus.None;
         switch (this.comboStatus) {
