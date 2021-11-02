@@ -18,3 +18,6 @@ GASのインスタンスでは処理しづらいため、プレイヤーデー�
 
 ## DataManager ![](https://img.shields.io/badge/-TypeScript-3178C6.svg?logo=typescript&logoColor=white&style=flat)  
 検証管理ツールの実装が含まれています。  
+
+## システム構成図
+![](/Documents/system_configuration_diagram.png)
