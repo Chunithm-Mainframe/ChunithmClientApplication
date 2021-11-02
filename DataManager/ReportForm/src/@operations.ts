@@ -20,6 +20,12 @@ function execute<T>(action: (instance: Instance) => T) {
     return Operations.execute(action);
 }
 
+function dumpRuntimeConfig() {
+    execute(instance => {
+        console.log(instance.config.runtime);
+    });
+}
+
 function getDefaultVersionName(instance: Instance): string {
     return instance.module.configuration.defaultVersionName;
 }
