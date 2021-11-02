@@ -11,8 +11,19 @@ import { Operations } from "./Product/ReportForm/Layer4/Operations";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 
+function storeConfig() {
+    Operations.storeConfig();
+    Operations.storeRuntimeConfig();
+}
+
 function execute<T>(action: (instance: Instance) => T) {
     return Operations.execute(action);
+}
+
+function dumpRuntimeConfig() {
+    execute(instance => {
+        console.log(instance.config.runtime);
+    });
 }
 
 function getDefaultVersionName(instance: Instance): string {
