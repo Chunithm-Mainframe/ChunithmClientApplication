@@ -32,7 +32,6 @@
   <ItemGroup>
     <Content Include=".editorconfig" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="src\Resources\Page\approval\main.html" />
     <Content Include="src\Resources\Page\approval\rejected_form_container.html">
       <SubType>Code</SubType>
