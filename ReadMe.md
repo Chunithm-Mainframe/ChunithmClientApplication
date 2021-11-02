@@ -16,5 +16,5 @@ CHUNITHMの譜面定数を管理するプロジェクトのリポジトリです
 CHUNITHM-NETにアクセスするための各種APIや汎用的なAPIを提供するモジュール群です。  
 GASのインスタンスでは処理しづらいため、プレイヤーデータからの譜面定数解析処理などの実装もこちらに含まれています。  
 
-## DataManager ![](https://img.shields.io/badge/-TypeScript-3178C6.svg?logo=typescript&style=flat)  
+## DataManager ![](https://img.shields.io/badge/-TypeScript-3178C6.svg?logo=typescript&logoColor=white&style=flat)  
 検証管理ツールの実装が含まれています。  
