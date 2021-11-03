@@ -1,8 +1,6 @@
 using AngleSharp.Dom;
-using ChunithmClientLibrary.ChunithmNet.Data;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -10,7 +8,7 @@ namespace ChunithmClientLibrary.Parser
 {
     public static class HtmlParseUtility
     {
-        public static  string GetPageTitle(IDocument document)
+        public static string GetPageTitle(IDocument document)
         {
             return document?.GetElementById("page_title")?.TextContent ?? string.Empty;
         }

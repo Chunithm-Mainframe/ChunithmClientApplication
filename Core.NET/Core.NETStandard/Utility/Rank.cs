@@ -69,7 +69,7 @@ namespace ChunithmClientLibrary
 
         public static Rank GetRank(int score)
         {
-            return PairConverter.Convert(rankPairs, score, Rank.None, p => p.Score, p => p.Rank, value => score >= value);
+            return PairConverter.Convert(rankPairs, Rank.None, p => p.Score, p => p.Rank, value => score >= value);
         }
 
         public static Rank ToRank(int rankCode)
