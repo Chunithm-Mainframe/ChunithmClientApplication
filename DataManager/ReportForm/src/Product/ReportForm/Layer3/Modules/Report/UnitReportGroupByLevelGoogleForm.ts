@@ -8,7 +8,7 @@ import { ReportGoogleForm } from "./@ReportGoogleForm";
 
 export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
     public static getLevelInfos() {
-        return [14, 13.7, 13, 12.7, 12, 11.7, 11, 10.7, 10, 9.7, 9, 8.7, 8, 7.7, 7, 6, 5, 4, 3, 2, 1]
+        return [15.0, 14.7, 14.0, 13.7, 13.0]
             .map(x => {
                 return {
                     value: x,
