@@ -62,9 +62,9 @@ namespace ChunithmClientLibrary.Core
         {
             var integerPart = Math.Floor(baseRating);
             var decimalPart = baseRating - integerPart;
-            return decimalPart >= 0.7
-                    ? (integerPart + 0.7, integerPart + 0.9)
-                    : (integerPart + 0.0, integerPart + 0.6);
+            return decimalPart >= 0.5
+                    ? (integerPart + 0.5, integerPart + 0.9)
+                    : (integerPart + 0.0, integerPart + 0.4);
         }
     }
 }

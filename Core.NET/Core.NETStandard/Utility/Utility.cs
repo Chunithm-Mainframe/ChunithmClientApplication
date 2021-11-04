@@ -39,7 +39,7 @@ namespace ChunithmClientLibrary
 
             if (levelText.Contains("+"))
             {
-                @decimal = 0.7m;
+                @decimal = 0.5m;
             }
 
             levelText = levelText.Replace("+", "");
