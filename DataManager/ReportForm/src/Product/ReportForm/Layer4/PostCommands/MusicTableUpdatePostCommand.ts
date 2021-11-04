@@ -119,10 +119,10 @@ ${genre}: ${musicCountMap[genre]}曲`;
         let message = "[新曲追加]";
         for (let i = 0; i < added.length; i++) {
             const m = added[i];
-            const basicLevelText = m.basicBaseRating.toString().replace(".7", "+");
-            const advancedLevelText = m.advancedBaseRating.toString().replace(".7", "+");
-            const expertLevelText = m.expertBaseRating.toString().replace(".7", "+");
-            const masterLevelText = m.masterBaseRating.toString().replace(".7", "+");
+            const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
+            const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
+            const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
+            const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
             message += `
 ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
         }
@@ -133,10 +133,10 @@ ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLeve
         let message = `:musical_keyboard: *新曲追加* (${added.length}曲)`;
         for (let i = 0; i < added.length; i++) {
             const m = added[i];
-            const basicLevelText = m.basicBaseRating.toString().replace(".7", "+");
-            const advancedLevelText = m.advancedBaseRating.toString().replace(".7", "+");
-            const expertLevelText = m.expertBaseRating.toString().replace(".7", "+");
-            const masterLevelText = m.masterBaseRating.toString().replace(".7", "+");
+            const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
+            const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
+            const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
+            const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
             message += `
 ${i + 1}. ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
         }

@@ -57,7 +57,7 @@ function getBorderBaseRating(levelText: string): number {
     let decimal = 0;
 
     if (levelText.indexOf("+") !== -1) {
-        decimal = 0.7;
+        decimal = 0.5;
     }
 
     levelText = levelText.replace("+", "");

@@ -13,7 +13,7 @@ export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
             .map(x => {
                 return {
                     value: x,
-                    text: ((x * 10) % 10 >= 7) ? `${Math.floor(x)}+` : `${x}`,
+                    text: ((x * 10) % 10 >= 5) ? `${Math.floor(x)}+` : `${x}`,
                 };
             });
     }
