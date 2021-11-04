@@ -1,5 +1,6 @@
 import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
+import { Environment } from "../../../Layer1/Environment";
 import { MusicTable } from "../../../Layer2/Music/MusicTable";
 import { ReportFormModule } from "../@ReportFormModule";
 import { MusicModule } from "../MusicModule";
@@ -23,7 +24,12 @@ export class UnitReportGroupByGenreGoogleForm extends ReportGoogleForm {
             }
         }
         CustomLogManager.log(LogLevel.Info, `フォームに送信された回答の削除が完了しました`);
-        form.setTitle('譜面定数 検証報告');
+        if (this._module.configuration.environment === Environment.Release) {
+            form.setTitle(`譜面定数 単曲検証報告 (ジャンル別) - ${this._module.configuration.versions[versionName].displayVersionName}`);
+        }
+        else {
+            form.setTitle(`[Dev]譜面定数 単曲検証報告 (ジャンル別) - ${this._module.configuration.versions[versionName].displayVersionName}`);
+        }
         const genreSelect = form.addListItem();
         genreSelect.setTitle('ジャンルを選択してください');
         genreSelect.setRequired(true);

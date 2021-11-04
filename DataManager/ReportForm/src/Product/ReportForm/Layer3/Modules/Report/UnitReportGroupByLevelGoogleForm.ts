@@ -1,5 +1,6 @@
 import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
+import { Environment } from "../../../Layer1/Environment";
 import { Music } from "../../../Layer2/Music/Music";
 import { MusicTable } from "../../../Layer2/Music/MusicTable";
 import { ReportFormModule } from "../@ReportFormModule";
@@ -33,7 +34,12 @@ export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
             }
         }
         CustomLogManager.log(LogLevel.Info, `フォームに送信された回答の削除が完了しました`);
-        form.setTitle('譜面定数 検証報告');
+        if (this._module.configuration.environment === Environment.Release) {
+            form.setTitle(`譜面定数 単曲検証報告 (レベル別) - ${this._module.configuration.versions[versionName].displayVersionName}`);
+        }
+        else {
+            form.setTitle(`[Dev]譜面定数 単曲検証報告 (レベル別) - ${this._module.configuration.versions[versionName].displayVersionName}`);
+        }
         const levelSelect = form.addListItem();
         levelSelect.setTitle('レベルを選択してください');
         levelSelect.setRequired(true);
