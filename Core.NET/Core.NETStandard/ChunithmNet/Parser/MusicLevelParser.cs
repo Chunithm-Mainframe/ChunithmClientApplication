@@ -10,6 +10,24 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 {
     public class MusicLevelParser : HtmlParser<MusicLevel>
     {
+        private struct ScoreList
+        {
+            public int MusicCount { get; set; }
+            public int ClearCount { get; set; }
+
+            public int FullComboCount { get; set; }
+            public int AllJusticeCount { get; set; }
+            public int FullChainGoldCount { get; set; }
+            public int FullChainPlatinumCount { get; set; }
+
+            public int SCount { get; set; }
+            public int SaCount { get; set; }
+            public int SsCount { get; set; }
+            public int SsaCount { get; set; }
+            public int SssCount { get; set; }
+            public int SssaCount { get; set; }
+        }
+
         public override MusicLevel Parse(IHtmlDocument document)
         {
             if (document == null)
@@ -36,15 +54,19 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
             var musicLevel = new MusicLevel();
 
-            musicLevel.MusicCount = GetMusicCount(scoreListResult);
-            musicLevel.ClearCount = GetClearCount(scoreListResult);
-            musicLevel.SCount = GetSCount(scoreListResult);
-            musicLevel.SsCount = GetSsCount(scoreListResult);
-            musicLevel.SssCount = GetSssCount(scoreListResult);
-            musicLevel.FullComboCount = GetFullComboCount(scoreListResult);
-            musicLevel.AllJusticeCount = GetAllJusticeCount(scoreListResult);
-            musicLevel.FullChainGoldCount = GetFullChainGoldCount(scoreListResult);
-            musicLevel.FullChainPlatinumCount = GetFullChainPlatinumCount(scoreListResult);
+            var scoreList = GetScoreList(scoreListResult);
+            musicLevel.MusicCount = scoreList.MusicCount;
+            musicLevel.ClearCount = scoreList.ClearCount;
+            musicLevel.SCount = scoreList.SCount;
+            musicLevel.SaCount = scoreList.SaCount;
+            musicLevel.SsCount = scoreList.SsCount;
+            musicLevel.SsaCount = scoreList.SsaCount;
+            musicLevel.SssCount = scoreList.SssCount;
+            musicLevel.SssaCount = scoreList.SssaCount;
+            musicLevel.FullComboCount = scoreList.FullComboCount;
+            musicLevel.AllJusticeCount = scoreList.AllJusticeCount;
+            musicLevel.FullChainGoldCount = scoreList.FullChainGoldCount;
+            musicLevel.FullChainPlatinumCount = scoreList.FullChainPlatinumCount;
             musicLevel.Units = GetUnits(musicDetail);
 
             return musicLevel;
@@ -52,183 +74,92 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private bool IsValidDocument(IHtmlDocument document)
         {
-            return HtmlParseUtility.GetPageTitle(document) == "楽曲別レコード";
+            return HtmlParseUtility.GetPageTitle(document) == "レコード";
         }
 
-        private int GetMusicCount(IElement content)
+        private ScoreList GetScoreList(IElement content)
         {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
+            var scoreList = new ScoreList();
+            foreach (var item in GetScoreListItems(content))
             {
-                if (score.Item1.Contains("icon_clear"))
+                if (item.img.Contains("icon_clear.png"))
                 {
-                    return score.Item3;
+                    scoreList.MusicCount = item.all;
+                    scoreList.ClearCount = item.num;
+                }
+                if (item.img.Contains("icon_fullcombo.png"))
+                {
+                    scoreList.FullComboCount = item.num;
+                }
+                if (item.img.Contains("icon_alljustice.png"))
+                {
+                    scoreList.AllJusticeCount = item.num;
+                }
+                if (item.img.Contains("icon_fullchain2.png"))
+                {
+                    scoreList.FullChainGoldCount = item.num;
+                }
+                if (item.img.Contains("icon_fullchain.png"))
+                {
+                    scoreList.FullChainPlatinumCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_8.png"))
+                {
+                    scoreList.SCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_9.png"))
+                {
+                    scoreList.SaCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_10.png"))
+                {
+                    scoreList.SsCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_11.png"))
+                {
+                    scoreList.SsaCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_12.png"))
+                {
+                    scoreList.SssCount = item.num;
+                }
+                if (item.img.Contains("icon_rank_13.png"))
+                {
+                    scoreList.SssaCount = item.num;
                 }
             }
-
-            return 0;
+            return scoreList;
         }
 
-        private int GetClearCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_clear"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetSCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_rank_8"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetSsCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_rank_9"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetSssCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_rank_10"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetFullComboCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_fullcombo"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetAllJusticeCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_alljustice"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetFullChainGoldCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_fullchain2"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private int GetFullChainPlatinumCount(IElement content)
-        {
-            var scoreList = GetScoreList(content);
-            foreach (var score in scoreList)
-            {
-                if (score.Item1.Contains("icon_fullchain") && !score.Item1.Contains("icon_fullchain2"))
-                {
-                    return score.Item2;
-                }
-            }
-
-            return 0;
-        }
-
-        private List<Tuple<string, int, int>> GetScoreList(IElement content)
+        private IEnumerable<(string img, int num, int all)> GetScoreListItems(IElement content)
         {
             var scoreListContents = content.GetElementsByClassName("score_list");
 
             if (scoreListContents == null)
             {
-                return new List<Tuple<string, int, int>>();
+                yield break;
             }
 
-            var scoreList = new List<Tuple<string, int, int>>();
             foreach (var score in scoreListContents)
             {
-                var left = score
-                    .GetElementsByClassName("score_list_left")?.FirstOrDefault()?
+                var top = score
+                    .GetElementsByClassName("score_list_top")?.FirstOrDefault()?
                     .GetElementsByTagName("img")?.FirstOrDefault()?
                     .GetAttribute("src");
 
-                if (string.IsNullOrEmpty(left))
-                {
-                    continue;
-                }
+                var bottom = score
+                    .GetElementsByClassName("score_list_bottom")?.FirstOrDefault();
 
-                var right = score
-                    .GetElementsByClassName("score_list_right")?.FirstOrDefault()?
-                    .TextContent?.Replace(" ", "").Split(new[] { "/" }, StringSplitOptions.None);
+                int.TryParse(
+                    bottom.GetElementsByClassName("score_num_text")?.FirstOrDefault()?.TextContent,
+                    out var numerator);
 
-                if (right == null || right.Length < 2)
-                {
-                    continue;
-                }
+                int.TryParse(
+                    bottom.GetElementsByClassName("score_all_text")?.FirstOrDefault()?.TextContent?.Replace("/", ""),
+                    out var denominator);
 
-                var numerator = 0;
-                var denominator = 0;
-
-                if (!int.TryParse(right[0], out numerator))
-                {
-                    continue;
-                }
-
-                if (!int.TryParse(right[1], out denominator))
-                {
-                    continue;
-                }
-
-                scoreList.Add(new Tuple<string, int, int>(left, numerator, denominator));
+                yield return (top, numerator, denominator);
             }
-
-            return scoreList;
         }
 
         private MusicLevel.Unit[] GetUnits(IElement content)

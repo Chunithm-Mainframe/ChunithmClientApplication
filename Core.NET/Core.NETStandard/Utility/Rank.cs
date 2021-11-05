@@ -44,12 +44,12 @@ namespace ChunithmClientLibrary
 
         private static readonly RankPair[] rankPairs = new RankPair[]
         {
-            new RankPair(Rank.Max,  score : 1010000, text : "MAX",  code : 10),
-            //new RankPair(Rank.SSSA, score : 1009000, text : "SSS+", code : 10),
-            new RankPair(Rank.SSS,  score : 1007500, text : "SSS",  code : 10),
-            new RankPair(Rank.SSA,  score : 1005000, text : "SS+",  code : 9),
-            new RankPair(Rank.SS,   score : 1000000, text : "SS",   code : 9),
-            //new RankPair(Rank.SA,   score :  990000, text : "S+",   code : 9),
+            new RankPair(Rank.Max,  score : 1010000, text : "MAX",  code : 13),
+            new RankPair(Rank.SSSA, score : 1009000, text : "SSS+", code : 13),
+            new RankPair(Rank.SSS,  score : 1007500, text : "SSS",  code : 12),
+            new RankPair(Rank.SSA,  score : 1005000, text : "SS+",  code : 11),
+            new RankPair(Rank.SS,   score : 1000000, text : "SS",   code : 10),
+            new RankPair(Rank.SA,   score :  990000, text : "S+",   code : 9),
             new RankPair(Rank.S,    score :  975000, text : "S",    code : 8),
             new RankPair(Rank.AAA,  score :  950000, text : "AAA",  code : 7),
             new RankPair(Rank.AA,   score :  925000, text : "AA",   code : 6),
@@ -74,14 +74,10 @@ namespace ChunithmClientLibrary
 
         public static Rank ToRank(int rankCode)
         {
-            if (rankCode == 10)
+            // MAXが先にチェックされてしまうため
+            if (rankCode == 13)
             {
-                return Rank.SSS;
-            }
-
-            if (rankCode == 9)
-            {
-                return Rank.SS;
+                return Rank.SSSA;
             }
 
             return PairConverter.Convert(rankPairs, rankCode, Rank.None, p => p.Code, p => p.Rank);
