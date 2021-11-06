@@ -91,7 +91,8 @@ function getBordersAsIntegerRating(integerBaseRating: number, asOverPower: boole
     }
     else {
         return [
-            { score: borderScoreMap[Rank.SSS] + 1, integerRating: integerBaseRating + 200 },
+            { score: borderScoreMap[Rank.SSSA] + 1, integerRating: integerBaseRating + 215 },
+            { score: borderScoreMap[Rank.SSSA], integerRating: integerBaseRating + 215 },
             { score: borderScoreMap[Rank.SSS], integerRating: integerBaseRating + 200 },
             { score: borderScoreMap[Rank.SSA], integerRating: integerBaseRating + 150 },
             { score: borderScoreMap[Rank.SS], integerRating: integerBaseRating + 100 },
