@@ -9,10 +9,10 @@ namespace ChunithmClientLibrary
         {
             public static TResult Convert<TPair, TSource, TResult>(TPair[] pairs, TSource source, TResult defaultValue, Func<TPair, TSource> sourceSelector, Func<TPair, TResult> resultSelector)
             {
-                return Convert(pairs, source, defaultValue, sourceSelector, resultSelector, value => Equals(source, value));
+                return Convert(pairs, defaultValue, sourceSelector, resultSelector, value => Equals(source, value));
             }
 
-            public static TResult Convert<TPair, TSource, TResult>(TPair[] pairs, TSource source, TResult defaultValue, Func<TPair, TSource> sourceSelector, Func<TPair, TResult> resultSelector, Predicate<TSource> predicate)
+            public static TResult Convert<TPair, TSource, TResult>(TPair[] pairs, TResult defaultValue, Func<TPair, TSource> sourceSelector, Func<TPair, TResult> resultSelector, Predicate<TSource> predicate)
             {
                 var pair = pairs.FirstOrDefault(p => predicate(sourceSelector(p)));
                 if (pair == null)

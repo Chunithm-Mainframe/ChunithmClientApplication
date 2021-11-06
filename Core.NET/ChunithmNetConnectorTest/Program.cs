@@ -9,7 +9,7 @@ namespace ChunithmNetConnetorTest
 {
     partial class Program
     {
-        static HttpClient client = new HttpClient();
+        static HttpClient client = new();
         static ChunithmNetHttpClientConnector connector;
 
         static void Main(string[] args)

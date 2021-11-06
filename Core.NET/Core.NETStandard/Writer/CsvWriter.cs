@@ -15,10 +15,8 @@ namespace ChunithmClientLibrary.Writer
                 Directory.CreateDirectory(directory);
             }
 
-            using (var writer = new StreamWriter(path, false, Encoding.UTF8))
-            {
-                writer.Write(Csv);
-            }
+            using var writer = new StreamWriter(path, false, Encoding.UTF8);
+            writer.Write(Csv);
         }
 
         public virtual void Set(TData data)

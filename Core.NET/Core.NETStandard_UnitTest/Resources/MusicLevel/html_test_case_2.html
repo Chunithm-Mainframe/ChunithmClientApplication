@@ -1,260 +1,2612 @@
-﻿<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <!-- Google Tag Manager -->
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5PWDSV');</script>
-    <!-- End Google Tag Manager -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" id="viewport" content="width=480,user-scalable=yes" />
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; IE=EmulateIE9" />
-    <meta http-equiv="Pragma" CONTENT="no-cache">
-    <meta http-equiv="Cache-Control" CONTENT="no-cache">
-    <meta http-equiv="Expires" CONTENT="-1">
-    <meta name="robots" content="INDEX, FOLLOW" />
-    <meta name="auther" content="(C) SEGA">
-    <meta name="copyright" content="&copy;SEGA">
-    <meta name="description" content="【新音ゲー】 maimai チームが贈る、セガの新作音楽ゲーム「CHUNITHM（チュウニズム）」">
-    <meta name="keywords" content="チュウニズム,チューニズム,CHUNITHM,セガ,maimai,音ゲー">
-    <meta name="mkd" content="1ad0cb733cdffe69fb2d1e81945aa95c">
-    <title>CHUNITHM ■ CHUNITHM-NET</title>
-    <link rel="apple-touch-icon-precomposed" href="https://chunithm-net.com/mobile/apple-touch-icon.png" />
-    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://chunithm-net.com/mobile/favicon.ico" />
-    <link rel="icon" type="image/vnd.microsoft.icon" href="https://chunithm-net.com/mobile/favicon.ico" />
-    <link rel="stylesheet" href="https://chunithm-net.com/mobile/css/common.css?ver=1.30" />
-    <link rel="stylesheet" href="https://chunithm-net.com/mobile/css/submenu.css?ver=1.30" />
-    <link rel="stylesheet" href="https://chunithm-net.com/mobile/css/contents.css?ver=1.30" />
-    <link rel="stylesheet" href="https://chunithm-net.com/mobile/css/pc.css" />
-</head>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PWDSV"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <div id="wrap">
-        <!-- ヘッダ -->
-        <h1 id="header"></h1>
-        <!-- コンテンツ -->
-        <div id="inner">
-            <div id="main_menu">
-                <ul>
-                    <li class="btn_home" onclick="location.href='https://chunithm-net.com/mobile/home/';"></li>
-                    <li class="btn_record_on" onclick="location.href='https://chunithm-net.com/mobile/record/';"></li>
-                    <li class="btn_collection" onclick="location.href='https://chunithm-net.com/mobile/collection/';"></li>
-                    <li class="btn_friend" onclick="location.href='https://chunithm-net.com/mobile/friend/';"></li>
-                    <li class="btn_ranking" onclick="location.href='https://chunithm-net.com/mobile/ranking/';"></li>
-                    <li class="btn_worldsend" onclick="location.href='https://chunithm-net.com/mobile/worldsEnd/';"></li>
-                    <li class="btn_course" onclick="location.href='https://chunithm-net.com/mobile/course/';"></li>
-                </ul>
-            </div>
-            <div class="frame01 w460">
-                <div class="frame01_inside w450">
-                    <div id="submenu">
-                        <ul>
-                            <li class="submenu_map">
-                                <a href="https://chunithm-net.com/mobile/record/">マップ</a>
-                            </li>
-                            <li class="submenu_play">
-                                <a href="https://chunithm-net.com/mobile/record/playlog">プレイ履歴</a>
-                            </li>
-                            <li class="submenu_record_on">
-                            </li>
-                            <li class="submenu_pilgrimage">
-                                <a href="https://chunithm-net.com/mobile/record/region">全国行脚</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--●ページタイトル-->
-                    <h2 id="page_title">楽曲別レコード</h2>
-                    <div class="narrow_block clearfix">
-                        <a href="https://chunithm-net.com/mobile/record/musicGenre/" class="btn_genre">ジャンル</a>
-                        <div class="btn_narrow_on">絞り込み</div>
-                        <a href="https://chunithm-net.com/mobile/record/musicLatest/" class="btn_latest10">最新10曲</a>
-                    </div>
-                    <hr class="line_dot_black w420" />
-                    <div class="box02 w420 mb_20">
-                        <div class="narrow_block clearfix">
-                            <a href="https://chunithm-net.com/mobile/record/musicWord/" class="btn_aiueo">あいうえお順</a>
-                            <a href="https://chunithm-net.com/mobile/record/musicRank/" class="btn_rank">ランク</a>
-                            <div class="btn_level_on">レベル</div>
-                        </div>
-                        <form action="https://chunithm-net.com/mobile/record/musicLevel/sendSearch/" method="post" accept-charset="utf-8">
-                            <div class="narrow_block clearfix">
-                                <select name="level" class="narrow01 w280">
-                                    <option value="0">LEVEL 1</option>
-                                    <option value="1">LEVEL 2</option>
-                                    <option value="2">LEVEL 3</option>
-                                    <option value="3">LEVEL 4</option>
-                                    <option value="4">LEVEL 5</option>
-                                    <option value="5">LEVEL 6</option>
-                                    <option value="6">LEVEL 7</option>
-                                    <option value="7">LEVEL 7+</option>
-                                    <option value="8">LEVEL 8</option>
-                                    <option value="9">LEVEL 8+</option>
-                                    <option value="10">LEVEL 9</option>
-                                    <option value="11">LEVEL 9+</option>
-                                    <option value="12">LEVEL 10</option>
-                                    <option value="13">LEVEL 10+</option>
-                                    <option value="14">LEVEL 11</option>
-                                    <option value="15">LEVEL 11+</option>
-                                    <option value="16" selected>LEVEL 12</option>
-                                    <option value="17">LEVEL 12+</option>
-                                    <option value="18">LEVEL 13</option>
-                                    <option value="19">LEVEL 13+</option>
-                                    <option value="20">LEVEL 14</option>
-                                </select>
-                            </div>
-                            <input type="hidden" name="token" value="437f535c994213eb971547203caf2a49" />
-                        </form>
-                    </div>
-                    <!--●各種集計データ-->
-                    <div id="scoreList_result">
-                        <div class="box01 w420">
-                            <div class="narrow_block clearfix">
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_clear.png"></div>
-                                    <div class="score_list_right">215 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_rank_8.png"></div>
-                                    <div class="score_list_right">215 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_rank_9.png"></div>
-                                    <div class="score_list_right">215 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_rank_10.png"></div>
-                                    <div class="score_list_right">215 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_fullcombo.png"></div>
-                                    <div class="score_list_right">208 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_alljustice.png"></div>
-                                    <div class="score_list_right">192 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_fullchain2.png"></div>
-                                    <div class="score_list_right">2 / 219</div>
-                                </div>
-                                <div class="score_list">
-                                    <div class="score_list_left"><img src="https://chunithm-net.com/mobile/images/icon_fullchain.png"></div>
-                                    <div class="score_list_right">2 / 219</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box01 w420">
-                        <div class="box01_title"><span>LEVEL 12</span></div>
-                        <form action="https://chunithm-net.com/mobile/record/musicGenre/sendMusicDetail/" method="post" accept-charset="utf-8">
-                            <div class="w388 musiclist_box bg_master">
-                                <div class="music_title">ラブリー☆えんじぇる!!</div>
-                                <!-- ◆スコア -->
-                                <div class="play_musicdata_highscore">
-                                    HIGH SCORE：<span class="text_b">1,009,957</span>
-                                </div>
-                                <div class="play_musicdata_icon clearfix">
-                                    <!-- ◆クリア -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_clear.png">										<!-- ◆ランク -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_rank_10.png" />
-                                    <!-- ◆オールジャスティス -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_alljustice.png" />
-                                    <!-- ◆フルチェインプラチナ -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_fullchain.png" />
-                                </div>
-                                <input type="hidden" name="idx" value="354" />
-                                <input type="hidden" name="token" value="437f535c994213eb971547203caf2a49" />
-                            </div>
-                        </form>
-                        <form action="https://chunithm-net.com/mobile/record/musicGenre/sendMusicDetail/" method="post" accept-charset="utf-8">
-                            <div class="w388 musiclist_box bg_master">
-                                <div class="music_title">アンノウン・マザーグース</div>
-                                <!-- ◆スコア -->
-                                <div class="play_musicdata_highscore">
-                                    HIGH SCORE：<span class="text_b">1,009,614</span>
-                                </div>
-                                <div class="play_musicdata_icon clearfix">
-                                    <!-- ◆クリア -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_clear.png">										<!-- ◆ランク -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_rank_10.png" />
-                                    <!-- ◆フルコンボ -->
-                                    <img src="https://chunithm-net.com/mobile/images/icon_fullcombo.png" />
-                                </div>
-                                <input type="hidden" name="idx" value="626" />
-                                <input type="hidden" name="token" value="437f535c994213eb971547203caf2a49" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="sleep_penguin"></div>
-        </div>
-    </div>
-    <!-- フッタ -->
-    <div id="footer">
-        <div class="footer_banner clearfix font_x-small">
-            <a href="http://chunithm.sega.jp/" target="_blank"><img src="https://chunithm-net.com/mobile/images/banner_chunithm_official.jpg?ver=1.30" /></a>
-            <a href="https://my-aime.net/" target="_blank"><img src="https://chunithm-net.com/mobile/images/banner_aime_l.jpg" /></a><br>
-            <a href="http://maimai.sega.jp/" target="_blank"><img src="https://chunithm-net.com/mobile/images/banner_maimai_official.jpg?ver=1.95" /></a>
-            <a href="https://ongeki.sega.jp/" target="_blank"><img src="https://chunithm-net.com/mobile/images/banner_ongeki_official.jpg?ver=1.00" /></a>
-        </div>
-        <div class="footer_menu">
-            <span class="font_90">｜ <a href="http://otogame-net.com/agreement/" target="_blank">利用規約</a></span>
-            <span class="font_90">｜ <a href="http://otogame-net.com/environment/" target="_blank">推奨環境</a></span>
-            <span class="font_90">｜ <a href="http://otogame-net.com/contact/" target="_blank">よくあるご質問・お問い合わせ</a>｜</span><br>
-            <span class="font_90">｜ <a href="https://www.sega.co.jp/privacypolicy_shd/" target="_blank">プライバシーポリシー</a></span>
-            <span class="font_90">｜<a href="https://gw.sega.jp/gw/support/tokuteiam/" target="_blank">「特定商取引に関する法律」に基づく表示</a>｜</span>
-        </div>
-        <div class="footer_attention">
-            <div id="footer_copy">
-                <a href="https://sega.jp/" target="_blank">
-                    <img src="https://chunithm-net.com/mobile/images/logo_sega.png" /><br>
-                </a>
-                &copy; SEGA
-            </div>
-        </div>
-    </div>
-    <script src="https://chunithm-net.com/mobile/js/jquery-1.7.2.min.js?ver=1.30"></script>
-    <script src="https://chunithm-net.com/mobile/js/jquery.marquee.js?ver=1.30"></script>
-    <script src="https://chunithm-net.com/mobile/js/common.js?ver=1.30"></script>
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/search/ -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Google Tag Manager -->
+	<script async="" src="./html_test_case_2_files/analytics.js.ダウンロード"></script><script type="text/javascript" async="" src="./html_test_case_2_files/f.txt"></script><script async="" src="./html_test_case_2_files/gtm.js.ダウンロード"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-5PWDSV');</script>
+	<!-- End Google Tag Manager -->
+	
+	<meta name="viewport" id="viewport" content="width=480,user-scalable=yes">
+	<meta name="format-detection" content="telephone=no">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8; IE=EmulateIE9">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+	<meta name="robots" content="INDEX, FOLLOW">
+	<meta name="auther" content="(C) SEGA">
+	<meta name="copyright" content="©SEGA">
+	<meta name="description" content="【新音ゲー】 maimai チームが贈る、セガの新作音楽ゲーム「CHUNITHM（チュウニズム）」">
+	<meta name="keywords" content="チュウニズム,チューニズム,CHUNITHM,セガ,maimai,音ゲー">
+	<meta name="mkd" content="1ad0cb733cdffe69fb2d1e81945aa95c">
 
-        ga('create', 'UA-68439863-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script>
-        $('select[name=level]').change(function () {
-            $(this).parents('form').submit();
-            return true;
-        });
-        $('div.musiclist_box').click(function () {
-            var form = $(this).parent('form');
-            if (form.length > 0) {
-                form.submit();
-                return true;
-            } else {
-                return false;
-            }
-        });
-    </script>
-</body>
-</html>
+	<title>CHUNITHM ■ CHUNITHM-NET</title>
+	<link rel="apple-touch-icon-precomposed" href="https://new.chunithm-net.com/chuni-mobile/html/mobile/apple-touch-icon.png">
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="https://new.chunithm-net.com/chuni-mobile/html/mobile/favicon.ico">
+	<link rel="icon" type="image/vnd.microsoft.icon" href="https://new.chunithm-net.com/chuni-mobile/html/mobile/favicon.ico">
+
+	<link rel="stylesheet" href="./html_test_case_2_files/common.css">
+	<link rel="stylesheet" href="./html_test_case_2_files/submenu.css">
+	<link rel="stylesheet" href="./html_test_case_2_files/contents.css">
+	<link rel="stylesheet" href="./html_test_case_2_files/pc.css">
+<script src="./html_test_case_2_files/f(1).txt"></script></head>
+<body>
+	<!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5PWDSV"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+	<div class="bg1">
+	<div class="bg2">
+
+	<div id="wrap">
+		<!-- ヘッダ -->
+		<h1 id="header"></h1>
+		<!-- コンテンツ -->
+		<div id="inner">
+			<div id="main_menu">
+	<ul>
+		<li class="btn_home" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/home/&#39;;"></li>
+		<li class="btn_record_on" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/record/&#39;;"></li>
+		<li class="btn_collection" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/collection/&#39;;"></li>
+		<li class="btn_friend" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/friend/&#39;;"></li>
+		<li class="btn_ranking" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/ranking/teamPoint/&#39;;"></li>
+		<li class="btn_team" onclick="location.href=&#39;https://new.chunithm-net.com/chuni-mobile/html/mobile/team/&#39;;"></li>
+	</ul>
+</div>
+<div class="clearfix"></div>
+			<div class="frame01 w460">
+		     
+<div id="submenu">
+	<ul>
+		<li class="submenu_map">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/">マップ</a>		</li>
+		<li class="submenu_play">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/playlog">プレイ履歴</a>		</li>
+		<li class="submenu_netbattlelog">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/netBattlelog">全国対戦</a>		</li>
+		<li class="submenu_record_on">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicGenre">楽曲別レコード</a>		</li>
+		<li class="submenu_pilgrimage">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/region">全国行脚</a>		</li>
+	</ul>
+</div>	<div class="frame01_inside">
+		<!--●ページタイトル-->
+		<div class="pt_15 pb_10">
+			<h2 id="page_title">レコード</h2>
+		</div>
+		<div class="record_block clearfix">
+			<div class="btn_recrod_genre_on">楽曲別</div>
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/worldsEndList/" class="btn_recrod_worldsend">WORLD END</a>
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/courseList/" class="btn_recrod_course">クラス認定</a>
+		</div>
+		<div class="pt_5 pb_5">
+			<h2 id="page_title">楽曲別</h2>
+		</div>
+		<div class="record_disp_type_block clearfix">
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicGenre/" class="btn_genre">ジャンル</a>
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicWord/" class="btn_aiueo">楽曲名</a>
+			<a href="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicRank/" class="btn_rank">RANK</a>
+			<div class="btn_level_on">LEVEL</div>
+		</div>
+		<div class="box02 w420 mb_20">
+			<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendSearch/" method="post" accept-charset="utf-8">
+				<div class="narrow_block clearfix">
+					<select name="level" class="narrow01 w280">
+													<option value="0">LEVEL 1</option>
+													<option value="1">LEVEL 2</option>
+													<option value="2">LEVEL 3</option>
+													<option value="3">LEVEL 4</option>
+													<option value="4">LEVEL 5</option>
+													<option value="5">LEVEL 6</option>
+													<option value="6">LEVEL 7</option>
+													<option value="7">LEVEL 7+</option>
+													<option value="8">LEVEL 8</option>
+													<option value="9">LEVEL 8+</option>
+													<option value="10">LEVEL 9</option>
+													<option value="11">LEVEL 9+</option>
+													<option value="12">LEVEL 10</option>
+													<option value="13">LEVEL 10+</option>
+													<option value="14">LEVEL 11</option>
+													<option value="15">LEVEL 11+</option>
+													<option value="16">LEVEL 12</option>
+													<option value="17">LEVEL 12+</option>
+													<option value="18">LEVEL 13</option>
+													<option value="19">LEVEL 13+</option>
+													<option value="20">LEVEL 14</option>
+													<option value="21" selected="">LEVEL 14+</option>
+													<option value="22">LEVEL 15</option>
+											</select>
+				</div>
+				<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+			</form>
+		</div>
+					<!--●各種集計データ-->
+			<!--●各種集計データ-->
+			<div id="scoreList_result">
+				<div class="box01 w420 font_0">
+					<div class="score_list_block">
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_clear.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">112</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_fullcombo.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">22 </div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_alljustice.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">0</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_fullchain2.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">0 </div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_fullchain.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">0</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<br>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_8.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">112</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_9.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">111</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_10.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">109</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_11.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">77</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_12.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">43</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+						<div class="score_list">
+							<div class="score_list_top"><img src="./html_test_case_2_files/icon_rank_13.png"></div>
+							<div class="score_list_bottom">
+								<div class="score_num_text">3</div>
+								<div class="score_all_text font_small">/124</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="box01 w420">
+									<div class="box01_title"><span>LEVEL 14+</span></div>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_expert">
+								<div class="text_white music_title">祈 -我ら神祖と共に歩む者なり-</div>
+																<input type="hidden" name="idx" value="1086">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="2">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">紅</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">988,987</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_8.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="2012">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">ジングルベル</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,721</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="159">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">初音ミクの激唱</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,668</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="631">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">初音ミクの消失</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,227</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="7">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Yakumo &gt;&gt;JOINT STRUGGLE (2019 Update)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">992,228</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_9.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="2084">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Wizdomiot</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,002,119</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1055">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">星の器～STAR OF ANDROMEDA</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,370</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="799">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Calamity Fortune</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,289</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="504">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Imperishable Night 2006 (2016 Refine)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,943</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="322">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Lemegeton -little key of solomon-</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,362</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1043">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">BUCHiGiRE Berserker</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,521</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1044">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Crimson Phoenix</div>
+																<input type="hidden" name="idx" value="2040">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Blue Noise</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,598</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="33">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Finite</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,981</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="409">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Fracture Ray</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,298</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="749">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Grievous Lady</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,236</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="751">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">AttraqtiA</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,221</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="999">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">SINister Evolution</div>
+																<input type="hidden" name="idx" value="2038">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">神威</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,168</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="386">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">A Site De La Rue</div>
+																<input type="hidden" name="idx" value="2034">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">]-[|/34&lt;#!</div>
+																<input type="hidden" name="idx" value="2039">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Sound Chimera</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,974</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="911">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Blackmagik Blazing</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,673</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="959">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">BATTLE NO.1</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,164</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1085">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">極圏</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,617</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="471">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Scarlet Lance</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,179</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="472">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">GERBERA</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,872</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="670">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">ouroboros -twin stroke of the end-</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,445</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="669">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Aragami</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,301</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="144">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">HAELEQUIN (Original Remaster)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,900</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="134">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Vallista</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,157</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="135">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">FREEDOM DiVE</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,936</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="196">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Air</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,667</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="317">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Angel dust</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,001,615</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="137">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Dreadnought</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,894</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="323">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">★LittlE HearTs★</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,002,008</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="328">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Name of oath</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,036</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="389">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Dengeki Tube</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,998</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="393">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">G e n g a o z o</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,488</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="506">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Doppelganger</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,317</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="548">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Nhelv</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,624</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="676">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">PUPA</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,803</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="677">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">End Time</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,682</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="619">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">水晶世界 ～Fracture～</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,533</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="806">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Destr0yer</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,537</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="832">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">AXION</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,801</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="863">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Giselle</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,174</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="893">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Ascension to Heaven</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,454</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="978">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">MARENOL</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,656</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="927">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">小悪魔の遊園地</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,221</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="981">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">真千年女王</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,001,739</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1092">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Love &amp; Justice</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">990,049</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_9.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="2089">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">管弦楽組曲 第3番 ニ長調「第2曲（G線上のアリア）」BWV.1068-2</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,733</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="600">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Garakuta Doll Play</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,472</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="226">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Like the Wind [Reborn]</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,009,085</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_13.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="397">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">AMAZING MIGHTYYYY!!!!</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,520</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="538">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">VERTeX</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,727</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="486">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Caliburne ～Story of the Legendary sword～</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,447</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="499">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">ねぇ、壊れタ人形ハ何処へ棄テらレるノ？</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,626</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="570">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">larva</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,534</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="713">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Excalibur ～Revived resolution～</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,666</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="822">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Alea jacta est!</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,861</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1009">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">アポカリプスに反逆の焔を焚べろ</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,530</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1106">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">封焔の135秒</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,002,144</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="2050">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Iudicium “Apocalypsis Mix”</div>
+																<input type="hidden" name="idx" value="2134">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Ai Nov</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,009,224</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_13.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="730">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Everlasting Today</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,439</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="762">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">YURUSHITE</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,114</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="784">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Opfer</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,754</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="823">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">MEGATON BLAST</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,518</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="865">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Viyella's Tears</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,549</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1010">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Good bye, Merry-Go-Round.</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,520</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1059">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Don't Fight The Music</div>
+																<input type="hidden" name="idx" value="2099">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">脳天直撃</div>
+																<input type="hidden" name="idx" value="2049">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Contrapasso -inferno-</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,557</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="201">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Xevel</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,000</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="469">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">otorii INNOVATED -[i]3-</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,152</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="559">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">神威 (NAOKI × ZPP MIX)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,209</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="824">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Paqqin (tpz Despair Remix)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,717</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1011">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">赤壁、大炎上！！</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,001,753</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1035">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">luna blu</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,597</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="76">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">閃鋼のブリューナク</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,977</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="141">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Gate of Fate</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,007</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="63">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">エンドマークに希望と涙を添えて</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,627</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="103">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Genesis</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,085</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="72">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">L'épisode</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,010</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="90">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">GOLDEN RULE</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,086</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="61">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">宛城、炎上！！</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,124</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="106">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Philosopher</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,009,319</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_13.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="250">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Schrecklicher Aufstand</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,189</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="248">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Devastating Blaster</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,388</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="234">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Kattobi KEIKYU Rider</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,872</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="441">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Glorious Crown (tpz over-Over-OVERCUTE REMIX)</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,114</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="442">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Iudicium</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,561</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="466">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Sparking Revolver</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,140</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="551">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Gate of Doom</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,483</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="552">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Surveiller et punir</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,002,423</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="617">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">folern</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,915</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="697">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">夕焼けのRed Parade</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,326</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="700">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">スピカの天秤</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,727</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="702">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Climax</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,550</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="712">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">電光石火</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,005,534</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="734">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">暗晦にハイライト</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,575</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="775">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">8-EM</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,697</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="776">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">GIGA DRIVE</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,078</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="787">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Surrogate Life</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,602</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+																					<!-- ◆フルコンボ -->
+											<img src="./html_test_case_2_files/icon_fullcombo.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="830">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Trackless wilderness</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,181</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="835">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Walzer für das Nichts</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,505</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="837">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Megameteor</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,006,908</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_11.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="880">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">《破滅》 ～ Rhapsody for The End</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,001,042</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="918">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">U ARE</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,008,533</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="969">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Hainuwele</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,670</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="971">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">B100d Hunter</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,514</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="993">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Last Celebration</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,007,721</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_12.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="994">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">《本能》 ～ ReCoda</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,004,691</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1033">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Blazing:Storm</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,000,346</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1066">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Blessed Rain</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,003,177</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1077">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">Elemental Ethnic</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,001,468</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="1078">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">TECHNOPOLIS 2085</div>
+																<input type="hidden" name="idx" value="1100">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">IMPACT</div>
+																<input type="hidden" name="idx" value="2135">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">[CRYSTAL_ACCESS]</div>
+																<input type="hidden" name="idx" value="1094">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_master">
+								<div class="text_white music_title">UltraNeon</div>
+																<input type="hidden" name="idx" value="2052">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="3">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+																							<form action="https://new.chunithm-net.com/chuni-mobile/html/mobile/record/musicLevel/sendMusicDetail/" method="post" accept-charset="utf-8">
+							<div class="w388 musiclist_box bg_ultima">
+								<div class="text_white music_title">We Gonna Journey</div>
+																										<!-- ◆スコア -->
+									<div class="play_musicdata_highscore">
+										HIGH SCORE：<span class="text_b">1,002,809</span>
+									</div>
+									<div class="play_musicdata_icon clearfix">
+										<!-- ◆クリア -->
+										<img src="./html_test_case_2_files/icon_clear.png">										<!-- ◆ランク -->
+										<img src="./html_test_case_2_files/icon_rank_10.png">
+										
+																			</div>
+																<input type="hidden" name="idx" value="107">
+								<input type="hidden" name="genre" value="21">
+								<input type="hidden" name="diff" value="4">
+								<input type="hidden" name="token" value="23b50fe2bdacd791a52d436a604c8df2">
+							</div>
+						</form>
+												</div>
+			</div>
+</div>
+			<div class="sleep_penguin"><img src="./html_test_case_2_files/pen_sleep_apng.png"></div>
+		</div>
+		<div class="clearfix bg3">
+			<!-- フローティングページ -->
+			<img id="page-top" src="./html_test_case_2_files/btn_page_top.png">
+			<img id="page-bottom" src="./html_test_case_2_files/btn_page_bottom.png">
+		</div>
+		<!-- フッタ -->
+		<div id="footer">
+			<div class="footer_banner clearfix font_x-small">
+				<a href="https://chunithm.sega.jp/" target="_blank"><img src="./html_test_case_2_files/banner_chunithm_official.jpg"></a>
+				<a href="https://chunithm.sega.jp/irodorimidori/" target="_blank"><img src="./html_test_case_2_files/banner_irodori_official.jpg"></a><br>
+				<a href="https://maimai.sega.jp/" target="_blank"><img src="./html_test_case_2_files/banner_maimai_official.png"></a>
+				<a href="https://ongeki.sega.jp/" target="_blank"><img src="./html_test_case_2_files/banner_ongeki_official.jpg"></a>
+			</div>
+			<div class="footer_aime">
+				<div class="aime_box">
+					<div class="aime_box_logo">
+						<img src="./html_test_case_2_files/icon_Aime_new.png">
+					</div>
+					<div class="font_x-small aime_box_text">
+						<a href="https://my-aime.net/" target="_blank">Aimeサービスサイトに登録しておけば、<br>紛失や破損をした際でもデータ移行が出来るよ！</a>
+					</div>
+				</div>
+			</div>
+			<div class="footer_menu font_65">
+				<span>｜ <a href="https://otogame-net.com/agreement/" target="_blank"><span class="font_color_y">利用規約</span></a></span>
+				<span>｜ <a href="https://otogame-net.com/environment/" target="_blank"><span class="font_color_y">推奨環境</span></a></span>
+				<span>｜ <a href="https://otogame-net.com/contact/" target="_blank"><span class="font_color_y">よくあるご質問・お問い合わせ</span></a>｜</span><br>
+				<span>｜ <a href="https://www.sega.co.jp/privacypolicy_shd/" target="_blank"><span class="font_color_y">プライバシーポリシー</span></a></span>
+				<span>｜<a href="https://gw.sega.jp/gw/support/tokuteiam/" target="_blank"><span class="font_color_y">「特定商取引に関する法律」に基づく表示</span></a>｜</span>
+			</div>
+			<div class="footer_attention">
+				<div id="footer_copy">
+					<a href="https://sega.jp/" target="_blank">
+						<img src="./html_test_case_2_files/logo_sega.png"><br>
+					</a>
+					© SEGA
+				</div>
+							</div>
+		</div>
+	</div>
+
+	</div>
+	</div>
+
+	<script src="./html_test_case_2_files/jquery-1.7.2.min.js.ダウンロード"></script>
+	<script src="./html_test_case_2_files/jquery.marquee.js.ダウンロード"></script>
+	<script src="./html_test_case_2_files/common.js.ダウンロード"></script>
+	<script src="./html_test_case_2_files/jquery.lazyload.min.js.ダウンロード"></script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-68439863-1', 'auto');
+		ga('send', 'pageview');
+
+		var scrollPoint = $('.scroll_point').length;
+		// 上へ
+		$('#page-top').click(function () {
+			if (scrollPoint > 0) {
+				var fromPos = Math.floor($(window).scrollTop());
+				var toPos   = 0;
+				$(".scroll_point").each(function() {
+					var targetPos = Math.floor($(this).offset().top);
+					if (fromPos > targetPos) {
+						toPos = targetPos;
+					} else {
+						return false;
+					}
+				});
+				$('body,html').animate({scrollTop: toPos}, 500);
+			} else {
+				$('body,html').animate({scrollTop: 0}, 500);
+			}
+			return false;
+		});
+		// 下へ
+		$('#page-bottom').click(function () {
+			if (scrollPoint > 0) {
+				var fromPos = Math.floor($(window).scrollTop());
+				var toPos   = Math.floor($(document).height());
+				$(".scroll_point").each(function() {
+					var targetPos = Math.floor($(this).offset().top);
+					if (fromPos < targetPos) {
+						toPos = targetPos;
+						return false;
+					}
+				});
+				$('body,html').animate({scrollTop: toPos}, 500);
+			} else {
+				$('body,html').animate({scrollTop: $(document).height()}, 500);
+			}
+			return false;
+		});
+	</script>
+	<script>
+$('select[name=level]').change(function(){
+	$(this).parents('form').submit();
+	return true;
+});
+$('div.musiclist_box').click(function(){
+	var form = $(this).parent('form');
+	if (form.length > 0) {
+		form.submit();
+		return true;
+	} else {
+		return false;
+	}
+});
+</script>
+
+</body></html>

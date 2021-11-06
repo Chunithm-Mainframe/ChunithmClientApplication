@@ -87,7 +87,7 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
         [TestMethod]
         public void WorldsEndMusicParser_Error_Test1()
         {
-            var worldsEndMusic = new WorldsEndMusicParser().Parse(TestUtility.LoadResource("WorldsEndMusic/html_test_case_error_1.html"));
+            var worldsEndMusic = new WorldsEndMusicParser().Parse(TestUtility.LoadResource("Common/error_page.html"));
             Assert.IsNull(worldsEndMusic);
         }
     }

@@ -103,6 +103,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(4, 3, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(4.5, 3, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(5, 3, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(5.15, 3, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 1);
@@ -116,6 +117,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(6, 5, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(6.5, 5, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(7, 5, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(7.15, 5, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 2);
@@ -132,6 +134,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(14.5, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.15, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 3);
@@ -148,6 +151,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.1, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(14.6, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.1, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.25, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 4);
@@ -164,6 +168,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.2, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(14.7, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.2, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.35, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 5);
@@ -180,6 +185,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.3, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(14.8, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.3, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.45, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 6);
@@ -196,6 +202,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.4, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(14.9, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.4, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.55, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 7);
@@ -212,6 +219,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.5, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.5, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.65, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 8);
@@ -228,6 +236,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.6, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15.1, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.6, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.75, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 9);
@@ -244,6 +253,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.7, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15.2, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.7, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.85, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTest_ボーダーTestCase.CheckCases(testCases, 10);
@@ -260,6 +270,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.8, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15.3, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.8, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(15.95, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 11);
@@ -276,6 +287,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(14.9, baseRating, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15.4, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(15.9, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(16.05, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 12);
@@ -291,6 +303,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダーTestCase(15, 14, Rank.SS),
                     new GetRatingTest_ボーダーTestCase(15.5, 14, Rank.SSA),
                     new GetRatingTest_ボーダーTestCase(16, 14, Rank.SSS),
+                    new GetRatingTest_ボーダーTestCase(16.15, 14, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 13);
@@ -309,6 +322,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(3.5, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(4.25, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(4.75, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(5.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -322,6 +336,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(5.5, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(6.25, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(6.75, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(7.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -337,6 +352,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(6.5, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(7.25, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(7.75, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(8.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -352,6 +368,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(13.5, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.25, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(14.75, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -367,6 +384,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(13.6, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.35, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(14.85, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.17, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -382,6 +400,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(13.7, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.45, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(14.95, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.27, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -397,6 +416,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(13.8, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.55, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.05, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.37, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -412,6 +432,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(13.9, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.65, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.15, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.47, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -427,6 +448,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.0, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.75, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.25, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.57, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -442,6 +464,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.1, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.85, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.35, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.67, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -457,6 +480,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.2, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(14.95, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.45, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.77, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -472,6 +496,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.3, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(15.05, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.55, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.87, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -487,6 +512,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.4, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(15.15, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.65, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(15.97, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);
@@ -502,6 +528,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値TestCase(14.5, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値TestCase(15.25, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値TestCase(15.75, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値TestCase(16.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 14);
@@ -519,6 +546,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(3.99, 3, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(4.49, 3, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(4.99, 3, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(5.14, 3, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 1);
@@ -532,6 +560,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(5.99, 5, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(6.49, 5, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(6.99, 5, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(7.14, 5, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 2);
@@ -548,6 +577,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(13.99, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.49, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(14.99, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.14, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 3);
@@ -564,6 +594,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.09, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.59, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.09, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.24, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 4);
@@ -580,6 +611,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.19, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.69, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.19, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.34, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 5);
@@ -596,6 +628,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.29, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.79, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.29, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.44, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 6);
@@ -612,6 +645,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.39, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.89, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.39, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.54, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 7);
@@ -628,6 +662,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.49, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(14.99, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.49, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.64, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 8);
@@ -644,6 +679,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.59, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(15.09, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.59, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.74, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 9);
@@ -660,6 +696,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.69, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(15.19, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.69, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.84, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTest_ボーダー境界TestCase.CheckCases(testCases, 10);
@@ -676,6 +713,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.79, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(15.29, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.79, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(15.94, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 11);
@@ -692,6 +730,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.89, baseRating, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(15.39, baseRating, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.89, baseRating, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(16.04, baseRating, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 12);
@@ -707,6 +746,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_ボーダー境界TestCase(14.99, 14, Rank.SS),
                     new GetRatingTest_ボーダー境界TestCase(15.49, 14, Rank.SSA),
                     new GetRatingTest_ボーダー境界TestCase(15.99, 14, Rank.SSS),
+                    new GetRatingTest_ボーダー境界TestCase(16.14, 14, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 13);
@@ -724,6 +764,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(3.49, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(4.24, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(4.74, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(5.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 1);
@@ -737,6 +778,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(5.49, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(6.24, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(6.74, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(7.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 2);
@@ -752,6 +794,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(6.49, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(7.24, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(7.74, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(8.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 3);
@@ -767,6 +810,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.49, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.24, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(14.74, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 4);
@@ -782,6 +826,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.59, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.34, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(14.84, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.17, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 5);
@@ -797,6 +842,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.69, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.44, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(14.94, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.27, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 6);
@@ -812,6 +858,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.79, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.54, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.04, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.37, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 7);
@@ -827,6 +874,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.89, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.64, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.14, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.47, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 8);
@@ -842,6 +890,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(13.99, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.74, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.24, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.57, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 9);
@@ -857,6 +906,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(14.09, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.84, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.34, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.67, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 10);
@@ -872,6 +922,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(14.19, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(14.94, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.44, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.77, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 11);
@@ -887,6 +938,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(14.29, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(15.04, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.54, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.87, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 12);
@@ -902,6 +954,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(14.39, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(15.14, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.64, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(15.97, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 13);
@@ -917,6 +970,7 @@ namespace ChunithmClientLibraryUnitTest
                     new GetRatingTest_中間値境界TestCase(14.49, baseRating, Rank.S, Rank.SS),
                     new GetRatingTest_中間値境界TestCase(15.24, baseRating, Rank.SS, Rank.SSA),
                     new GetRatingTest_中間値境界TestCase(15.74, baseRating, Rank.SSA, Rank.SSS),
+                    new GetRatingTest_中間値境界TestCase(16.07, baseRating, Rank.SSS, Rank.SSSA),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, 14);
@@ -955,47 +1009,47 @@ namespace ChunithmClientLibraryUnitTest
                 var testCases = new[]
                 {
                     new GetRatingTest_範囲外TestCase(0, 3, -1),
-                    new GetRatingTest_範囲外TestCase(5, 3, 1010000),
-                    new GetRatingTest_範囲外TestCase(5, 3, 10000000),
+                    new GetRatingTest_範囲外TestCase(5.15, 3, 1010000),
+                    new GetRatingTest_範囲外TestCase(5.15, 3, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 5, -1),
-                    new GetRatingTest_範囲外TestCase(7, 5, 1010000),
-                    new GetRatingTest_範囲外TestCase(7, 5, 10000000),
+                    new GetRatingTest_範囲外TestCase(7.15, 5, 1010000),
+                    new GetRatingTest_範囲外TestCase(7.15, 5, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 6, -1),
-                    new GetRatingTest_範囲外TestCase(8, 6, 1010000),
-                    new GetRatingTest_範囲外TestCase(8, 6, 10000000),
+                    new GetRatingTest_範囲外TestCase(8.15, 6, 1010000),
+                    new GetRatingTest_範囲外TestCase(8.15, 6, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.0, -1),
-                    new GetRatingTest_範囲外TestCase(15.0, 13.0, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.0, 13.0, 10000000),
-                    new GetRatingTest_範囲外TestCase(0, 13.1, -1),
-                    new GetRatingTest_範囲外TestCase(15.1, 13.1, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.1, 13.1, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.15, 13.0, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.15, 13.0, 10000000),
+                    new GetRatingTest_範囲外TestCase(0, 15.1, -1),
+                    new GetRatingTest_範囲外TestCase(15.25, 13.1, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.25, 13.1, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.2, -1),
-                    new GetRatingTest_範囲外TestCase(15.2, 13.2, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.2, 13.2, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.35, 13.2, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.35, 13.2, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.3, -1),
-                    new GetRatingTest_範囲外TestCase(15.3, 13.3, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.3, 13.3, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.45, 13.3, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.45, 13.3, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.4, -1),
-                    new GetRatingTest_範囲外TestCase(15.4, 13.4, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.4, 13.4, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.55, 13.4, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.55, 13.4, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.5, -1),
-                    new GetRatingTest_範囲外TestCase(15.5, 13.5, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.5, 13.5, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.65, 13.5, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.65, 13.5, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.6, -1),
-                    new GetRatingTest_範囲外TestCase(15.6, 13.6, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.6, 13.6, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.75, 13.6, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.75, 13.6, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.7, -1),
-                    new GetRatingTest_範囲外TestCase(15.7, 13.7, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.7, 13.7, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.85, 13.7, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.85, 13.7, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.8, -1),
-                    new GetRatingTest_範囲外TestCase(15.8, 13.8, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.8, 13.8, 10000000),
+                    new GetRatingTest_範囲外TestCase(15.95, 13.8, 1010000),
+                    new GetRatingTest_範囲外TestCase(15.95, 13.8, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 13.9, -1),
-                    new GetRatingTest_範囲外TestCase(15.9, 13.9, 1010000),
-                    new GetRatingTest_範囲外TestCase(15.9, 13.9, 10000000),
+                    new GetRatingTest_範囲外TestCase(16.05, 13.9, 1010000),
+                    new GetRatingTest_範囲外TestCase(16.05, 13.9, 10000000),
                     new GetRatingTest_範囲外TestCase(0, 14.0, -1),
-                    new GetRatingTest_範囲外TestCase(16.0, 14.0, 1010000),
-                    new GetRatingTest_範囲外TestCase(16.0, 14.0, 10000000),
+                    new GetRatingTest_範囲外TestCase(16.15, 14.0, 1010000),
+                    new GetRatingTest_範囲外TestCase(16.15, 14.0, 10000000),
                 };
 
                 GetRatingTestTestCase.CheckCases(testCases, category++);

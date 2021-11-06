@@ -12,58 +12,19 @@ namespace ChunithmClientLibrary
         AA,
         AAA,
         S,
+        SA,
         SS,
         SSA,
         SSS,
+        SSSA,
         Max,
     }
 
     public static partial class Utility
     {
-        public static readonly int RANK_MAX_BORDER_SCORE = 1010000;
-        public static readonly int RANK_SSS_BORDER_SCORE = 1007500;
-        public static readonly int RANK_SSA_BORDER_SCORE = 1005000;
-        public static readonly int RANK_SS_BORDER_SCORE = 1000000;
-        public static readonly int RANK_S_BORDER_SCORE = 975000;
-        public static readonly int RANK_AAA_BORDER_SCORE = 950000;
-        public static readonly int RANK_AA_BORDER_SCORE = 925000;
-        public static readonly int RANK_A_BORDER_SCOER = 900000;
-        public static readonly int RANK_BBB_BORDER_SCORE = 800000;
-        public static readonly int RANK_BB_BORDER_SCORE = 700000;
-        public static readonly int RANK_B_BORDER_SCORE = 600000;
-        public static readonly int RANK_C_BORDER_SCORE = 500000;
-        public static readonly int RANK_D_BORDER_SCORE = 0;
-        public static readonly int RANK_NONE_BORDER_SCORE = 0;
-
-        public static readonly string RANK_MAX_TEXT = "MAX";
-        public static readonly string RANK_SSS_TEXT = "SSS";
-        public static readonly string RANK_SSA_TEXT = "SS+";
-        public static readonly string RANK_SS_TEXT = "SS";
-        public static readonly string RANK_S_TEXT = "S";
-        public static readonly string RANK_AAA_TEXT = "AAA";
-        public static readonly string RANK_AA_TEXT = "AA";
-        public static readonly string RANK_A_TEXT = "A";
-        public static readonly string RANK_BBB_TEXT = "BBB";
-        public static readonly string RANK_BB_TEXT = "BB";
-        public static readonly string RANK_B_TEXT = "B";
-        public static readonly string RANK_C_TEXT = "C";
-        public static readonly string RANK_D_TEXT = "D";
-        public static readonly string RANK_NONE_TEXT = "NONE";
-
-        public static readonly int RANK_MAX_CODE = 10;
-        public static readonly int RANK_SSS_CODE = 10;
-        public static readonly int RANK_SSA_CODE = 9;
-        public static readonly int RANK_SS_CODE = 9;
-        public static readonly int RANK_S_CODE = 8;
-        public static readonly int RANK_AAA_CODE = 7;
-        public static readonly int RANK_AA_CODE = 6;
-        public static readonly int RANK_A_CODE = 5;
-        public static readonly int RANK_BBB_CODE = 4;
-        public static readonly int RANK_BB_CODE = 3;
-        public static readonly int RANK_B_CODE = 2;
-        public static readonly int RANK_C_CODE = 1;
-        public static readonly int RANK_D_CODE = 0;
-        public static readonly int RANK_NONE_CODE = -1;
+        private const int RANK_NONE_BORDER_SCORE = 0;
+        private const string RANK_NONE_TEXT = "NONE";
+        private const int RANK_NONE_CODE = -1;
 
         private class RankPair
         {
@@ -81,22 +42,24 @@ namespace ChunithmClientLibrary
             }
         }
 
-        private static RankPair[] rankPairs = new RankPair[]
+        private static readonly RankPair[] rankPairs = new RankPair[]
         {
-            new RankPair(Rank.Max, RANK_MAX_BORDER_SCORE, RANK_MAX_TEXT, RANK_MAX_CODE),
-            new RankPair(Rank.SSS, RANK_SSS_BORDER_SCORE, RANK_SSS_TEXT, RANK_SSS_CODE),
-            new RankPair(Rank.SSA, RANK_SSA_BORDER_SCORE, RANK_SSA_TEXT, RANK_SSA_CODE),
-            new RankPair(Rank.SS, RANK_SS_BORDER_SCORE, RANK_SS_TEXT, RANK_SS_CODE),
-            new RankPair(Rank.S, RANK_S_BORDER_SCORE, RANK_S_TEXT, RANK_S_CODE),
-            new RankPair(Rank.AAA, RANK_AAA_BORDER_SCORE, RANK_AAA_TEXT, RANK_AAA_CODE),
-            new RankPair(Rank.AA, RANK_AA_BORDER_SCORE, RANK_AA_TEXT, RANK_AA_CODE),
-            new RankPair(Rank.A, RANK_A_BORDER_SCOER, RANK_A_TEXT, RANK_A_CODE),
-            new RankPair(Rank.BBB, RANK_BBB_BORDER_SCORE, RANK_BBB_TEXT, RANK_BBB_CODE),
-            new RankPair(Rank.BB, RANK_BB_BORDER_SCORE, RANK_BB_TEXT, RANK_BB_CODE),
-            new RankPair(Rank.B, RANK_B_BORDER_SCORE, RANK_B_TEXT, RANK_B_CODE),
-            new RankPair(Rank.C, RANK_C_BORDER_SCORE, RANK_C_TEXT, RANK_C_CODE),
-            new RankPair(Rank.D, RANK_D_BORDER_SCORE, RANK_D_TEXT, RANK_D_CODE),
-            new RankPair(Rank.None, RANK_NONE_BORDER_SCORE, RANK_NONE_TEXT, RANK_NONE_CODE),
+            new RankPair(Rank.Max,  score : 1010000, text : "MAX",  code : 13),
+            new RankPair(Rank.SSSA, score : 1009000, text : "SSS+", code : 13),
+            new RankPair(Rank.SSS,  score : 1007500, text : "SSS",  code : 12),
+            new RankPair(Rank.SSA,  score : 1005000, text : "SS+",  code : 11),
+            new RankPair(Rank.SS,   score : 1000000, text : "SS",   code : 10),
+            new RankPair(Rank.SA,   score :  990000, text : "S+",   code : 9),
+            new RankPair(Rank.S,    score :  975000, text : "S",    code : 8),
+            new RankPair(Rank.AAA,  score :  950000, text : "AAA",  code : 7),
+            new RankPair(Rank.AA,   score :  925000, text : "AA",   code : 6),
+            new RankPair(Rank.A,    score :  900000, text : "A",    code : 5),
+            new RankPair(Rank.BBB,  score :  800000, text : "BBB",  code : 4),
+            new RankPair(Rank.BB,   score :  700000, text : "BB",   code : 3),
+            new RankPair(Rank.B,    score :  600000, text : "B",    code : 2),
+            new RankPair(Rank.C,    score :  500000, text : "C",    code : 1),
+            new RankPair(Rank.D,    score :       0, text : "D",    code : 0),
+            new RankPair(Rank.None, score :       0, text : "NONE", code : -1),
         };
 
         public static int GetBorderScore(Rank rank)
@@ -106,19 +69,15 @@ namespace ChunithmClientLibrary
 
         public static Rank GetRank(int score)
         {
-            return PairConverter.Convert(rankPairs, score, Rank.None, p => p.Score, p => p.Rank, value => score >= value);
+            return PairConverter.Convert(rankPairs, Rank.None, p => p.Score, p => p.Rank, value => score >= value);
         }
 
         public static Rank ToRank(int rankCode)
         {
-            if (rankCode == 10)
+            // MAXが先にチェックされてしまうため
+            if (rankCode == 13)
             {
-                return Rank.SSS;
-            }
-
-            if (rankCode == 9)
-            {
-                return Rank.SS;
+                return Rank.SSSA;
             }
 
             return PairConverter.Convert(rankPairs, rankCode, Rank.None, p => p.Code, p => p.Rank);

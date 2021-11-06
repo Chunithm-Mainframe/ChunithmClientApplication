@@ -7,7 +7,7 @@ const getRating = Rating.getRating;
 
 function checkCommon(expectedRating: number, baseRating: number, score: number): void {
     const actualRating = getRating(baseRating, score);
-    expect(expectedRating).toBe(actualRating);
+    expect(actualRating).toBe(expectedRating);
 }
 
 function checkBorder(expectedRating: number, baseRating: number, rank: Rank): void {
@@ -39,6 +39,7 @@ describe("rating", () => {
         checkBorder(4, 3, Rank.SS);
         checkBorder(4.5, 3, Rank.SSA);
         checkBorder(5, 3, Rank.SSS);
+        checkBorder(5.15, 3, Rank.SSSA);
 
         checkBorder(0, 5, Rank.A);
         checkBorder(2, 5, Rank.AA);
@@ -46,6 +47,7 @@ describe("rating", () => {
         checkBorder(6, 5, Rank.SS);
         checkBorder(6.5, 5, Rank.SSA);
         checkBorder(7, 5, Rank.SSS);
+        checkBorder(7.15, 5, Rank.SSSA);
 
         checkBorder(0, 13.0, Rank.C);
         checkBorder(4, 13.0, Rank.BBB);
@@ -55,6 +57,7 @@ describe("rating", () => {
         checkBorder(14, 13.0, Rank.SS);
         checkBorder(14.5, 13.0, Rank.SSA);
         checkBorder(15, 13.0, Rank.SSS);
+        checkBorder(15.15, 13.0, Rank.SSSA);
 
         checkBorder(0.0, 13.1, Rank.C);
         checkBorder(4.05, 13.1, Rank.BBB);
@@ -64,6 +67,7 @@ describe("rating", () => {
         checkBorder(14.1, 13.1, Rank.SS);
         checkBorder(14.6, 13.1, Rank.SSA);
         checkBorder(15.1, 13.1, Rank.SSS);
+        checkBorder(15.25, 13.1, Rank.SSSA);
 
         checkBorder(0.0, 13.2, Rank.C);
         checkBorder(4.1, 13.2, Rank.BBB);
@@ -73,6 +77,7 @@ describe("rating", () => {
         checkBorder(14.2, 13.2, Rank.SS);
         checkBorder(14.7, 13.2, Rank.SSA);
         checkBorder(15.2, 13.2, Rank.SSS);
+        checkBorder(15.35, 13.2, Rank.SSSA);
 
         checkBorder(0.0, 13.3, Rank.C);
         checkBorder(4.15, 13.3, Rank.BBB);
@@ -82,6 +87,7 @@ describe("rating", () => {
         checkBorder(14.3, 13.3, Rank.SS);
         checkBorder(14.8, 13.3, Rank.SSA);
         checkBorder(15.3, 13.3, Rank.SSS);
+        checkBorder(15.45, 13.3, Rank.SSSA);
 
         checkBorder(0.0, 13.4, Rank.C);
         checkBorder(4.2, 13.4, Rank.BBB);
@@ -91,6 +97,7 @@ describe("rating", () => {
         checkBorder(14.4, 13.4, Rank.SS);
         checkBorder(14.9, 13.4, Rank.SSA);
         checkBorder(15.4, 13.4, Rank.SSS);
+        checkBorder(15.55, 13.4, Rank.SSSA);
 
         checkBorder(0.0, 13.5, Rank.C);
         checkBorder(4.25, 13.5, Rank.BBB);
@@ -100,6 +107,7 @@ describe("rating", () => {
         checkBorder(14.5, 13.5, Rank.SS);
         checkBorder(15.0, 13.5, Rank.SSA);
         checkBorder(15.5, 13.5, Rank.SSS);
+        checkBorder(15.65, 13.5, Rank.SSSA);
 
         checkBorder(0.0, 13.6, Rank.C);
         checkBorder(4.3, 13.6, Rank.BBB);
@@ -109,6 +117,7 @@ describe("rating", () => {
         checkBorder(14.6, 13.6, Rank.SS);
         checkBorder(15.1, 13.6, Rank.SSA);
         checkBorder(15.6, 13.6, Rank.SSS);
+        checkBorder(15.75, 13.6, Rank.SSSA);
 
         checkBorder(0.0, 13.7, Rank.C);
         checkBorder(4.35, 13.7, Rank.BBB);
@@ -118,6 +127,7 @@ describe("rating", () => {
         checkBorder(14.7, 13.7, Rank.SS);
         checkBorder(15.2, 13.7, Rank.SSA);
         checkBorder(15.7, 13.7, Rank.SSS);
+        checkBorder(15.85, 13.7, Rank.SSSA);
 
         checkBorder(0.0, 13.8, Rank.C);
         checkBorder(4.4, 13.8, Rank.BBB);
@@ -127,6 +137,7 @@ describe("rating", () => {
         checkBorder(14.8, 13.8, Rank.SS);
         checkBorder(15.3, 13.8, Rank.SSA);
         checkBorder(15.8, 13.8, Rank.SSS);
+        checkBorder(15.95, 13.8, Rank.SSSA);
 
         checkBorder(0.0, 13.9, Rank.C);
         checkBorder(4.45, 13.9, Rank.BBB);
@@ -136,6 +147,7 @@ describe("rating", () => {
         checkBorder(14.9, 13.9, Rank.SS);
         checkBorder(15.4, 13.9, Rank.SSA);
         checkBorder(15.9, 13.9, Rank.SSS);
+        checkBorder(16.05, 13.9, Rank.SSSA);
 
         checkBorder(0.0, 14.0, Rank.C);
         checkBorder(4.5, 14.0, Rank.BBB);
@@ -145,6 +157,7 @@ describe("rating", () => {
         checkBorder(15.0, 14.0, Rank.SS);
         checkBorder(15.5, 14.0, Rank.SSA);
         checkBorder(16.0, 14.0, Rank.SSS);
+        checkBorder(16.15, 14.0, Rank.SSSA);
     });
 
     it("中間値チェック", () => {
@@ -152,12 +165,14 @@ describe("rating", () => {
         checkMedian(3.5, 3, Rank.S, Rank.SS);
         checkMedian(4.25, 3, Rank.SS, Rank.SSA);
         checkMedian(4.75, 3, Rank.SSA, Rank.SSS);
+        checkMedian(5.07, 3, Rank.SSS, Rank.SSSA);
 
         checkMedian(1, 5, Rank.A, Rank.AA);
         checkMedian(3.5, 5, Rank.AA, Rank.S);
         checkMedian(5.5, 5, Rank.S, Rank.SS);
         checkMedian(6.25, 5, Rank.SS, Rank.SSA);
         checkMedian(6.75, 5, Rank.SSA, Rank.SSS);
+        checkMedian(7.07, 5, Rank.SSS, Rank.SSSA);
 
         checkMedian(0.25, 6, Rank.C, Rank.BBB);
         checkMedian(0.75, 6, Rank.BBB, Rank.A);
@@ -166,6 +181,7 @@ describe("rating", () => {
         checkMedian(6.5, 6, Rank.S, Rank.SS);
         checkMedian(7.25, 6, Rank.SS, Rank.SSA);
         checkMedian(7.75, 6, Rank.SSA, Rank.SSS);
+        checkMedian(8.07, 6, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.00, 13.0, Rank.C, Rank.BBB);
         checkMedian(6.00, 13.0, Rank.BBB, Rank.A);
@@ -174,6 +190,7 @@ describe("rating", () => {
         checkMedian(13.50, 13.0, Rank.S, Rank.SS);
         checkMedian(14.25, 13.0, Rank.SS, Rank.SSA);
         checkMedian(14.75, 13.0, Rank.SSA, Rank.SSS);
+        checkMedian(15.07, 13.0, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.02, 13.1, Rank.C, Rank.BBB);
         checkMedian(6.07, 13.1, Rank.BBB, Rank.A);
@@ -182,6 +199,7 @@ describe("rating", () => {
         checkMedian(13.60, 13.1, Rank.S, Rank.SS);
         checkMedian(14.35, 13.1, Rank.SS, Rank.SSA);
         checkMedian(14.85, 13.1, Rank.SSA, Rank.SSS);
+        checkMedian(15.17, 13.1, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.05, 13.2, Rank.C, Rank.BBB);
         checkMedian(6.15, 13.2, Rank.BBB, Rank.A);
@@ -190,6 +208,7 @@ describe("rating", () => {
         checkMedian(13.70, 13.2, Rank.S, Rank.SS);
         checkMedian(14.45, 13.2, Rank.SS, Rank.SSA);
         checkMedian(14.95, 13.2, Rank.SSA, Rank.SSS);
+        checkMedian(15.27, 13.2, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.07, 13.3, Rank.C, Rank.BBB);
         checkMedian(6.22, 13.3, Rank.BBB, Rank.A);
@@ -198,6 +217,7 @@ describe("rating", () => {
         checkMedian(13.80, 13.3, Rank.S, Rank.SS);
         checkMedian(14.55, 13.3, Rank.SS, Rank.SSA);
         checkMedian(15.05, 13.3, Rank.SSA, Rank.SSS);
+        checkMedian(15.37, 13.3, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.10, 13.4, Rank.C, Rank.BBB);
         checkMedian(6.30, 13.4, Rank.BBB, Rank.A);
@@ -206,6 +226,7 @@ describe("rating", () => {
         checkMedian(13.90, 13.4, Rank.S, Rank.SS);
         checkMedian(14.65, 13.4, Rank.SS, Rank.SSA);
         checkMedian(15.15, 13.4, Rank.SSA, Rank.SSS);
+        checkMedian(15.47, 13.4, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.12, 13.5, Rank.C, Rank.BBB);
         checkMedian(6.37, 13.5, Rank.BBB, Rank.A);
@@ -214,6 +235,7 @@ describe("rating", () => {
         checkMedian(14.00, 13.5, Rank.S, Rank.SS);
         checkMedian(14.75, 13.5, Rank.SS, Rank.SSA);
         checkMedian(15.25, 13.5, Rank.SSA, Rank.SSS);
+        checkMedian(15.57, 13.5, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.15, 13.6, Rank.C, Rank.BBB);
         checkMedian(6.45, 13.6, Rank.BBB, Rank.A);
@@ -222,6 +244,7 @@ describe("rating", () => {
         checkMedian(14.10, 13.6, Rank.S, Rank.SS);
         checkMedian(14.85, 13.6, Rank.SS, Rank.SSA);
         checkMedian(15.35, 13.6, Rank.SSA, Rank.SSS);
+        checkMedian(15.67, 13.6, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.17, 13.7, Rank.C, Rank.BBB);
         checkMedian(6.52, 13.7, Rank.BBB, Rank.A);
@@ -230,6 +253,7 @@ describe("rating", () => {
         checkMedian(14.20, 13.7, Rank.S, Rank.SS);
         checkMedian(14.95, 13.7, Rank.SS, Rank.SSA);
         checkMedian(15.45, 13.7, Rank.SSA, Rank.SSS);
+        checkMedian(15.77, 13.7, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.20, 13.8, Rank.C, Rank.BBB);
         checkMedian(6.60, 13.8, Rank.BBB, Rank.A);
@@ -238,6 +262,7 @@ describe("rating", () => {
         checkMedian(14.30, 13.8, Rank.S, Rank.SS);
         checkMedian(15.05, 13.8, Rank.SS, Rank.SSA);
         checkMedian(15.55, 13.8, Rank.SSA, Rank.SSS);
+        checkMedian(15.87, 13.8, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.22, 13.9, Rank.C, Rank.BBB);
         checkMedian(6.67, 13.9, Rank.BBB, Rank.A);
@@ -246,6 +271,7 @@ describe("rating", () => {
         checkMedian(14.40, 13.9, Rank.S, Rank.SS);
         checkMedian(15.15, 13.9, Rank.SS, Rank.SSA);
         checkMedian(15.65, 13.9, Rank.SSA, Rank.SSS);
+        checkMedian(15.97, 13.9, Rank.SSS, Rank.SSSA);
 
         checkMedian(2.25, 14.0, Rank.C, Rank.BBB);
         checkMedian(6.75, 14.0, Rank.BBB, Rank.A);
@@ -254,6 +280,7 @@ describe("rating", () => {
         checkMedian(14.50, 14.0, Rank.S, Rank.SS);
         checkMedian(15.25, 14.0, Rank.SS, Rank.SSA);
         checkMedian(15.75, 14.0, Rank.SSA, Rank.SSS);
+        checkMedian(16.07, 14.0, Rank.SSS, Rank.SSSA);
     });
 
     it("ボーダー境界チェック", () => {
@@ -262,6 +289,7 @@ describe("rating", () => {
         checkJustBeforeBorder(3.99, 3, Rank.SS);
         checkJustBeforeBorder(4.49, 3, Rank.SSA);
         checkJustBeforeBorder(4.99, 3, Rank.SSS);
+        checkJustBeforeBorder(5.14, 3, Rank.SSSA);
 
         checkJustBeforeBorder(0, 5, Rank.A);
         checkJustBeforeBorder(1.99, 5, Rank.AA);
@@ -269,6 +297,7 @@ describe("rating", () => {
         checkJustBeforeBorder(5.99, 5, Rank.SS);
         checkJustBeforeBorder(6.49, 5, Rank.SSA);
         checkJustBeforeBorder(6.99, 5, Rank.SSS);
+        checkJustBeforeBorder(7.14, 5, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.0, Rank.C);
         checkJustBeforeBorder(3.99, 13.0, Rank.BBB);
@@ -278,6 +307,7 @@ describe("rating", () => {
         checkJustBeforeBorder(13.99, 13.0, Rank.SS);
         checkJustBeforeBorder(14.49, 13.0, Rank.SSA);
         checkJustBeforeBorder(14.99, 13.0, Rank.SSS);
+        checkJustBeforeBorder(15.14, 13.0, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.1, Rank.C);
         checkJustBeforeBorder(4.04, 13.1, Rank.BBB);
@@ -287,6 +317,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.09, 13.1, Rank.SS);
         checkJustBeforeBorder(14.59, 13.1, Rank.SSA);
         checkJustBeforeBorder(15.09, 13.1, Rank.SSS);
+        checkJustBeforeBorder(15.24, 13.1, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.2, Rank.C);
         checkJustBeforeBorder(4.09, 13.2, Rank.BBB);
@@ -296,6 +327,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.19, 13.2, Rank.SS);
         checkJustBeforeBorder(14.69, 13.2, Rank.SSA);
         checkJustBeforeBorder(15.19, 13.2, Rank.SSS);
+        checkJustBeforeBorder(15.34, 13.2, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.3, Rank.C);
         checkJustBeforeBorder(4.14, 13.3, Rank.BBB);
@@ -305,6 +337,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.29, 13.3, Rank.SS);
         checkJustBeforeBorder(14.79, 13.3, Rank.SSA);
         checkJustBeforeBorder(15.29, 13.3, Rank.SSS);
+        checkJustBeforeBorder(15.44, 13.3, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.4, Rank.C);
         checkJustBeforeBorder(4.19, 13.4, Rank.BBB);
@@ -314,6 +347,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.39, 13.4, Rank.SS);
         checkJustBeforeBorder(14.89, 13.4, Rank.SSA);
         checkJustBeforeBorder(15.39, 13.4, Rank.SSS);
+        checkJustBeforeBorder(15.54, 13.4, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.5, Rank.C);
         checkJustBeforeBorder(4.24, 13.5, Rank.BBB);
@@ -323,6 +357,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.49, 13.5, Rank.SS);
         checkJustBeforeBorder(14.99, 13.5, Rank.SSA);
         checkJustBeforeBorder(15.49, 13.5, Rank.SSS);
+        checkJustBeforeBorder(15.64, 13.5, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.6, Rank.C);
         checkJustBeforeBorder(4.29, 13.6, Rank.BBB);
@@ -332,6 +367,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.59, 13.6, Rank.SS);
         checkJustBeforeBorder(15.09, 13.6, Rank.SSA);
         checkJustBeforeBorder(15.59, 13.6, Rank.SSS);
+        checkJustBeforeBorder(15.74, 13.6, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.7, Rank.C);
         checkJustBeforeBorder(4.34, 13.7, Rank.BBB);
@@ -341,6 +377,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.69, 13.7, Rank.SS);
         checkJustBeforeBorder(15.19, 13.7, Rank.SSA);
         checkJustBeforeBorder(15.69, 13.7, Rank.SSS);
+        checkJustBeforeBorder(15.84, 13.7, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.8, Rank.C);
         checkJustBeforeBorder(4.39, 13.8, Rank.BBB);
@@ -350,6 +387,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.79, 13.8, Rank.SS);
         checkJustBeforeBorder(15.29, 13.8, Rank.SSA);
         checkJustBeforeBorder(15.79, 13.8, Rank.SSS);
+        checkJustBeforeBorder(15.94, 13.8, Rank.SSSA);
 
         checkJustBeforeBorder(0, 13.9, Rank.C);
         checkJustBeforeBorder(4.44, 13.9, Rank.BBB);
@@ -359,6 +397,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.89, 13.9, Rank.SS);
         checkJustBeforeBorder(15.39, 13.9, Rank.SSA);
         checkJustBeforeBorder(15.89, 13.9, Rank.SSS);
+        checkJustBeforeBorder(16.04, 13.9, Rank.SSSA);
 
         checkJustBeforeBorder(0, 14.0, Rank.C);
         checkJustBeforeBorder(4.49, 14.0, Rank.BBB);
@@ -368,6 +407,7 @@ describe("rating", () => {
         checkJustBeforeBorder(14.99, 14.0, Rank.SS);
         checkJustBeforeBorder(15.49, 14.0, Rank.SSA);
         checkJustBeforeBorder(15.99, 14.0, Rank.SSS);
+        checkJustBeforeBorder(16.14, 14.0, Rank.SSSA);
     });
 
     it("中間値境界チェック", () => {
@@ -375,12 +415,14 @@ describe("rating", () => {
         checkJustBeforeMedian(3.49, 3, Rank.S, Rank.SS);
         checkJustBeforeMedian(4.24, 3, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(4.74, 3, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(5.07, 3, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(0.99, 5, Rank.A, Rank.AA);
         checkJustBeforeMedian(3.49, 5, Rank.AA, Rank.S);
         checkJustBeforeMedian(5.49, 5, Rank.S, Rank.SS);
         checkJustBeforeMedian(6.24, 5, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(6.74, 5, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(7.07, 5, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(0.24, 6, Rank.C, Rank.BBB);
         checkJustBeforeMedian(0.74, 6, Rank.BBB, Rank.A);
@@ -389,6 +431,7 @@ describe("rating", () => {
         checkJustBeforeMedian(6.49, 6, Rank.S, Rank.SS);
         checkJustBeforeMedian(7.24, 6, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(7.74, 6, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(8.07, 6, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(1.99, 13.0, Rank.C, Rank.BBB);
         checkJustBeforeMedian(5.99, 13.0, Rank.BBB, Rank.A);
@@ -397,6 +440,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.49, 13.0, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.24, 13.0, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(14.74, 13.0, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.07, 13.0, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.02, 13.1, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.07, 13.1, Rank.BBB, Rank.A);
@@ -405,6 +449,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.59, 13.1, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.34, 13.1, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(14.84, 13.1, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.17, 13.1, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.04, 13.2, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.14, 13.2, Rank.BBB, Rank.A);
@@ -413,6 +458,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.69, 13.2, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.44, 13.2, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(14.94, 13.2, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.27, 13.2, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.07, 13.3, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.22, 13.3, Rank.BBB, Rank.A);
@@ -421,6 +467,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.79, 13.3, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.54, 13.3, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.04, 13.3, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.37, 13.3, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.09, 13.4, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.29, 13.4, Rank.BBB, Rank.A);
@@ -429,6 +476,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.89, 13.4, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.64, 13.4, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.14, 13.4, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.47, 13.4, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.12, 13.5, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.37, 13.5, Rank.BBB, Rank.A);
@@ -437,6 +485,7 @@ describe("rating", () => {
         checkJustBeforeMedian(13.99, 13.5, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.74, 13.5, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.24, 13.5, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.57, 13.5, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.14, 13.6, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.44, 13.6, Rank.BBB, Rank.A);
@@ -445,6 +494,7 @@ describe("rating", () => {
         checkJustBeforeMedian(14.09, 13.6, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.84, 13.6, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.34, 13.6, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.67, 13.6, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.17, 13.7, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.52, 13.7, Rank.BBB, Rank.A);
@@ -453,6 +503,7 @@ describe("rating", () => {
         checkJustBeforeMedian(14.19, 13.7, Rank.S, Rank.SS);
         checkJustBeforeMedian(14.94, 13.7, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.44, 13.7, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.77, 13.7, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.19, 13.8, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.59, 13.8, Rank.BBB, Rank.A);
@@ -461,6 +512,7 @@ describe("rating", () => {
         checkJustBeforeMedian(14.29, 13.8, Rank.S, Rank.SS);
         checkJustBeforeMedian(15.04, 13.8, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.54, 13.8, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.87, 13.8, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.22, 13.9, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.67, 13.9, Rank.BBB, Rank.A);
@@ -469,6 +521,7 @@ describe("rating", () => {
         checkJustBeforeMedian(14.39, 13.9, Rank.S, Rank.SS);
         checkJustBeforeMedian(15.14, 13.9, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.64, 13.9, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(15.97, 13.9, Rank.SSS, Rank.SSSA);
 
         checkJustBeforeMedian(2.24, 14.0, Rank.C, Rank.BBB);
         checkJustBeforeMedian(6.74, 14.0, Rank.BBB, Rank.A);
@@ -477,6 +530,7 @@ describe("rating", () => {
         checkJustBeforeMedian(14.49, 14.0, Rank.S, Rank.SS);
         checkJustBeforeMedian(15.24, 14.0, Rank.SS, Rank.SSA);
         checkJustBeforeMedian(15.74, 14.0, Rank.SSA, Rank.SSS);
+        checkJustBeforeMedian(16.07, 14.0, Rank.SSS, Rank.SSSA);
     });
 
     it("範囲外チェック", () => {
@@ -493,47 +547,47 @@ describe("rating", () => {
         checkOutOfRange(0, -1, 10000000);
 
         checkOutOfRange(0, 3, -1);
-        checkOutOfRange(5, 3, 1010000);
-        checkOutOfRange(5, 3, 10000000);
+        checkOutOfRange(5.15, 3, 1010000);
+        checkOutOfRange(5.15, 3, 10000000);
         checkOutOfRange(0, 5, -1);
-        checkOutOfRange(7, 5, 1010000);
-        checkOutOfRange(7, 5, 10000000);
+        checkOutOfRange(7.15, 5, 1010000);
+        checkOutOfRange(7.15, 5, 10000000);
         checkOutOfRange(0, 6, -1);
-        checkOutOfRange(8, 6, 1010000);
-        checkOutOfRange(8, 6, 10000000);
+        checkOutOfRange(8.15, 6, 1010000);
+        checkOutOfRange(8.15, 6, 10000000);
         checkOutOfRange(0, 13.0, -1);
-        checkOutOfRange(15.0, 13.0, 1010000);
-        checkOutOfRange(15.0, 13.0, 10000000);
+        checkOutOfRange(15.15, 13.0, 1010000);
+        checkOutOfRange(15.15, 13.0, 10000000);
         checkOutOfRange(0, 13.1, -1);
-        checkOutOfRange(15.1, 13.1, 1010000);
-        checkOutOfRange(15.1, 13.1, 10000000);
+        checkOutOfRange(15.25, 13.1, 1010000);
+        checkOutOfRange(15.25, 13.1, 10000000);
         checkOutOfRange(0, 13.2, -1);
-        checkOutOfRange(15.2, 13.2, 1010000);
-        checkOutOfRange(15.2, 13.2, 10000000);
+        checkOutOfRange(15.35, 13.2, 1010000);
+        checkOutOfRange(15.35, 13.2, 10000000);
         checkOutOfRange(0, 13.3, -1);
-        checkOutOfRange(15.3, 13.3, 1010000);
-        checkOutOfRange(15.3, 13.3, 10000000);
+        checkOutOfRange(15.45, 13.3, 1010000);
+        checkOutOfRange(15.45, 13.3, 10000000);
         checkOutOfRange(0, 13.4, -1);
-        checkOutOfRange(15.4, 13.4, 1010000);
-        checkOutOfRange(15.4, 13.4, 10000000);
+        checkOutOfRange(15.55, 13.4, 1010000);
+        checkOutOfRange(15.55, 13.4, 10000000);
         checkOutOfRange(0, 13.5, -1);
-        checkOutOfRange(15.5, 13.5, 1010000);
-        checkOutOfRange(15.5, 13.5, 10000000);
+        checkOutOfRange(15.65, 13.5, 1010000);
+        checkOutOfRange(15.65, 13.5, 10000000);
         checkOutOfRange(0, 13.6, -1);
-        checkOutOfRange(15.6, 13.6, 1010000);
-        checkOutOfRange(15.6, 13.6, 10000000);
+        checkOutOfRange(15.75, 13.6, 1010000);
+        checkOutOfRange(15.75, 13.6, 10000000);
         checkOutOfRange(0, 13.7, -1);
-        checkOutOfRange(15.7, 13.7, 1010000);
-        checkOutOfRange(15.7, 13.7, 10000000);
+        checkOutOfRange(15.85, 13.7, 1010000);
+        checkOutOfRange(15.85, 13.7, 10000000);
         checkOutOfRange(0, 13.8, -1);
-        checkOutOfRange(15.8, 13.8, 1010000);
-        checkOutOfRange(15.8, 13.8, 10000000);
+        checkOutOfRange(15.95, 13.8, 1010000);
+        checkOutOfRange(15.95, 13.8, 10000000);
         checkOutOfRange(0, 13.9, -1);
-        checkOutOfRange(15.9, 13.9, 1010000);
-        checkOutOfRange(15.9, 13.9, 10000000);
+        checkOutOfRange(16.05, 13.9, 1010000);
+        checkOutOfRange(16.05, 13.9, 10000000);
         checkOutOfRange(0, 14.0, -1);
-        checkOutOfRange(16.0, 14.0, 1010000);
-        checkOutOfRange(16.0, 14.0, 10000000);
+        checkOutOfRange(16.15, 14.0, 1010000);
+        checkOutOfRange(16.15, 14.0, 10000000);
     });
 });
 

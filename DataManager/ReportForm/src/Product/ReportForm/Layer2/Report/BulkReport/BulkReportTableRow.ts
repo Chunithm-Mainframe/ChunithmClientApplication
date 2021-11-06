@@ -63,7 +63,7 @@ export class BulkReportTableRow implements UnitReportInputFormat {
     private static toLevelText(baseRating: number): string {
         const integerPart = Math.floor(baseRating);
         let levelText = integerPart.toString();
-        if ((baseRating * 10) % 10 >= 7) {
+        if ((baseRating * 10) % 10 >= 5) {
             levelText += '+';
         }
         return levelText;
