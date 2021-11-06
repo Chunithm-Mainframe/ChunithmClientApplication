@@ -128,7 +128,9 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private string GetStoreName(IElement content)
         {
-            return content.GetElementsByClassName("play_data_inner_w388")?.FirstOrDefault()?.TextContent ?? DefaultParameter.StoreName;
+            return content.GetElementsByClassName("play_data_inner_w388")?.FirstOrDefault()?
+                .GetElementsByTagName("span")?.ElementAtOrDefault(1)?
+                .TextContent ?? DefaultParameter.StoreName;
         }
 
         private string GetCharacterName(IElement content)
@@ -169,7 +171,7 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private string GetSkillLevelText(IElement content)
         {
-            return content.GetElementsByClassName("skill_level")?.FirstOrDefault()?.TextContent;
+            return content.GetElementsByClassName("play_data_skill_grade")?.FirstOrDefault()?.TextContent;
         }
 
         private int GetSkillResult(IElement content)
@@ -186,7 +188,7 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private int GetMaxCombo(IElement content)
         {
-            var maxComboText = content.GetElementsByClassName("play_musicdata_max_number")?.FirstOrDefault()?.TextContent;
+            var maxComboText = content.GetElementsByClassName("play_data_detail_maxcombo_block")?.FirstOrDefault()?.TextContent;
             if (!int.TryParse(maxComboText, NumberStyles.Number, null, out int maxCombo))
             {
                 return DefaultParameter.MaxCombo;
@@ -239,7 +241,7 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private string GetPlayMusicDataNoteNumberText(IElement content, int index)
         {
-            return content.GetElementsByClassName("play_musicdata_notesnumber")?.ElementAtOrDefault(index)?
+            return content.GetElementsByClassName("play_data_detail_notes_text")?.ElementAtOrDefault(index)?
                 .TextContent?
                 .Replace("%", "");
         }

@@ -40,7 +40,7 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private bool IsValidDocument(IHtmlDocument document)
         {
-            return HtmlParseUtility.GetPageTitle(document) == "楽曲別レコード";
+            return HtmlParseUtility.GetPageTitle(document) == "レコード";
         }
 
         private string GetName(IElement content)
@@ -84,7 +84,6 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
             unit.IsClear = GetIsClear(content);
             unit.ComboStatus = GetComboStatus(content);
             unit.ChainStatus = GetChainStatus(content);
-            unit.PlayDate = GetPlayDate(content);
             unit.PlayCount = GetPlayCount(content);
 
             return unit;
@@ -118,11 +117,6 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
         private ChainStatus GetChainStatus(IElement node)
         {
             return HtmlParseUtility.GetChainStatus(node);
-        }
-
-        private DateTime GetPlayDate(IElement node)
-        {
-            return HtmlParseUtility.GetMusicDataDetailDate(node);
         }
 
         private int GetPlayCount(IElement node)

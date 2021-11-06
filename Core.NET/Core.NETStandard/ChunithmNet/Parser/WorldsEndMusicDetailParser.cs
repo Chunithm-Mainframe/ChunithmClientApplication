@@ -41,7 +41,7 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private bool IsValidDocument(IHtmlDocument document)
         {
-            return HtmlParseUtility.GetPageTitle(document) == "WORLD'S END レコード";
+            return HtmlParseUtility.GetPageTitle(document) == "レコード";
         }
 
         private string GetName(IElement content)
@@ -93,8 +93,6 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
             var unit = new WorldsEndMusicDetail.Unit();
 
             unit.Difficulty = Difficulty.WorldsEnd;
-
-            unit.PlayDate = GetLastPlayDate(content);
             unit.Score = GetScore(content);
             unit.PlayCount = GetPlayCount(content);
             unit.IsClear = GetIsClear(content);
@@ -104,11 +102,6 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
             return unit;
         }
 
-        private DateTime GetLastPlayDate(IElement content)
-        {
-            return HtmlParseUtility.GetMusicDataDetailDate(content);
-        }
-
         private int GetScore(IElement content)
         {
             return HtmlParseUtility.GetScoreFromMusicDetail(content);
@@ -116,7 +109,16 @@ namespace ChunithmClientLibrary.ChunithmNet.Parser
 
         private int GetPlayCount(IElement content)
         {
-            return HtmlParseUtility.GetPlayCount(content);
+            var playCountText = content
+                .GetElementsByClassName("block_underline")?.ElementAtOrDefault(1)
+                .GetElementsByTagName("span")?.ElementAtOrDefault(1)
+                .TextContent;
+
+            if (!int.TryParse(playCountText, out int playCount))
+            {
+                return DefaultParameter.PlayCount;
+            }
+            return playCount;
         }
 
         private bool GetIsClear(IElement node)
