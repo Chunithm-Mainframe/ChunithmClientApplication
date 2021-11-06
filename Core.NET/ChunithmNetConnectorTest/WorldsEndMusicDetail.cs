@@ -21,7 +21,6 @@ namespace ChunithmNetConnetorTest
                 foreach (var unit in worldsEndMusicDetail.Units)
                 {
                     Console.WriteLine($"  スコア: {unit?.Score}");
-                    Console.WriteLine($"  最終プレイ日時: {unit?.PlayDate}");
                     Console.WriteLine($"  プレイ回数: {unit?.PlayCount}");
                 }
             }
