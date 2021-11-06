@@ -29,5 +29,5 @@ jobs:
           --sega-id ${{ secrets.CLI_SEGA_ID }} \
           --password ${{ secrets.CLI_SEGA_PASSWORD }} \
           --aime-index ${{ secrets.CLI_SEGA_AIME_INDEX }} \
-          --max-level 22 \
+          --max-level 23 \
           --db-url $REPORTFORM_SERVER_URL"
