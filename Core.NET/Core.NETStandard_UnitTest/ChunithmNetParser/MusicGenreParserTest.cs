@@ -15,89 +15,27 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
             var musicGenre = new MusicGenreParser().Parse(TestUtility.LoadResource("MusicGenre/html_test_case_1.html"));
             Assert.IsNotNull(musicGenre, "パースチェック");
 
-            Assert.AreEqual(535, musicGenre.MusicCount, "楽曲数");
-            Assert.AreEqual(524, musicGenre.ClearCount, "クリア 楽曲数");
-            Assert.AreEqual(524, musicGenre.SCount, "S 楽曲数");
-            Assert.AreEqual(516, musicGenre.SsCount, "SS 楽曲数");
-            Assert.AreEqual(476, musicGenre.SssCount, "SSS 楽曲数");
-            Assert.AreEqual(441, musicGenre.FullComboCount, "フルコンボ 楽曲数");
-            Assert.AreEqual(372, musicGenre.AllJusticeCount, "AJ 楽曲数");
-            Assert.AreEqual(7, musicGenre.FullChainGoldCount, "フルチェイン(金) 楽曲数");
-            Assert.AreEqual(7, musicGenre.FullChainPlatinumCount, "フルチェイン 楽曲数");
+            Assert.AreEqual(118, musicGenre.MusicCount, "楽曲数");
+            Assert.AreEqual(105, musicGenre.ClearCount, "クリア 楽曲数");
+            Assert.AreEqual(105, musicGenre.SCount, "S 楽曲数");
+            Assert.AreEqual(104, musicGenre.SaCount, "S+ 楽曲数");
+            Assert.AreEqual(104, musicGenre.SsCount, "SS 楽曲数");
+            Assert.AreEqual(104, musicGenre.SsaCount, "SS+ 楽曲数");
+            Assert.AreEqual(104, musicGenre.SssCount, "SSS 楽曲数");
+            Assert.AreEqual(100, musicGenre.SssaCount, "SSS+ 楽曲数");
+            Assert.AreEqual(101, musicGenre.FullComboCount, "フルコンボ 楽曲数");
+            Assert.AreEqual(99, musicGenre.AllJusticeCount, "AJ 楽曲数");
+            Assert.AreEqual(3, musicGenre.FullChainGoldCount, "フルチェイン(金) 楽曲数");
+            Assert.AreEqual(3, musicGenre.FullChainPlatinumCount, "フルチェイン 楽曲数");
 
             var units = musicGenre.Units;
-            Assert.AreEqual(7, units.Length, "件数チェック");
+            Assert.AreEqual(118, units.Length, "件数チェック");
             {
                 AssertUnit(
                     units[0],
-                    639,
-                    "sister's noise",
+                    2141,
+                    "永遠のAria",
                     "POPS & ANIME",
-                    Difficulty.Master,
-                    1009974,
-                    Rank.SSS,
-                    true,
-                    ComboStatus.AllJustice,
-                    ChainStatus.None);
-            }
-            {
-                AssertUnit(
-                    units[1],
-                    583,
-                    "碧き孤島のアングゥィス",
-                    "POPS & ANIME",
-                    Difficulty.Master,
-                    1008683,
-                    Rank.SSS,
-                    true,
-                    ComboStatus.None,
-                    ChainStatus.None);
-            }
-            {
-                AssertUnit(
-                    units[2],
-                    363,
-                    "true my heart -Lovable mix-",
-                    "POPS & ANIME",
-                    Difficulty.Master,
-                    1009942,
-                    Rank.SSS,
-                    true,
-                    ComboStatus.AllJustice,
-                    ChainStatus.FullChainPlatinum);
-            }
-            {
-                AssertUnit(
-                    units[3],
-                    159,
-                    "ジングルベル",
-                    "POPS & ANIME",
-                    Difficulty.Master,
-                    1008382,
-                    Rank.SSS,
-                    true,
-                    ComboStatus.FullCombo,
-                    ChainStatus.None);
-            }
-            {
-                AssertUnit(
-                    units[4],
-                    631,
-                    "初音ミクの激唱",
-                    "niconico",
-                    Difficulty.Master,
-                    1003448,
-                    Rank.SS,
-                    true,
-                    ComboStatus.None,
-                    ChainStatus.None);
-            }
-            {
-                AssertUnit(
-                    units[5],
-                    713,
-                    "larva",
-                    "ORIGINAL",
                     Difficulty.Master,
                     0,
                     Rank.None,
@@ -107,19 +45,81 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
             }
             {
                 AssertUnit(
-                    units[6],
-                    180,
-                    "怒槌",
-                    "ORIGINAL",
+                    units[8],
+                    2012,
+                    "紅",
+                    "POPS & ANIME",
                     Difficulty.Master,
-                    996370,
+                    988987,
                     Rank.S,
                     true,
                     ComboStatus.None,
                     ChainStatus.None);
             }
+            {
+                AssertUnit(
+                    units[15],
+                    2088,
+                    "乙女のルートはひとつじゃない！",
+                    "POPS & ANIME",
+                    Difficulty.Master,
+                    1009967,
+                    Rank.SSSA,
+                    true,
+                    ComboStatus.AllJustice,
+                    ChainStatus.None);
+            }
         }
-        
+
+        [TestMethod]
+        public void MusicGenreParser_Test2()
+        {
+            var musicGenre = new MusicGenreParser().Parse(TestUtility.LoadResource("MusicGenre/html_test_case_2.html"));
+            Assert.IsNotNull(musicGenre, "パースチェック");
+
+            Assert.AreEqual(188, musicGenre.MusicCount, "楽曲数");
+            Assert.AreEqual(172, musicGenre.ClearCount, "クリア 楽曲数");
+            Assert.AreEqual(172, musicGenre.SCount, "S 楽曲数");
+            Assert.AreEqual(172, musicGenre.SaCount, "S+ 楽曲数");
+            Assert.AreEqual(172, musicGenre.SsCount, "SS 楽曲数");
+            Assert.AreEqual(172, musicGenre.SsaCount, "SS+ 楽曲数");
+            Assert.AreEqual(172, musicGenre.SssCount, "SSS 楽曲数");
+            Assert.AreEqual(162, musicGenre.SssaCount, "SSS+ 楽曲数");
+            Assert.AreEqual(169, musicGenre.FullComboCount, "フルコンボ 楽曲数");
+            Assert.AreEqual(152, musicGenre.AllJusticeCount, "AJ 楽曲数");
+            Assert.AreEqual(2, musicGenre.FullChainGoldCount, "フルチェイン(金) 楽曲数");
+            Assert.AreEqual(2, musicGenre.FullChainPlatinumCount, "フルチェイン 楽曲数");
+
+            var units = musicGenre.Units;
+            Assert.AreEqual(188, units.Length, "件数チェック");
+            {
+                AssertUnit(
+                    units[0],
+                    2017,
+                    "ヴィラン",
+                    "niconico",
+                    Difficulty.Master,
+                    0,
+                    Rank.None,
+                    false,
+                    ComboStatus.None,
+                    ChainStatus.None);
+            }
+            {
+                AssertUnit(
+                    units[154],
+                    211,
+                    "天樂",
+                    "niconico",
+                    Difficulty.Master,
+                    1009937,
+                    Rank.SSSA,
+                    true,
+                    ComboStatus.AllJustice,
+                    ChainStatus.FullChainPlatinum);
+            }
+        }
+
         private static void AssertUnit(
             Unit unit,
             int id,

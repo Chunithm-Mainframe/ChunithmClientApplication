@@ -32,7 +32,6 @@ namespace ChunithmNetConnetorTest
                     Console.WriteLine($" {Utility.ToDifficultyText(difficulty)}");
                     var musicDetailData = musicDetail.GetUnit(difficulty);
                     Console.WriteLine($"  スコア: {musicDetailData?.Score}");
-                    Console.WriteLine($"  最終プレイ日時: {musicDetailData?.PlayDate}");
                     Console.WriteLine($"  プレイ回数: {musicDetailData?.PlayCount}");
                 }
             }

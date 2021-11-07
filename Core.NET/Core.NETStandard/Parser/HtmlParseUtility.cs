@@ -1,8 +1,6 @@
 using AngleSharp.Dom;
-using ChunithmClientLibrary.ChunithmNet.Data;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -10,7 +8,7 @@ namespace ChunithmClientLibrary.Parser
 {
     public static class HtmlParseUtility
     {
-        public static  string GetPageTitle(IDocument document)
+        public static string GetPageTitle(IDocument document)
         {
             return document?.GetElementById("page_title")?.TextContent ?? string.Empty;
         }
@@ -75,8 +73,9 @@ namespace ChunithmClientLibrary.Parser
         public static int GetScoreFromMusicDetail(IElement content)
         {
             var scoreText = content
-                .GetElementsByClassName("block_underline")?.ElementAtOrDefault(0)?
-                .GetElementsByTagName("span")?.ElementAtOrDefault(1)?
+                .GetElementsByClassName("block_underline")?.ElementAtOrDefault(0)
+                .GetElementsByClassName("musicdata_score_num")?
+                .FirstOrDefault()?
                 .TextContent;
 
             return Utility.ParseScore(scoreText);
@@ -148,7 +147,7 @@ namespace ChunithmClientLibrary.Parser
         {
             var scoreImage = content.GetElementsByClassName("play_musicdata_score_img")?.FirstOrDefault();
             var newRecord = scoreImage?.GetElementsByTagName("img")?.FirstOrDefault()?.GetAttribute("src");
-            return !string.IsNullOrEmpty(newRecord) && newRecord.Contains("icon_newrecord");
+            return !string.IsNullOrEmpty(newRecord) && newRecord.Contains("icon_new.png");
         }
 
         public static Rank GetRank(IElement content)
@@ -242,11 +241,6 @@ namespace ChunithmClientLibrary.Parser
             return GetPlayDate(content, "play_datalist_date");
         }
 
-        public static DateTime GetMusicDataDetailDate(IElement content)
-        {
-            return GetPlayDate(content, "musicdata_detail_date");
-        }
-
         public static DateTime GetPlayDate(IElement content)
         {
             return GetPlayDate(content, "box_inner01");
@@ -277,7 +271,7 @@ namespace ChunithmClientLibrary.Parser
 
         public static int GetTrack(IElement content)
         {
-            var trackText = content.GetElementsByClassName("play_track_text")?.FirstOrDefault()?.TextContent.Replace("Track ", "");
+            var trackText = content.GetElementsByClassName("play_track_text")?.FirstOrDefault()?.TextContent.Replace("TRACK ", "", StringComparison.OrdinalIgnoreCase);
             if (!int.TryParse(trackText, out int track))
             {
                 return DefaultParameter.Track;
@@ -287,10 +281,12 @@ namespace ChunithmClientLibrary.Parser
 
         public static string GetImageName(IElement content)
         {
-            var imageName = content.GetElementsByClassName("play_jacket_img")?.FirstOrDefault()?
-                .GetElementsByTagName("img")?.FirstOrDefault()?
-                .GetAttribute("src");
-            return imageName ?? DefaultParameter.ImageName;
+            var imageAttribute = content.GetElementsByClassName("play_jacket_img")?.FirstOrDefault()?
+                .GetElementsByTagName("img")?.FirstOrDefault();
+
+            return imageAttribute?.GetAttribute("src")
+                ?? imageAttribute?.GetAttribute("data-original")
+                ?? DefaultParameter.ImageName;
         }
 
         public static string GetArtistName(IElement content)
@@ -301,9 +297,10 @@ namespace ChunithmClientLibrary.Parser
         public static int GetPlayCount(IElement content)
         {
             var playCountText = content
-                .GetElementsByClassName("block_underline")?.ElementAtOrDefault(1)?
-                .GetElementsByTagName("span")?.ElementAtOrDefault(1)?
-                .TextContent;
+                .GetElementsByClassName("block_underline")?.ElementAtOrDefault(1)
+                .GetElementsByClassName("musicdata_score_num")?
+                .FirstOrDefault()?
+                .TextContent?.Replace("回", "");
 
             if (!int.TryParse(playCountText, out int playCount))
             {

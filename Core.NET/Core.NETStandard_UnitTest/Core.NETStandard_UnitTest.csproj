@@ -7,26 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\HighScoreRecord\**" />
+    <Compile Remove="Resources\MusicData\**" />
+    <Compile Remove="Resources\Record\**" />
+    <EmbeddedResource Remove="Resources\HighScoreRecord\**" />
+    <EmbeddedResource Remove="Resources\MusicData\**" />
+    <EmbeddedResource Remove="Resources\Record\**" />
+    <None Remove="Resources\HighScoreRecord\**" />
+    <None Remove="Resources\MusicData\**" />
+    <None Remove="Resources\Record\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\AimeList\html_test_case_1.html" />
-    <None Remove="Resources\AimeList\html_test_case_error_1.html" />
-    <None Remove="Resources\API\AimeList.html" />
-    <None Remove="Resources\API\Error.html" />
-    <None Remove="Resources\API\MusicDetail.html" />
-    <None Remove="Resources\API\Playlog.html" />
-    <None Remove="Resources\API\PlaylogDetail.html" />
-    <None Remove="Resources\API\PlaylogDetail_WE.html" />
     <None Remove="Resources\Common\error_page.html" />
-    <None Remove="Resources\HighScoreRecord\HtmlParserTest\test_case_1\test_case_1.html" />
-    <None Remove="Resources\HighScoreRecord\HtmlParserTest\test_case_2\test_case_1.html" />
-    <None Remove="Resources\HighScoreRecord\HtmlParserTest\test_case_3\test_case_1.html" />
-    <None Remove="Resources\MusicData\HtmlParserTest\test_case_1\test_case_1.html" />
-    <None Remove="Resources\MusicData\HtmlParserTest\test_case_1\test_case_2.html" />
-    <None Remove="Resources\MusicData\HtmlParserTest\test_case_1\test_case_3.html" />
     <None Remove="Resources\MusicDetail\html_test_case_1.html" />
     <None Remove="Resources\MusicDetail\html_test_case_2.html" />
     <None Remove="Resources\MusicDetail\html_test_case_3.html" />
     <None Remove="Resources\MusicDetail\html_test_case_4.html" />
-    <None Remove="Resources\MusicDetail\html_test_case_error_1.html" />
     <None Remove="Resources\MusicGenre\html_test_case_1.html" />
     <None Remove="Resources\MusicLevel\html_test_case_1.html" />
     <None Remove="Resources\MusicLevel\html_test_case_2.html" />
@@ -40,76 +38,31 @@
     <None Remove="Resources\PlaylogDetail\html_test_case_6.html" />
     <None Remove="Resources\PlaylogDetail\html_test_case_7.html" />
     <None Remove="Resources\PlaylogDetail\html_test_case_8.html" />
-    <None Remove="Resources\PlaylogDetail\html_test_case_error_1.html" />
     <None Remove="Resources\PlaylogRecord\HtmlParserTest\test_case_1\test_case_1.html" />
     <None Remove="Resources\Playlog\CHUNITHM ■ CHUNITHM-NET.html" />
     <None Remove="Resources\Playlog\html_test_case_1.html" />
-    <None Remove="Resources\Playlog\html_test_case_error_1.html" />
-    <None Remove="Resources\Record\CHUNITHM ■ CHUNITHM-NET.html" />
-    <None Remove="Resources\Record\Level12.html" />
-    <None Remove="Resources\Record\Level13.html" />
-    <None Remove="Resources\Record\Master.html" />
-    <None Remove="Resources\TestDocument.html" />
     <None Remove="Resources\WorldsEndMusicDetail\html_test_case_1.html" />
     <None Remove="Resources\WorldsEndMusicDetail\html_test_case_2.html" />
     <None Remove="Resources\WorldsEndMusicDetail\html_test_case_3.html" />
-    <None Remove="Resources\WorldsEndMusicDetail\html_test_case_error_1.html" />
     <None Remove="Resources\WorldsEndMusic\html_test_case_1.html" />
     <None Remove="Resources\WorldsEndMusic\html_test_case_2.html" />
-    <None Remove="Resources\WorldsEndMusic\html_test_case_error_1.html" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\AimeList\html_test_case_1.html" />
-    <Content Include="Resources\AimeList\html_test_case_error_1.html" />
-    <Content Include="Resources\API\AimeList.html" />
-    <Content Include="Resources\API\Error.html" />
-    <Content Include="Resources\API\MusicDetail.html" />
-    <Content Include="Resources\API\Playlog.html" />
-    <Content Include="Resources\API\PlaylogDetail.html" />
-    <Content Include="Resources\API\PlaylogDetail_WE.html" />
     <Content Include="Resources\Common\error_page.html" />
-    <Content Include="Resources\HighScoreRecord\HtmlParserTest\test_case_1\test_case_1.html" />
-    <Content Include="Resources\HighScoreRecord\HtmlParserTest\test_case_2\test_case_1.html" />
-    <Content Include="Resources\HighScoreRecord\HtmlParserTest\test_case_3\test_case_1.html" />
-    <Content Include="Resources\MusicData\HtmlParserTest\test_case_1\test_case_1.html" />
-    <Content Include="Resources\MusicData\HtmlParserTest\test_case_1\test_case_2.html" />
-    <Content Include="Resources\MusicData\HtmlParserTest\test_case_1\test_case_3.html" />
     <Content Include="Resources\MusicDetail\html_test_case_1.html" />
-    <Content Include="Resources\MusicDetail\html_test_case_2.html" />
-    <Content Include="Resources\MusicDetail\html_test_case_3.html" />
-    <Content Include="Resources\MusicDetail\html_test_case_4.html" />
-    <Content Include="Resources\MusicDetail\html_test_case_error_1.html" />
     <Content Include="Resources\MusicGenre\html_test_case_1.html" />
     <Content Include="Resources\MusicLevel\html_test_case_1.html" />
     <Content Include="Resources\MusicLevel\html_test_case_2.html" />
     <Content Include="Resources\MusicRecent\html_test_case_1.html" />
     <Content Include="Resources\MusicWord\html_test_case_1.html" />
     <Content Include="Resources\PlaylogDetail\html_test_case_1.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_2.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_3.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_4.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_5.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_6.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_7.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_8.html" />
-    <Content Include="Resources\PlaylogDetail\html_test_case_error_1.html" />
     <Content Include="Resources\PlaylogRecord\HtmlParserTest\test_case_1\test_case_1.html" />
-    <Content Include="Resources\Playlog\CHUNITHM ■ CHUNITHM-NET.html" />
     <Content Include="Resources\Playlog\html_test_case_1.html" />
-    <Content Include="Resources\Playlog\html_test_case_error_1.html" />
-    <Content Include="Resources\Record\CHUNITHM ■ CHUNITHM-NET.html" />
-    <Content Include="Resources\Record\Level12.html" />
-    <Content Include="Resources\Record\Level13.html" />
-    <Content Include="Resources\Record\Master.html" />
-    <Content Include="Resources\TestDocument.html" />
     <Content Include="Resources\WorldsEndMusicDetail\html_test_case_1.html" />
-    <Content Include="Resources\WorldsEndMusicDetail\html_test_case_2.html" />
-    <Content Include="Resources\WorldsEndMusicDetail\html_test_case_3.html" />
-    <Content Include="Resources\WorldsEndMusicDetail\html_test_case_error_1.html" />
     <Content Include="Resources\WorldsEndMusic\html_test_case_1.html" />
     <Content Include="Resources\WorldsEndMusic\html_test_case_2.html" />
-    <Content Include="Resources\WorldsEndMusic\html_test_case_error_1.html" />
   </ItemGroup>
 
   <ItemGroup>

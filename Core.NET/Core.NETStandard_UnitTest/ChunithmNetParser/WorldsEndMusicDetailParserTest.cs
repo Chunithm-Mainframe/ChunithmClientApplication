@@ -18,7 +18,7 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
             Assert.IsNotNull(worldsEndMusicDetail, "パースチェック");
             Assert.AreEqual("G e n g a o z o", worldsEndMusicDetail.Name, "楽曲名チェック");
             Assert.AreEqual("-45", worldsEndMusicDetail.ArtistName, "アーティスト名チェック");
-            Assert.AreEqual("https://chunithm-net.com/mobile/img/25060651b6218ce9.jpg", worldsEndMusicDetail.ImageName, "ジャケット名チェック");
+            Assert.AreEqual("https://new.chunithm-net.com/chuni-mobile/html/mobile/img/25060651b6218ce9.jpg", worldsEndMusicDetail.ImageName, "ジャケット名チェック");
             Assert.AreEqual(9, worldsEndMusicDetail.WorldsEndLevel, "レベルチェック");
             Assert.AreEqual(WorldsEndType.狂, worldsEndMusicDetail.WorldsEndType, "タイプチェック");
             var unit = worldsEndMusicDetail.WorldsEnd;
@@ -26,12 +26,11 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
             Assert.IsNull(worldsEndMusicDetail.GetUnit(Difficulty.Invalid), "ユニット取得チェック1");
             Assert.AreEqual(unit, worldsEndMusicDetail.GetUnit(Difficulty.WorldsEnd), "ユニット取得チェック2");
             Assert.AreEqual(Difficulty.WorldsEnd, unit.Difficulty, "難易度チェック");
-            Assert.AreEqual(205950, unit.Score, "スコアチェック");
-            Assert.AreEqual(false, unit.IsClear, "クリアチェック");
+            Assert.AreEqual(952809, unit.Score, "スコアチェック");
+            Assert.AreEqual(true, unit.IsClear, "クリアチェック");
             Assert.AreEqual(ComboStatus.None, unit.ComboStatus, "コンボチェック");
             Assert.AreEqual(ChainStatus.None, unit.ChainStatus, "チェインチェック");
-            Assert.AreEqual(new DateTime(2018, 1, 11, 21, 31, 0), unit.PlayDate, "最終プレイ日時チェック");
-            Assert.AreEqual(1, unit.PlayCount, "プレイ回数チェック");
+            Assert.AreEqual(3, unit.PlayCount, "プレイ回数チェック");
         }
 
         [TestMethod]

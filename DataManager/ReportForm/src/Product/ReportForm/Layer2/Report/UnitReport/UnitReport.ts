@@ -1,9 +1,7 @@
 import { Difficulty } from "../../../Layer1/Difficulty";
 import { ComboStatus, Rating } from "../../../Layer1/Rating";
-import { ReportStatus } from "../ReportStatus";
 import { PostLocation } from "../PostLocation";
-import { UnitRawReport } from "./UnitRawReport";
-import { UnitReportTable } from "./UnitReportTable";
+import { ReportStatus } from "../ReportStatus";
 
 export class UnitReport {
     public reportId = 0;

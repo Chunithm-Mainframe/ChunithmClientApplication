@@ -97,7 +97,8 @@ namespace ChunithmClientLibrary
             {
                 return new[]
                 {
-                    new Tuple<int, decimal>(GetBorderScore(Rank.SSS) + 1, baseRating + 2.0m),
+                    new Tuple<int, decimal>(GetBorderScore(Rank.SSSA) + 1, baseRating + 2.15m),
+                    new Tuple<int, decimal>(GetBorderScore(Rank.SSSA), baseRating + 2.15m),
                     new Tuple<int, decimal>(GetBorderScore(Rank.SSS), baseRating + 2.0m),
                     new Tuple<int, decimal>(GetBorderScore(Rank.SSA), baseRating + 1.5m),
                     new Tuple<int, decimal>(GetBorderScore(Rank.SS), baseRating + 1.0m),

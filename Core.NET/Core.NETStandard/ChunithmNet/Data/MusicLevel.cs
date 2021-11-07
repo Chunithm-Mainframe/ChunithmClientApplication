@@ -18,8 +18,11 @@ namespace ChunithmClientLibrary.ChunithmNet.Data
         public int MusicCount { get; set; }
         public int ClearCount { get; set; }
         public int SCount { get; set; }
+        public int SaCount { get; set; }
         public int SsCount { get; set; }
+        public int SsaCount { get; set; }
         public int SssCount { get; set; }
+        public int SssaCount { get; set; }
         public int FullComboCount { get; set; }
         public int AllJusticeCount { get; set; }
         public int FullChainGoldCount { get; set; }

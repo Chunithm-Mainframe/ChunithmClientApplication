@@ -1,4 +1,5 @@
 using ChunithmClientLibrary;
+using ChunithmClientLibrary.ChunithmNet.Data;
 using ChunithmClientLibrary.ChunithmNet.Parser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -17,58 +18,82 @@ namespace ChunithmClientLibraryUnitTest.ChunithmNetParser
             var parser = new MusicDetailParser();
             var musicDetail = parser.Parse(source);
             Assert.IsNotNull(musicDetail, "パースチェック");
-            Assert.AreEqual("業 -善なる神とこの世の悪について-", musicDetail.Name, "楽曲名チェック");
-            Assert.AreEqual("光吉猛修 VS 穴山大輔", musicDetail.ArtistName, "アーティスト名チェック");
-            Assert.AreEqual("https://chunithm-net.com/mobile/img/6c682b055a448ee8.jpg", musicDetail.ImageName, "イメージ名チェック");
+            Assert.AreEqual("怒槌", musicDetail.Name, "楽曲名チェック");
+            Assert.AreEqual("光吉猛修", musicDetail.ArtistName, "アーティスト名チェック");
+            Assert.AreEqual("https://new.chunithm-net.com/chuni-mobile/html/mobile/img/a732d43fd2a11e8f.jpg", musicDetail.ImageName, "イメージ名チェック");
 
             {
-                var unit = musicDetail.Basic;
-                Assert.IsNotNull(unit, "BASICパースチェック");
-                Assert.AreEqual(Difficulty.Basic, unit.Difficulty, "難易度");
-                Assert.AreEqual(1010000, unit.Score, "スコア");
-                Assert.AreEqual(Rank.SSS, unit.Rank, "ランク");
-                Assert.AreEqual(true, unit.IsClear, "クリア");
-                Assert.AreEqual(ComboStatus.AllJustice, unit.ComboStatus, "フルコンボステータス");
-                Assert.AreEqual(ChainStatus.None, unit.ChainStatus, "フルチェインステータス");
-                Assert.AreEqual(new DateTime(2018, 9, 21, 20, 5, 0), unit.PlayDate, "最終プレイ日時");
-                Assert.AreEqual(1, unit.PlayCount, "プレイ回数");
+                var expected = new MusicDetail.Unit
+                {
+                    Difficulty = Difficulty.Basic,
+                    Score = 1010000,
+                    Rank = Rank.SSSA,
+                    IsClear = true,
+                    ComboStatus = ComboStatus.AllJustice,
+                    ChainStatus = ChainStatus.None,
+                    PlayCount = 124
+                };
+                var actual = musicDetail.Basic;
+
+                AreEqualUnit(expected, actual);
             }
             {
-                var unit = musicDetail.Advanced;
-                Assert.IsNotNull(unit, "ADVANCEDパースチェック");
-                Assert.AreEqual(Difficulty.Advanced, unit.Difficulty, "難易度");
-                Assert.AreEqual(1010000, unit.Score, "スコア");
-                Assert.AreEqual(Rank.SSS, unit.Rank, "ランク");
-                Assert.AreEqual(true, unit.IsClear, "クリア");
-                Assert.AreEqual(ComboStatus.AllJustice, unit.ComboStatus, "フルコンボステータス");
-                Assert.AreEqual(ChainStatus.None, unit.ChainStatus, "フルチェインステータス");
-                Assert.AreEqual(new DateTime(2018, 9, 27, 22, 1, 0), unit.PlayDate, "最終プレイ日時");
-                Assert.AreEqual(4, unit.PlayCount, "プレイ回数");
+                var expected = new MusicDetail.Unit
+                {
+                    Difficulty = Difficulty.Advanced,
+                    Score = 1010000,
+                    Rank = Rank.SSSA,
+                    IsClear = true,
+                    ComboStatus = ComboStatus.AllJustice,
+                    ChainStatus = ChainStatus.None,
+                    PlayCount = 63
+                };
+                var actual = musicDetail.Advanced;
+
+                AreEqualUnit(expected, actual);
             }
             {
-                var unit = musicDetail.Expert;
-                Assert.IsNotNull(unit, "EXPERTパースチェック");
-                Assert.AreEqual(Difficulty.Expert, unit.Difficulty, "難易度");
-                Assert.AreEqual(1006294, unit.Score, "スコア");
-                Assert.AreEqual(Rank.SS, unit.Rank, "ランク");
-                Assert.AreEqual(true, unit.IsClear, "クリア");
-                Assert.AreEqual(ComboStatus.None, unit.ComboStatus, "フルコンボステータス");
-                Assert.AreEqual(ChainStatus.None, unit.ChainStatus, "フルチェインステータス");
-                Assert.AreEqual(new DateTime(2018, 10, 1, 21, 53, 0), unit.PlayDate, "最終プレイ日時");
-                Assert.AreEqual(3, unit.PlayCount, "プレイ回数");
+                var expected = new MusicDetail.Unit
+                {
+                    Difficulty = Difficulty.Expert,
+                    Score = 1009760,
+                    Rank = Rank.SSSA,
+                    IsClear = true,
+                    ComboStatus = ComboStatus.AllJustice,
+                    ChainStatus = ChainStatus.None,
+                    PlayCount = 40
+                };
+                var actual = musicDetail.Expert;
+
+                AreEqualUnit(expected, actual);
             }
             {
-                var unit = musicDetail.Master;
-                Assert.IsNotNull(unit, "MASTERパースチェック");
-                Assert.AreEqual(Difficulty.Master, unit.Difficulty, "難易度");
-                Assert.AreEqual(991731, unit.Score, "スコア");
-                Assert.AreEqual(Rank.S, unit.Rank, "ランク");
-                Assert.AreEqual(true, unit.IsClear, "クリア");
-                Assert.AreEqual(ComboStatus.None, unit.ComboStatus, "フルコンボステータス");
-                Assert.AreEqual(ChainStatus.None, unit.ChainStatus, "フルチェインステータス");
-                Assert.AreEqual(new DateTime(2018, 10, 7, 15, 21, 0), unit.PlayDate, "最終プレイ日時");
-                Assert.AreEqual(7, unit.PlayCount, "プレイ回数");
+                var expected = new MusicDetail.Unit
+                {
+                    Difficulty = Difficulty.Master,
+                    Score = 999930,
+                    Rank = Rank.SA,
+                    IsClear = true,
+                    ComboStatus = ComboStatus.None,
+                    ChainStatus = ChainStatus.None,
+                    PlayCount = 213
+                };
+                var actual = musicDetail.Master;
+
+                AreEqualUnit(expected, actual);
             }
+        }
+
+        public void AreEqualUnit(MusicDetail.Unit expected, MusicDetail.Unit actual)
+        {
+            Assert.IsNotNull(actual);
+            Assert.AreEqual(expected.Difficulty, actual.Difficulty, "難易度");
+            Assert.AreEqual(expected.Score, actual.Score, "スコア");
+            Assert.AreEqual(expected.Rank, actual.Rank, "ランク");
+            Assert.AreEqual(expected.IsClear, actual.IsClear, "クリア");
+            Assert.AreEqual(expected.ComboStatus, actual.ComboStatus, "フルコンボステータス");
+            Assert.AreEqual(expected.ChainStatus, actual.ChainStatus, "フルチェインステータス");
+            Assert.AreEqual(expected.PlayCount, actual.PlayCount, "プレイ回数");
         }
 
         [TestMethod]

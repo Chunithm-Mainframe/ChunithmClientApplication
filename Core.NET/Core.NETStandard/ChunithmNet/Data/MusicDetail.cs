@@ -15,7 +15,6 @@ namespace ChunithmClientLibrary.ChunithmNet.Data
             public ComboStatus ComboStatus { get; set; } = DefaultParameter.ComboStatus;
             public ChainStatus ChainStatus { get; set; } = DefaultParameter.ChainStatus;
 
-            public DateTime PlayDate { get; set; } = DefaultParameter.PlayDate;
             public int PlayCount { get; set; } = DefaultParameter.PlayCount;
         }
 

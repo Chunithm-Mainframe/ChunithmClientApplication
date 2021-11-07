@@ -58,20 +58,18 @@ namespace ChunithmCLI.Commands
             var param = new ParameterContainer(args);
             var repository = RequestMusicRepository(param);
 
-            using (var writer = new StreamWriter(param.DestinationPath))
-            {
-                var source = GenerateSource(repository, param.TemplateHtmlPath);
-                writer.Write(source);
-            }
+            using var writer = new StreamWriter(param.DestinationPath);
+            var source = GenerateSource(repository, param.TemplateHtmlPath);
+            writer.Write(source);
         }
 
-        private IMusicRepository RequestMusicRepository(ParameterContainer param)
+        private static IMusicRepository RequestMusicRepository(ParameterContainer param)
         {
             using var connector = new ChunithmMusicDatabaseHttpClientConnector(param.DatabaseUrl);
             return connector.GetMusicTableAsync().Result.Repository;
         }
 
-        private string GenerateSource(IMusicRepository repository, string templatePath)
+        private static string GenerateSource(IMusicRepository repository, string templatePath)
         {
             var source = ReadTemplate(templatePath);
 
@@ -107,15 +105,13 @@ namespace ChunithmCLI.Commands
             return source;
         }
 
-        private string ReadTemplate(string templatePath)
+        private static string ReadTemplate(string templatePath)
         {
-            using (var reader = new StreamReader(templatePath))
-            {
-                return reader.ReadToEnd();
-            }
+            using var reader = new StreamReader(templatePath);
+            return reader.ReadToEnd();
         }
 
-        private string GetTemplate(string source, string symbol)
+        private static string GetTemplate(string source, string symbol)
         {
             var startWord = $"<!--{symbol}";
             var start = source.IndexOf(startWord);
@@ -131,7 +127,7 @@ namespace ChunithmCLI.Commands
                 return "";
             }
 
-            return source.Substring(start + startWord.Length, end - (start + startWord.Length)).Trim();
+            return source[(start + startWord.Length)..end].Trim();
         }
     }
 }

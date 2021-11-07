@@ -9,9 +9,11 @@ export enum Rank {
     AA,
     AAA,
     S,
+    SA,
     SS,
     SSA,
     SSS,
+    SSSA,
     Max,
 }
 
@@ -27,51 +29,27 @@ export enum ChainStatus {
     FullChainPlatinum,
 }
 
-const RANK_MAX_BORDER_SCORE = 1010000;
-const RANK_SSS_BORDER_SCORE = 1007500;
-const RANK_SSA_BORDER_SCORE = 1005000;
-const RANK_SS_BORDER_SCORE = 1000000;
-const RANK_S_BORDER_SCORE = 975000;
-const RANK_AAA_BORDER_SCORE = 950000;
-const RANK_AA_BORDER_SCORE = 925000;
-const RANK_A_BORDER_SCORE = 900000;
-const RANK_BBB_BORDER_SCORE = 800000;
-const RANK_BB_BORDER_SCORE = 700000;
-const RANK_B_BORDER_SCORE = 600000;
-const RANK_C_BORDER_SCORE = 500000;
-const RANK_D_BORDER_SCORE = 0;
-const RANK_NONE_BORDER_SCORE = 0;
+const borderScoreMap: Record<Rank, number> = {
+    [Rank.None]: 0,
+    [Rank.D]: 0,
+    [Rank.C]: 500000,
+    [Rank.B]: 600000,
+    [Rank.BB]: 700000,
+    [Rank.BBB]: 800000,
+    [Rank.A]: 900000,
+    [Rank.AA]: 925000,
+    [Rank.AAA]: 950000,
+    [Rank.S]: 975000,
+    [Rank.SA]: 990000,
+    [Rank.SS]: 1000000,
+    [Rank.SSA]: 1005000,
+    [Rank.SSS]: 1007500,
+    [Rank.SSSA]: 1009000,
+    [Rank.Max]: 1010000,
+};
 
 function getBorderScore(rank: Rank): number {
-    switch (rank) {
-        case Rank.Max:
-            return RANK_MAX_BORDER_SCORE;
-        case Rank.SSS:
-            return RANK_SSS_BORDER_SCORE;
-        case Rank.SSA:
-            return RANK_SSA_BORDER_SCORE;
-        case Rank.SS:
-            return RANK_SS_BORDER_SCORE;
-        case Rank.S:
-            return RANK_S_BORDER_SCORE;
-        case Rank.AAA:
-            return RANK_AAA_BORDER_SCORE;
-        case Rank.AA:
-            return RANK_AA_BORDER_SCORE;
-        case Rank.A:
-            return RANK_A_BORDER_SCORE;
-        case Rank.BBB:
-            return RANK_BBB_BORDER_SCORE;
-        case Rank.BB:
-            return RANK_BB_BORDER_SCORE;
-        case Rank.B:
-            return RANK_B_BORDER_SCORE;
-        case Rank.C:
-            return RANK_C_BORDER_SCORE;
-        case Rank.D:
-            return RANK_D_BORDER_SCORE;
-    }
-    return RANK_NONE_BORDER_SCORE;
+    return borderScoreMap[rank];
 }
 
 function getBorderBaseRating(levelText: string): number {
@@ -79,7 +57,7 @@ function getBorderBaseRating(levelText: string): number {
     let decimal = 0;
 
     if (levelText.indexOf("+") !== -1) {
-        decimal = 0.7;
+        decimal = 0.5;
     }
 
     levelText = levelText.replace("+", "");
@@ -98,31 +76,32 @@ function convertToIntegerRating(rating: number): number {
 function getBordersAsIntegerRating(integerBaseRating: number, asOverPower: boolean): { score: number; integerRating: number }[] {
     if (asOverPower) {
         return [
-            { score: RANK_MAX_BORDER_SCORE + 1, integerRating: integerBaseRating + 275 },
-            { score: RANK_MAX_BORDER_SCORE, integerRating: integerBaseRating + 275 },
-            { score: RANK_SSS_BORDER_SCORE, integerRating: integerBaseRating + 200 },
-            { score: RANK_SSA_BORDER_SCORE, integerRating: integerBaseRating + 150 },
-            { score: RANK_SS_BORDER_SCORE, integerRating: integerBaseRating + 100 },
-            { score: RANK_S_BORDER_SCORE, integerRating: integerBaseRating },
-            { score: RANK_AA_BORDER_SCORE, integerRating: Math.max(integerBaseRating - 300, 0) },
-            { score: RANK_A_BORDER_SCORE, integerRating: Math.max(integerBaseRating - 500, 0) },
-            { score: RANK_BBB_BORDER_SCORE, integerRating: Math.max((integerBaseRating - 500) / 2.0, 0) },
-            { score: RANK_C_BORDER_SCORE, integerRating: 0 },
-            { score: RANK_D_BORDER_SCORE, integerRating: 0 },
+            { score: borderScoreMap[Rank.Max] + 1, integerRating: integerBaseRating + 275 },
+            { score: borderScoreMap[Rank.Max], integerRating: integerBaseRating + 275 },
+            { score: borderScoreMap[Rank.SSS], integerRating: integerBaseRating + 200 },
+            { score: borderScoreMap[Rank.SSA], integerRating: integerBaseRating + 150 },
+            { score: borderScoreMap[Rank.SS], integerRating: integerBaseRating + 100 },
+            { score: borderScoreMap[Rank.S], integerRating: integerBaseRating },
+            { score: borderScoreMap[Rank.AA], integerRating: Math.max(integerBaseRating - 300, 0) },
+            { score: borderScoreMap[Rank.A], integerRating: Math.max(integerBaseRating - 500, 0) },
+            { score: borderScoreMap[Rank.BBB], integerRating: Math.max((integerBaseRating - 500) / 2.0, 0) },
+            { score: borderScoreMap[Rank.C], integerRating: 0 },
+            { score: borderScoreMap[Rank.D], integerRating: 0 },
         ];
     }
     else {
         return [
-            { score: RANK_SSS_BORDER_SCORE + 1, integerRating: integerBaseRating + 200 },
-            { score: RANK_SSS_BORDER_SCORE, integerRating: integerBaseRating + 200 },
-            { score: RANK_SSA_BORDER_SCORE, integerRating: integerBaseRating + 150 },
-            { score: RANK_SS_BORDER_SCORE, integerRating: integerBaseRating + 100 },
-            { score: RANK_S_BORDER_SCORE, integerRating: integerBaseRating },
-            { score: RANK_AA_BORDER_SCORE, integerRating: Math.max(integerBaseRating - 300, 0) },
-            { score: RANK_A_BORDER_SCORE, integerRating: Math.max(integerBaseRating - 500, 0) },
-            { score: RANK_BBB_BORDER_SCORE, integerRating: Math.max((integerBaseRating - 500) / 2.0, 0) },
-            { score: RANK_C_BORDER_SCORE, integerRating: 0 },
-            { score: RANK_D_BORDER_SCORE, integerRating: 0 },
+            { score: borderScoreMap[Rank.SSSA] + 1, integerRating: integerBaseRating + 215 },
+            { score: borderScoreMap[Rank.SSSA], integerRating: integerBaseRating + 215 },
+            { score: borderScoreMap[Rank.SSS], integerRating: integerBaseRating + 200 },
+            { score: borderScoreMap[Rank.SSA], integerRating: integerBaseRating + 150 },
+            { score: borderScoreMap[Rank.SS], integerRating: integerBaseRating + 100 },
+            { score: borderScoreMap[Rank.S], integerRating: integerBaseRating },
+            { score: borderScoreMap[Rank.AA], integerRating: Math.max(integerBaseRating - 300, 0) },
+            { score: borderScoreMap[Rank.A], integerRating: Math.max(integerBaseRating - 500, 0) },
+            { score: borderScoreMap[Rank.BBB], integerRating: Math.max((integerBaseRating - 500) / 2.0, 0) },
+            { score: borderScoreMap[Rank.C], integerRating: 0 },
+            { score: borderScoreMap[Rank.D], integerRating: 0 },
         ];
     }
 }
@@ -161,7 +140,7 @@ function getOverPower(baseRating: number, score: number, comboStatus: ComboStatu
     }
 
     let basePoint = integerPlayRating;
-    if (score >= RANK_MAX_BORDER_SCORE) {
+    if (score >= borderScoreMap[Rank.Max]) {
         basePoint += 25;
     }
     else {
@@ -176,7 +155,7 @@ function getOverPower(baseRating: number, score: number, comboStatus: ComboStatu
     }
 
     let overPower = basePoint * 5;
-    if (score < RANK_S_BORDER_SCORE) {
+    if (score < borderScoreMap[Rank.S]) {
         overPower = Math.floor(overPower) / 100;
     }
     else {
@@ -187,7 +166,7 @@ function getOverPower(baseRating: number, score: number, comboStatus: ComboStatu
 }
 
 function calcBaseRating(beforeOp: number, afterOp: number, score: number, comboStatus: ComboStatus): number {
-    if (score < RANK_AA_BORDER_SCORE || score > RANK_MAX_BORDER_SCORE) {
+    if (score < borderScoreMap[Rank.AA] || score > borderScoreMap[Rank.Max]) {
         return 0;
     }
 
@@ -197,27 +176,27 @@ function calcBaseRating(beforeOp: number, afterOp: number, score: number, comboS
 
     const diffOp = afterOp - beforeOp;
     let added = 0;
-    if (score >= RANK_MAX_BORDER_SCORE) {
+    if (score >= borderScoreMap[Rank.Max]) {
         added = 2.75;
     }
-    else if (score >= RANK_SSS_BORDER_SCORE) {
-        added = 2.0 + 0.75 * (score - RANK_SSS_BORDER_SCORE) / (RANK_MAX_BORDER_SCORE - RANK_SSS_BORDER_SCORE);
+    else if (score >= borderScoreMap[Rank.SSS]) {
+        added = 2.0 + 0.75 * (score - borderScoreMap[Rank.SSS]) / (borderScoreMap[Rank.Max] - borderScoreMap[Rank.SSS]);
     }
-    else if (score >= RANK_SSA_BORDER_SCORE) {
-        added = 1.5 + 0.5 * (score - RANK_SSA_BORDER_SCORE) / (RANK_SSS_BORDER_SCORE - RANK_SSA_BORDER_SCORE);
+    else if (score >= borderScoreMap[Rank.SSA]) {
+        added = 1.5 + 0.5 * (score - borderScoreMap[Rank.SSA]) / (borderScoreMap[Rank.SSS] - borderScoreMap[Rank.SSA]);
     }
-    else if (score >= RANK_SS_BORDER_SCORE) {
-        added = 1.0 + 0.5 * (score - RANK_SS_BORDER_SCORE) / (RANK_SSA_BORDER_SCORE - RANK_SS_BORDER_SCORE);
+    else if (score >= borderScoreMap[Rank.SS]) {
+        added = 1.0 + 0.5 * (score - borderScoreMap[Rank.SS]) / (borderScoreMap[Rank.SSA] - borderScoreMap[Rank.SS]);
     }
-    else if (score >= RANK_S_BORDER_SCORE) {
-        added = 1.0 * (score - RANK_S_BORDER_SCORE) / (RANK_SS_BORDER_SCORE - RANK_S_BORDER_SCORE);
+    else if (score >= borderScoreMap[Rank.S]) {
+        added = 1.0 * (score - borderScoreMap[Rank.S]) / (borderScoreMap[Rank.SS] - borderScoreMap[Rank.S]);
     }
-    else if (score >= RANK_AA_BORDER_SCORE) {
-        added = -3.0 + 3.0 * (score - RANK_AA_BORDER_SCORE) / (RANK_S_BORDER_SCORE - RANK_AA_BORDER_SCORE);
+    else if (score >= borderScoreMap[Rank.AA]) {
+        added = -3.0 + 3.0 * (score - borderScoreMap[Rank.AA]) / (borderScoreMap[Rank.S] - borderScoreMap[Rank.AA]);
     }
     switch (comboStatus) {
         case ComboStatus.AllJustice:
-            if (score >= RANK_MAX_BORDER_SCORE) {
+            if (score >= borderScoreMap[Rank.Max]) {
                 added += 0.25;
             } else {
                 added += 0.2;
@@ -228,7 +207,7 @@ function calcBaseRating(beforeOp: number, afterOp: number, score: number, comboS
             break;
     }
 
-    const baseRating = score >= RANK_S_BORDER_SCORE
+    const baseRating = score >= borderScoreMap[Rank.S]
         ? Math.round((diffOp / 5 - added) * 100) / 100
         : Math.round((diffOp / 5 - added) * 10) / 10
     return baseRating;

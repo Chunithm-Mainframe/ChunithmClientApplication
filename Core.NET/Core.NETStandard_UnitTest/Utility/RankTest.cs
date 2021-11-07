@@ -1,10 +1,5 @@
 using ChunithmClientLibrary;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChunithmClientLibraryUnitTest
 {
@@ -36,7 +31,8 @@ namespace ChunithmClientLibraryUnitTest
         {
             Assert.AreEqual(Rank.Max, Utility.GetRank(1100000), "理論値オーバー");
             Assert.AreEqual(Rank.Max, Utility.GetRank(1010000), "理論値");
-            Assert.AreEqual(Rank.SSS, Utility.GetRank(1009999));
+            Assert.AreEqual(Rank.SSSA, Utility.GetRank(1009999));
+            Assert.AreEqual(Rank.SSSA, Utility.GetRank(1009000), "SSS+");
             Assert.AreEqual(Rank.SSS, Utility.GetRank(1008750));
             Assert.AreEqual(Rank.SSS, Utility.GetRank(1007501));
             Assert.AreEqual(Rank.SSS, Utility.GetRank(1007500), "SSS");
@@ -48,7 +44,8 @@ namespace ChunithmClientLibraryUnitTest
             Assert.AreEqual(Rank.SS, Utility.GetRank(1002500));
             Assert.AreEqual(Rank.SS, Utility.GetRank(1000001));
             Assert.AreEqual(Rank.SS, Utility.GetRank(1000000), "SS");
-            Assert.AreEqual(Rank.S, Utility.GetRank(999999));
+            Assert.AreEqual(Rank.SA, Utility.GetRank(999999));
+            Assert.AreEqual(Rank.SA, Utility.GetRank(990000), "S+");
             Assert.AreEqual(Rank.S, Utility.GetRank(987500));
             Assert.AreEqual(Rank.S, Utility.GetRank(975001));
             Assert.AreEqual(Rank.S, Utility.GetRank(975000), "S");
@@ -90,9 +87,12 @@ namespace ChunithmClientLibraryUnitTest
         [TestMethod]
         public void Rank_Convert_RankCodeToRank_Test1()
         {
-            Assert.AreEqual(Rank.None, Utility.ToRank(11), "範囲外");
-            Assert.AreEqual(Rank.SSS, Utility.ToRank(10), "SSS");
-            Assert.AreEqual(Rank.SS, Utility.ToRank(9), "SS");
+            Assert.AreEqual(Rank.None, Utility.ToRank(14), "範囲外");
+            Assert.AreEqual(Rank.SSSA, Utility.ToRank(13), "SSS+");
+            Assert.AreEqual(Rank.SSS, Utility.ToRank(12), "SSS");
+            Assert.AreEqual(Rank.SSA, Utility.ToRank(11), "SS+");
+            Assert.AreEqual(Rank.SS, Utility.ToRank(10), "SS");
+            Assert.AreEqual(Rank.SA, Utility.ToRank(9), "S+");
             Assert.AreEqual(Rank.S, Utility.ToRank(8), "S");
             Assert.AreEqual(Rank.AAA, Utility.ToRank(7), "AAA");
             Assert.AreEqual(Rank.AA, Utility.ToRank(6), "AA");
@@ -108,9 +108,11 @@ namespace ChunithmClientLibraryUnitTest
         [TestMethod]
         public void Rank_Convert_RankTextToRank_Test1()
         {
+            Assert.AreEqual(Rank.SSSA, Utility.ToRank("SSS+"), "SSS+");
             Assert.AreEqual(Rank.SSS, Utility.ToRank("SSS"), "SSS");
             Assert.AreEqual(Rank.SSA, Utility.ToRank("SS+"), "SS+");
             Assert.AreEqual(Rank.SS, Utility.ToRank("SS"), "SS");
+            Assert.AreEqual(Rank.SA, Utility.ToRank("S+"), "S+");
             Assert.AreEqual(Rank.S, Utility.ToRank("S"), "S");
             Assert.AreEqual(Rank.AAA, Utility.ToRank("AAA"), "AAA");
             Assert.AreEqual(Rank.AA, Utility.ToRank("AA"), "AA");
@@ -181,9 +183,11 @@ namespace ChunithmClientLibraryUnitTest
         [TestMethod]
         public void Rank_Convert_RankToRankText_Test1()
         {
+            Assert.AreEqual("SSS+", Utility.ToRankText(Rank.SSSA), "SSS+");
             Assert.AreEqual("SSS", Utility.ToRankText(Rank.SSS), "SSS");
             Assert.AreEqual("SS+", Utility.ToRankText(Rank.SSA), "SS+");
             Assert.AreEqual("SS", Utility.ToRankText(Rank.SS), "SS");
+            Assert.AreEqual("S+", Utility.ToRankText(Rank.SA), "S");
             Assert.AreEqual("S", Utility.ToRankText(Rank.S), "S");
             Assert.AreEqual("AAA", Utility.ToRankText(Rank.AAA), "AAA");
             Assert.AreEqual("AA", Utility.ToRankText(Rank.AA), "AA");
@@ -199,8 +203,11 @@ namespace ChunithmClientLibraryUnitTest
         [TestMethod]
         public void Rank_Convert_RankToRankCode_Test1()
         {
-            Assert.AreEqual(10, Utility.ToRankCode(Rank.SSS), "SSS");
-            Assert.AreEqual(9, Utility.ToRankCode(Rank.SS), "SS");
+            Assert.AreEqual(13, Utility.ToRankCode(Rank.SSSA), "SSS+");
+            Assert.AreEqual(12, Utility.ToRankCode(Rank.SSS), "SSS");
+            Assert.AreEqual(11, Utility.ToRankCode(Rank.SSA), "SS+");
+            Assert.AreEqual(10, Utility.ToRankCode(Rank.SS), "SS");
+            Assert.AreEqual(9, Utility.ToRankCode(Rank.SA), "S+");
             Assert.AreEqual(8, Utility.ToRankCode(Rank.S), "S");
             Assert.AreEqual(7, Utility.ToRankCode(Rank.AAA), "AAA");
             Assert.AreEqual(6, Utility.ToRankCode(Rank.AA), "AA");
@@ -216,9 +223,11 @@ namespace ChunithmClientLibraryUnitTest
         [TestMethod]
         public void Rank_Convert_RankTextToRankCode_Test1()
         {
-            Assert.AreEqual(10, Utility.ToRankCode("SSS"), "SSS");
-            Assert.AreEqual(9, Utility.ToRankCode("SS+"), "SS+");
-            Assert.AreEqual(9, Utility.ToRankCode("SS"), "SS");
+            Assert.AreEqual(13, Utility.ToRankCode("SSS+"), "SSS+");
+            Assert.AreEqual(12, Utility.ToRankCode("SSS"), "SSS");
+            Assert.AreEqual(11, Utility.ToRankCode("SS+"), "SS+");
+            Assert.AreEqual(10, Utility.ToRankCode("SS"), "SS");
+            Assert.AreEqual(9, Utility.ToRankCode("S+"), "S+");
             Assert.AreEqual(8, Utility.ToRankCode("S"), "S");
             Assert.AreEqual(7, Utility.ToRankCode("AAA"), "AAA");
             Assert.AreEqual(6, Utility.ToRankCode("AA"), "AA");

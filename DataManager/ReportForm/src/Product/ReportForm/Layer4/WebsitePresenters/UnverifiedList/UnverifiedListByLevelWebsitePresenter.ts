@@ -29,7 +29,7 @@ class UnverifiedListByLevelListItem {
 
 export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByLevelWebsiteParameter> {
     private readonly levelTexts = [
-        '1', '2', '3', '4', '5', '6', '7', '7p', '8', '8p', '9', '9p', '10', '10p', '11', '11p', '12', '12p', '13', '13p', '14',
+        '1', '2', '3', '4', '5', '6', '7', '7p', '8', '8p', '9', '9p', '10', '10p', '11', '11p', '12', '12p', '13', '13p', '14', '14p', '15',
     ];
     private readonly difficulties = [
         Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master
@@ -159,7 +159,7 @@ export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePres
         if (!listItems || listItems.length === 0 || !this.enabledLevel(parameter, levelText)) {
             return [];
         }
-        levelText = levelText.replace(/p/g, ".7");
+        levelText = levelText.replace(/p/g, ".5");
         return listItems.filter(x => this.enabledDifficulty(parameter, x.difficulty) && x.level.toString() === levelText);
     }
 
