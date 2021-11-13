@@ -31,6 +31,6 @@
 [submodule "DataManager/ReportForm/src/Router"]
 	path = DataManager/ReportForm/src/Packages/Router
 	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-Router.git
-[submodule "DataManager/ReportForm/src/Packages/Database"]
-	path = DataManager/ReportForm/src/Packages/Database
+[submodule "DataManager/ReportForm/src/Packages/Repository"]
+	path = DataManager/ReportForm/src/Packages/Repository
 	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-Repository.git
