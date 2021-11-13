@@ -65,12 +65,13 @@ export class NoticeManager {
         if (this.configuration.runtime.postTweetEnabled) {
             for (const n of notices) {
                 try {
-                    this.twitterModule.postTweet(`[譜面定数 検証結果]
-楽曲名:${n.music.name}
-難易度:${Utility.toDifficultyText(n.difficulty)}
-譜面定数:${Music.getBaseRating(n.music, n.difficulty).toFixed(1)}
-
-バージョン:${this.versionModule.getVersionConfig(versionName).displayVersionName}`);
+                    const message = NoticeManager.getApprovedUnitReportTwitterMessage(
+                        n.music.name,
+                        n.difficulty,
+                        Music.getBaseRating(n.music, n.difficulty),
+                        this.versionModule.getVersionConfig(versionName).displayVersionName,
+                        new Date());
+                    this.twitterModule.postTweet(message);
                 }
                 catch (e) {
                     const diffText = Utility.toDifficultyTextLowerCase(n.difficulty);
@@ -249,12 +250,20 @@ URL: ${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLink
         // twitter
         if (this.configuration.runtime.postTweetEnabled) {
             for (const r of reports) {
-                this.twitterModule.postTweet(`[譜面定数 検証結果]
-楽曲名:${r.musicName}
-難易度:${Utility.toDifficultyText(r.difficulty)}
-譜面定数:${r.calculateBaseRating().toFixed(1)}
-
-バージョン:${this.versionModule.getVersionConfig(versionName).displayVersionName}`);
+                try {
+                    const message = NoticeManager.getApprovedUnitReportTwitterMessage(
+                        r.musicName,
+                        r.difficulty,
+                        r.calculateBaseRating(),
+                        this.versionModule.getVersionConfig(versionName).displayVersionName,
+                        new Date());
+                    this.twitterModule.postTweet(message);
+                }
+                catch (e) {
+                    const diffText = Utility.toDifficultyTextLowerCase(r.difficulty);
+                    errors.push(e);
+                    errors.push(new Error(`Twitter報告エラー: :chunithm_difficulty_${diffText}: ${r.musicName}`))
+                }
             }
         }
 
@@ -346,6 +355,18 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
         this.noticeMissingUnitReports(missingReportIds);
         this.noticeErrors(errors);
     }
+
+    public static getApprovedUnitReportTwitterMessage(musicName: string, difficulty: Difficulty, baseRating: number, displayVersionName: string, date: Date) {
+        return `[譜面定数 検証結果]
+楽曲名:${musicName}
+難易度:${Utility.toDifficultyText(difficulty)}
+譜面定数:${baseRating.toFixed(1)}
+
+バージョン:${displayVersionName}
+
+${date}`;
+    }
+
     public noticeRejectUnitReport(versionName: string, reportIds: number[]): void {
         if (reportIds.length === 0) {
             return;
