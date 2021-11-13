@@ -1,5 +1,5 @@
-import { SpreadsheetDatabaseTable } from "../../../../../Packages/Database/SpreadsheetDatabaseTable";
-import { GenericDatabaseTableSchema } from "../../../../../Packages/Database/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../../Packages/Repository/SpreadsheetDatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../../Packages/Repository/GenericDatabaseSchema";
 import { LevelReport } from "./LevelReport";
 import { ReportStatus } from "../ReportStatus";
 import { LevelRawReport } from "./LevelRawReport";

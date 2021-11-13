@@ -1,5 +1,5 @@
-import { GenericDatabaseTableSchema } from "../../../../Packages/Database/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../Packages/Database/SpreadsheetDatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../Packages/Repository/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../Packages/Repository/SpreadsheetDatabaseTable";
 import { Music } from "./Music";
 
 export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {

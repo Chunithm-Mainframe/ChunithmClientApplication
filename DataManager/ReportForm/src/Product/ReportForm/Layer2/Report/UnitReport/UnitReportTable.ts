@@ -1,5 +1,5 @@
-import { GenericDatabaseTableSchema } from "../../../../../Packages/Database/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../../Packages/Database/SpreadsheetDatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../../Packages/Repository/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../../Packages/Repository/SpreadsheetDatabaseTable";
 import { Difficulty } from "../../../Layer1/Difficulty";
 import { ComboStatus } from "../../../Layer1/Rating";
 import { UnitReport } from "./UnitReport";
