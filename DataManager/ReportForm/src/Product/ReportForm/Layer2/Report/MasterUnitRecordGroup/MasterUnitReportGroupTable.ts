@@ -1,5 +1,5 @@
-import { SpreadsheetDatabaseTable } from "../../../../../Packages/Database/SpreadsheetDatabaseTable";
-import { GenericDatabaseTableSchema } from "../../../../../Packages/Database/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../../Packages/Repository/SpreadsheetDatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../../Packages/Repository/GenericDatabaseSchema";
 import { MasterUnitRecordGroup } from "./MasterUnitRecordGroup";
 export class MasterUnitReportGroupTable extends SpreadsheetDatabaseTable<MasterUnitRecordGroup, 'groupId' | 'musicId' | 'difficulty'> {
     public constructor(sheet: GoogleAppsScript.Spreadsheet.Sheet) {

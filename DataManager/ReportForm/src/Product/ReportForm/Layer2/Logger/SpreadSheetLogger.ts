@@ -1,7 +1,7 @@
 import { CustomLogger, LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { DatabaseTable } from "../../../../Packages/Database/DatabaseTable";
-import { GenericDatabaseTableSchema } from "../../../../Packages/Database/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../Packages/Database/SpreadsheetDatabaseTable";
+import { DatabaseTable } from "../../../../Packages/Repository/DatabaseTable";
+import { GenericDatabaseTableSchema } from "../../../../Packages/Repository/GenericDatabaseSchema";
+import { SpreadsheetDatabaseTable } from "../../../../Packages/Repository/SpreadsheetDatabaseTable";
 import { SpreadsheetLog } from "./SpreadsheetLog";
 
 type LogTable = DatabaseTable<SpreadsheetLog, 'id'>;

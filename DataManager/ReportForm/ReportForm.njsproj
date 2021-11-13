@@ -75,8 +75,8 @@
     <Folder Include="src\Packages\CustomLogger.LINE\" />
     <Folder Include="src\Packages\CustomLogger.Slack\" />
     <Folder Include="src\Packages\CustomLogger\" />
-    <Folder Include="src\Packages\Database\" />
     <Folder Include="src\Packages\DIProperty\" />
+    <Folder Include="src\Packages\Repository\" />
     <Folder Include="src\Packages\Router\" />
     <Folder Include="src\Packages\UrlFetch.LINE\" />
     <Folder Include="src\Packages\UrlFetch.LINE\API\" />
@@ -160,11 +160,11 @@
     <TypeScriptCompile Include="src\Packages\CustomLogger\ConsoleLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogManager.ts" />
-    <TypeScriptCompile Include="src\Packages\Database\DatabaseTable.ts" />
-    <TypeScriptCompile Include="src\Packages\Database\DatabaseTableSchema.ts" />
-    <TypeScriptCompile Include="src\Packages\Database\GenericDatabaseSchema.ts" />
-    <TypeScriptCompile Include="src\Packages\Database\SpreadsheetDatabaseTable.ts" />
     <TypeScriptCompile Include="src\Packages\DIProperty\DIProperty.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\DatabaseTable.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\DatabaseTableSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\GenericDatabaseSchema.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\SpreadsheetDatabaseTable.ts" />
     <TypeScriptCompile Include="src\Packages\Router\Router.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingController.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingEdge.ts" />

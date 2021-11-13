@@ -1,36 +1,36 @@
-[submodule "DataManager/ReportForm/src/UrlFetch"]
+[submodule "DataManager/ReportForm/src/Packages/UrlFetch"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch
-	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.git
-[submodule "DataManager/ReportForm/src/CustomLogger"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-UrlFetch.git
+[submodule "DataManager/ReportForm/src/Packages/CustomLogger"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger
-	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.git
-[submodule "DataManager/ReportForm/src/UrlFetch.LINE"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-CustomLogger.git
+[submodule "DataManager/ReportForm/src/Packages/UrlFetch.LINE"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch.LINE
-	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.LINE.git
-[submodule "DataManager/ReportForm/src/UrlFetch.Slack"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-UrlFetch.LINE.git
+[submodule "DataManager/ReportForm/src/Packages/UrlFetch.Slack"]
 	path = DataManager/ReportForm/src/Packages/UrlFetch.Slack
-	url = https://github.com/MAX-eipi/GoogleAppsScript-UrlFetch.Slack.git
-[submodule "DataManager/ReportForm/src/CutomLogger.LINE"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-UrlFetch.Slack.git
+[submodule "DataManager/ReportForm/src/Packages/CutomLogger.LINE"]
 	path = DataManager/ReportForm/src/CutomLogger.LINE
-	url = https://github.com/MAX-eipi/GoogleAppsScript-CutomLogger.LINE.git
-[submodule "DataManager/ReportForm/src/CustomLogger.Slack"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-CutomLogger.LINE.git
+[submodule "DataManager/ReportForm/src/Packages/CustomLogger.Slack"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger.Slack
-	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.Slack.git
-[submodule "DataManager/ReportForm/src/Configuration"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-CustomLogger.Slack.git
+[submodule "DataManager/ReportForm/src/Packages/Configuration"]
 	path = DataManager/ReportForm/src/Packages/Configuration
-	url = https://github.com/MAX-eipi/GoogleAppsScript-Configuration.git
-[submodule "DataManager/ReportForm/src/DIProperty"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-Configuration.git
+[submodule "DataManager/ReportForm/src/Packages/DIProperty"]
 	path = DataManager/ReportForm/src/Packages/DIProperty
-	url = https://github.com/MAX-eipi/GoogleAppsScript-DIProperty.git
-[submodule "DataManager/ReportForm/src/CustomCacheProvider"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-DIProperty.git
+[submodule "DataManager/ReportForm/src/Packages/CustomCacheProvider"]
 	path = DataManager/ReportForm/src/Packages/CustomCacheProvider
-	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomCacheProvider.git
-[submodule "DataManager/ReportForm/src/CustomLogger.LINE"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-CustomCacheProvider.git
+[submodule "DataManager/ReportForm/src/Packages/CustomLogger.LINE"]
 	path = DataManager/ReportForm/src/Packages/CustomLogger.LINE
-	url = https://github.com/MAX-eipi/GoogleAppsScript-CustomLogger.LINE.git
-[submodule "DataManager/ReportForm/src/Router"]
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-CustomLogger.LINE.git
+[submodule "DataManager/ReportForm/src/Packages/Router"]
 	path = DataManager/ReportForm/src/Packages/Router
-	url = https://github.com/MAX-eipi/GoogleAppsScript-Router.git
-[submodule "DataManager/ReportForm/src/Packages/Database"]
-	path = DataManager/ReportForm/src/Packages/Database
-	url = https://github.com/MAX-eipi/GoogleAppsScript-Repository.git
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-Router.git
+[submodule "DataManager/ReportForm/src/Packages/Repository"]
+	path = DataManager/ReportForm/src/Packages/Repository
+	url = https://github.com/Chunithm-Mainframe/GoogleAppsScript-Repository.git
