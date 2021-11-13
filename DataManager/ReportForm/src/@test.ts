@@ -4,6 +4,7 @@ import { MusicRating } from "./Product/ReportForm/Layer2/PlayerRating/MusicRatin
 import { PlayerRating } from "./Product/ReportForm/Layer2/PlayerRating/PlayerRating";
 import { ChunirecModule } from "./Product/ReportForm/Layer3/Modules/ChunirecModule";
 import { PlayerRatingModule } from "./Product/ReportForm/Layer3/Modules/PlayerRatingModule";
+import { NoticeManager } from "./Product/ReportForm/Layer4/Managers/NoticeManager";
 
 /* eslint @typescript-eslint/no-unused-vars: off */
 /* eslint @typescript-eslint/camelcase: off */
@@ -74,4 +75,22 @@ function test_requestUpdateMusicAll() {
 
     const result = module.requestUpdateMusicAll(params);
     console.log(result);
+}
+
+function test_enqueueApproveUnitReport() {
+    Instance.initialize();
+    for (let i = 0; i < 30; i++) {
+        const reportId = i + 1;
+        Instance.instance.noticeQueue.enqueueApproveUnitReport(reportId);
+    }
+    Instance.instance.noticeQueue.save();
+}
+
+function test_dumpTwitterMessage() {
+    console.log(NoticeManager.getApprovedUnitReportTwitterMessage(
+        'TEST MUSIC NAME',
+        Difficulty.Master,
+        15.2,
+        'TEST VERSION NAME',
+        new Date()));
 }
