@@ -158,7 +158,7 @@ export class ApprovalModule extends ReportFormModule {
         return this.chunirecModule.requestUpdateMusicAll(params).success;
     }
 
-    // Lv.1-6用
+    // Lv.1-9+用
     public approveLevelReport(versionName: string, reportId: number): void {
         const levelReport = this.reportModule.getLevelReport(versionName, reportId);
         if (!levelReport) {
@@ -179,6 +179,10 @@ export class ApprovalModule extends ReportFormModule {
             if (targetLevelList.indexOf(row.advancedBaseRating) !== -1 && !row.advancedVerified) {
                 update = row;
                 update.advancedVerified = true;
+            }
+            if (targetLevelList.indexOf(row.expertBaseRating) !== -1 && !row.expertVerified) {
+                update = row;
+                update.expertVerified = true;
             }
 
             if (update) {
@@ -218,7 +222,7 @@ export class ApprovalModule extends ReportFormModule {
                 targetLevel: levelReport.level,
             });
 
-        this.noticeQueue.enqueueRejectLevelReport(levelReport);
+        this.noticeQueue.enqueueRejectLevelReport(levelReport.reportId);
         this.noticeQueue.save();
     }
 

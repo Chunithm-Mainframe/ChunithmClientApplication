@@ -16,7 +16,7 @@ export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
         return target;
     }
 
-    // Lv.1-6の楽曲数取得用
+    // Lv.1-9+の楽曲数取得用
     public getTargetLowLevelMusicCount(targetLevel: number): number {
         let count = 0;
         for (const row of this.records) {
@@ -24,6 +24,9 @@ export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
                 count++;
             }
             if (row.advancedBaseRating === targetLevel) {
+                count++;
+            }
+            if (row.expertBaseRating === targetLevel) {
                 count++;
             }
         }
