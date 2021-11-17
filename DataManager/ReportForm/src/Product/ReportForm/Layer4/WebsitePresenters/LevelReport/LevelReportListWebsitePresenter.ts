@@ -35,9 +35,11 @@ export class LevelReportListWebsitePresenter extends ReportFormWebsitePresenter<
     }
 
     private getListItemHtml(report: LevelReport): string {
-        const bg = report.level <= 3
-            ? Utility.toDifficultyTextLowerCase(Difficulty.Basic)
-            : Utility.toDifficultyTextLowerCase(Difficulty.Advanced);
+        const bg =
+            report.level >= 7 ? Utility.toDifficultyTextLowerCase(Difficulty.Expert)
+                : report.level >= 4 ? Utility.toDifficultyTextLowerCase(Difficulty.Advanced)
+                    : Utility.toDifficultyTextLowerCase(Difficulty.Basic);
+        const levelText = report.level.toString().replace(".5", "+");
         const date = report.createdAt;
         const dateText = LevelReportListWebsitePresenter.getDateText(date);
         const parameter: LevelReportWebsiteParameter = {
@@ -45,7 +47,7 @@ export class LevelReportListWebsitePresenter extends ReportFormWebsitePresenter<
             reportId: report.reportId.toString(),
         };
         const url = this.getFullPath(parameter, LevelReportWebsitePresenter);
-        return `<div class="music_list bg_${bg}" onclick="window.open('${encodeURI(url)}', '_top')">Lv.${report.level}/${report.musicCount}曲/${dateText}</div>`;
+        return `<div class="music_list bg_${bg}" onclick="window.open('${encodeURI(url)}', '_top')">Lv.${levelText}/${report.musicCount}曲/${dateText}</div>`;
     }
 
     private static getDateText(date: Date): string {

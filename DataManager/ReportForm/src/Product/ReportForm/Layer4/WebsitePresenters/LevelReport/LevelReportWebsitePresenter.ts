@@ -33,10 +33,13 @@ export class LevelReportWebsitePresenter extends ReportFormWebsitePresenter<Leve
         source = this.replacePageLink(source, parameter, LevelReportWebsitePresenter);
         source = this.replacePageLink(source, parameter, LevelReportListWebsitePresenter);
 
-        const difficulty = report.level <= 3 ? Difficulty.Basic : Difficulty.Advanced;
+        const difficulty =
+            report.level >= 7 ? Difficulty.Expert
+                : report.level >= 4 ? Difficulty.Advanced
+                    : Difficulty.Basic;
 
         source = source.replace(/%reportId%/g, reportId.toString());
-        source = source.replace(/%targetMusicLevel%/g, report.level.toString());
+        source = source.replace(/%targetMusicLevel%/g, report.level.toString().replace(".5", "+"));
         source = source.replace(/%difficulty%/g, Utility.toDifficultyTextLowerCase(difficulty));
         source = source.replace(/%difficultyImagePath%/g, Utility.getDifficultyImagePath(difficulty));
         source = source.replace(/%musicCount%/g, report.musicCount.toString());

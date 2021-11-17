@@ -7,7 +7,8 @@ export class LevelRawReport {
 
     public constructor(post: GoogleAppsScript.Forms.FormResponse) {
         const items = post.getItemResponses();
-        this._targetLevel = parseInt(items[0].getResponse().toString());
+        const targetLevelText = items[0].getResponse().toString().replace("+", ".5");
+        this._targetLevel = parseFloat(targetLevelText);
         this._op = parseFloat(items[1].getResponse().toString());
         this._opRatio = parseFloat(items[2].getResponse().toString());
 

@@ -538,11 +538,12 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
                 SlackCompositionObjectFactory.markdownText(`:mailbox_with_mail: *新規レベル検証報告(${reports.length}件)*`)
             ));
             for (const r of reports) {
+                const levelText = r.level.toString().replace(".5", "+");
                 const difficulty = r.level >= 4 ? Difficulty.Advanced : Difficulty.Basic;
                 const diffText = Utility.toDifficultyTextLowerCase(difficulty);
                 const url = ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsitePresenter, { version: versionName, reportId: r.reportId.toString() });
                 blocks.push(SlackBlockFactory.section(
-                    SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.level} (${r.musicCount}曲)>`)
+                    SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${levelText} (${r.musicCount}曲)>`)
                 ));
             }
             const stream = new SlackChatPostMessageStream({
@@ -593,11 +594,15 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
                     SlackCompositionObjectFactory.markdownText(`:o: *レベル検証報告 承認(${reports.length}件)*`)
                 ));
                 for (const r of reports) {
-                    const difficulty = r.level >= 4 ? Difficulty.Advanced : Difficulty.Basic;
+                    const levelText = r.level.toString().replace(".5", "+");
+                    const difficulty =
+                        r.level >= 7 ? Difficulty.Expert
+                            : r.level >= 4 ? Difficulty.Advanced
+                                : Difficulty.Basic;
                     const diffText = Utility.toDifficultyTextLowerCase(difficulty);
                     const url = ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsitePresenter, { version: versionName, reportId: r.reportId.toString() });
                     blocks.push(SlackBlockFactory.section(
-                        SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.level} (${r.musicCount}曲)>`)
+                        SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${levelText} (${r.musicCount}曲)>`)
                     ));
                 }
                 const stream = new SlackChatPostMessageStream({
@@ -615,10 +620,14 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
                     SlackCompositionObjectFactory.markdownText(`:pushpin: *譜面定数更新(${reports.length}件)*`)
                 ));
                 for (const r of reports) {
-                    const difficulty = r.level >= 4 ? Difficulty.Advanced : Difficulty.Basic;
+                    const levelText = r.level.toString().replace(".5", "+");
+                    const difficulty =
+                        r.level >= 7 ? Difficulty.Expert
+                            : r.level >= 4 ? Difficulty.Advanced
+                                : Difficulty.Basic;
                     const diffText = Utility.toDifficultyTextLowerCase(difficulty);
                     blocks.push(SlackBlockFactory.section(
-                        SlackCompositionObjectFactory.markdownText(`:chunithm_difficulty_${diffText}: Lv.${r.level} (${r.musicCount}曲)`)
+                        SlackCompositionObjectFactory.markdownText(`:chunithm_difficulty_${diffText}: Lv.${levelText} (${r.musicCount}曲)`)
                     ));
                 }
                 const stream = new SlackChatPostMessageStream({
@@ -669,11 +678,15 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
                 SlackCompositionObjectFactory.markdownText(`:x: *レベル検証報告 却下(${reports.length}件)*`)
             ));
             for (const r of reports) {
-                const difficulty = r.level >= 4 ? Difficulty.Advanced : Difficulty.Basic;
+                const levelText = r.level.toString().replace(".5", "+");
+                const difficulty =
+                    r.level >= 7 ? Difficulty.Expert
+                        : r.level >= 4 ? Difficulty.Advanced
+                            : Difficulty.Basic;
                 const diffText = Utility.toDifficultyTextLowerCase(difficulty);
                 const url = ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkResolver, LevelReportWebsitePresenter, { version: versionName, reportId: r.reportId.toString() });
                 blocks.push(SlackBlockFactory.section(
-                    SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${r.level} (${r.musicCount}曲)>`)
+                    SlackCompositionObjectFactory.markdownText(`<${url}|:chunithm_difficulty_${diffText}: Lv.${levelText} (${r.musicCount}曲)>`)
                 ));
             }
             const stream = new SlackChatPostMessageStream({
