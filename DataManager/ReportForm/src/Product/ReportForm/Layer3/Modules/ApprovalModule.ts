@@ -222,7 +222,7 @@ export class ApprovalModule extends ReportFormModule {
                 targetLevel: levelReport.level,
             });
 
-        this.noticeQueue.enqueueRejectLevelReport(levelReport);
+        this.noticeQueue.enqueueRejectLevelReport(levelReport.reportId);
         this.noticeQueue.save();
     }
 
