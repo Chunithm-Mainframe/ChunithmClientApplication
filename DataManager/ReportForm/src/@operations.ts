@@ -181,3 +181,11 @@ ${new Date()}`
         instance.module.getModule(TwitterModule).postTweet(message);
     });
 }
+
+function dumpMusicJsonHash() {
+    console.log(CacheService.getScriptCache().get('music_json_hash'));
+}
+
+function clearMusicJsonHash() {
+    CacheService.getScriptCache().remove('music_json_hash');
+}
