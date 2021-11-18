@@ -35,10 +35,11 @@ export class LevelReportGoogleForm extends ReportGoogleForm {
             levelSelector.setTitle('レベルを選択してください');
             levelSelector.setRequired(true);
             const choices: GoogleAppsScript.Forms.Choice[] = [];
-            for (let i = 1; i <= 6; i++) {
-                const choice = levelSelector.createChoice(i.toString());
-                choices.push(choice);
+            const levels = ["1", "2", "3", "4", "5", "6", "7", "7+", "8", "8+", "9", "9+"];
+            for (const level of levels) {
+                choices.push(levelSelector.createChoice(level));
             }
+
             levelSelector.setChoices(choices);
         }
         {
