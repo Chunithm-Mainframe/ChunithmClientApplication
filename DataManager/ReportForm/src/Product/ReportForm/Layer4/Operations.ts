@@ -7,6 +7,7 @@ import { SlackCompositionObjectFactory } from "../../../Packages/UrlFetch.Slack/
 import { UrlFetchManager } from "../../../Packages/UrlFetch/UrlFetchManager";
 import { Instance } from "../Instance";
 import { ConfigurationEditor } from "../Layer1/Configurations/ConfigurationEditor";
+import { Environment } from "../Layer1/Environment";
 import { ReportStatus } from "../Layer2/Report/ReportStatus";
 import { ReportModule } from "../Layer3/Modules/Report/ReportModule";
 import { LevelReportListWebsitePresenter } from "./WebsitePresenters/LevelReport/LevelReportListWebsitePresenter";
@@ -176,5 +177,54 @@ export class Operations {
         catch (e) {
             Instance.exception(e);
         }
+    }
+
+    public static fetchMusicJson() {
+        try {
+            Instance.initialize();
+
+            if (Instance.instance.config.environment !== Environment.Develop) {
+                return;
+            }
+
+            const scriptCache = CacheService.getScriptCache();
+            const cachedHash = scriptCache.get('music_json_hash');
+            const musicJson = UrlFetchApp.fetch("https://chunithm.sega.jp/storage/json/music_new.json").getContentText();
+            const newHash = this.MD5(musicJson);
+
+            if (cachedHash !== newHash) {
+                scriptCache.put('music_json_hash', newHash);
+
+                const blocks: Block[] = [];
+                blocks.push(SlackBlockFactory.section(
+                    SlackCompositionObjectFactory.markdownText('music_new.jsonが更新されました')
+                ));
+                UrlFetchManager.execute([new SlackChatPostMessageStream({
+                    token: Instance.instance.module.configuration.global.slackApiToken,
+                    channel: Instance.instance.module.configuration.global.slackChannelIdTable['updateMusicJson'],
+                    text: '',
+                    blocks: blocks,
+                })]);
+            }
+        }
+        catch (e) {
+            Instance.exception(e);
+        }
+    }
+
+    private static MD5(input) {
+        const rawHash = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, input, Utilities.Charset.UTF_8);
+        let txtHash = '';
+        for (let i = 0; i < rawHash.length; i++) {
+            let hashVal = rawHash[i];
+            if (hashVal < 0) {
+                hashVal += 256;
+            }
+            if (hashVal.toString(16).length == 1) {
+                txtHash += '0';
+            }
+            txtHash += hashVal.toString(16);
+        }
+        return txtHash;
     }
 }

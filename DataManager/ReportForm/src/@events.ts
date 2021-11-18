@@ -37,3 +37,7 @@ function onNoticeApprovedLevelReports() {
 function onNoticeRejectedLevelReports() {
     Operations.noticeRejectedLevelReports();
 }
+
+function onFetchMusicJson() {
+    Operations.fetchMusicJson();
+}
