@@ -183,9 +183,9 @@ ${new Date()}`
 }
 
 function dumpMusicJsonHash() {
-    console.log(CacheService.getScriptCache().get('music_json_hash'));
+    console.log(PropertiesService.getScriptProperties().getProperty('music_json_hash'));
 }
 
 function clearMusicJsonHash() {
-    CacheService.getScriptCache().remove('music_json_hash');
+    PropertiesService.getScriptProperties().deleteProperty('music_json_hash');
 }

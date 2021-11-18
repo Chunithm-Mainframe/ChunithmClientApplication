@@ -187,13 +187,13 @@ export class Operations {
                 return;
             }
 
-            const scriptCache = CacheService.getScriptCache();
-            const cachedHash = scriptCache.get('music_json_hash');
+            const scriptProperties = PropertiesService.getScriptProperties();
+            const cachedHash = scriptProperties.getProperty('music_json_hash');
             const musicJson = UrlFetchApp.fetch("https://chunithm.sega.jp/storage/json/music_new.json").getContentText();
             const newHash = this.MD5(musicJson);
 
             if (cachedHash !== newHash) {
-                scriptCache.put('music_json_hash', newHash);
+                scriptProperties.setProperty('music_json_hash', newHash);
 
                 const blocks: Block[] = [];
                 blocks.push(SlackBlockFactory.section(
