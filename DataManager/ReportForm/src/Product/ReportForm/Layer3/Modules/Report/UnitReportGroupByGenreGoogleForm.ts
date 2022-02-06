@@ -87,7 +87,7 @@ export class UnitReportGroupByGenreGoogleForm extends ReportGoogleForm {
         const difficultyList = form.addMultipleChoiceItem();
         difficultyList.setTitle("難易度を選択してください");
         difficultyList.setRequired(true);
-        difficultyList.setChoiceValues(["MASTER", "EXPERT", "ADVANCED", "BASIC"]);
+        difficultyList.setChoiceValues(["MASTER", "EXPERT", "ADVANCED", "BASIC", "ULTIMA"]);
         const beforeOpInput = form.addTextItem();
         beforeOpInput.setTitle("変動前のOPを入力してください");
         beforeOpInput.setRequired(true);

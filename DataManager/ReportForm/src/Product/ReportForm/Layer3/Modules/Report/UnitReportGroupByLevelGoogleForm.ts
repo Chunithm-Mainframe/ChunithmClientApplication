@@ -88,7 +88,8 @@ export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
     public static getFilteredMusics(musics: Music[], targetLevel: number): Music[] {
         const filteredMusics: Music[] = [];
         for (const music of musics) {
-            if (this.isTargetLevel(music.masterBaseRating, targetLevel)
+            if (this.isTargetLevel(music.ultimaBaseRating, targetLevel)
+                || this.isTargetLevel(music.masterBaseRating, targetLevel)
                 || this.isTargetLevel(music.expertBaseRating, targetLevel)
                 || this.isTargetLevel(music.advancedBaseRating, targetLevel)
                 || this.isTargetLevel(music.basicBaseRating, targetLevel)) {
@@ -120,7 +121,7 @@ export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
         const difficultyList = form.addMultipleChoiceItem();
         difficultyList.setTitle("難易度を選択してください");
         difficultyList.setRequired(true);
-        difficultyList.setChoiceValues(["MASTER", "EXPERT", "ADVANCED", "BASIC"]);
+        difficultyList.setChoiceValues(["MASTER", "EXPERT", "ADVANCED", "BASIC", "ULTIMA"]);
         const beforeOpInput = form.addTextItem();
         beforeOpInput.setTitle("変動前のOPを入力してください");
         beforeOpInput.setRequired(true);

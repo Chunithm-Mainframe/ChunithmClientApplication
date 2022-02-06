@@ -123,8 +123,15 @@ ${genre}: ${musicCountMap[genre]}曲`;
             const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
             const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
             const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
-            message += `
+            const ultimaLevelText = m.ultimaBaseRating.toString().replace(".5", "+");
+            if (m.ultimaBaseRating > 0) {
+                message += `
+${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
+            }
+            else {
+                message += `
 ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
+            }
         }
         return message;
     }
@@ -137,8 +144,15 @@ ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLeve
             const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
             const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
             const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
-            message += `
+            const ultimaLevelText = m.ultimaBaseRating.toString().replace(".5", "+");
+            if (m.ultimaBaseRating > 0) {
+                message += `
+${i + 1}. ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
+            }
+            else {
+                message += `
 ${i + 1}. ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
+            }
         }
         return message;
     }
