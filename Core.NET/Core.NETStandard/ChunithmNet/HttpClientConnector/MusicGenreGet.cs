@@ -66,6 +66,8 @@ namespace ChunithmClientLibrary.ChunithmNet.HttpClientConnector
                     return CreateLocalPath("sendExpert");
                 case Difficulty.Master:
                     return CreateLocalPath("sendMaster");
+                case Difficulty.Ultima:
+                    return CreateLocalPath("sendUltima");
             }
 
             return CreateLocalPath("sendMaster");
@@ -83,6 +85,8 @@ namespace ChunithmClientLibrary.ChunithmNet.HttpClientConnector
                     return CreateLocalPath("expert");
                 case Difficulty.Master:
                     return CreateLocalPath("master");
+                case Difficulty.Ultima:
+                    return CreateLocalPath("ultima");
             }
 
             return CreateLocalPath("master");

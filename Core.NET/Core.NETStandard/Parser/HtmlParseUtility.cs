@@ -83,6 +83,11 @@ namespace ChunithmClientLibrary.Parser
 
         public static Difficulty GetDifficulty(IElement content)
         {
+            if (content.ClassName.Contains("ultima"))
+            {
+#error 要テスト
+                return Difficulty.Ultima;
+            }
             if (content.ClassName.Contains("master"))
             {
                 return Difficulty.Master;
@@ -134,6 +139,10 @@ namespace ChunithmClientLibrary.Parser
             else if (difficultyText.Contains("master"))
             {
                 return Difficulty.Master;
+            }
+            else if (difficultyText.Contains("ultima"))
+            {
+                return Difficulty.Ultima;
             }
             else if (difficultyText.Contains("worldsend"))
             {

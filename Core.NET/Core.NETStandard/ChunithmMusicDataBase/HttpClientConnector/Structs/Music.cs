@@ -29,6 +29,9 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
         [DataMember(Name = "masterBaseRating")]
         public double MasterBaseRating;
 
+        [DataMember(Name = "ultimaBaseRating")]
+        public double UltimaBaseRating;
+
         [DataMember(Name = "basicVerified")]
         public bool BasicVerified;
 
@@ -40,6 +43,9 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
 
         [DataMember(Name = "masterVerified")]
         public bool MasterVerified;
+
+        [DataMember(Name = "ultimaVerified")]
+        public bool UltimaVerified;
 
         public static Music Instantiate(IReadOnlyDictionary<Difficulty, IMusic> musicTable)
         {
@@ -53,10 +59,12 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
                 AdvancedBaseRating = musicTable[Difficulty.Advanced].BaseRating,
                 ExpertBaseRating = musicTable[Difficulty.Expert].BaseRating,
                 MasterBaseRating = musicTable[Difficulty.Master].BaseRating,
+                UltimaBaseRating = musicTable[Difficulty.Ultima].BaseRating,
                 BasicVerified = musicTable[Difficulty.Basic].Verified,
                 AdvancedVerified = musicTable[Difficulty.Advanced].Verified,
                 ExpertVerified = musicTable[Difficulty.Expert].Verified,
                 MasterVerified = musicTable[Difficulty.Master].Verified,
+                UltimaVerified = musicTable[Difficulty.Ultima].Verified,
             };
         }
 
@@ -80,6 +88,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
                 { Difficulty.Advanced, CreateMusicRating(masterMusic, Difficulty.Advanced, AdvancedBaseRating, AdvancedVerified) },
                 { Difficulty.Expert, CreateMusicRating(masterMusic, Difficulty.Expert, ExpertBaseRating, ExpertVerified) },
                 { Difficulty.Master, CreateMusicRating(masterMusic, Difficulty.Master, MasterBaseRating, MasterVerified) },
+                { Difficulty.Ultima, CreateMusicRating(masterMusic, Difficulty.Ultima, UltimaBaseRating, UltimaVerified) },
             };
         }
 
@@ -104,6 +113,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
                 { Difficulty.Advanced, CreateModel(masterMusic, Difficulty.Advanced, AdvancedBaseRating, AdvancedVerified) },
                 { Difficulty.Expert, CreateModel(masterMusic, Difficulty.Expert, ExpertBaseRating, ExpertVerified) },
                 { Difficulty.Master, CreateModel(masterMusic, Difficulty.Master, MasterBaseRating, MasterVerified) },
+                { Difficulty.Ultima, CreateModel(masterMusic, Difficulty.Ultima, UltimaBaseRating, UltimaVerified) },
             };
         }
 
