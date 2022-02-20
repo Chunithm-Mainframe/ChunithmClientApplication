@@ -1,221 +1,275 @@
 <style>
-body {
-    background-color: #ffd762
-}
-.underline {
-    border-bottom: 1px #000 solid;
-    padding: 0 0 5px 0;
-    margin: 0 auto 5px auto;
-}
-.text_b {
-    font-weight: bold;
-}
-.w480 {
-    width: 480px;
-}
-.w420 {
-    width: 420px;
-}
-.w400 {
-    width: 400px;
-}
-.w380 {
-    width: 380px;
-}
-.frame {
-    margin: 0px auto 0px auto;
-}
-.page_title {
-    width: 420px;
-    text-align: center;
-    background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
-    color: #fff;
-    margin: 0 auto 10px auto;
-    padding: 7px 10px 5px 10px;
-    border-radius: 5px;
-    line-height: 120%;
-    border: 2px #000 solid;
-    box-shadow: inset 1px 1px 10px rgba(255, 255, 255, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
-}
-.music_list_box {
-    border-radius: 5px;
-    padding: 5px 5px 0 5px;
-    margin: 0px auto 0px auto;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    border: 1px #EEE solid;
-}
-.music_list {
-    padding: 10px;
-    margin: 10px;
-    box-shadow: inset 1px 1px 10px rgba(115, 194, 193, 0.3), inset -1px -1px 10px rgba(115, 194, 193, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    cursor: pointer;
-}
-.music_info {
-    border-radius: 5px;
-    padding: 5px;
-    margin: 0px auto 10px auto;
-    background-color: #FFF;
-    box-shadow: inset 1px 1px 10px rgba(115, 194, 193, 0.3), inset -1px -1px 10px rgba(115, 194, 193, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    border: 1px #77A29C solid;
-    color: #000;
-}
-.music_jacket_side {
-    display: table-cell;
-    width: 100px;
-    vertical-align: middle;
-}
-.music_jacket_box {
-    height: auto;
-    margin: 0;
-    padding: 9px;
-    border: 1px rgba(0, 0, 0, 0.2) solid;
-    border-radius: 5px;
-    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-.music_jacket_image {
-    width: 90px;
-    height: 90px;
-    margin: 0;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), -1px -1px 0px rgba(0, 0, 0, 0.5);
-}
-.music_name_side {
-    display: table-cell;
-    width: 300px;
-    height: auto;
-    margin: 0;
-    padding: 0 0 0 5px;
-    vertical-align: middle;
-}
-.music_name_box {
-    padding: 5px;
-    background: rgba(255, 255, 255, 0.9);
-}
-.music_name {
-    font-weight: bold;
-    vertical-align: middle;
-}
-.result_bg {
-    border-radius: 5px;
-    padding: 5px;
-    margin: 0px auto 10px auto;
-    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
-}
-.result_box {
-    border-radius: 5px;
-    padding: 5px 5px 0 5px;
-    margin: 0px auto 0px auto;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    border: 1px #EEE solid;
-}
-.result_difficulty {
-    width: 430px;
-    height: 26px;
-    margin: -5px 0 7px -5px;
-    padding: 4px 0 0 0;
-    background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
-    border-radius: 5px 5px 0 0;
-    line-height: 100%;
-    text-align: center;
-}
-.bg_basic {
-    border-radius: 5px;
-    background-color: #19aa19;
-    background-image: linear-gradient(to bottom, #02d507, #19aa19);
-}
-.bg_advanced {
-    border-radius: 5px;
-    background-color: #f55000;
-    background-image: linear-gradient(to bottom, #ff8c00, #f55000);
-}
-.bg_expert {
-    border-radius: 5px;
-    background-color: #b80034;
-    background-image: linear-gradient(to bottom, #ff005a, #b80034);
-}
-.bg_master {
-    border-radius: 5px;
-    background-color: #8200dc;
-    background-image: linear-gradient(to bottom, #aa5fff, #8200dc);
-}
-.bg_ultima {
-    border-radius: 5px;
-    background-color: #8200dc;
-    background-image: linear-gradient(to bottom, #aa5fff, #8200dc);
-}
-.result_image {
-    width: 400px;
-    height: auto;
-}
-.result_image img {
-    width: 400px;
-    height: auto;
-    border-radius: 5px;
-}
+    body {
+        background-color: #ffd762
+    }
+
+    .underline {
+        border-bottom: 1px #000 solid;
+        padding: 0 0 5px 0;
+        margin: 0 auto 5px auto;
+    }
+
+    .text_b {
+        font-weight: bold;
+    }
+
+    .w480 {
+        width: 480px;
+    }
+
+    .w420 {
+        width: 420px;
+    }
+
+    .w400 {
+        width: 400px;
+    }
+
+    .w380 {
+        width: 380px;
+    }
+
+    .frame {
+        margin: 0px auto 0px auto;
+    }
+
+    .page_title {
+        width: 420px;
+        text-align: center;
+        background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
+        color: #fff;
+        margin: 0 auto 10px auto;
+        padding: 7px 10px 5px 10px;
+        border-radius: 5px;
+        line-height: 120%;
+        border: 2px #000 solid;
+        box-shadow: inset 1px 1px 10px rgba(255, 255, 255, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .music_list_box {
+        border-radius: 5px;
+        padding: 5px 5px 0 5px;
+        margin: 0px auto 0px auto;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        border: 1px #EEE solid;
+    }
+
+    .music_list {
+        padding: 10px;
+        margin: 10px;
+        box-shadow: inset 1px 1px 10px rgba(115, 194, 193, 0.3), inset -1px -1px 10px rgba(115, 194, 193, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .music_info {
+        border-radius: 5px;
+        padding: 5px;
+        margin: 0px auto 10px auto;
+        background-color: #FFF;
+        box-shadow: inset 1px 1px 10px rgba(115, 194, 193, 0.3), inset -1px -1px 10px rgba(115, 194, 193, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        border: 1px #77A29C solid;
+        color: #000;
+    }
+
+    .music_jacket_side {
+        display: table-cell;
+        width: 100px;
+        vertical-align: middle;
+    }
+
+    .music_jacket_box {
+        height: auto;
+        margin: 0;
+        padding: 9px;
+        border: 1px rgba(0, 0, 0, 0.2) solid;
+        border-radius: 5px;
+        box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .music_jacket_image {
+        width: 90px;
+        height: 90px;
+        margin: 0;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5), -1px -1px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    .music_name_side {
+        display: table-cell;
+        width: 300px;
+        height: auto;
+        margin: 0;
+        padding: 0 0 0 5px;
+        vertical-align: middle;
+    }
+
+    .music_name_box {
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .music_name {
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    .result_bg {
+        border-radius: 5px;
+        padding: 5px;
+        margin: 0px auto 10px auto;
+        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .result_box {
+        border-radius: 5px;
+        padding: 5px 5px 0 5px;
+        margin: 0px auto 0px auto;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        border: 1px #EEE solid;
+    }
+
+    .result_difficulty {
+        width: 430px;
+        height: 26px;
+        margin: -5px 0 7px -5px;
+        padding: 4px 0 0 0;
+        background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
+        border-radius: 5px 5px 0 0;
+        text-align: center;
+    }
+
+        .result_difficulty.title_basic {
+            font-weight: bold;
+            color: #1eb393;
+        }
+
+        .result_difficulty.title_advanced {
+            font-weight: bold;
+            color: #ff7e00;
+        }
+
+        .result_difficulty.title_expert {
+            font-weight: bold;
+            color: #e35454;
+        }
+
+        .result_difficulty.title_master {
+            font-weight: bold;
+            color: #bf6aff;
+        }
+
+        .result_difficulty.title_ultima {
+            font-weight: bold;
+            color: #ff3a3a;
+        }
+
+    .bg_basic {
+        border-radius: 5px;
+        background-color: #1eb393;
+    }
+
+    .bg_advanced {
+        border-radius: 5px;
+        background-color: #ff7e00;
+    }
+
+    .bg_expert {
+        border-radius: 5px;
+        background-color: #e35454;
+    }
+
+    .bg_master {
+        border-radius: 5px;
+        background-color: #bf6aff;
+    }
+
+    .bg_ultima {
+        border-radius: 5px;
+        background-color: #232323;
+        color: white;
+    }
+
+        .bg_ultima > .result_box {
+            color: black;
+        }
+
+    .result_image {
+        width: 400px;
+        height: auto;
+    }
+
+        .result_image img {
+            width: 400px;
+            height: auto;
+            border-radius: 5px;
+        }
 
 
-.top_menu_list {
-    margin: 5px 5px;
-}
-.text_center {
-    text-align: center;
-}
+    .top_menu_list {
+        margin: 5px 5px;
+    }
 
-.box_1 {
-    width: 480px;
-    border-radius: 5px;
-    margin: 0px auto 0px auto;
-    padding: 10px 0 10px 0;
-    background: rgba(224, 224, 224, 0.9);
-}
-.box_1_title {
-    width: 420px;
-    text-align: center;
-    background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
-    color: #fff;
-    margin: 0 auto 10px auto;
-    padding: 7px 10px 5px 10px;
-    border-radius: 5px;
-    line-height: 120%;
-    border: 2px #000 solid;
-    box-shadow: inset 1px 1px 10px rgba(255, 255, 255, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
-}
+    .text_center {
+        text-align: center;
+    }
 
-.box_2 {
-    width: 420px;
-    min-height: 60px;
-    border-radius: 5px;
-    margin: 0px auto 10px auto;
-    padding: 5px 0 0 0;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    border: 1px #EEE solid;
-}
-.box_2_title {
-    width: 422px;
-    height: 30px;
-    margin: -6px -1px 5px -1px;
-    background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
-    border-radius: 5px 5px 0 0;
-    line-height: 30px;
-    text-align: center;
-    color: #FFF;
-}
+    .box_1 {
+        width: 480px;
+        border-radius: 5px;
+        margin: 0px auto 0px auto;
+        padding: 10px 0 10px 0;
+        background: rgba(224, 224, 224, 0.9);
+    }
 
-.box_3 {
-    width: 400px;
-    border-radius: 5px;
-    margin: 0px auto 10px auto;
-    background: rgba(192, 192, 192, 0.9);
-    box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
-    border: 1px #cfcfcf solid;
-}
-.box_3_title {
-    margin: 4px 0 4px 0;
-    text-align: center;
-}
+    .box_1_title {
+        width: 420px;
+        text-align: center;
+        background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
+        color: #fff;
+        margin: 0 auto 10px auto;
+        padding: 7px 10px 5px 10px;
+        border-radius: 5px;
+        line-height: 120%;
+        border: 2px #000 solid;
+        box-shadow: inset 1px 1px 10px rgba(255, 255, 255, 0.3), 3px 3px 0px rgba(0, 0, 0, 0.2);
+    }
 
+    .box_2 {
+        width: 420px;
+        min-height: 60px;
+        border-radius: 5px;
+        margin: 0px auto 10px auto;
+        padding: 5px 0 0 0;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: inset 1px -3px 5px rgba(255, 255, 255, 0.8), 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        border: 1px #EEE solid;
+    }
+
+    .box_2_title {
+        width: 422px;
+        height: 30px;
+        margin: -6px -1px 5px -1px;
+        background-image: linear-gradient(to bottom, #333 0%, #282828 50%, #000 50%, #000 100%);
+        border-radius: 5px 5px 0 0;
+        line-height: 30px;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .box_3 {
+        width: 400px;
+        border-radius: 5px;
+        margin: 0px auto 10px auto;
+        background: rgba(192, 192, 192, 0.9);
+        box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1), 3px 3px 0px rgba(0, 0, 0, 0.2);
+        border: 1px #cfcfcf solid;
+    }
+
+    .box_3_title {
+        margin: 4px 0 4px 0;
+        text-align: center;
+    }
 </style>

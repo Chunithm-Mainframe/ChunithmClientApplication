@@ -30,7 +30,7 @@ class UnverifiedListByGenreListItem {
 
 export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByGenreWebsiteParameter> {
     private readonly difficulties = [
-        Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master,
+        Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master, Difficulty.Ultima,
     ];
 
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
@@ -119,7 +119,7 @@ export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePres
         const unverifiedMusicDatas: UnverifiedListByGenreListItem[] = [];
         for (const music of musics) {
             for (const difficulty of this.difficulties) {
-                if (!Music.getVerified(music, difficulty)) {
+                if (!Music.getVerified(music, difficulty) && Music.getBaseRating(music, difficulty) > 0) {
                     const md = new UnverifiedListByGenreListItem(music, difficulty);
                     unverifiedMusicDatas.push(md);
                 }
