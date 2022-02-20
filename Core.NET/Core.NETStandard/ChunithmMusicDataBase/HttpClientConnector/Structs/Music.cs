@@ -50,7 +50,7 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
         public static Music Instantiate(IReadOnlyDictionary<Difficulty, IMusic> musicTable)
         {
             var masterMusic = musicTable.Values.First().MasterMusic;
-            return new Music
+            var music = new Music
             {
                 Id = masterMusic.Id,
                 Name = masterMusic.Name,
@@ -59,13 +59,24 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector.Struct
                 AdvancedBaseRating = musicTable[Difficulty.Advanced].BaseRating,
                 ExpertBaseRating = musicTable[Difficulty.Expert].BaseRating,
                 MasterBaseRating = musicTable[Difficulty.Master].BaseRating,
-                UltimaBaseRating = musicTable[Difficulty.Ultima].BaseRating,
                 BasicVerified = musicTable[Difficulty.Basic].Verified,
                 AdvancedVerified = musicTable[Difficulty.Advanced].Verified,
                 ExpertVerified = musicTable[Difficulty.Expert].Verified,
                 MasterVerified = musicTable[Difficulty.Master].Verified,
-                UltimaVerified = musicTable[Difficulty.Ultima].Verified,
             };
+
+            if (musicTable.ContainsKey(Difficulty.Ultima))
+            {
+                music.UltimaBaseRating = musicTable[Difficulty.Ultima].BaseRating;
+                music.UltimaVerified = musicTable[Difficulty.Ultima].Verified;
+            }
+            else
+            {
+                music.UltimaBaseRating = 0;
+                music.UltimaVerified = false;
+            }
+
+            return music;
         }
 
         public IMasterMusic GetMasterMusic()

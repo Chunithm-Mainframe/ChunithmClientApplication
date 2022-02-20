@@ -85,7 +85,6 @@ namespace ChunithmClientLibrary.Parser
         {
             if (content.ClassName.Contains("ultima"))
             {
-#error 要テスト
                 return Difficulty.Ultima;
             }
             if (content.ClassName.Contains("master"))
