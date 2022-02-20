@@ -32,7 +32,7 @@ export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePres
         '1', '2', '3', '4', '5', '6', '7', '7p', '8', '8p', '9', '9p', '10', '10p', '11', '11p', '12', '12p', '13', '13p', '14', '14p', '15',
     ];
     private readonly difficulties = [
-        Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master
+        Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master, Difficulty.Ultima,
     ];
 
     private get musicModule(): MusicModule { return this.getModule(MusicModule); }

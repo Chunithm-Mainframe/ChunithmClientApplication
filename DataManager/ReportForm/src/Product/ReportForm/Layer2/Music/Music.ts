@@ -8,10 +8,12 @@ export class Music {
     public advancedBaseRating = 0;
     public expertBaseRating = 0;
     public masterBaseRating = 0;
+    public ultimaBaseRating = 0;
     public basicVerified = false;
     public advancedVerified = false;
     public expertVerified = false;
     public masterVerified = false;
+    public ultimaVerified = false;
     public enabled = true;
     public createdAt: Date = null;
 
@@ -23,6 +25,7 @@ export class Music {
             this._baseRatingKeyMap[Difficulty.Advanced] = 'advancedBaseRating';
             this._baseRatingKeyMap[Difficulty.Expert] = 'expertBaseRating';
             this._baseRatingKeyMap[Difficulty.Master] = 'masterBaseRating';
+            this._baseRatingKeyMap[Difficulty.Ultima] = 'ultimaBaseRating';
         }
         return this._baseRatingKeyMap;
     }
@@ -35,6 +38,7 @@ export class Music {
             this._verifiedKeyMap[Difficulty.Advanced] = 'advancedVerified';
             this._verifiedKeyMap[Difficulty.Expert] = 'expertVerified';
             this._verifiedKeyMap[Difficulty.Master] = 'masterVerified';
+            this._verifiedKeyMap[Difficulty.Ultima] = 'ultimaVerified';
         }
         return this._verifiedKeyMap;
     }

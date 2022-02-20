@@ -27,18 +27,58 @@ export class MusicModule extends ReportFormModule {
     }
 
     public updateMusicTable(table: MusicTable, musics: Required<Music>[]) {
-        const added = musics
-            .filter(x => !table.find({ id: x.id }))
-            .map(x => Music.instantiate(x).apply('enabled', true));
+        const added: Music[] = [];
+        const updated: Music[] = [];
+        for (const music of musics) {
+            const target = table.find({ id: music.id });
+            if (!target) {
+                added.push(Music.instantiate(music).apply('enabled', true));
+                continue;
+            }
+
+            const tmp = Music.instantiate(target);
+            let isUpdated = false;
+            if (!target.basicVerified && target.basicBaseRating !== music.basicBaseRating) {
+                tmp.basicBaseRating = music.basicBaseRating;
+                tmp.basicVerified = music.basicVerified;
+                isUpdated = true;
+            }
+            if (!target.advancedVerified && target.advancedBaseRating !== music.advancedBaseRating) {
+                tmp.advancedBaseRating = music.advancedBaseRating;
+                tmp.advancedVerified = music.advancedVerified;
+                isUpdated = true;
+            }
+            if (!target.expertVerified && target.expertBaseRating !== music.expertBaseRating) {
+                tmp.expertBaseRating = music.expertBaseRating;
+                tmp.expertVerified = music.expertVerified;
+                isUpdated = true;
+            }
+            if (!target.masterVerified && target.masterBaseRating !== music.masterBaseRating) {
+                tmp.masterBaseRating = music.masterBaseRating;
+                tmp.masterVerified = music.masterVerified;
+                isUpdated = true;
+            }
+            if (!target.ultimaVerified && target.ultimaBaseRating !== music.ultimaBaseRating) {
+                tmp.ultimaBaseRating = music.ultimaBaseRating;
+                tmp.ultimaVerified = music.ultimaVerified;
+                isUpdated = true;
+            }
+
+            if (isUpdated) {
+                updated.push(Music.instantiate(tmp));
+            }
+        }
+
         const deleted = table.records
             .filter(x => x.enabled && !musics.find(y => y.id === x.id))
             .map(x => Music.instantiate(x).apply('enabled', false));
 
-        table.update(added.concat(deleted));
+        table.update(added.concat(updated, deleted));
 
         return {
             added: added,
-            deleted: deleted
+            updated: updated,
+            deleted: deleted,
         };
     }
 

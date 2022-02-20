@@ -54,6 +54,10 @@ namespace ChunithmClientLibrary.ChunithmMusicDatabase.HttpClientConnector
                         tmp.MasterBaseRating = baseRating;
                         tmp.MasterVerified = true;
                         break;
+                    case Difficulty.Ultima:
+                        tmp.UltimaBaseRating = baseRating;
+                        tmp.UltimaVerified = true;
+                        break;
                 }
             }
 

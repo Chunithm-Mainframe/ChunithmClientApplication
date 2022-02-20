@@ -14,6 +14,7 @@ namespace ChunithmClientLibraryUnitTest
             Assert.AreEqual("ADVANCED", Utility.ToDifficultyText(Difficulty.Advanced), "ADVANCED");
             Assert.AreEqual("EXPERT", Utility.ToDifficultyText(Difficulty.Expert), "EXPERT");
             Assert.AreEqual("MASTER", Utility.ToDifficultyText(Difficulty.Master), "MASTER");
+            Assert.AreEqual("ULTIMA", Utility.ToDifficultyText(Difficulty.Ultima), "ULTIMA");
             Assert.AreEqual("WORLD'S END", Utility.ToDifficultyText(Difficulty.WorldsEnd), "WORLD'S END");
             Assert.AreEqual("INVALID", Utility.ToDifficultyText(Difficulty.Invalid), "INVALID");
 
@@ -28,6 +29,7 @@ namespace ChunithmClientLibraryUnitTest
             Assert.AreEqual(Difficulty.Advanced, Utility.ToDifficulty("ADVANCED"), "ADVANCED");
             Assert.AreEqual(Difficulty.Expert, Utility.ToDifficulty("EXPERT"), "EXPERT");
             Assert.AreEqual(Difficulty.Master, Utility.ToDifficulty("MASTER"), "MASTER");
+            Assert.AreEqual(Difficulty.Ultima, Utility.ToDifficulty("ULTIMA"), "ULTIMA");
             Assert.AreEqual(Difficulty.WorldsEnd, Utility.ToDifficulty("WORLD'S END"), "WORLD'S END");
             Assert.AreEqual(Difficulty.Invalid, Utility.ToDifficulty("INVALID"), "INVALID");
 

@@ -88,11 +88,13 @@ namespace ChunithmCLI.Commands
                         src = src.Replace("%base-rating-advanced%", x[Difficulty.Advanced].BaseRating.ToString("0.0"));
                         src = src.Replace("%base-rating-expert%", x[Difficulty.Expert].BaseRating.ToString("0.0"));
                         src = src.Replace("%base-rating-master%", x[Difficulty.Master].BaseRating.ToString("0.0"));
+                        src = src.Replace("%base-rating-ultima%", x[Difficulty.Ultima].BaseRating.ToString("0.0"));
 
                         src = src.Replace("%unverified-basic%", !x[Difficulty.Basic].Verified ? "unverified" : "");
                         src = src.Replace("%unverified-advanced%", !x[Difficulty.Advanced].Verified ? "unverified" : "");
                         src = src.Replace("%unverified-expert%", !x[Difficulty.Expert].Verified ? "unverified" : "");
                         src = src.Replace("%unverified-master%", !x[Difficulty.Master].Verified ? "unverified" : "");
+                        src = src.Replace("%unverified-ultima%", !x[Difficulty.Ultima].Verified ? "unverified" : "");
 
                         return src;
                     })

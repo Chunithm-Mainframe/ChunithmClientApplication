@@ -42,7 +42,7 @@ export class UnitReportWebsitePresenter extends ReportFormWebsitePresenter<UnitR
         source = source.replace(/%reportId%/g, reportId.toString());
         source = source.replace(/%musicName%/g, report.musicName);
         source = source.replace(/%difficulty%/g, Utility.toDifficultyTextLowerCase(report.difficulty));
-        source = source.replace(/%difficultyImagePath%/g, this.convertImageUrl(Utility.getDifficultyImagePath(report.difficulty)));
+        source = source.replace(/%difficultyText%/g, Utility.toDifficultyText(report.difficulty));
         source = source.replace(/%beforeOp%/g, beforeOp.toString());
         source = source.replace(/%afterOp%/g, afterOp.toString());
         source = source.replace(/%diffOp%/g, diffOp.toString());

@@ -7,6 +7,7 @@ namespace ChunithmClientLibrary
         Advanced,
         Expert,
         Master,
+        Ultima,
         WorldsEnd,
     }
 
@@ -17,6 +18,7 @@ namespace ChunithmClientLibrary
         public static readonly string DIFFICULTY_ADVANCED_TEXT = "ADVANCED";
         public static readonly string DIFFICULTY_EXPERT_TEXT = "EXPERT";
         public static readonly string DIFFICULTY_MASTER_TEXT = "MASTER";
+        public static readonly string DIFFICULTY_ULTIMA_TEXT = "ULTIMA";
         public static readonly string DIFFICULTY_WORLDS_END_TEXT = "WORLD'S END";
 
         private class DifficultyPair
@@ -37,6 +39,7 @@ namespace ChunithmClientLibrary
             new DifficultyPair(Difficulty.Advanced, DIFFICULTY_ADVANCED_TEXT),
             new DifficultyPair(Difficulty.Expert, DIFFICULTY_EXPERT_TEXT),
             new DifficultyPair(Difficulty.Master, DIFFICULTY_MASTER_TEXT),
+            new DifficultyPair(Difficulty.Ultima, DIFFICULTY_ULTIMA_TEXT),
             new DifficultyPair(Difficulty.WorldsEnd, DIFFICULTY_WORLDS_END_TEXT),
             new DifficultyPair(Difficulty.Invalid, DIFFICULTY_INVALID_TEXT),
         };

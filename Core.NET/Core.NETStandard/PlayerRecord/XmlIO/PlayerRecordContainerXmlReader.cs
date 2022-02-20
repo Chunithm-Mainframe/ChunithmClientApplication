@@ -32,12 +32,14 @@ namespace ChunithmClientLibrary.PlayerRecord
             var advancedSheet = source.Worksheet("Advanced");
             var expertSheet = source.Worksheet("Expert");
             var masterSheet = source.Worksheet("Master");
+            var ultimaSheet = source.Worksheet("Ultima");
 
             var playerRecordContainer = new PlayerRecordContainer();
             playerRecordContainer.SetTable(Read(basicSheet), Difficulty.Basic);
             playerRecordContainer.SetTable(Read(advancedSheet), Difficulty.Advanced);
             playerRecordContainer.SetTable(Read(expertSheet), Difficulty.Expert);
             playerRecordContainer.SetTable(Read(masterSheet), Difficulty.Master);
+            playerRecordContainer.SetTable(Read(ultimaSheet), Difficulty.Ultima);
 
             return playerRecordContainer;
         }
