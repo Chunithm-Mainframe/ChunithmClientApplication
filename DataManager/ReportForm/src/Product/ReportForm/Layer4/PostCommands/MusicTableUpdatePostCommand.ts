@@ -28,7 +28,7 @@ export class MusicTableUpdatePostCommand extends PostCommand {
         const table = this.musicModule.getMusicTable(postData.versionName);
         const result = this.musicModule.updateMusicTable(table, postData.musics);
 
-        if (result.added.length > 0) {
+        if (result.added.length > 0 || result.updated.length > 0) {
             const genres = this.versionModule.getVersionConfig(postData.versionName).genres;
 
             this.reportModule.updateMusicsUnitReportForm(postData.versionName);
@@ -37,7 +37,7 @@ export class MusicTableUpdatePostCommand extends PostCommand {
                 this.notifyRepositoryInitialization(genres, currentTable.records);
             }
             else {
-                this.notifyRepositoryUpdate(result.added);
+                this.notifyRepositoryUpdate(result.added, result.updated);
             }
         }
 
@@ -93,17 +93,17 @@ ${genre}: ${musicCountMap[genre]}曲`;
         return message;
     }
 
-    private notifyRepositoryUpdate(added: Music[]): void {
-        const message = this.getNotificationMessageOfRepositoryUpdate(added);
+    private notifyRepositoryUpdate(added: Music[], updated: Music[]): void {
+        const message = this.getNotificationMessageOfRepositoryUpdate(added, updated);
         this.lineModule.pushNoticeMessage([message]);
         this.twitterModule.postTweet(message);
 
-        const slackMessage = this.getNotificationSlackMessageOfRepositoryUpdate(added);
+        const slackMessage = this.getNotificationSlackMessageOfRepositoryUpdate(added, updated);
         UrlFetchManager.execute([
             new SlackChatPostMessageStream({
                 token: this.module.configuration.global.slackApiToken,
                 channel: this.module.configuration.global.slackChannelIdTable['updateMusicDataTable'],
-                text: `新曲追加(${added.length}曲)`,
+                text: `楽曲更新 (追加: ${added.length}曲 / 更新: ${updated.length}曲)`,
                 blocks: [
                     SlackBlockFactory.section(
                         SlackCompositionObjectFactory.markdownText(
@@ -115,8 +115,65 @@ ${genre}: ${musicCountMap[genre]}曲`;
         ]);
     }
 
-    private getNotificationMessageOfRepositoryUpdate(added: Music[]): string {
-        let message = "[新曲追加]";
+    private getNotificationMessageOfRepositoryUpdate(added: Music[], updated: Music[]): string {
+        let messageAdded = "[新曲追加]";
+        for (let i = 0; i < added.length; i++) {
+            const m = added[i];
+            const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
+            const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
+            const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
+            const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
+            const ultimaLevelText = m.ultimaBaseRating.toString().replace(".5", "+");
+            if (m.ultimaBaseRating > 0) {
+                messageAdded += `
+${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
+            }
+            else {
+                messageAdded += `
+${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
+            }
+        }
+
+        let messageUpdated = "[楽曲更新]";
+        for (let i = 0; i < updated.length; i++) {
+            const m = updated[i];
+            const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
+            const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
+            const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
+            const masterLevelText = m.masterBaseRating.toString().replace(".5", "+");
+            const ultimaLevelText = m.ultimaBaseRating.toString().replace(".5", "+");
+            if (m.ultimaBaseRating > 0) {
+                messageUpdated += `
+${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
+            }
+            else {
+                messageUpdated += `
+${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
+            }
+        }
+
+        let message = "";
+        if (added.length > 0 && updated.length > 0) {
+            message = `${messageAdded}
+
+${messageUpdated}`
+        }
+        else if (added.length > 0) {
+            message = messageAdded;
+        }
+        else if (updated.length > 0) {
+            message = messageUpdated;
+        }
+        return message;
+    }
+
+    private getNotificationSlackMessageOfRepositoryUpdate(added: Music[], updated: Music[]): string {
+        let message = `:musical_keyboard: *楽曲更新* (追加: ${added.length}曲 / 更新: ${updated.length}曲)`;
+
+        if (added.length > 0) {
+            message += `
+[追加楽曲]`;
+        }
         for (let i = 0; i < added.length; i++) {
             const m = added[i];
             const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
@@ -126,20 +183,20 @@ ${genre}: ${musicCountMap[genre]}曲`;
             const ultimaLevelText = m.ultimaBaseRating.toString().replace(".5", "+");
             if (m.ultimaBaseRating > 0) {
                 message += `
-${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
+${i + 1}. ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}/${ultimaLevelText}`;
             }
             else {
                 message += `
-${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
+${i + 1}. ${m.name} ${basicLevelText}/${advancedLevelText}/${expertLevelText}/${masterLevelText}`;
             }
         }
-        return message;
-    }
 
-    private getNotificationSlackMessageOfRepositoryUpdate(added: Music[]): string {
-        let message = `:musical_keyboard: *新曲追加* (${added.length}曲)`;
-        for (let i = 0; i < added.length; i++) {
-            const m = added[i];
+        if (updated.length > 0) {
+            message += `
+[更新楽曲]`
+        }
+        for (let i = 0; i < updated.length; i++) {
+            const m = updated[i];
             const basicLevelText = m.basicBaseRating.toString().replace(".5", "+");
             const advancedLevelText = m.advancedBaseRating.toString().replace(".5", "+");
             const expertLevelText = m.expertBaseRating.toString().replace(".5", "+");
