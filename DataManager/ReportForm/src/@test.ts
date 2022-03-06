@@ -94,3 +94,8 @@ function test_dumpTwitterMessage() {
         'TEST VERSION NAME',
         new Date()));
 }
+
+function test_fetchMusicJson() {
+    const response = UrlFetchApp.fetch("https://chunithm.sega.jp/storage/json/music_new.json");
+    console.log(response.getContentText());
+}

@@ -15,6 +15,8 @@ namespace ChunithmClientLibrary.PlayerRecord
         public HighScoreRecordTable Expert { get; set; } = new HighScoreRecordTable();
         [DataMember]
         public HighScoreRecordTable Master { get; set; } = new HighScoreRecordTable();
+        [DataMember]
+        public HighScoreRecordTable Ultima { get; set; } = new HighScoreRecordTable();
 
         IHighScoreRecordTable<IHighScoreRecordTableUnit> IPlayerRecordContainer.Basic
         {
@@ -36,6 +38,11 @@ namespace ChunithmClientLibrary.PlayerRecord
             get { return Master; }
         }
 
+        IHighScoreRecordTable<IHighScoreRecordTableUnit> IPlayerRecordContainer.Ultima
+        {
+            get { return Ultima; }
+        }
+
         public PlayerRecordContainer() { }
 
         public PlayerRecordContainer(IPlayerRecordContainer table)
@@ -54,6 +61,7 @@ namespace ChunithmClientLibrary.PlayerRecord
             SetTable(table.GetTable(Difficulty.Advanced), Difficulty.Advanced);
             SetTable(table.GetTable(Difficulty.Expert), Difficulty.Expert);
             SetTable(table.GetTable(Difficulty.Master), Difficulty.Master);
+            SetTable(table.GetTable(Difficulty.Ultima), Difficulty.Ultima);
         }
 
         public IHighScoreRecordTable<IHighScoreRecordTableUnit> GetTable(Difficulty difficulty)
@@ -68,6 +76,8 @@ namespace ChunithmClientLibrary.PlayerRecord
                     return Expert;
                 case Difficulty.Master:
                     return Master;
+                case Difficulty.Ultima:
+                    return Ultima;
             }
 
             return null;
@@ -93,6 +103,9 @@ namespace ChunithmClientLibrary.PlayerRecord
                     break;
                 case Difficulty.Master:
                     Master = new HighScoreRecordTable(record);
+                    break;
+                case Difficulty.Ultima:
+                    Ultima = new HighScoreRecordTable(record);
                     break;
             }
         }

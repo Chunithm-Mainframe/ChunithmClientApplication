@@ -2,7 +2,6 @@
 import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
 import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
 import { Difficulty } from "../../Layer1/Difficulty";
-import { Environment } from "../../Layer1/Environment";
 import { MusicRating } from "../../Layer2/PlayerRating/MusicRating";
 import { PlayerRating } from "../../Layer2/PlayerRating/PlayerRating";
 import { ReportFormModule } from "./@ReportFormModule";
@@ -198,6 +197,8 @@ ${response.getContentText()}`);
                 return Difficulty.Expert;
             case "MAS":
                 return Difficulty.Master;
+            case "ULT":
+                return Difficulty.Ultima;
         }
 
         throw new Error(`Unsupported value. Diffiuclty-Text: ${difficultyText}`);
@@ -213,6 +214,8 @@ ${response.getContentText()}`);
                 return 'EXP';
             case Difficulty.Master:
                 return 'MAS';
+            case Difficulty.Ultima:
+                return 'ULT';
         }
 
         throw new Error(`Unsupported value. Diffiuclty::${difficulty}`);

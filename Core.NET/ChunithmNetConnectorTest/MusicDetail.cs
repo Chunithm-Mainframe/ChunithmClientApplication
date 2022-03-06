@@ -25,6 +25,7 @@ namespace ChunithmNetConnetorTest
                     Difficulty.Advanced,
                     Difficulty.Expert,
                     Difficulty.Master,
+                    Difficulty.Ultima,
                 };
 
                 foreach (var difficulty in difficulties)

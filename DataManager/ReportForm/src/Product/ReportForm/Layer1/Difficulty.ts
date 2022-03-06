@@ -4,5 +4,6 @@ export enum Difficulty {
     Advanced,
     Expert,
     Master,
+    Ultima,
     WorldsEnd
 }

@@ -8,6 +8,7 @@ namespace ChunithmClientLibrary.PlayerRecord
         IHighScoreRecordTable<IHighScoreRecordTableUnit> Advanced { get; }
         IHighScoreRecordTable<IHighScoreRecordTableUnit> Expert { get; }
         IHighScoreRecordTable<IHighScoreRecordTableUnit> Master { get; }
+        IHighScoreRecordTable<IHighScoreRecordTableUnit> Ultima { get; }
 
         // IHighScoreRecordTable<IWorldsEndHighScoreRecordTableUnit> WorldsEnd { get; }
 

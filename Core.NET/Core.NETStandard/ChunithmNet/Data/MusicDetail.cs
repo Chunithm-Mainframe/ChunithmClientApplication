@@ -31,6 +31,8 @@ namespace ChunithmClientLibrary.ChunithmNet.Data
 
         public Unit Master => GetUnit(Difficulty.Master);
 
+        public Unit Ultima => GetUnit(Difficulty.Ultima);
+
         public Unit GetUnit(Difficulty difficulty) => Units?.FirstOrDefault(u => u.Difficulty == difficulty);
     }
 }

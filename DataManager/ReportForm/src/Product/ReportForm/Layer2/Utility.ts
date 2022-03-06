@@ -13,6 +13,8 @@ export class Utility {
                 return Difficulty.Expert;
             case "MASTER":
                 return Difficulty.Master;
+            case "ULTIMA":
+                return Difficulty.Ultima;
         }
         return Difficulty.Invalid;
     }
@@ -27,6 +29,8 @@ export class Utility {
                 return "EXPERT";
             case Difficulty.Master:
                 return "MASTER";
+            case Difficulty.Ultima:
+                return "ULTIMA";
         }
         return '';
     }
@@ -44,6 +48,7 @@ export class Utility {
             case Difficulty.Expert:
                 return "https://drive.google.com/uc?id=1h6H7fLsJaMytSXrQmDjfXkd7U8af782-";
             case Difficulty.Master:
+            case Difficulty.Ultima:
                 return "https://drive.google.com/uc?id=14O1fUFBT7l83gY8BvTN3DVKx3gEJyr0U";
         }
     }

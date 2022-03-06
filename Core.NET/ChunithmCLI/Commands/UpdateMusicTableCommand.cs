@@ -18,6 +18,7 @@ namespace ChunithmCLI.Commands
             public int MaxLevelValue { get; private set; }
             public string DataBaseUrl { get; private set; }
             public string VersionName { get; private set; }
+            public bool Force { get; private set; }
 
             public ParameterContainer(string[] args)
             {
@@ -50,6 +51,9 @@ namespace ChunithmCLI.Commands
                             break;
                         case "--version":
                             VersionName = args[i + 1];
+                            break;
+                        case "--force":
+                            Force = true;
                             break;
                     }
                 }
@@ -87,7 +91,7 @@ namespace ChunithmCLI.Commands
                     .GetNetApiResult($"downloading music list...")
                     .MusicGenre;
 
-                if (currentRepository.GetMasterMusics().Count == musicGenre.Units.Length)
+                if (!parameters.Force && currentRepository.GetMasterMusics().Count == musicGenre.Units.Length)
                 {
                     Console.WriteLine("skip update.");
                     return;
