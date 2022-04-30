@@ -337,7 +337,7 @@ ${JSON.stringify(formReport)}`);
         const musicCount = this.musicModule
             .getMusicTable(versionName)
             .getTargetLowLevelMusicCount(formReport.targetLevel);
-        const maxOp = Math.round((formReport.targetLevel + 3) * 5 * musicCount);
+        const maxOp = ReportModule.getLevelMaxOp(formReport.targetLevel, musicCount);
         const checkOp = maxOp + 0.5;
 
         const opRatio100Fold = Math.round(formReport.opRatio * 100);
@@ -369,6 +369,10 @@ OP割合[万分率]:${opRatio100Fold}
         const report = LevelReport.instantiateByRawReport(formReport, musicCount);
         const table = this.getLevelReportTable(versionName);
         return table.update(report).added[0];
+    }
+
+    public static getLevelMaxOp(targetLevel: number, musicCount: number): number {
+        return Math.round((targetLevel + 3) * 5 * musicCount * 10) / 10;
     }
 
     public buildUnitReportGroupByGenreForm(versionName: string): void {
