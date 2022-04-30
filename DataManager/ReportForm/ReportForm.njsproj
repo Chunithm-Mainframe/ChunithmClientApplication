@@ -397,6 +397,10 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Version.ts" />
     <TypeScriptCompile Include="test\Rating.spec.ts" />
+    <TypeScriptCompile Include="test\ReportModule.spec.ts">
+      <SubType>Code</SubType>
+      <TestFramework>ExportRunner</TestFramework>
+    </TypeScriptCompile>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
   <ProjectExtensions>
