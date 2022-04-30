@@ -20,6 +20,9 @@ export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
     public getTargetLowLevelMusicCount(targetLevel: number): number {
         let count = 0;
         for (const row of this.records) {
+            if (!row.enabled) {
+                continue;
+            }
             if (row.basicBaseRating === targetLevel) {
                 count++;
             }
