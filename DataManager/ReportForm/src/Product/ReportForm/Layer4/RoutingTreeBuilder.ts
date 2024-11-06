@@ -1,18 +1,4 @@
-import { RoutingController } from "../../../Packages/Router/RoutingController";
-import { RoutingParameterType } from "../../../Packages/Router/RoutingParameterType";
-import { RoutingTreeEditor } from "../../../Packages/Router/RoutingTreeEditor";
-import { ReportFormPageLinkResolver } from "../Layer2/ReportFormPageLinkResolver";
-import { LevelReportListWebsitePresenter } from "./WebsitePresenters/LevelReport/LevelReportListWebsitePresenter";
-import { LevelReportWebsitePresenter } from "./WebsitePresenters/LevelReport/LevelReportWebsitePresenter";
-import { TopWebsitePresenter } from "./WebsitePresenters/TopWebsitePresenter";
-import { UnitReportListWebsitePresenter } from "./WebsitePresenters/UnitReport/UnitReportListWebsitePresenter";
-import { UnitReportWebsitePresenter } from "./WebsitePresenters/UnitReport/UnitReportWebsitePresenter";
-import { UnitReportGroupListWebsitePresenter } from "./WebsitePresenters/UnitReportGroup/UnitReportGroupListWebsitePresenter";
-import { UnitReportGroupWebsitePresenter } from "./WebsitePresenters/UnitReportGroup/UnitReportGroupWebsitePresenter";
-import { UnverifiedListByGenreWebsitePresenter } from "./WebsitePresenters/UnverifiedList/UnverifiedListByGenreWebsitePresenter";
-import { UnverifiedListByLevelWebsitePresenter } from "./WebsitePresenters/UnverifiedList/UnverifiedListByLevelWebsitePresenter";
-
-export class RoutingTreeBuilder {
+class RoutingTreeBuilder {
     public static build(editor: RoutingTreeEditor, resolver: ReportFormPageLinkResolver): void {
         const root = resolver.build(editor, TopWebsitePresenter, `version:${RoutingParameterType.TEXT}`);
         const shortcutRoot = editor.build("/");

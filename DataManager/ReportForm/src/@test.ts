@@ -1,11 +1,3 @@
-import { Instance } from "./Product/ReportForm/Instance";
-import { Difficulty } from "./Product/ReportForm/Layer1/Difficulty";
-import { MusicRating } from "./Product/ReportForm/Layer2/PlayerRating/MusicRating";
-import { PlayerRating } from "./Product/ReportForm/Layer2/PlayerRating/PlayerRating";
-import { ChunirecModule } from "./Product/ReportForm/Layer3/Modules/ChunirecModule";
-import { PlayerRatingModule } from "./Product/ReportForm/Layer3/Modules/PlayerRatingModule";
-import { NoticeManager } from "./Product/ReportForm/Layer4/Managers/NoticeManager";
-
 /* eslint @typescript-eslint/no-unused-vars: off */
 /* eslint @typescript-eslint/camelcase: off */
 

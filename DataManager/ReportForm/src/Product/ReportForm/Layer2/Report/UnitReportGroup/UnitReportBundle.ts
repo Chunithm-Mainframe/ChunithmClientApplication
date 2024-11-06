@@ -1,9 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { PostLocation } from "../PostLocation";
-import { ReportStatus } from "../ReportStatus";
-import { UnitReport } from "../UnitReport/UnitReport";
-
-export class UnitReportBundle {
+class UnitReportBundle {
     public get musicId(): number { return this._musicId; }
     public get difficulty(): Difficulty { return this._difficulty; }
     public get isValidMusic(): boolean { return this._isValidMusic; }

@@ -1,5 +1,3 @@
-import { ReportModule } from "../src/Product/ReportForm/Layer3/Modules/Report/ReportModule";
-
 describe("get level max op", () => {
     it("1;1", () => expect(ReportModule.getLevelMaxOp(1.0, 100)).toEqual(2000));
     it("1;2", () => expect(ReportModule.getLevelMaxOp(1.0, 5)).toEqual(100.0));

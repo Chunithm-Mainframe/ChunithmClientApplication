@@ -1,6 +1,4 @@
-import { Difficulty } from "../../Layer1/Difficulty";
-
-export class Music {
+class Music {
     public id = 0;
     public name = '';
     public genre = '';

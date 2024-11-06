@@ -1,10 +1,4 @@
-import { SpreadsheetDatabaseTable } from "../../../../../Packages/Repository/SpreadsheetDatabaseTable";
-import { GenericDatabaseTableSchema } from "../../../../../Packages/Repository/GenericDatabaseSchema";
-import { LevelReport } from "./LevelReport";
-import { ReportStatus } from "../ReportStatus";
-import { LevelRawReport } from "./LevelRawReport";
-
-export class LevelReportTable extends SpreadsheetDatabaseTable<LevelReport, 'reportId'> {
+class LevelReportTable extends SpreadsheetDatabaseTable<LevelReport, 'reportId'> {
     public constructor(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
         const schema = new GenericDatabaseTableSchema(LevelReport, ['reportId']);
         schema.primaryColumn = 'reportId';

@@ -1,7 +1,4 @@
-import { ComboStatus } from "../Layer1/Rating";
-import { Difficulty } from "../Layer1/Difficulty";
-
-export class Utility {
+class Utility {
     public static toDifficulty(difficultyText: string): Difficulty {
         const comparisonText = difficultyText ? difficultyText.toUpperCase() : "";
         switch (comparisonText) {

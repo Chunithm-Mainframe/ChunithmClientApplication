@@ -1,21 +1,4 @@
-import { LogLevel } from "../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
-import { DIProperty } from "../../Packages/DIProperty/DIProperty";
-import { Router } from "../../Packages/Router/Router";
-import { Instance } from "./Instance";
-import { LevelRawReport } from "./Layer2/Report/LevelReport/LevelRawReport";
-import { PostLocation } from "./Layer2/Report/PostLocation";
-import { ReportStatus } from "./Layer2/Report/ReportStatus";
-import { UnitRawReport } from "./Layer2/Report/UnitReport/UnitRawReport";
-import { UnitReportTable } from "./Layer2/Report/UnitReport/UnitReportTable";
-import { Utility } from "./Layer2/Utility";
-import { ReportModule } from "./Layer3/Modules/Report/ReportModule";
-import { Operations } from "./Layer4/Operations";
-import { ErrorWebsitePresenter } from "./Layer4/WebsitePresenters/ErrorWebsitePresenter";
-
-export type DoGet = GoogleAppsScript.Events.DoGet & { pathInfo: string };
-
-export class ReportForm {
+class ReportForm {
     public static doGet(e: DoGet): GoogleAppsScript.HTML.HtmlOutput {
         try {
             Instance.initialize();

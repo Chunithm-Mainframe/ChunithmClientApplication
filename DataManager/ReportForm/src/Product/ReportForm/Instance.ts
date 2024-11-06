@@ -1,51 +1,4 @@
-import { ReportFormConstants } from "../../@const";
-import { Configuration } from "../../Packages/Configuration/Configuration";
-import { JsonConfigurationFactory } from "../../Packages/Configuration/JsonConfigurationFactory";
-import { JsonFileRuntimeConfiguration } from "../../Packages/Configuration/JsonFileRuntimeConfiguration";
-import { RuntimeConfiguration } from "../../Packages/Configuration/RuntimeConfiguration";
-import { ScriptPropertyRuntimeConfiguration } from "../../Packages/Configuration/ScriptPropertyRuntimeConfiguration";
-import { CustomCacheProvider } from "../../Packages/CustomCacheProvider/CustomCacheProvider";
-import { ScriptCacheProvider } from "../../Packages/CustomCacheProvider/ScriptCacheProvider";
-import { CustomLogManager } from "../../Packages/CustomLogger/CustomLogManager";
-import { DIProperty } from "../../Packages/DIProperty/DIProperty";
-import { Router } from "../../Packages/Router/Router";
-import { RoutingController } from "../../Packages/Router/RoutingController";
-import { LoggerDI } from "./Dependencies/Logger";
-import { ReportFormConfiguration } from "./Layer1/Configurations/@ReportFormConfiguration";
-import { ReportFormConfigurationSchema } from "./Layer1/Configurations/ConfigurationSchema";
-import { ConfigurationSourceType } from "./Layer1/Configurations/ConfigurationSourceType";
-import { RuntimeConfigurationSchema } from "./Layer1/Configurations/RuntimeConfigurationSchema";
-import { Environment } from "./Layer1/Environment";
-import { NoticeQueue } from "./Layer2/NoticeQueue";
-import { ReportFormPageLinkResolver } from "./Layer2/ReportFormPageLinkResolver";
-import { ReportFormModule } from "./Layer3/Modules/@ReportFormModule";
-import { BulkReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommands/BulkReportFormBuildLINEPostCommand";
-import { BulkReportFormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/BulkReportFormUrlGetLINEPostCommand";
-import { DefaultGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/DefaultGameVersionGetLINEPostCommand";
-import { EnvironmentGetLINEPostCommand } from "./Layer4/LINEPostCommands/EnvironmentGetLINEPostCommand";
-import { FormUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/FormUrlGetLINEPostCommand";
-import { GlobalConfigValueGetLINEPostCommand } from "./Layer4/LINEPostCommands/GlobalConfigValueGetLINEPostCommand";
-import { LatestGameVersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/LatestGameVersionGetLINEPostCommand";
-import { PostTweetEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommands/PostTweetEnabledGetLINEPostCommand";
-import { PostTweetEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommands/PostTweetEnabledSetLINEPostCommand";
-import { ReportFormBuildLINEPostCommand } from "./Layer4/LINEPostCommands/ReportFormBuildLINEPostCommand";
-import { ReportPostNoticeEnabledGetLINEPostCommand } from "./Layer4/LINEPostCommands/ReportPostNoticeEnabledGetLINEPostCommand";
-import { ReportPostNoticeEnabledSetLINEPostCommand } from "./Layer4/LINEPostCommands/ReportPostNoticeEnabledSetLINEPostCommand";
-import { TargetLevelMusicCountGetLINEPostCommand } from "./Layer4/LINEPostCommands/TargetLevelMusicCountGetLINEPostCommand";
-import { TestLINEPostCommand } from "./Layer4/LINEPostCommands/TestLINEPostCommand";
-import { TopUrlGetLINEPostCommand } from "./Layer4/LINEPostCommands/TopUrlGetLINEPostCommand";
-import { VersionGetLINEPostCommand } from "./Layer4/LINEPostCommands/VersionGetLINEPostCommand";
-import { LINEPostCommandManager } from "./Layer4/Managers/LINEPostCommandManager";
-import { NoticeManager } from "./Layer4/Managers/NoticeManager";
-import { PostCommandManager } from "./Layer4/Managers/PostCommandManager";
-import { MusicTableGetPostCommand } from "./Layer4/PostCommands/MusicTableGetPostCommand";
-import { MusicTableUpdatePostCommand } from "./Layer4/PostCommands/MusicTableUpdatePostCommand";
-import { MusicUpdatePostCommand } from "./Layer4/PostCommands/MusicUpdatePostCommand";
-import { PlayerRatingGetPostCommand } from "./Layer4/PostCommands/PlayerRatingGetPostCommand";
-import { RoutingTreeBuilder } from "./Layer4/RoutingTreeBuilder";
-import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "./Layer4/WebsitePresenters/@ReportFormPresenter";
-
-export class Instance {
+class Instance {
     private static _instance: Instance = null;
     public static get instance(): Instance {
         if (!this._instance) {
@@ -161,16 +114,16 @@ export class Instance {
         return reportFormConfig;
     }
 
-    private static createStaticConfiguration(propTable: { [key: string]: string }): Configuration<ReportFormConfigurationSchema> {
+    private static createStaticConfiguration(propTable: { [key: string]: string }): Configuration<ReportForm.ConfigurationSchema> {
         switch (ReportFormConstants.getConstValues().configurationSourceType) {
             case ConfigurationSourceType.ScriptProperties:
-                return JsonConfigurationFactory.create(propTable['config']);
+                return JsonConfiguration.create(propTable['config']);
             case ConfigurationSourceType.Json:
-                return JsonConfigurationFactory.createByFile(ReportFormConstants.getConstValues().configurationJsonFileId);
+                return JsonConfiguration.createByFile(ReportFormConstants.getConstValues().configurationJsonFileId);
         }
     }
 
-    private static createRuntimeConfiguration(props: GoogleAppsScript.Properties.Properties): RuntimeConfiguration<RuntimeConfigurationSchema> {
+    private static createRuntimeConfiguration(props: GoogleAppsScript.Properties.Properties): RuntimeConfiguration<ReportForm.RuntimeConfigurationSchema> {
         switch (ReportFormConstants.getConstValues().runtimeConfigurationSourceType) {
             case ConfigurationSourceType.ScriptProperties:
                 return new ScriptPropertyRuntimeConfiguration(props, 'runtime_config');

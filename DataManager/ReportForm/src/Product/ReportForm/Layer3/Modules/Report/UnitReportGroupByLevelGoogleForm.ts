@@ -1,13 +1,4 @@
-import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { Environment } from "../../../Layer1/Environment";
-import { Music } from "../../../Layer2/Music/Music";
-import { MusicTable } from "../../../Layer2/Music/MusicTable";
-import { ReportFormModule } from "../@ReportFormModule";
-import { MusicModule } from "../MusicModule";
-import { ReportGoogleForm } from "./@ReportGoogleForm";
-
-export class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
+class UnitReportGroupByLevelGoogleForm extends ReportGoogleForm {
     public static getLevelInfos() {
         return [15.0, 14.5, 14.0, 13.5, 13.0]
             .map(x => {

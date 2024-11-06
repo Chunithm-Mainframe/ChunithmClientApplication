@@ -1,19 +1,15 @@
-import { LINEPostCommand, LINEPostEvent } from "../LINEPostCommands/@LINEPostCommand";
+class LINEPostCommandManager {
+    private readonly _factories: { predicate: (commandText: string) => boolean; factory: LINEPostCommandFactory }[] = [];
 
-type Factory = { new(commandText: string, event: LINEPostEvent, postData): LINEPostCommand };
-
-export class LINEPostCommandManager {
-    private readonly _factories: { predicate: (commandText: string) => boolean; factory: Factory }[] = [];
-
-    public bindEquals(commandText: string, factory: Factory) {
+    public bindEquals(commandText: string, factory: LINEPostCommandFactory) {
         this.bind(x => x === commandText, factory);
     }
 
-    public bindStartWith(commandText: string, factory: Factory) {
+    public bindStartWith(commandText: string, factory: LINEPostCommandFactory) {
         this.bind(x => x.startsWith(commandText), factory);
     }
 
-    public bind(predicate: (commandText: string) => boolean, factory: Factory) {
+    public bind(predicate: (commandText: string) => boolean, factory: LINEPostCommandFactory) {
         this._factories.push({ predicate: predicate, factory: factory });
     }
 

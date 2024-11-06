@@ -1,6 +1,4 @@
-import { MusicModule } from "../../Layer3/Modules/MusicModule";
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class TargetLevelMusicCountGetLINEPostCommand extends LINEPostCommand {
+class TargetLevelMusicCountGetLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         const targetLevel = parseInt(this.commandText.replace('get-target-level-music-count<<', ''));
         if (targetLevel > 6) {

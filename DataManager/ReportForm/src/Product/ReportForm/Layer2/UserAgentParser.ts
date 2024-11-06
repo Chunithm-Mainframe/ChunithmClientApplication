@@ -1,4 +1,4 @@
-export class UserAgentParser {
+class UserAgentParser {
     private _userAgent: string = null;
     private _cachedUserAgent = false;
     private _isParsed = false;

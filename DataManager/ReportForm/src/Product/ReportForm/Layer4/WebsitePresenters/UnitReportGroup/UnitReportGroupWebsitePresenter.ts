@@ -1,20 +1,4 @@
-import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Role } from "../../../Layer1/Role";
-import { MusicModule } from "../../../Layer3/Modules/MusicModule";
-import { ReportModule } from "../../../Layer3/Modules/Report/ReportModule";
-import { MusicTable } from "../../../Layer2/Music/MusicTable";
-import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { UnitReportBundle } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundle";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
-import { UnitReportGroupListWebsitePresenter } from "./UnitReportGroupListWebsitePresenter";
-import { UnitReportBundleGroup } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundleGroup";
-
-export interface UnitReportGroupWebsiteParameter extends ReportFormWebsiteParameter {
-    groupId: string;
-}
-
-export class UnitReportGroupWebsitePresenter extends ReportFormWebsitePresenter<UnitReportGroupWebsiteParameter> {
+class UnitReportGroupWebsitePresenter extends ReportFormWebsitePresenter<UnitReportGroupWebsiteParameter> {
     private readonly unkownMusicTemplate = `
 <div class="result_bg bg_%difficultyLower% w420">
     不明な楽曲です。 楽曲ID: %musicId%

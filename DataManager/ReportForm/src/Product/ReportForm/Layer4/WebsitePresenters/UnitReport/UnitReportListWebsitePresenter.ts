@@ -1,18 +1,4 @@
-import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Role } from "../../../Layer1/Role";
-import { ReportModule } from "../../../Layer3/Modules/Report/ReportModule";
-import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { UnitReport } from "../../../Layer2/Report/UnitReport/UnitReport";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
-import { TopWebsitePresenter } from "../TopWebsitePresenter";
-import { UnitReportWebsitePresenter, UnitReportWebsiteParameter } from "./UnitReportWebsitePresenter";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UnitReportListWebsiteParameter extends ReportFormWebsiteParameter {
-}
-
-export class UnitReportListWebsitePresenter extends ReportFormWebsitePresenter<UnitReportListWebsiteParameter> {
+class UnitReportListWebsitePresenter extends ReportFormWebsitePresenter<UnitReportListWebsiteParameter> {
 
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
 

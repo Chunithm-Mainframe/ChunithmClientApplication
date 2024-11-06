@@ -1,6 +1,4 @@
-import { PostCommand } from "../PostCommands/@PostCommand";
-
-export class PostCommandManager {
+class PostCommandManager {
     private readonly _factories: { predicate: (command: string) => boolean; factory: new () => PostCommand }[] = [];
 
     public bindEquals(command: string, factory: new () => PostCommand): void {

@@ -1,29 +1,4 @@
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { LINEMessagePushStream } from "../../../../Packages/UrlFetch.LINE/API/Message/Push/Stream";
-import { TextMessage } from "../../../../Packages/UrlFetch.LINE/API/MessageObjects";
-import { Block } from "../../../../Packages/UrlFetch.Slack/API/Blocks";
-import { SlackChatPostMessageStream } from "../../../../Packages/UrlFetch.Slack/API/Chat/PostMessage/Stream";
-import { SlackBlockFactory } from "../../../../Packages/UrlFetch.Slack/BlockFactory";
-import { SlackCompositionObjectFactory } from "../../../../Packages/UrlFetch.Slack/CompositionObjectFactory";
-import { UrlFetchStream } from "../../../../Packages/UrlFetch/UrlFetch";
-import { UrlFetchManager } from "../../../../Packages/UrlFetch/UrlFetchManager";
-import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
-import { Difficulty } from "../../Layer1/Difficulty";
-import { Music } from "../../Layer2/Music/Music";
-import { LevelReport } from "../../Layer2/Report/LevelReport/LevelReport";
-import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
-import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
-import { Utility } from "../../Layer2/Utility";
-import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
-import { MusicModule } from "../../Layer3/Modules/MusicModule";
-import { ReportModule } from "../../Layer3/Modules/Report/ReportModule";
-import { TwitterModule } from "../../Layer3/Modules/TwitterModule";
-import { VersionModule } from "../../Layer3/Modules/VersionModule";
-import { ReportFormWebsitePresenter } from "../WebsitePresenters/@ReportFormPresenter";
-import { LevelReportWebsitePresenter } from "../WebsitePresenters/LevelReport/LevelReportWebsitePresenter";
-import { UnitReportWebsitePresenter } from "../WebsitePresenters/UnitReport/UnitReportWebsitePresenter";
-
-export class NoticeManager {
+class NoticeManager {
     @DIProperty.inject(ReportFormModule)
     private readonly _module: ReportFormModule;
 
@@ -83,10 +58,10 @@ export class NoticeManager {
 
         // slack-結果承認
         {
-            const streams: UrlFetchStream[] = [];
+            const streams: UrlFetch.Stream[] = [];
             // 定数表更新
             {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:pushpin: *自動解析:譜面定数更新(${notices.length}件)*`)
                 ));
@@ -121,7 +96,7 @@ export class NoticeManager {
                 if (n.difficulty !== Difficulty.Master && (n.difficulty !== Difficulty.Expert || Music.getBaseRating(n.music, n.difficulty) < 11)) {
                     continue;
                 }
-                const message: TextMessage = {
+                const message: UrlFetch_LINE.MessageObjects.TextMessage = {
                     type: 'text',
                     text: `[譜面定数 自動解析]
 楽曲名:${n.music.name}
@@ -169,7 +144,7 @@ export class NoticeManager {
         // 通知処理
         // slack
         {
-            const blocks: Block[] = [];
+            const blocks: UrlFetch_Slack.Blocks.Block[] = [];
             blocks.push(SlackBlockFactory.section(
                 SlackCompositionObjectFactory.markdownText(`:mailbox_with_mail: *新規単曲検証報告(${reports.length}件)*`)
             ));
@@ -202,7 +177,7 @@ export class NoticeManager {
                 if (r.difficulty !== Difficulty.Master && (r.difficulty !== Difficulty.Expert || r.calculateBaseRating() < 11)) {
                     continue;
                 }
-                const message: TextMessage = {
+                const message: UrlFetch_LINE.MessageObjects.TextMessage = {
                     type: 'text',
                     text: `[単曲検証報告]
 楽曲名:${r.musicName}
@@ -269,10 +244,10 @@ URL: ${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLink
 
         // slack-結果承認
         {
-            const streams: UrlFetchStream[] = [];
+            const streams: UrlFetch.Stream[] = [];
             // 結果承認
             {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:o: *単曲検証報告 承認(${reports.length}件)*`)
                 ));
@@ -293,7 +268,7 @@ URL: ${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLink
             }
             // 定数表更新
             {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:pushpin: *譜面定数更新(${reports.length}件)*`)
                 ));
@@ -328,7 +303,7 @@ URL: ${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLink
                 if (r.difficulty !== Difficulty.Master && (r.difficulty !== Difficulty.Expert || r.calculateBaseRating() < 11)) {
                     continue;
                 }
-                const message: TextMessage = {
+                const message: UrlFetch_LINE.MessageObjects.TextMessage = {
                     type: 'text',
                     text: `⭕️[単曲検証報告 承認]⭕️
 楽曲名:${r.musicName}
@@ -388,7 +363,7 @@ ${date}`;
         // 通知処理
         // slack
         {
-            const blocks: Block[] = [];
+            const blocks: UrlFetch_Slack.Blocks.Block[] = [];
             blocks.push(SlackBlockFactory.section(
                 SlackCompositionObjectFactory.markdownText(`:x: *報告結果却下(${reports.length}件)*`)
             ));
@@ -421,7 +396,7 @@ ${date}`;
                 if (r.difficulty !== Difficulty.Master && (r.difficulty !== Difficulty.Expert || r.calculateBaseRating() < 11)) {
                     continue;
                 }
-                const message: TextMessage = {
+                const message: UrlFetch_LINE.MessageObjects.TextMessage = {
                     type: 'text',
                     text: `✖️[検証結果 却下]✖️
 楽曲名:${r.musicName}
@@ -533,7 +508,7 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
         // 通知処理
         // slack
         {
-            const blocks: Block[] = [];
+            const blocks: UrlFetch_Slack.Blocks.Block[] = [];
             blocks.push(SlackBlockFactory.section(
                 SlackCompositionObjectFactory.markdownText(`:mailbox_with_mail: *新規レベル検証報告(${reports.length}件)*`)
             ));
@@ -586,10 +561,10 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
         // 通知処理
         // slack-結果承認
         {
-            const streams: UrlFetchStream[] = [];
+            const streams: UrlFetch.Stream[] = [];
             // 結果承認
             {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:o: *レベル検証報告 承認(${reports.length}件)*`)
                 ));
@@ -615,7 +590,7 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
             }
             // 定数表更新
             {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText(`:pushpin: *譜面定数更新(${reports.length}件)*`)
                 ));
@@ -673,7 +648,7 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
         // 通知処理
         // slack
         {
-            const blocks: Block[] = [];
+            const blocks: UrlFetch_Slack.Blocks.Block[] = [];
             blocks.push(SlackBlockFactory.section(
                 SlackCompositionObjectFactory.markdownText(`:x: *レベル検証報告 却下(${reports.length}件)*`)
             ));
@@ -746,7 +721,7 @@ URL:${ReportFormWebsitePresenter.getFullPath(this.configuration, this._pageLinkR
             return;
         }
 
-        const blocks: Block[] = [];
+        const blocks: UrlFetch_Slack.Blocks.Block[] = [];
         blocks.push(SlackBlockFactory.section(
             SlackCompositionObjectFactory.markdownText(`:error: *実行時エラー(${errors.length}件)*`)
         ));

@@ -1,20 +1,12 @@
-import { CustomLogger, LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { DatabaseTable } from "../../../../Packages/Repository/DatabaseTable";
-import { GenericDatabaseTableSchema } from "../../../../Packages/Repository/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../Packages/Repository/SpreadsheetDatabaseTable";
-import { SpreadsheetLog } from "./SpreadsheetLog";
-
-type LogTable = DatabaseTable<SpreadsheetLog, 'id'>;
-
-export class SpreadsheetLogger implements CustomLogger {
+class SpreadsheetLogger implements CustomLogger {
     private readonly _threadId: number;
 
     private _spreadsheet: GoogleAppsScript.Spreadsheet.Spreadsheet;
 
-    private _debugLogTable: LogTable;
-    private _infoLogTable: LogTable;
-    private _warningLogTable: LogTable;
-    private _errorLogTable: LogTable;
+    private _debugLogTable: DatabaseTable<SpreadsheetLog, 'id'>;
+    private _infoLogTable: DatabaseTable<SpreadsheetLog, 'id'>;
+    private _warningLogTable: DatabaseTable<SpreadsheetLog, 'id'>;
+    private _errorLogTable: DatabaseTable<SpreadsheetLog, 'id'>;
 
     public constructor(
         private readonly _spreadsheetId: string,

@@ -1,7 +1,4 @@
-import { ReportStatus } from "../ReportStatus";
-import { LevelRawReport } from "./LevelRawReport";
-import { LevelReportTable } from "./LevelReportTable";
-export class LevelReport {
+class LevelReport {
     public reportId = 0;
     public level = 0;
     public musicCount = 0;

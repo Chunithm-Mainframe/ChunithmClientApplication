@@ -1,6 +1,3 @@
-import { Instance } from "./Instance";
-import { ApprovalError, ApprovalModule } from "./Layer3/Modules/ApprovalModule";
-
 // eslint-disable-next-line
 function approve(reportIdText: string, versionName: string): void {
     try {

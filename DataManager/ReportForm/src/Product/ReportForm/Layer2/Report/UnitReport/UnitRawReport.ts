@@ -1,9 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { ComboStatus } from "../../../Layer1/Rating";
-import { MusicTable } from "../../Music/MusicTable";
-import { Utility } from "../../Utility";
-
-export class UnitRawReport {
+class UnitRawReport {
     private _musicId: number;
     private _musicnName = "";
     private _difficulty: Difficulty = Difficulty.Invalid;

@@ -1,10 +1,4 @@
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { Environment } from "../../Layer1/Environment";
-import { TwitterConnector } from "../../Layer2/Twitter/TwitterConnector";
-import { ReportFormModule } from "./@ReportFormModule";
-
-export class TwitterModule extends ReportFormModule {
+class TwitterModule extends ReportFormModule {
     private _connector: TwitterConnector;
     public get connector(): TwitterConnector {
         if (!this._connector) {

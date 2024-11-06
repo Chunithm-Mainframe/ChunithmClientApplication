@@ -1,0 +1,1 @@
+interface TopWebsiteParameter extends ReportFormWebsiteParameter { }

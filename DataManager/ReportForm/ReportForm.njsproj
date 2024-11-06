@@ -32,6 +32,9 @@
   <ItemGroup>
     <Content Include=".editorconfig" />
     <Content Include="package.json" />
+    <Content Include="src\Packages\UrlFetch.LINE\UrlFetch_LINE.d.ts">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="src\Resources\Page\approval\main.html" />
     <Content Include="src\Resources\Page\approval\rejected_form_container.html">
       <SubType>Code</SubType>
@@ -76,6 +79,7 @@
     <Folder Include="src\Packages\CustomLogger.Slack\" />
     <Folder Include="src\Packages\CustomLogger\" />
     <Folder Include="src\Packages\DIProperty\" />
+    <Folder Include="src\Packages\Types\" />
     <Folder Include="src\Packages\Repository\" />
     <Folder Include="src\Packages\Router\" />
     <Folder Include="src\Packages\UrlFetch.LINE\" />
@@ -148,7 +152,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Packages\Configuration\Configuration.ts" />
-    <TypeScriptCompile Include="src\Packages\Configuration\JsonConfigurationFactory.ts" />
+    <TypeScriptCompile Include="src\Packages\Configuration\JsonConfiguration.ts" />
     <TypeScriptCompile Include="src\Packages\Configuration\JsonFileRuntimeConfiguration.ts" />
     <TypeScriptCompile Include="src\Packages\Configuration\RuntimeConfiguration.ts" />
     <TypeScriptCompile Include="src\Packages\Configuration\ScriptPropertyRuntimeConfiguration.ts" />
@@ -156,10 +160,15 @@
     <TypeScriptCompile Include="src\Packages\CustomCacheProvider\ScriptCacheProvider.ts" />
     <TypeScriptCompile Include="src\Packages\CustomCacheProvider\SpreadsheetCacheProvider.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger.LINE\LINELogger.ts" />
+    <TypeScriptCompile Include="src\Packages\Repository\SpreadsheetRecord.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingBindingInfo.ts" />
+    <TypeScriptCompile Include="src\Packages\Router\RoutingEdgeUtility.ts" />
+    <TypeScriptCompile Include="src\Packages\Types\EnumDictionary.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger.Slack\SlackLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\ConsoleLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogger.ts" />
     <TypeScriptCompile Include="src\Packages\CustomLogger\CustomLogManager.ts" />
+    <TypeScriptCompile Include="src\Packages\CustomLogger\LogLevel.ts" />
     <TypeScriptCompile Include="src\Packages\DIProperty\DIProperty.ts" />
     <TypeScriptCompile Include="src\Packages\Repository\DatabaseTable.ts" />
     <TypeScriptCompile Include="src\Packages\Repository\DatabaseTableSchema.ts" />
@@ -173,33 +182,50 @@
     <TypeScriptCompile Include="src\Packages\Router\RoutingPath.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingTree.ts" />
     <TypeScriptCompile Include="src\Packages\Router\RoutingTreeEditor.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\LINEPayload.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\MessageObjects.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\Payload.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\Stream.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\Payload.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\Stream.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\BlockElements.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Blocks.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\Payload.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\Stream.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\CompositionObjects.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\MessageObject.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\LINEMessageReplyPayload.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\LINEMessagePushPayload.d.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Push\LINEMessagePushStream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.LINE\API\Message\Reply\LINEMessageReplyStream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\BlockElements.d.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Blocks.d.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\SlackChatPostMessagePayload.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\Chat\PostMessage\SlackChatPostMessageStream.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\API\CompositionObjects.d.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\BlockElementFactory.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\BlockFactory.ts" />
     <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\CompositionObjectFactory.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetch.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchManager.ts" />
-    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchStreamStatus.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.ts">
+    <TypeScriptCompile Include="src\Packages\UrlFetch.Slack\UrlFetch_Slack.d.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetch.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchManager.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchResult.ts" />
+    <TypeScriptCompile Include="src\Packages\UrlFetch\UrlFetchStreamStatus.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\DoGet.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\ChainStatus.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\ComboStatus.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\RuntimeConfigurationSchema.d.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Rank.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Logger\SpreadsheetLog.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\PlayerRating\PlayerRatingTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportSchema.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\UserAgentParser.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\ApprovalError.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\MusicModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -228,6 +254,8 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\Report\UnitReport\UnitReportTable.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\RatingData.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\RatingDataRecord.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\Report\UnitReportGroupByGenreGoogleForm.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -237,6 +265,9 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\UserAgentModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\WebhookParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\WebhookSettings.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\WebhookSettingsManager.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormBuildLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\BulkReportFormUrlGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\DefaultGameVersionGetLINEPostCommand.ts" />
@@ -244,6 +275,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\FormUrlGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\GlobalConfigValueGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\LatestGameVersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\LINEPostEvent.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\PostTweetEnabledSetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\ReportFormBuildLINEPostCommand.ts" />
@@ -253,6 +285,7 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TestLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\TopUrlGetLINEPostCommand.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\LINEPostCommands\VersionGetLINEPostCommand.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\LINEPostCommandFactory.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\Managers\LINEPostCommandManager.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -268,15 +301,20 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableGetPostCommandParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicTableUpdatePostCommandParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicUpdatePostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\MusicUpdatePostCommandParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\PlayerRatingGetPostCommand.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\PostCommandParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\PostCommands\ResponseRecord.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\%40ReportFormPresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -348,21 +386,29 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer3\Modules\WebhookModule.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\ErrorWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\ErrorWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\Product\ReportForm\Layer2\ReportFormPageLinkResolver.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportListWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportListWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\LevelReport\LevelReportWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\ReportFormWebsiteParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\TopWebsiteParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\UnitReportGroupListWebsiteParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\UnitReportGroupWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReportGroup\UnitReportGroupWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportListWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportListWebsitePresenter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -385,8 +431,13 @@
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\RoutingTreeBuilder.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportWebsiteParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByGenreListItem.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByGenreWebsiteParameter.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByLevelListItem.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnverifiedList\UnverifiedListByLevelWebsiteParameter.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\ReportForm.ts" />
-    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSchema.ts" />
+    <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSchema.d.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer1\Configurations\ConfigurationSourceType.ts" />
     <TypeScriptCompile Include="src\Product\ReportForm\Layer4\WebsitePresenters\UnitReport\UnitReportWebsitePresenter.ts">
       <SubType>Code</SubType>

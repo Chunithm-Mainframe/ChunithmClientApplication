@@ -1,8 +1,4 @@
-import { GenericDatabaseTableSchema } from "../../../../Packages/Repository/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../Packages/Repository/SpreadsheetDatabaseTable";
-import { Music } from "./Music";
-
-export class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
+class MusicTable extends SpreadsheetDatabaseTable<Music, 'id'> {
     public constructor(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
         super(new GenericDatabaseTableSchema(Music, ["id"]), sheet);
     }

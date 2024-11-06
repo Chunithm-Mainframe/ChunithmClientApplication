@@ -1,33 +1,4 @@
-import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
-import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicModule } from "../../../Layer3/Modules/MusicModule";
-import { Music } from "../../../Layer2/Music/Music";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
-import { TopWebsitePresenter } from "../TopWebsitePresenter";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UnverifiedListByLevelWebsiteParameter extends ReportFormWebsiteParameter {
-}
-
-class UnverifiedListByLevelListItem {
-    public readonly name: string;
-    public readonly difficulty: Difficulty;
-    public readonly genre: string;
-    public readonly level: number;
-    public readonly createdAt: Date;
-
-    public constructor(music: Music, difficulty: Difficulty) {
-        this.name = music.name;
-        this.difficulty = difficulty;
-        this.genre = music.genre;
-        this.level = Music.getBaseRating(music, difficulty);
-        this.createdAt = music.createdAt;
-    }
-}
-
-export class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByLevelWebsiteParameter> {
+class UnverifiedListByLevelWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByLevelWebsiteParameter> {
     private readonly levelTexts = [
         '1', '2', '3', '4', '5', '6', '7', '7p', '8', '8p', '9', '9p', '10', '10p', '11', '11p', '12', '12p', '13', '13p', '14', '14p', '15',
     ];

@@ -1,5 +1,3 @@
-import { ComboStatus, Rank, Rating } from "../src/Product/ReportForm/Layer1/Rating";
-
 const calcBaseRating = Rating.calcBaseRating;
 const getBorderScore = Rating.getBorderScore;
 const getOverPower = Rating.getOverPower;

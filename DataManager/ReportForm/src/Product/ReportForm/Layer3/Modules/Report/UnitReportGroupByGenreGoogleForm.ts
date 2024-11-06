@@ -1,13 +1,4 @@
-import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { Environment } from "../../../Layer1/Environment";
-import { MusicTable } from "../../../Layer2/Music/MusicTable";
-import { ReportFormModule } from "../@ReportFormModule";
-import { MusicModule } from "../MusicModule";
-import { VersionModule } from "../VersionModule";
-import { ReportGoogleForm } from "./@ReportGoogleForm";
-
-export class UnitReportGroupByGenreGoogleForm extends ReportGoogleForm {
+class UnitReportGroupByGenreGoogleForm extends ReportGoogleForm {
     public constructor(module: ReportFormModule) {
         super(module, () => module.configuration.global.unitReportGroupByGenreFormId);
     }

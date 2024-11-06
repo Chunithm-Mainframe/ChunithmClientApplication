@@ -1,32 +1,4 @@
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { WebhookEventName } from "../../Dependencies/WebhookEventDefinition";
-import { Difficulty } from "../../Layer1/Difficulty";
-import { Music } from "../../Layer2/Music/Music";
-import { NoticeQueue } from "../../Layer2/NoticeQueue";
-import { ReportStatus } from "../../Layer2/Report/ReportStatus";
-import { UnitReport } from "../../Layer2/Report/UnitReport/UnitReport";
-import { Utility } from "../../Layer2/Utility";
-import { ReportFormModule } from "./@ReportFormModule";
-import { ChunirecModule } from "./ChunirecModule";
-import { MusicModule } from "./MusicModule";
-import { ReportModule } from "./Report/ReportModule";
-import { WebhookModule } from "./WebhookModule";
-
-export class ApprovalError implements Error {
-    public name = "ApprovalError";
-    public message: string;
-    public constructor(message: string) {
-        this.message = message;
-    }
-
-    toString(): string {
-        return `${this.name}:${this.message};`
-    }
-}
-
-export class ApprovalModule extends ReportFormModule {
+class ApprovalModule extends ReportFormModule {
     private get musicModule(): MusicModule { return this.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
     private get chunirecModule(): ChunirecModule { return this.getModule(ChunirecModule); }

@@ -1,8 +1,4 @@
-import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { ReportFormModule } from "../@ReportFormModule";
-
-export abstract class ReportGoogleForm {
+abstract class ReportGoogleForm {
     public constructor(
         protected readonly _module: ReportFormModule,
         protected readonly _formIdGetter: () => string) { }

@@ -1,9 +1,4 @@
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { TwitterModule } from "../../Layer3/Modules/TwitterModule";
-import { Operations } from "../Operations";
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class TestLINEPostCommand extends LINEPostCommand {
+class TestLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         const subCommand = this.commandText.replace("test-", "");
         switch (subCommand) {

@@ -1,5 +1,4 @@
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class ReportPostNoticeEnabledSetLINEPostCommand extends LINEPostCommand {
+class ReportPostNoticeEnabledSetLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         const value = this.commandText.replace("report-post-notice-enabled=", "") === "true";
         const result = value ? "ON" : "OFF";

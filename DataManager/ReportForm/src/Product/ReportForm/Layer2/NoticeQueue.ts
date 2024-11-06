@@ -1,7 +1,4 @@
-import { CustomCacheProvider } from "../../../Packages/CustomCacheProvider/CustomCacheProvider";
-import { Difficulty } from "../Layer1/Difficulty";
-
-export class NoticeQueue {
+class NoticeQueue {
     public constructor(private readonly _cacheProvider: CustomCacheProvider) { }
 
     private static readonly KEY_NOTICE_UPDATE_MUSICS = 'notice_update_musics';

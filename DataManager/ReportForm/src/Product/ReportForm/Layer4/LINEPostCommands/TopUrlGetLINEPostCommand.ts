@@ -1,9 +1,4 @@
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
-import { ReportFormWebsitePresenter } from "../WebsitePresenters/@ReportFormPresenter";
-import { TopWebsitePresenter } from "../WebsitePresenters/TopWebsitePresenter";
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class TopUrlGetLINEPostCommand extends LINEPostCommand {
+class TopUrlGetLINEPostCommand extends LINEPostCommand {
     @DIProperty.inject(ReportFormPageLinkResolver)
     private readonly _pageLinkResolver: ReportFormPageLinkResolver
 

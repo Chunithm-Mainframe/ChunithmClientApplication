@@ -1,4 +1,4 @@
-export class BulkReportTableHeader {
+class BulkReportTableHeader {
     public static readonly VALUE_INDEX = '@index';
     public static readonly VALUE_ID = '@id';
     public static readonly VALUE_NAME = '@name';

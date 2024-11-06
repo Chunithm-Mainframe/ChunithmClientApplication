@@ -1,6 +1,4 @@
-import { UnitReportBundle } from "./UnitReportBundle";
-
-export class UnitReportBundleGroup {
+class UnitReportBundleGroup {
     public get groupId(): string { return this._groupId; }
     public get unitReportBundles(): UnitReportBundle[] { return this._unitReportBundles; }
 

@@ -1,4 +1,4 @@
-export enum Role {
+enum Role {
     Operator,
     Reader,
 }

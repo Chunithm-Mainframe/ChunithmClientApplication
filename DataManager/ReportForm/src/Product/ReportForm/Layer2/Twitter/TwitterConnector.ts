@@ -1,7 +1,5 @@
-import * as TwitterWebService from "../../../../../Dependencies/TwitterWebService";
-
-export class TwitterConnector {
-    private twitter: TwitterWebService.ITwitterWebService;
+class TwitterConnector {
+    private twitter: TwitterWebServiceDefinition.ITwitterWebService;
 
     public constructor(apiToken: string, secretKey: string) {
         this.twitter = TwitterWebService.getInstance(apiToken, secretKey);

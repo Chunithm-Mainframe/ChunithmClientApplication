@@ -1,5 +1,5 @@
-export class Version {
-    private static readonly _toolVersion = '0.5.5.0';
+class Version {
+    private static readonly _toolVersion = '0.6.0.0';
     public static get toolVersion() {
         return this._toolVersion;
     }

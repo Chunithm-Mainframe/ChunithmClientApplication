@@ -1,34 +1,4 @@
-import { DIProperty } from "../../../../../Packages/DIProperty/DIProperty";
-import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { Music } from "../../../Layer2/Music/Music";
-import { Utility } from "../../../Layer2/Utility";
-import { MusicModule } from "../../../Layer3/Modules/MusicModule";
-import { VersionModule } from "../../../Layer3/Modules/VersionModule";
-import { ReportFormWebsiteParameter, ReportFormWebsitePresenter } from "../@ReportFormPresenter";
-import { TopWebsitePresenter } from "../TopWebsitePresenter";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface UnverifiedListByGenreWebsiteParameter extends ReportFormWebsiteParameter {
-}
-
-class UnverifiedListByGenreListItem {
-    public readonly name: string;
-    public readonly difficulty: Difficulty;
-    public readonly genre: string;
-    public readonly level: number;
-    public readonly createdAt: Date;
-
-    public constructor(music: Music, difficulty: Difficulty) {
-        this.name = music.name;
-        this.difficulty = difficulty;
-        this.genre = music.genre;
-        this.level = Music.getBaseRating(music, difficulty);
-        this.createdAt = music.createdAt;
-    }
-}
-
-export class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByGenreWebsiteParameter> {
+class UnverifiedListByGenreWebsitePresenter extends ReportFormWebsitePresenter<UnverifiedListByGenreWebsiteParameter> {
     private readonly difficulties = [
         Difficulty.Basic, Difficulty.Advanced, Difficulty.Expert, Difficulty.Master, Difficulty.Ultima,
     ];

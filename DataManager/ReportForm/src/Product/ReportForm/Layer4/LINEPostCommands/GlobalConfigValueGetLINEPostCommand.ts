@@ -1,5 +1,4 @@
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class GlobalConfigValueGetLINEPostCommand extends LINEPostCommand {
+class GlobalConfigValueGetLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         const key = this.commandText.replace('get-global-config-value<<', '');
         if (!(key in this.module.configuration.global)) {

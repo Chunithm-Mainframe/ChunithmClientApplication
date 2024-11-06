@@ -1,17 +1,4 @@
-import { RoutingNode } from "../../../../../Packages/Router/RoutingNode";
-import { Role } from "../../../Layer1/Role";
-import { ReportModule } from "../../../Layer3/Modules/Report/ReportModule";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportFormWebsitePresenter, ReportFormWebsiteParameter } from "../@ReportFormPresenter";
-import { LevelReportListWebsitePresenter } from "./LevelReportListWebsitePresenter";
-
-export interface LevelReportWebsiteParameter extends ReportFormWebsiteParameter {
-    reportId: string;
-}
-
-export class LevelReportWebsitePresenter extends ReportFormWebsitePresenter<LevelReportWebsiteParameter> {
+class LevelReportWebsitePresenter extends ReportFormWebsitePresenter<LevelReportWebsiteParameter> {
     private get reportModule(): ReportModule { return this.getModule(ReportModule); }
 
     protected isAccessale(role: Role): boolean {

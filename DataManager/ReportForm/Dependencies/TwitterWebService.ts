@@ -1,12 +1,14 @@
-import { Service } from "./OAuth1/Service";
+declare namespace TwitterWebServiceDefinition {
+    interface Provider {
+        getInstance(consumer_key: string, consumre_secret: string): ITwitterWebService;
+    }
 
-export function getInstance(consumer_key: string, consumre_secret: string): ITwitterWebService {
-    return null;
+    interface ITwitterWebService {
+        getService(): Service;
+        authorize(): void;
+        reset(): void;
+        authCallback(request: object): void;
+    }
 }
 
-export interface ITwitterWebService {
-    getService(): Service;
-    authorize(): void;
-    reset(): void;
-    authCallback(request: object): void;
-}
+declare var TwitterWebService: TwitterWebServiceDefinition.Provider;

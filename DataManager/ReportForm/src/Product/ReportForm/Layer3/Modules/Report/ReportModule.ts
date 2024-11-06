@@ -1,32 +1,4 @@
-import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { Music } from "../../../Layer2/Music/Music";
-import { MusicTable } from "../../../Layer2/Music/MusicTable";
-import { BulkReportTableContainer } from "../../../Layer2/Report/BulkReport/BulkReportTableContainer";
-import { BulkReportTableReader } from "../../../Layer2/Report/BulkReport/BulkReportTableReader";
-import { LevelRawReport } from "../../../Layer2/Report/LevelReport/LevelRawReport";
-import { LevelReport } from "../../../Layer2/Report/LevelReport/LevelReport";
-import { LevelReportTable } from "../../../Layer2/Report/LevelReport/LevelReportTable";
-import { MasterUnitRecordGroup } from "../../../Layer2/Report/MasterUnitRecordGroup/MasterUnitRecordGroup";
-import { MasterUnitReportGroupTable } from "../../../Layer2/Report/MasterUnitRecordGroup/MasterUnitReportGroupTable";
-import { PostLocation } from "../../../Layer2/Report/PostLocation";
-import { ReportStatus } from "../../../Layer2/Report/ReportStatus";
-import { UnitRawReport } from "../../../Layer2/Report/UnitReport/UnitRawReport";
-import { UnitReport } from "../../../Layer2/Report/UnitReport/UnitReport";
-import { UnitReportTable } from "../../../Layer2/Report/UnitReport/UnitReportTable";
-import { UnitReportBundle } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundle";
-import { UnitReportBundleGroup } from "../../../Layer2/Report/UnitReportGroup/UnitReportBundleGroup";
-import { Utility } from "../../../Layer2/Utility";
-import { ReportFormModule } from "../@ReportFormModule";
-import { LINEModule } from "../LINEModule";
-import { MusicModule } from "../MusicModule";
-import { VersionModule } from "../VersionModule";
-import { LevelReportGoogleForm } from "./LevelReportGoogleForm";
-import { UnitReportGroupByGenreGoogleForm } from "./UnitReportGroupByGenreGoogleForm";
-import { UnitReportGroupByLevelGoogleForm } from "./UnitReportGroupByLevelGoogleForm";
-
-export class ReportModule extends ReportFormModule {
+class ReportModule extends ReportFormModule {
     public static readonly moduleName = 'report';
 
     private get lineModule(): LINEModule { return this.getModule(LINEModule); }

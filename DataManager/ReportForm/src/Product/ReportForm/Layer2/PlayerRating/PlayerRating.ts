@@ -1,7 +1,4 @@
-import { MusicRating } from "./MusicRating";
-
-
-export class PlayerRating {
+class PlayerRating {
     public id = 0;
     public bestJson = '';
     public outsideBestJson = '';

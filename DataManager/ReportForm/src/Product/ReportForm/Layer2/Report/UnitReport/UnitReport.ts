@@ -1,9 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { ComboStatus, Rating } from "../../../Layer1/Rating";
-import { PostLocation } from "../PostLocation";
-import { ReportStatus } from "../ReportStatus";
-
-export class UnitReport {
+class UnitReport {
     public reportId = 0;
     public musicId = 0;
     public musicName = '';

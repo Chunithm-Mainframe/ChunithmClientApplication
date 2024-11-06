@@ -1,4 +1,4 @@
-export enum ConfigurationSourceType {
+enum ConfigurationSourceType {
     ScriptProperties,
     Json
 }

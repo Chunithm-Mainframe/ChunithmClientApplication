@@ -1,8 +1,4 @@
-import { RoutingController } from "../../../Packages/Router/RoutingController";
-import { RoutingNode } from "../../../Packages/Router/RoutingNode";
-import { RoutingTreeEditor } from "../../../Packages/Router/RoutingTreeEditor";
-
-export class ReportFormPageLinkResolver {
+class ReportFormPageLinkResolver {
     private readonly _nodeMap: Record<string, RoutingNode> = {};
 
     public build(editor: RoutingTreeEditor, key: { prototype: RoutingController; name: string }, pathFormat: string): RoutingTreeEditor {

@@ -1,11 +1,4 @@
-import { SlackLogger } from "../../../Packages/CustomLogger.Slack/SlackLogger";
-import { ConsoleLogger } from "../../../Packages/CustomLogger/ConsoleLogger";
-import { LogLevel } from "../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../Packages/CustomLogger/CustomLogManager";
-import { ReportFormConfiguration } from "../Layer1/Configurations/@ReportFormConfiguration";
-import { SpreadsheetLogger } from "../Layer2/Logger/SpreadSheetLogger";
-
-export class LoggerDI {
+class LoggerDI {
     public static initialize(config: ReportFormConfiguration): void {
         {
             const logger = new ConsoleLogger();

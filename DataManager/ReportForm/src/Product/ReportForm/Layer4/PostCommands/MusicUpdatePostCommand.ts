@@ -1,17 +1,4 @@
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { Music } from "../../Layer2/Music/Music";
-import { NoticeQueue } from "../../Layer2/NoticeQueue";
-import { ChunirecModule } from "../../Layer3/Modules/ChunirecModule";
-import { MusicModule } from "../../Layer3/Modules/MusicModule";
-import { PostCommand, PostCommandParameter } from "./@PostCommand";
-
-interface MusicUpdatePostCommandParameter extends PostCommandParameter {
-    musics: Required<Music>[];
-}
-
-export class MusicUpdatePostCommand extends PostCommand {
+class MusicUpdatePostCommand extends PostCommand {
     private get musicModule() { return this.module.getModule(MusicModule); }
     private get chunirectModule() { return this.module.getModule(ChunirecModule); }
 

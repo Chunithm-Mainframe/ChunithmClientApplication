@@ -1,15 +1,4 @@
-import { MusicRating } from "../../Layer2/PlayerRating/MusicRating";
-import { PlayerRatingModule } from "../../Layer3/Modules/PlayerRatingModule";
-import { PostCommand, PostCommandParameter } from "./@PostCommand";
-
-interface ResponseRecord {
-    id: number;
-    best: MusicRating[];
-    outsideBest: MusicRating[];
-    recent: MusicRating[];
-}
-
-export class PlayerRatingGetPostCommand extends PostCommand {
+class PlayerRatingGetPostCommand extends PostCommand {
     private get playerRatingModule() { return this.module.getModule(PlayerRatingModule); }
 
     public invoke(postData: PostCommandParameter) {

@@ -1,4 +1,4 @@
-export enum Environment {
+enum Environment {
     Develop,
     Release,
 }

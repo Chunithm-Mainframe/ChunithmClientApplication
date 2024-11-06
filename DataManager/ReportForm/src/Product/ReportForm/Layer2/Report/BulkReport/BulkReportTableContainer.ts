@@ -1,8 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicTable } from "../../Music/MusicTable";
-import { BulkReportTable } from "./BulkReportTable";
-
-export class BulkReportTableContainer {
+class BulkReportTableContainer {
     private _tables: BulkReportTable[] = [];
     private _nameMap: { [key: string]: number } = {};
 

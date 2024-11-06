@@ -1,0 +1,3 @@
+interface PostCommandParameter {
+    versionName?: string;
+}

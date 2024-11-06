@@ -1,7 +1,4 @@
-import { ReportFormModule } from "./@ReportFormModule";
-import { UserAgentParser } from "../../Layer2/UserAgentParser";
-
-export class UserAgentModule extends ReportFormModule {
+class UserAgentModule extends ReportFormModule {
     private readonly _userAgentParser = new UserAgentParser();
 
     public IsReplaceImageUrlsPlatform(): boolean {

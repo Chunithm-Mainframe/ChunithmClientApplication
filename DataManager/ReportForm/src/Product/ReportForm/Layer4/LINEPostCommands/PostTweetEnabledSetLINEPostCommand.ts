@@ -1,5 +1,4 @@
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class PostTweetEnabledSetLINEPostCommand extends LINEPostCommand {
+class PostTweetEnabledSetLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         const value = this.commandText.replace("post-tweet-enabled=", "") === "true";
         const result = value ? "ON" : "OFF";

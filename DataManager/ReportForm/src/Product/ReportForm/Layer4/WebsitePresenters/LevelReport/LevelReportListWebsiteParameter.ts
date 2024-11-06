@@ -1,0 +1,1 @@
+interface LevelReportListWebsiteParameter extends ReportFormWebsiteParameter { }

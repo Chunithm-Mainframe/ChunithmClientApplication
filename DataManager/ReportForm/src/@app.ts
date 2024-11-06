@@ -1,5 +1,3 @@
-import { ReportForm, DoGet } from "./Product/ReportForm/ReportForm";
-
 /* eslint @typescript-eslint/no-unused-vars: off */
 
 function doGet(e: DoGet) {

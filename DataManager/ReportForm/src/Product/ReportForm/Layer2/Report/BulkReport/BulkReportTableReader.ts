@@ -1,10 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { BulkReportTable } from "./BulkReportTable";
-import { BulkReportTableContainer } from "./BulkReportTableContainer";
-import { BulkReportTableHeader } from "./BulkReportTableHeader";
-import { BulkReportTableRow } from "./BulkReportTableRow";
-
-export class BulkReportTableReader {
+class BulkReportTableReader {
     public read(
         spreadsheetId: string,
         headerSheetName = 'header',

@@ -1,19 +1,4 @@
-import { LogLevel } from "../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../Packages/CustomLogger/CustomLogManager";
-import { Block } from "../../../Packages/UrlFetch.Slack/API/Blocks";
-import { SlackChatPostMessageStream } from "../../../Packages/UrlFetch.Slack/API/Chat/PostMessage/Stream";
-import { SlackBlockFactory } from "../../../Packages/UrlFetch.Slack/BlockFactory";
-import { SlackCompositionObjectFactory } from "../../../Packages/UrlFetch.Slack/CompositionObjectFactory";
-import { UrlFetchManager } from "../../../Packages/UrlFetch/UrlFetchManager";
-import { Instance } from "../Instance";
-import { ConfigurationEditor } from "../Layer1/Configurations/ConfigurationEditor";
-import { Environment } from "../Layer1/Environment";
-import { ReportStatus } from "../Layer2/Report/ReportStatus";
-import { ReportModule } from "../Layer3/Modules/Report/ReportModule";
-import { LevelReportListWebsitePresenter } from "./WebsitePresenters/LevelReport/LevelReportListWebsitePresenter";
-import { UnitReportListWebsitePresenter } from "./WebsitePresenters/UnitReport/UnitReportListWebsitePresenter";
-
-export class Operations {
+class Operations {
     public static storeConfig(): GoogleAppsScript.Properties.Properties {
         const ret = ConfigurationEditor.storeConfig();
         CustomLogManager.log(LogLevel.Info, ret.getProperties());
@@ -146,7 +131,7 @@ export class Operations {
             }
 
             if (wipReportCount > 0 || wipLevelReportCount > 0) {
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText('*[定期]未検証 件数報告*')
                 ));
@@ -195,7 +180,7 @@ export class Operations {
             if (cachedHash !== newHash) {
                 scriptProperties.setProperty('music_json_hash', newHash);
 
-                const blocks: Block[] = [];
+                const blocks: UrlFetch_Slack.Blocks.Block[] = [];
                 blocks.push(SlackBlockFactory.section(
                     SlackCompositionObjectFactory.markdownText('music_new.jsonが更新されました')
                 ));

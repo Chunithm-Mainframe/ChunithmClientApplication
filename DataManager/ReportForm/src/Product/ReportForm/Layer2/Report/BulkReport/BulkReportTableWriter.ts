@@ -1,7 +1,4 @@
-import { BulkReportTableContainer } from "./BulkReportTableContainer";
-import { BulkReportTable } from "./BulkReportTable";
-
-export class BulkReportTableWriter {
+class BulkReportTableWriter {
     public write(spreadsheetId: string, bulkReportTableContainer: BulkReportTableContainer): void {
         const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
         if (!spreadsheet) {

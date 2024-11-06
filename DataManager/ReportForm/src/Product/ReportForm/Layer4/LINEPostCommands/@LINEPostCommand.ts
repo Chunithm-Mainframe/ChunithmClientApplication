@@ -1,17 +1,4 @@
-import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
-import { LINEModule } from "../../Layer3/Modules/LINEModule";
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-
-export interface LINEPostEvent {
-    type: string;
-    message: {
-        type: string;
-        text: string;
-    };
-    replyToken?: string;
-}
-
-export abstract class LINEPostCommand {
+abstract class LINEPostCommand {
     @DIProperty.inject(ReportFormModule)
     protected readonly module: ReportFormModule;
 

@@ -1,4 +1,4 @@
-export interface Service {
+interface Service {
     /**
     * Sets the request URL for the OAuth service (required).
     * @param url The URL given by the OAuth service provider for obtaining a request token.

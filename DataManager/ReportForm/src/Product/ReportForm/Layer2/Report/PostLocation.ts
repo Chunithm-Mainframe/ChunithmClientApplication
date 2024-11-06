@@ -1,4 +1,4 @@
-export enum PostLocation {
+enum PostLocation {
     GoogleForm,
     BulkSheet
 }

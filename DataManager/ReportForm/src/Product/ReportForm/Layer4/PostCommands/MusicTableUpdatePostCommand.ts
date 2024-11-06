@@ -1,20 +1,4 @@
-import { SlackChatPostMessageStream } from "../../../../Packages/UrlFetch.Slack/API/Chat/PostMessage/Stream";
-import { SlackBlockFactory } from "../../../../Packages/UrlFetch.Slack/BlockFactory";
-import { SlackCompositionObjectFactory } from "../../../../Packages/UrlFetch.Slack/CompositionObjectFactory";
-import { UrlFetchManager } from "../../../../Packages/UrlFetch/UrlFetchManager";
-import { LINEModule } from "../../Layer3/Modules/LINEModule";
-import { MusicModule } from "../../Layer3/Modules/MusicModule";
-import { ReportModule } from "../../Layer3/Modules/Report/ReportModule";
-import { TwitterModule } from "../../Layer3/Modules/TwitterModule";
-import { VersionModule } from "../../Layer3/Modules/VersionModule";
-import { Music } from "../../Layer2/Music/Music";
-import { PostCommand, PostCommandParameter } from "./@PostCommand";
-
-interface MusicTableUpdatePostCommandParameter extends PostCommandParameter {
-    musics: Required<Music>[];
-}
-
-export class MusicTableUpdatePostCommand extends PostCommand {
+class MusicTableUpdatePostCommand extends PostCommand {
     private get versionModule(): VersionModule { return this.module.getModule(VersionModule); }
     private get musicModule(): MusicModule { return this.module.getModule(MusicModule); }
     private get reportModule(): ReportModule { return this.module.getModule(ReportModule); }

@@ -1,21 +1,4 @@
-import { GenericDatabaseTableSchema } from "../../../../../Packages/Repository/GenericDatabaseSchema";
-import { SpreadsheetDatabaseTable } from "../../../../../Packages/Repository/SpreadsheetDatabaseTable";
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { ComboStatus } from "../../../Layer1/Rating";
-import { UnitReport } from "./UnitReport";
-
-interface UnitReportSchema {
-    musicId: number;
-    musicName: string;
-    difficulty: Difficulty;
-    beforeOp: number;
-    afterOp: number;
-    score: number;
-    comboStatus: ComboStatus;
-    imagePaths?: string[];
-}
-
-export class UnitReportTable extends SpreadsheetDatabaseTable<UnitReport, "reportId"> {
+class UnitReportTable extends SpreadsheetDatabaseTable<UnitReport, "reportId"> {
     public constructor(sheet: GoogleAppsScript.Spreadsheet.Sheet) {
         const schema = new GenericDatabaseTableSchema(UnitReport, ['reportId']);
         schema.primaryColumn = 'reportId';

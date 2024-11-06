@@ -1,10 +1,4 @@
-import { Difficulty } from "../../Layer1/Difficulty";
-import { Music } from "../../Layer2/Music/Music";
-import { MusicTable } from "../../Layer2/Music/MusicTable";
-import { ReportFormModule } from "./@ReportFormModule";
-import { VersionModule } from "./VersionModule";
-
-export class MusicModule extends ReportFormModule {
+class MusicModule extends ReportFormModule {
     private get versionModule(): VersionModule { return this.getModule(VersionModule); }
 
     private readonly _tableMap: Record<string, MusicTable> = {};

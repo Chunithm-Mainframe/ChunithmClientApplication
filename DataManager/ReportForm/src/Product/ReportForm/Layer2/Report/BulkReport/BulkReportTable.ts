@@ -1,9 +1,4 @@
-import { Difficulty } from "../../../Layer1/Difficulty";
-import { MusicTable } from "../../Music/MusicTable";
-import { BulkReportTableHeader } from "./BulkReportTableHeader";
-import { BulkReportTableRow } from "./BulkReportTableRow";
-
-export class BulkReportTable {
+class BulkReportTable {
     private _rows: BulkReportTableRow[] = [];
     private _idMap: { [key: number]: number } = {};
 

@@ -1,8 +1,4 @@
-import { PlayerRatingTable } from "../../Layer2/PlayerRating/PlayerRatingTable";
-import { ReportFormModule } from "./@ReportFormModule";
-import { VersionModule } from "./VersionModule";
-
-export class PlayerRatingModule extends ReportFormModule {
+class PlayerRatingModule extends ReportFormModule {
     private get versionModule() { return this.getModule(VersionModule); }
 
     private readonly _tableMap: Record<string, PlayerRatingTable> = {};

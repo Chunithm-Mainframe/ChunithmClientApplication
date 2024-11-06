@@ -1,6 +1,4 @@
-import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
-
-export class ReportFormModule {
+class ReportFormModule {
     public static instantiate(config: ReportFormConfiguration): ReportFormModule {
         const module = new ReportFormModule();
         module._root = module;

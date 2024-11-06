@@ -1,18 +1,10 @@
-import { ReportFormConstants } from "../../../../@const";
-import { Configuration } from "../../../../Packages/Configuration/Configuration";
-import { RuntimeConfiguration } from "../../../../Packages/Configuration/RuntimeConfiguration";
-import { Environment } from "../Environment";
-import { Role } from "../Role";
-import { GlobalConfigurationSchema, ReportFormConfigurationSchema, VersionConfigurationSchema, WebhookConfigurationSchema } from "./ConfigurationSchema";
-import { RuntimeConfigurationSchema } from "./RuntimeConfigurationSchema";
-
-export class ReportFormConfiguration {
+class ReportFormConfiguration {
     public constructor(
-        private readonly _config: Configuration<ReportFormConfigurationSchema>,
-        private readonly _runtime: RuntimeConfiguration<RuntimeConfigurationSchema>) {
+        private readonly _config: Configuration<ReportForm.ConfigurationSchema>,
+        private readonly _runtime: RuntimeConfiguration<ReportForm.RuntimeConfigurationSchema>) {
     }
 
-    public get runtime(): RuntimeConfigurationSchema {
+    public get runtime(): ReportForm.RuntimeConfigurationSchema {
         return this._runtime.properties;
     }
 
@@ -20,15 +12,15 @@ export class ReportFormConfiguration {
         this._runtime.apply();
     }
 
-    public get global(): GlobalConfigurationSchema {
+    public get global(): ReportForm.GlobalConfigurationSchema {
         return this._config.properties.global;
     }
 
-    public get versions(): Record<string, VersionConfigurationSchema> {
+    public get versions(): Record<string, ReportForm.VersionConfigurationSchema> {
         return this._config.properties.versions;
     }
 
-    public get webhook(): WebhookConfigurationSchema {
+    public get webhook(): ReportForm.WebhookConfigurationSchema {
         return this._config.properties.webhook;
     }
 

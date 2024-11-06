@@ -1,6 +1,4 @@
-import { ReportFormConstants } from "../../../../@const";
-
-export class ConfigurationEditor {
+class ConfigurationEditor {
     public static storeConfig(): GoogleAppsScript.Properties.Properties {
         const jsonFile = DriveApp.getFileById(ReportFormConstants.getConstValues().configurationJsonFileId);
         const json = jsonFile.getBlob().getDataAsString();

@@ -1,11 +1,4 @@
-import { LogLevel } from "../../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../../Packages/CustomLogger/CustomLogManager";
-import { Environment } from "../../../Layer1/Environment";
-import { ReportFormModule } from "../@ReportFormModule";
-import { VersionModule } from "../VersionModule";
-import { ReportGoogleForm } from "./@ReportGoogleForm";
-
-export class LevelReportGoogleForm extends ReportGoogleForm {
+class LevelReportGoogleForm extends ReportGoogleForm {
     public constructor(module: ReportFormModule) {
         super(module, () => module.configuration.global.levelReportFormId);
     }

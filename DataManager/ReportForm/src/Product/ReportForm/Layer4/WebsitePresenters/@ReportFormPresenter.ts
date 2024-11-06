@@ -1,19 +1,4 @@
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { DIProperty } from "../../../../Packages/DIProperty/DIProperty";
-import { RoutingController } from "../../../../Packages/Router/RoutingController";
-import { RoutingNode } from "../../../../Packages/Router/RoutingNode";
-import { ReportFormConfiguration } from "../../Layer1/Configurations/@ReportFormConfiguration";
-import { Role } from "../../Layer1/Role";
-import { ReportFormPageLinkResolver } from "../../Layer2/ReportFormPageLinkResolver";
-import { ReportFormModule } from "../../Layer3/Modules/@ReportFormModule";
-import { UserAgentModule } from "../../Layer3/Modules/UserAgentModule";
-
-export interface ReportFormWebsiteParameter extends Record<string, number | string> {
-    version: string;
-}
-
-export class ReportFormWebsitePresenter<TParameter extends ReportFormWebsiteParameter> implements RoutingController {
+class ReportFormWebsitePresenter<TParameter extends ReportFormWebsiteParameter> implements RoutingController {
     @DIProperty.inject(ReportFormConfiguration)
     protected readonly configuration: ReportFormConfiguration;
 

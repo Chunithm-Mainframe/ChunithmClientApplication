@@ -1,6 +1,4 @@
-import { ReportModule } from "../../Layer3/Modules/Report/ReportModule";
-import { LINEPostCommand } from "./@LINEPostCommand";
-export class ReportFormBuildLINEPostCommand extends LINEPostCommand {
+class ReportFormBuildLINEPostCommand extends LINEPostCommand {
     public invoke(): void {
         let versionName = this.commandText.replace('build-report-form<<', '');
         if (!versionName) {

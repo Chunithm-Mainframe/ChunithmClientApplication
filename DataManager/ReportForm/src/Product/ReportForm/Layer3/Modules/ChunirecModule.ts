@@ -1,26 +1,4 @@
-
-import { LogLevel } from "../../../../Packages/CustomLogger/CustomLogger";
-import { CustomLogManager } from "../../../../Packages/CustomLogger/CustomLogManager";
-import { Difficulty } from "../../Layer1/Difficulty";
-import { MusicRating } from "../../Layer2/PlayerRating/MusicRating";
-import { PlayerRating } from "../../Layer2/PlayerRating/PlayerRating";
-import { ReportFormModule } from "./@ReportFormModule";
-
-interface RatingDataRecord {
-    sort_num: number;
-    music_idx: number;
-    music_diff: string;
-    score: number;
-}
-
-interface RatingData {
-    id: string;
-    best: RatingDataRecord[];
-    outside_best: RatingDataRecord[];
-    recent: RatingDataRecord[];
-}
-
-export class ChunirecModule extends ReportFormModule {
+class ChunirecModule extends ReportFormModule {
     private _apiHost: string = null;
     public get apiHost(): string {
         if (!this._apiHost) {
